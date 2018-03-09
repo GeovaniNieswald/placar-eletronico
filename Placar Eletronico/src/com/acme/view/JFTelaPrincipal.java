@@ -17,9 +17,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     public JFTelaPrincipal() {
         initComponents();
     }
-    // Teste Geovani
-    // Teste Daniel
-    // Teste Zelmer
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,21 +27,57 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpPainelPrincipal = new javax.swing.JPanel();
+        jbFechar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Placar Eletrônico");
+        setUndecorated(true);
+
+        jpPainelPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+
+        jbFechar.setText("Fechar");
+        jbFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFecharActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpPainelPrincipalLayout = new javax.swing.GroupLayout(jpPainelPrincipal);
+        jpPainelPrincipal.setLayout(jpPainelPrincipalLayout);
+        jpPainelPrincipalLayout.setHorizontalGroup(
+            jpPainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPainelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(360, Short.MAX_VALUE)
+                .addComponent(jbFechar)
+                .addContainerGap(360, Short.MAX_VALUE))
+        );
+        jpPainelPrincipalLayout.setVerticalGroup(
+            jpPainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPainelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addComponent(jbFechar)
+                .addContainerGap(250, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jpPainelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jpPainelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jbFecharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,5 +115,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbFechar;
+    private javax.swing.JPanel jpPainelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

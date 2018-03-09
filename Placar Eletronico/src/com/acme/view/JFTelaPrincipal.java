@@ -5,6 +5,8 @@
  */
 package com.acme.view;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Geovani Nieswald
@@ -15,7 +17,15 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
      * Creates new form JFTelaPrincipal
      */
     public JFTelaPrincipal() {
+        // this.setAlwaysOnTop(true); Com isso a nossa aplicação fica sempre "na frente", ou seja, só fechando ela para outra aplicação aparecer na tela
+        
         initComponents();
+
+        // Deixa a aplicação em Fullscreen
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xSize = (int) tk.getScreenSize().getWidth();
+        int ySize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xSize, ySize);
     }
 
     /**
@@ -30,9 +40,10 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jpPainelPrincipal = new javax.swing.JPanel();
         jbFechar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Placar Eletrônico");
         setUndecorated(true);
+        setResizable(false);
 
         jpPainelPrincipal.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -72,7 +83,6 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
@@ -83,28 +93,16 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("GTK+".equals(info.getName()) || "Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JFTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

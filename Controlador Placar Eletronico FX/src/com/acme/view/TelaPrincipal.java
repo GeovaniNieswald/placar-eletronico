@@ -26,6 +26,8 @@ public class TelaPrincipal extends Application {
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Controlador Placar Eletrônico");
         primaryStage.show();
     }
 

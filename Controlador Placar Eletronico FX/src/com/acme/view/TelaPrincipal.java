@@ -10,6 +10,7 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
@@ -28,6 +29,10 @@ public class TelaPrincipal extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Controlador Placar Eletrônico");
+
+        // Icons made by Smashicons https://www.flaticon.com/authors/smashicons, from Flaticon https://www.flaticon.com/, is licensed by Creative Commons BY 3.0 http://creativecommons.org/licenses/by/3.0/
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/acme/resources/controls(64).png")));
+
         primaryStage.show();
     }
 

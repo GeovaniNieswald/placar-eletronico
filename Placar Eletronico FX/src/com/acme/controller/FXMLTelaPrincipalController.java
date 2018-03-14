@@ -8,7 +8,7 @@ public class FXMLTelaPrincipalController {
 
     @FXML
     private Button bFechar;
-    
+
     @FXML
     void bFecharAction(ActionEvent event) {
         System.exit(0);

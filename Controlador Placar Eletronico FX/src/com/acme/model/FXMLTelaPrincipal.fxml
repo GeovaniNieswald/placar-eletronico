@@ -8,217 +8,248 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="com.acme.controller.FXMLTelaPrincipalController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.FXMLTelaPrincipalController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="42.5" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="42.5" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="4.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="0.0" percentHeight="4.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="4.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="8.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="4.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="7.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="4.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="22.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="30.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="15.5" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.5" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="0.0" percentHeight="38.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="0.0" percentHeight="62.0" prefHeight="0.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
                <children>
-                  <Label text="0:00" />
+                  <Label fx:id="lCronometro" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="50.0" text="0:00" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Iniciar" />
+                  <Button fx:id="bIniciarCronometro" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Iniciar" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Pausar" />
+                  <Button fx:id="bPausarCronometro" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Pausar" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Zerar" />
+                  <Button fx:id="bZerarCronometro" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
                </children>
             </VBox>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="38.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="62.0" prefHeight="0.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
                <children>
-                  <Label text="0" />
+                  <Label fx:id="lPeriodo" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="50.0" text="0" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="+" />
+                  <Button fx:id="bAumentarPeriodo" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="+" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
+                  <Button fx:id="bDiminuirPeriodo" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="-" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Zerar" />
+                  <Button fx:id="bZerarPeriodo" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
                </children>
             </VBox>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="0" />
+                  <Label fx:id="lPontosTimeA" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Time A" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time A" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" text="+" />
+                  <Button fx:id="bAumentarPontosTimeA" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="+" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
+                  <Button fx:id="bDiminuirPontosTimeA" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="-" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="Zerar" />
+                  <Button fx:id="bZerarPontos" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
+                  <Button fx:id="bDiminuirPontosTimeB" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="-" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" text="+" />
+                  <Button fx:id="bAumentarPontosTimeB" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="+" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="0" />
+                  <Label fx:id="lPontosTimeB" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
-                  <Label text="Time B" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time B" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="0" />
+                  <Label fx:id="lFaltasSetsTimeA" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Time A" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time A" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" text="+" />
+                  <Button fx:id="bAumentarFaltasSetsTimeA" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="+" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
+                  <Button fx:id="bDiminuirFaltasSetsTimeA" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="-" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="Zerar" />
+                  <Button fx:id="bZerarFaltasSets" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
+                  <Button fx:id="bDiminuirFaltasSetsTimeB" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="-" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" text="+" />
+                  <Button fx:id="bAumentarFaltasSetsTimeB" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="+" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Label text="0" />
+                  <Label fx:id="lFaltasSetsTimeB" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
-                  <Label text="Time B" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time B" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
          </children>
       </GridPane>
-      <GridPane GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="20.0" prefWidth="0.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="65.0" prefWidth="0.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="15.0" prefWidth="0.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="20.0" prefWidth="0.0" />
         </columnConstraints>
         <rowConstraints>
@@ -227,28 +258,53 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <TextField>
+                  <TextField fx:id="tfPropaganda" prefHeight="30.0">
                      <VBox.margin>
-                        <Insets left="30.0" right="30.0" />
+                        <Insets left="30.0" />
                      </VBox.margin>
                   </TextField>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
-                  <Button mnemonicParsing="false" text="Alterar" />
+                  <Button fx:id="bAlterarPropaganda" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Alterar" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
-                  <Button mnemonicParsing="false" text="Resetar" />
+                  <Button fx:id="bResetarPropaganda" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Resetar" />
                </children>
             </VBox>
          </children>
       </GridPane>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <children>
+            <Label text="Cronômetro" />
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+         <children>
+            <Label text="Período" />
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label text="Pontos" />
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <children>
+            <Label text="Faltas / Sets" />
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Label text="Propaganda" />
+         </children>
+      </VBox>
       <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7">
          <children>
-            <Button mnemonicParsing="false" text="Zerar Tudo" />
+            <Button fx:id="bZerarTudo" mnemonicParsing="false" prefHeight="30.0" text="Zerar Tudo" />
          </children>
       </VBox>
    </children>

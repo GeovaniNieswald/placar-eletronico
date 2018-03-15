@@ -20,15 +20,17 @@ public class TelaPrincipal extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/acme/model/FXMLTelaPrincipal.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/acme/model/TelaPrincipal.fxml"));
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
 
+        primaryStage.setTitle("Placar Eletrônico FX");
         primaryStage.setMaximized(true);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }

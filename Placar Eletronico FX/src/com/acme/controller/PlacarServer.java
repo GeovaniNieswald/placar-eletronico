@@ -14,7 +14,13 @@ public class PlacarServer extends Thread {
     private final Socket socket;
     private final int clientNumber;
 
-    // Chama o metodo na primeira tela do projeto Placar Eletronico FX que eh o server
+    public PlacarServer(Socket socket, int clientNumber) {
+        this.socket = socket;
+        this.clientNumber = clientNumber;
+        System.out.println("Nova conexão com operador de placar " + clientNumber + " em " + socket.getLocalAddress());
+    }
+
+    // Método para iniciar o servidor
     public static void iniciar() throws Exception {
         Thread t = new Thread(new Runnable() {
             @Override
@@ -31,29 +37,31 @@ public class PlacarServer extends Thread {
             }
         });
         t.start();
-
-    }
-
-    public PlacarServer(Socket socket, int clientNumber) {
-        this.socket = socket;
-        this.clientNumber = clientNumber;
-        System.out.println("Nova conexão com operador de placar " + clientNumber + " em " + socket.getLocalAddress());
     }
 
     @Override
     public void run() {
         try {
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            out.println("Olá! Você é o operador " + clientNumber); // aqui faz a checagem se eh root, e responde com as permisões
-            while (true) {
-                String input = in.readLine();
-                if (input == null || input.equals(".")) {
-                    break;
-                } else {
-                    out.println(processarComando(input));
+
+            String login = in.readLine();
+            String senha = in.readLine();
+
+            // Fazer a validação de usuario e senha
+            if (login.equals("geo") && senha.equals("geo")) {
+                out.println("ok");
+
+                while (true) {
+                    String input = in.readLine();
+                    if (input == null || input.equals(".")) {
+                        break;
+                    } else {
+                        out.println(processarComando(input));
+                    }
                 }
+            } else {
+                out.println("not ok");
             }
         } catch (IOException ex) {
             System.out.println("Erro no operador " + clientNumber + ": " + ex);

@@ -30,6 +30,8 @@ public class TelaPrincipalController implements Initializable {
     private Label lRelogio;
 
     private int controlePontos;
+    private DateFormat df;
+    private Calendar cal;
 
     @FXML
     void bFecharAction(ActionEvent event) {
@@ -39,8 +41,9 @@ public class TelaPrincipalController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         controlePontos = -1;
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy    -    HH:mm:ss");
+        df = new SimpleDateFormat("dd/MM/yyyy    -    HH:mm:ss");
 
+        // Inicia o servidor
         try {
             PlacarServer.iniciar();
         } catch (Exception ex) {
@@ -49,7 +52,7 @@ public class TelaPrincipalController implements Initializable {
 
         // Relógio em tempo real
         Timeline relogio = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            Calendar cal = GregorianCalendar.getInstance();
+            cal = GregorianCalendar.getInstance();
             lRelogio.setText(df.format(cal.getTime()));
 
         }),

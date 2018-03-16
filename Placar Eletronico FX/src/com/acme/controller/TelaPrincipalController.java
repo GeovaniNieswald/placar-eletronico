@@ -5,9 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,6 +41,12 @@ public class TelaPrincipalController implements Initializable {
         controlePontos = -1;
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy    -    HH:mm:ss");
 
+        try {
+            PlacarServer.iniciar();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Relógio em tempo real
         Timeline relogio = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             Calendar cal = GregorianCalendar.getInstance();
@@ -68,12 +74,6 @@ public class TelaPrincipalController implements Initializable {
                     break;
                 case 3:
                     lAguardandoConexao.setText("Aguardando Conexão...");
-                    break;
-                case 4:
-                    lAguardandoConexao.setText("Aguardando Conexão..");
-                    break;
-                case 5:
-                    lAguardandoConexao.setText("Aguardando Conexão.");
                     controlePontos = -1;
                     break;
             }

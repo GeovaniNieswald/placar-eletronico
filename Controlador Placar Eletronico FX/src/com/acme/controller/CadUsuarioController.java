@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
  *
  * @author Geovani Nieswald
  */
-public class FXMLTelaPrincipalController implements Initializable {
+public class CadUsuarioController implements Initializable {
 
     @FXML
     private Label lCronometro;
@@ -207,7 +207,7 @@ public class FXMLTelaPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
 
 }

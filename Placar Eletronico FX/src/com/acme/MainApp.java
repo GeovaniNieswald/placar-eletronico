@@ -12,7 +12,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/acme/model/TelaPrincipal.fxml"));
+        loader.setLocation(getClass().getResource("/com/acme/view/TelaConexao.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

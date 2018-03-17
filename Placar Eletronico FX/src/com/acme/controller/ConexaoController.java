@@ -1,5 +1,6 @@
 package com.acme.controller;
 
+import com.acme.PlacarServer;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class TelaPrincipalController implements Initializable {
+public class ConexaoController implements Initializable {
 
     @FXML
     private Button bFechar;
@@ -47,7 +48,7 @@ public class TelaPrincipalController implements Initializable {
         try {
             PlacarServer.iniciar();
         } catch (Exception ex) {
-            Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConexaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Relógio em tempo real

@@ -1,5 +1,6 @@
 package com.acme.controller;
 
+import com.acme.PlacarClient;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class TelaConexaoController implements Initializable {
+public class ConexaoController implements Initializable {
 
     @FXML
     private TextField tfEndereco;

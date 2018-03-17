@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class TelaPrincipalController implements Initializable {
+public class UsuarioPrincipalController implements Initializable {
 
     @FXML
     private Label lCronometro;

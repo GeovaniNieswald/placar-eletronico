@@ -1,4 +1,4 @@
-package com.acme.controller;
+package com.acme;
 
 import java.io.BufferedReader;
 import java.io.IOException;

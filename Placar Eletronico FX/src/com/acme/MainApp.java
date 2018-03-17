@@ -1,4 +1,4 @@
-package com.acme.view;
+package com.acme;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
-public class TelaPrincipal extends Application {
+public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {

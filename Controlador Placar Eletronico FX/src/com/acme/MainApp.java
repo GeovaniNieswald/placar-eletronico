@@ -1,5 +1,6 @@
 package com.acme;
 
+import com.acme.model.Tela;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -10,20 +11,54 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    private static Stage stage;
+
+    private static Scene telaConexao;
+    private static Scene telaCadUsuario;
+    private static Scene telaEsporte;
+    private static Scene telaUsuarioPrincipal;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaUsuarioPrincipal.fxml"));
+        stage = primaryStage;
 
-        Scene scene = new Scene(root);
+        Parent fxmlConexao = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaConexao.fxml"));
+        telaConexao = new Scene(fxmlConexao);
 
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setTitle("Conexão - Controlador Placar Eletrônico");
+        Parent fxmlCadUsuario = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaCadUsuario.fxml"));
+        telaCadUsuario = new Scene(fxmlCadUsuario);
 
-        // Icons made by Smashicons https://www.flaticon.com/authors/smashicons, from Flaticon https://www.flaticon.com/, is licensed by Creative Commons BY 3.0 http://creativecommons.org/licenses/by/3.0/
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/acme/resources/controls(64).png")));
+        Parent fxmlEsporte = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaEsporte.fxml"));
+        telaEsporte = new Scene(fxmlEsporte);
 
-        primaryStage.show();
+        Parent fxmlUsuarioPrincipal = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaUsuarioPrincipal.fxml"));
+        telaUsuarioPrincipal = new Scene(fxmlUsuarioPrincipal);
+
+        configurarTela(telaConexao, "Conexão - Controlador Placar Eletrônico");
+        stage.show();
+    }
+
+    public static void trocarTela(Tela t) {
+        switch (t) {
+            case CONEXAO:
+                configurarTela(telaConexao, "Conexão - Controlador Placar Eletrônico");
+                break;
+            case CAD_USUARIO:
+                configurarTela(telaCadUsuario, "Cadastro de Usuário - Controlador Placar Eletrônico");
+                break;
+            case ESPORTE:
+                configurarTela(telaEsporte, "Selecione o Esporte - Controlador Placar Eletrônico");
+                break;
+            case USUARIO_PRINCIPAL:
+                configurarTela(telaUsuarioPrincipal, "Controlador Placar Eletrônico");
+        }
+    }
+
+    private static void configurarTela(Scene tela, String titulo) {
+        stage.setScene(tela);
+        stage.setTitle(titulo);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/com/acme/resources/controls(64).png")));
     }
 
     public static void main(String[] args) {

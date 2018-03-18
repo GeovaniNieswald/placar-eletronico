@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class ConexaoController implements Initializable {
+public class AguardandoConexaoController implements Initializable {
 
     @FXML
     private Button bFechar;
@@ -48,7 +48,7 @@ public class ConexaoController implements Initializable {
         try {
             PlacarServer.iniciar();
         } catch (Exception ex) {
-            Logger.getLogger(ConexaoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AguardandoConexaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Relógio em tempo real

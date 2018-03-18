@@ -1,5 +1,6 @@
 package com.acme;
 
+import com.acme.model.Tela;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +9,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class PlacarServer extends Thread {
 
@@ -50,7 +54,11 @@ public class PlacarServer extends Thread {
 
             // Fazer a validação de usuario e senha
             if (login.equals("geo") && senha.equals("geo")) {
-                out.println("ok");
+                if (true) { // verificar quais as permições do usuario
+                    out.println("#conexao;ok;usuario-principal");
+                } else {
+                    out.println("#conexao;ok;usuario-propaganda");
+                }
 
                 while (true) {
                     String input = in.readLine();
@@ -61,7 +69,7 @@ public class PlacarServer extends Thread {
                     }
                 }
             } else {
-                out.println("not ok");
+                out.println("#conexao;not-ok;0");
             }
         } catch (IOException ex) {
             System.out.println("Erro no operador " + clientNumber + ": " + ex);
@@ -106,6 +114,8 @@ public class PlacarServer extends Thread {
         String[] params = comando.split(";");
         if (params != null && params.length == 3) {
             switch (params[0]) {
+                case "#esporte":
+                    return comandoEsporte(params);
                 case "#pontos":
                     return comandoPontos(params);
                 case "#faltaset":
@@ -128,6 +138,31 @@ public class PlacarServer extends Thread {
 
     //Comandos abaixo hoje printam somente um retorno
     //No futuro, eles irão também manipular o valor dos atributos que representam os dados do placar
+    public static String comandoEsporte(String[] params) {
+        switch (params[1]) {
+            case "basquete":
+                Timeline telaBasquete = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+                    MainApp.trocarTela(Tela.PLACAR_BASQUETE);
+                }),
+                        new KeyFrame(Duration.seconds(1))
+                );
+                telaBasquete.play();
+
+                return "#esporte;ok;basquete";
+            case "futsal":
+                Timeline telaFutsal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+                    MainApp.trocarTela(Tela.PLACAR_FUTSAL);
+                }),
+                        new KeyFrame(Duration.seconds(1))
+                );
+                telaFutsal.play();
+
+                return "#esporte;ok;futsal";
+            default:
+                return "#esporte;not-ok;0";
+        }
+    }
+
     public static String comandoPontos(String[] params) {
         switch (params[1]) {
             case "mais":

@@ -17,12 +17,11 @@ public class PlacarServer extends Thread {
 
     private final Socket socket;
     private final int clientNumber;
-    private boolean usuarioPrincipalOn;
+    private static boolean usuarioPrincipalOn;
 
     public PlacarServer(Socket socket, int clientNumber) {
         this.socket = socket;
         this.clientNumber = clientNumber;
-        this.usuarioPrincipalOn = false;
         System.out.println("Nova conexão com operador de placar " + clientNumber + " em " + socket.getLocalAddress());
     }
 
@@ -57,15 +56,9 @@ public class PlacarServer extends Thread {
             // Fazer a validação de usuario e senha
             if ((login.equals("geo") || login.equals("pedro")) && senha.equals("geo")) {
                 if (login.equals("geo")) { // verificar quais as permições do usuario
-                    usuarioPrincipalOn = true;
                     out.println("#conexao;ok;usuario-principal");
                 } else {
                     out.println("#conexao;ok;usuario-propaganda");
-                    
-                    while (!usuarioPrincipalOn) {
-                        out.println("#usuario-principal;not-ok;0");
-                    }
-                    out.println("#usuario-principal;ok;1");
                 }
 
                 while (true) {
@@ -124,6 +117,8 @@ public class PlacarServer extends Thread {
             switch (params[0]) {
                 case "#esporte":
                     return comandoEsporte(params);
+                case "#usuario-principal":
+                    return comandoUsuarioPrincipal(params);
                 case "#pontos":
                     return comandoPontos(params);
                 case "#faltaset":
@@ -150,7 +145,12 @@ public class PlacarServer extends Thread {
         switch (params[1]) {
             case "basquete":
                 Timeline telaBasquete = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-                    MainApp.trocarTela(Tela.PLACAR_BASQUETE);
+                    usuarioPrincipalOn = true;
+                    try {
+                        MainApp.trocarCena(Tela.PLACAR_BASQUETE);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PlacarServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
@@ -159,7 +159,12 @@ public class PlacarServer extends Thread {
                 return "#esporte;ok;basquete";
             case "futsal":
                 Timeline telaFutsal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-                    MainApp.trocarTela(Tela.PLACAR_FUTSAL);
+                    usuarioPrincipalOn = true;
+                    try {
+                        MainApp.trocarCena(Tela.PLACAR_FUTSAL);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PlacarServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
@@ -168,6 +173,14 @@ public class PlacarServer extends Thread {
                 return "#esporte;ok;futsal";
             default:
                 return "#esporte;not-ok;0";
+        }
+    }
+
+    public static String comandoUsuarioPrincipal(String[] params) {
+        if (usuarioPrincipalOn) {
+            return "#usuario-principal;ok;1";
+        } else {
+            return "#usuario-principal;not-ok;0";
         }
     }
 

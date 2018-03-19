@@ -1,6 +1,7 @@
 package com.acme;
 
 import com.acme.model.Tela;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,43 +20,44 @@ public class MainApp extends Application {
     private static Scene telaPropaganda;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
 
-        Parent fxmlConexao = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaAguardandoConexao.fxml"));
-        telaAguardandoConexao = new Scene(fxmlConexao);
+        trocarCena(Tela.AGUARDANDO_CONEXAO);
 
-        Parent fxmlPlacarBasquete = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaPlacarBasquete.fxml"));
-        telaPlacarBasquete = new Scene(fxmlPlacarBasquete);
-
-        Parent fxmlPlacarFutsal = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaPlacarFutsal.fxml"));
-        telaPlacarFutsal = new Scene(fxmlPlacarFutsal);
-
-        Parent fxmlPropaganda = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaPropaganda.fxml"));
-        telaPropaganda = new Scene(fxmlPropaganda);
-
-        configurarTela(telaAguardandoConexao, "Aguardando Conexão - Placar Eletrônico FX");
         stage.show();
     }
 
-    public static void trocarTela(Tela t) {
+    public static void trocarCena(Tela t) throws IOException {
         switch (t) {
             case AGUARDANDO_CONEXAO:
-                configurarTela(telaAguardandoConexao, "Aguardando Conexão - Placar Eletrônico FX");
+                Parent fxmlConexao = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaAguardandoConexao.fxml"));
+                telaAguardandoConexao = new Scene(fxmlConexao);
+
+                configurarCena(telaAguardandoConexao, "Aguardando Conexão - Placar Eletrônico FX");
                 break;
             case PLACAR_BASQUETE:
-                configurarTela(telaPlacarBasquete, "Basquete - Placar Eletrônico FX");
+                Parent fxmlPlacarBasquete = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarBasquete.fxml"));
+                telaPlacarBasquete = new Scene(fxmlPlacarBasquete);
+
+                configurarCena(telaPlacarBasquete, "Basquete - Placar Eletrônico FX");
                 break;
             case PLACAR_FUTSAL:
-                configurarTela(telaPlacarFutsal, "Futsal - Placar Eletrônico FX");
+                Parent fxmlPlacarFutsal = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarFutsal.fxml"));
+                telaPlacarFutsal = new Scene(fxmlPlacarFutsal);
+
+                configurarCena(telaPlacarFutsal, "Futsal - Placar Eletrônico FX");
                 break;
             case PROPAGANDA:
-                configurarTela(telaPropaganda, "Propaganda - Placar Eletrônico FX");
+                Parent fxmlPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPropaganda.fxml"));
+                telaPropaganda = new Scene(fxmlPropaganda);
+
+                configurarCena(telaPropaganda, "Propaganda - Placar Eletrônico FX");
         }
     }
 
-    private static void configurarTela(Scene tela, String titulo) {
-        stage.setScene(tela);
+    private static void configurarCena(Scene cena, String titulo) {
+        stage.setScene(cena);
         stage.setTitle(titulo);
         stage.setResizable(false);
         stage.setMaximized(true);

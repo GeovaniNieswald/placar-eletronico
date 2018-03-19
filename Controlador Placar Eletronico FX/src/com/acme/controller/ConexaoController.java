@@ -39,10 +39,10 @@ public class ConexaoController implements Initializable {
 
                 switch (respostaConexao) {
                     case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
-                        MainApp.trocarTela(Tela.ESPORTE);
+                        MainApp.trocarCena(Tela.ESPORTE);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:
-                        MainApp.trocarTela(Tela.ESPERA);
+                        MainApp.trocarCena(Tela.ESPERA);
                         break;
                     default:
                         Alert dialogoErro = new Alert(Alert.AlertType.ERROR);

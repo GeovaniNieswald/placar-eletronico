@@ -24,12 +24,14 @@ public class PlacarClient {
 
         String[] respostaConexao = in.readLine().split(";");
 
-        if (respostaConexao[1].equals("ok")) {
-            if (respostaConexao[2].equals("usuario-principal")) {
-                return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
+        if (respostaConexao[0].equals("#conexao")) {
+            if (respostaConexao[1].equals("ok")) {
+                if (respostaConexao[2].equals("usuario-principal")) {
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
+                } else {
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
+                }
             }
-
-            return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
         }
 
         return RespostaSocket.CONEXAO_RECUSADA;
@@ -43,29 +45,31 @@ public class PlacarClient {
 
         String[] respostaComando = in.readLine().split(";");
 
-        if (respostaComando[1].equals("ok")) {
-            if (respostaComando[2].equals("basquete")) {
-                return RespostaSocket.COMANDO_ACEITO_BASQUETE;
+        if (respostaComando[0].equals("#esporte")) {
+            if (respostaComando[1].equals("ok")) {
+                if (respostaComando[2].equals("basquete")) {
+                    return RespostaSocket.COMANDO_ACEITO_BASQUETE;
+                } else {
+                    return RespostaSocket.COMANDO_ACEITO_FUTSAL;
+                }
             }
-
-            return RespostaSocket.COMANDO_ACEITO_FUTSAL;
         }
 
         return RespostaSocket.COMANDO_RECUSADO;
     }
 
     public static RespostaSocket verificarSeUsuarioPrincipalEstaConectado() throws IOException {
-        if (socket != null) {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
 
-            String resposta[] = in.readLine().split(";");
+        out.println("#usuario-principal;0;0");
 
-            if (resposta[0].equals("#usuario-principal") && resposta[1].equals("ok")) {
-                return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
-            }
+        String resposta[] = in.readLine().split(";");
+
+        if (resposta[0].equals("#usuario-principal") && resposta[1].equals("ok")) {
+            return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
+        } else {
+            return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
         }
-
-        return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
     }
 }

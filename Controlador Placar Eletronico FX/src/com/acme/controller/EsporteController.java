@@ -43,10 +43,10 @@ public class EsporteController implements Initializable {
 
             switch (respostaComando) {
                 case COMANDO_ACEITO_BASQUETE:
-                    MainApp.trocarTela(Tela.USUARIO_PRINCIPAL);
+                    MainApp.trocarCena(Tela.USUARIO_PRINCIPAL);
                     break;
                 case COMANDO_ACEITO_FUTSAL:
-                    MainApp.trocarTela(Tela.USUARIO_PRINCIPAL); // Verificar se precisam ser telas diferentes
+                    MainApp.trocarCena(Tela.USUARIO_PRINCIPAL); // Verificar se precisam ser telas diferentes
                     break;
                 default:
                     System.out.println("erro"); // Tratar 

@@ -54,15 +54,13 @@ public class EsperaController implements Initializable {
 
         Timeline esperandoUsuarioPrincipal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             try {
-                RespostaSocket resposta = PlacarClient.verificarSeUsuarioPrincipalEstaConectado();
+                RespostaSocket respostaUsuarioPrincipal = PlacarClient.verificarSeUsuarioPrincipalEstaConectado();
 
-                if (resposta == RespostaSocket.USUARIO_PRINCIPAL_CONECTADO) {
-                    MainApp.trocarTela(Tela.USUARIO_PROPAGANDA);
+                if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PRINCIPAL_CONECTADO) {
+                    MainApp.trocarCena(Tela.USUARIO_PROPAGANDA);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(EsperaController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NullPointerException ex){
-                System.out.println("pao");
             }
         }),
                 new KeyFrame(Duration.seconds(5))

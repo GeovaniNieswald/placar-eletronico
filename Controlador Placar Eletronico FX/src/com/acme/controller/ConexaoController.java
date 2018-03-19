@@ -42,7 +42,7 @@ public class ConexaoController implements Initializable {
                         MainApp.trocarTela(Tela.ESPORTE);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:
-                        MainApp.trocarTela(Tela.ESPORTE); // vai ser outra tela
+                        MainApp.trocarTela(Tela.ESPERA);
                         break;
                     default:
                         Alert dialogoErro = new Alert(Alert.AlertType.ERROR);

@@ -53,4 +53,19 @@ public class PlacarClient {
 
         return RespostaSocket.COMANDO_RECUSADO;
     }
+
+    public static RespostaSocket verificarSeUsuarioPrincipalEstaConectado() throws IOException {
+        if (socket != null) {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+
+            String resposta[] = in.readLine().split(";");
+
+            if (resposta[0].equals("#usuario-principal") && resposta[1].equals("ok")) {
+                return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
+            }
+        }
+
+        return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
+    }
 }

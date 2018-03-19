@@ -16,7 +16,9 @@ public class MainApp extends Application {
     private static Scene telaConexao;
     private static Scene telaCadUsuario;
     private static Scene telaEsporte;
+    private static Scene telaEspera;
     private static Scene telaUsuarioPrincipal;
+    private static Scene telaUsuarioPropaganda;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -31,8 +33,14 @@ public class MainApp extends Application {
         Parent fxmlEsporte = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaEsporte.fxml"));
         telaEsporte = new Scene(fxmlEsporte);
 
+        Parent fxmlEspera = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaEspera.fxml"));
+        telaEspera = new Scene(fxmlEspera);
+
         Parent fxmlUsuarioPrincipal = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaUsuarioPrincipal.fxml"));
         telaUsuarioPrincipal = new Scene(fxmlUsuarioPrincipal);
+
+        Parent fxmlUsuarioPropaganda = FXMLLoader.load(getClass().getResource("/com/acme/view/TelaUsuarioPropaganda.fxml"));
+        telaUsuarioPropaganda = new Scene(fxmlUsuarioPropaganda);
 
         configurarTela(telaConexao, "Conexão - Controlador Placar Eletrônico");
         stage.show();
@@ -49,8 +57,14 @@ public class MainApp extends Application {
             case ESPORTE:
                 configurarTela(telaEsporte, "Selecione o Esporte - Controlador Placar Eletrônico");
                 break;
+            case ESPERA:
+                configurarTela(telaEspera, "Esperando - Controlador Placar Eletrônico");
+                break;
             case USUARIO_PRINCIPAL:
                 configurarTela(telaUsuarioPrincipal, "Controlador Placar Eletrônico");
+                break;
+            case USUARIO_PROPAGANDA:
+                configurarTela(telaUsuarioPropaganda, "Controlador Placar Eletrônico");
         }
     }
 

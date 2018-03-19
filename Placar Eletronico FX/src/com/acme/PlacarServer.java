@@ -17,10 +17,12 @@ public class PlacarServer extends Thread {
 
     private final Socket socket;
     private final int clientNumber;
+    private boolean usuarioPrincipalOn;
 
     public PlacarServer(Socket socket, int clientNumber) {
         this.socket = socket;
         this.clientNumber = clientNumber;
+        this.usuarioPrincipalOn = false;
         System.out.println("Nova conexão com operador de placar " + clientNumber + " em " + socket.getLocalAddress());
     }
 
@@ -53,11 +55,17 @@ public class PlacarServer extends Thread {
             String senha = in.readLine();
 
             // Fazer a validação de usuario e senha
-            if (login.equals("geo") && senha.equals("geo")) {
-                if (true) { // verificar quais as permições do usuario
+            if ((login.equals("geo") || login.equals("pedro")) && senha.equals("geo")) {
+                if (login.equals("geo")) { // verificar quais as permições do usuario
+                    usuarioPrincipalOn = true;
                     out.println("#conexao;ok;usuario-principal");
                 } else {
                     out.println("#conexao;ok;usuario-propaganda");
+                    
+                    while (!usuarioPrincipalOn) {
+                        out.println("#usuario-principal;not-ok;0");
+                    }
+                    out.println("#usuario-principal;ok;1");
                 }
 
                 while (true) {

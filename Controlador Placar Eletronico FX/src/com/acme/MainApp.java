@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainApp extends Application {
 
@@ -35,7 +36,7 @@ public class MainApp extends Application {
             case CONEXAO:
                 Parent fxmlConexao = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaConexao.fxml"));
                 telaConexao = new Scene(fxmlConexao);
-
+                
                 configurarCena(telaConexao, "Conexão - Controlador Placar Eletrônico");
                 break;
             case CAD_USUARIO:
@@ -74,7 +75,8 @@ public class MainApp extends Application {
         stage.setScene(cena);
         stage.setTitle(titulo);
         stage.setResizable(false);
-        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/com/acme/resources/controls(64).png")));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/com/acme/resources/icones/controls(64).png")));
     }
 
     public static void main(String[] args) {

@@ -1,33 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsperaController">
+<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="480.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsperaController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="100.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="89.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="100.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="80.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
   </rowConstraints>
    <children>
-      <HBox alignment="CENTER" prefHeight="307.0" prefWidth="602.0">
+      <ImageView fitHeight="480.0" fitWidth="850.0" pickOnBounds="true" GridPane.rowSpan="6">
+         <image>
+            <Image url="@../resources/imagens/background.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="Esperando conexão de um usuário principal">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
-            <Label fx:id="lPontos" prefHeight="28.0" prefWidth="37.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
+            <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
          </children>
-      </HBox>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+         <children>
+            <FontAwesomeIconView fx:id="faivSair" fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </children>
+      </VBox>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Label layoutX="186.0" layoutY="153.0" text="Esperando a conexão&#10;de um usuário principal" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <JFXSpinner layoutX="501.0" layoutY="153.0" prefHeight="78.0" prefWidth="70.0" />
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

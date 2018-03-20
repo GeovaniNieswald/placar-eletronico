@@ -14,7 +14,7 @@ import javafx.stage.StageStyle;
 public class MainApp extends Application {
 
     private static Stage stage;
-
+//
     private static Scene telaConexao;
     private static Scene telaCadUsuario;
     private static Scene telaEsporte;

@@ -4,38 +4,90 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Tela;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.util.Duration;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Paint;
 
 public class ConexaoController implements Initializable {
 
     @FXML
-    private TextField tfEndereco;
+    private FontAwesomeIconView faivSair;
 
     @FXML
-    private TextField tfLogin;
+    private JFXTextField jfxtfEndereco;
 
     @FXML
-    private TextField tfSenha;
+    private JFXTextField jfxtfLogin;
 
     @FXML
-    private Button bConectar;
+    private JFXPasswordField jfxpfSenha;
 
     @FXML
-    void bConectarAction(ActionEvent event) {
-        Timeline conexao = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+    private JFXButton jfxbConectar;
+
+    @FXML
+    private Label lInfos;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
+    }
+
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+    }
+
+    @FXML
+    void faivSairOnMouseCliked(MouseEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void jfxbConectarAction(ActionEvent event) {
+        lInfos.setText("");
+        jfxtfLogin.setUnFocusColor(Paint.valueOf("white"));
+        jfxtfLogin.setFocusColor(Paint.valueOf("#7d217c"));
+        jfxpfSenha.setUnFocusColor(Paint.valueOf("white"));
+        jfxpfSenha.setFocusColor(Paint.valueOf("#7d217c"));
+        jfxtfEndereco.setUnFocusColor(Paint.valueOf("white"));
+        jfxtfEndereco.setFocusColor(Paint.valueOf("#7d217c"));
+
+        if (jfxtfEndereco.getText().trim().isEmpty() || jfxtfLogin.getText().trim().isEmpty() || jfxpfSenha.getText().trim().isEmpty()) {
+            lInfos.setText("Você não preencheu algum campo!");
+
+            if (jfxtfEndereco.getText().trim().isEmpty()) {
+                jfxtfEndereco.setText("");
+                jfxtfEndereco.setUnFocusColor(Paint.valueOf("red"));
+                jfxtfEndereco.setFocusColor(Paint.valueOf("red"));
+            }
+            if (jfxtfLogin.getText().trim().isEmpty()) {
+                jfxtfLogin.setText("");
+                jfxtfLogin.setUnFocusColor(Paint.valueOf("red"));
+                jfxtfLogin.setFocusColor(Paint.valueOf("red"));
+            }
+            if (jfxpfSenha.getText().trim().isEmpty()) {
+                jfxpfSenha.setText("");
+                jfxpfSenha.setUnFocusColor(Paint.valueOf("red"));
+                jfxpfSenha.setFocusColor(Paint.valueOf("red"));
+            }
+        } else {
             try {
-                RespostaSocket respostaConexao = PlacarClient.conectar(tfEndereco.getText(), tfLogin.getText(), tfSenha.getText());
+                RespostaSocket respostaConexao = PlacarClient.conectar(jfxtfEndereco.getText(), jfxtfLogin.getText(), jfxpfSenha.getText());
 
                 switch (respostaConexao) {
                     case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
@@ -45,21 +97,19 @@ public class ConexaoController implements Initializable {
                         MainApp.trocarCena(Tela.ESPERA);
                         break;
                     default:
-                        Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
-                        dialogoErro.setTitle("Ops");
-                        dialogoErro.setHeaderText("Login ou Senha inválido");
-                        dialogoErro.setContentText("Tente novamente!");
-                        dialogoErro.show();
-                        tfLogin.setText("");
-                        tfSenha.setText("");
+                        lInfos.setText("Login ou Senha errados!");
+                        jfxtfLogin.setUnFocusColor(Paint.valueOf("red"));
+                        jfxtfLogin.setFocusColor(Paint.valueOf("red"));
+                        jfxpfSenha.setUnFocusColor(Paint.valueOf("red"));
+                        jfxpfSenha.setFocusColor(Paint.valueOf("red"));
+                        jfxpfSenha.setText("");
                 }
             } catch (IOException ex) {
-                System.out.println("Aconteceu algum erro na conexão");
+                lInfos.setText("Aconteceu algum erro na conexão!");
+                jfxtfEndereco.setUnFocusColor(Paint.valueOf("red"));
+                jfxtfEndereco.setFocusColor(Paint.valueOf("red"));
             }
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        conexao.play();
+        }
     }
 
     @Override

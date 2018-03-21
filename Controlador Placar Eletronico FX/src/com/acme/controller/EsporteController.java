@@ -10,32 +10,64 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.fxml.FXML;
 
 public class EsporteController implements Initializable {
 
     @FXML
-    private RadioButton rbBasquete;
+    private FontAwesomeIconView faivVoltar;
 
     @FXML
-    private ToggleGroup esportes;
+    private FontAwesomeIconView faivSair;
 
     @FXML
-    private RadioButton rbFutsal;
+    private JFXCheckBox jfxcbBasquete;
 
     @FXML
-    private Button bOk;
+    private JFXCheckBox jfxcbFutsal;
 
     @FXML
-    void bOkAction(ActionEvent event) {
+    private JFXButton jfxbOk;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    @FXML
+    void faivSairOnMouseCliked(MouseEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void faivVoltarOnMouseCliked(MouseEvent event) {
+        try {
+            MainApp.trocarCena(Tela.CONEXAO);
+        } catch (IOException ex) {
+            Logger.getLogger(EsperaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+    }
+
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
+    }
+
+    @FXML
+    void jfxbOkOnAction(ActionEvent event) {
         try {
             RespostaSocket respostaComando;
 
-            if (rbBasquete.isSelected()) {
+            if (jfxcbBasquete.isSelected()) {
                 respostaComando = PlacarClient.escolherEsporte("#esporte;basquete;1");
             } else {
                 respostaComando = PlacarClient.escolherEsporte("#esporte;futsal;1");
@@ -54,6 +86,18 @@ public class EsporteController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(EsporteController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    void jfxcbBasqueteOnAction(ActionEvent event) {
+        jfxcbBasquete.setSelected(true);
+        jfxcbFutsal.setSelected(false);
+    }
+
+    @FXML
+    void jfxcbFutsalOnAction(ActionEvent event) {
+        jfxcbFutsal.setSelected(true);
+        jfxcbBasquete.setSelected(false);
     }
 
     @Override

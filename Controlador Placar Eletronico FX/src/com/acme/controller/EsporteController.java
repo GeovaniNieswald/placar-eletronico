@@ -13,9 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
+import javafx.scene.control.ToggleGroup;
 
 public class EsporteController implements Initializable {
 
@@ -26,10 +27,13 @@ public class EsporteController implements Initializable {
     private FontAwesomeIconView faivSair;
 
     @FXML
-    private JFXCheckBox jfxcbBasquete;
+    private JFXRadioButton jfxrbBasquete;
 
     @FXML
-    private JFXCheckBox jfxcbFutsal;
+    private ToggleGroup tgEsportes;
+
+    @FXML
+    private JFXRadioButton jfxrbFutsal;
 
     @FXML
     private JFXButton jfxbOk;
@@ -67,7 +71,7 @@ public class EsporteController implements Initializable {
         try {
             RespostaSocket respostaComando;
 
-            if (jfxcbBasquete.isSelected()) {
+            if (jfxrbBasquete.isSelected()) {
                 respostaComando = PlacarClient.escolherEsporte("#esporte;basquete;1");
             } else {
                 respostaComando = PlacarClient.escolherEsporte("#esporte;futsal;1");
@@ -86,18 +90,6 @@ public class EsporteController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(EsporteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @FXML
-    void jfxcbBasqueteOnAction(ActionEvent event) {
-        jfxcbBasquete.setSelected(true);
-        jfxcbFutsal.setSelected(false);
-    }
-
-    @FXML
-    void jfxcbFutsalOnAction(ActionEvent event) {
-        jfxcbFutsal.setSelected(true);
-        jfxcbBasquete.setSelected(false);
     }
 
     @Override

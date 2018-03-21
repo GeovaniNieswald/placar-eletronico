@@ -1,198 +1,157 @@
 package com.acme.controller;
 
+import com.acme.MainApp;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 
 public class UsuarioPropagandaController implements Initializable {
 
     @FXML
-    private Label lCronometro;
+    private FontAwesomeIconView faivSair;
 
     @FXML
-    private Button bIniciarCronometro;
+    private JFXTextField jfxtfTextoInferior;
 
     @FXML
-    private Button bPausarCronometro;
+    private JFXButton jfxbAlterarTextoInferior;
 
     @FXML
-    private Button bZerarCronometro;
+    private JFXButton jfxbRestaurarTextoInferior;
 
     @FXML
-    private Label lPeriodo;
+    private JFXTextField jfxtfImagemDireita;
 
     @FXML
-    private Button bAumentarPeriodo;
+    private JFXButton jfxbAlterarImagemDireita;
 
     @FXML
-    private Button bDiminuirPeriodo;
+    private JFXButton jfxbRestaurarImagemDireita;
 
     @FXML
-    private Button bZerarPeriodo;
+    private JFXTextField jfxtfImagemEsquerda;
 
     @FXML
-    private Label lPontosTimeA;
+    private JFXButton jfxbAlterarImagemEsquerda;
 
     @FXML
-    private Label lNomeTimeAPontos;
+    private JFXButton jfxbRestaurarImagemEsquerda;
 
     @FXML
-    private Button bAumentarPontosTimeA;
+    private JFXTextField jfxtfImagemVideo;
 
     @FXML
-    private Button bDiminuirPontosTimeA;
+    private JFXButton jfxbExibirImagemVideo;
 
     @FXML
-    private Button bZerarPontos;
+    private JFXButton jfxbPararImagemVideo;
 
     @FXML
-    private Button bDiminuirPontosTimeB;
+    private JFXTextField jfxtfEscalacoes;
 
     @FXML
-    private Button bAumentarPontosTimeB;
+    private JFXButton jfxbExibirEscalacoes;
 
     @FXML
-    private Label lPontosTimeB;
+    private JFXButton jfxbPararEscalacoes;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
-    private Label lNomeTimeBPontos;
+    void faivSairOnMouseCliked(MouseEvent event) {
+        System.exit(0);
+    }
 
     @FXML
-    private Label lFaltasSetsTimeA;
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+    }
 
     @FXML
-    private Label lNomeTimeAFaltasSets;
+    void gpOnMousePressed(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
+    }
 
     @FXML
-    private Button bAumentarFaltasSetsTimeA;
-
-    @FXML
-    private Button bDiminuirFaltasSetsTimeA;
-
-    @FXML
-    private Button bZerarFaltasSets;
-
-    @FXML
-    private Button bDiminuirFaltasSetsTimeB;
-
-    @FXML
-    private Button bAumentarFaltasSetsTimeB;
-
-    @FXML
-    private Label lFaltasSetsTimeB;
-
-    @FXML
-    private Label lNomeTimeBFaltasSets;
-
-    @FXML
-    private TextField tfPropaganda;
-
-    @FXML
-    private Button bAlterarPropaganda;
-
-    @FXML
-    private Button bResetarPropaganda;
-
-    @FXML
-    private Button bZerarTudo;
-
-    @FXML
-    void bAlterarPropagandaAction(ActionEvent event) {
+    void jfxbAlterarImagemDireitaOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarFaltasSetsTimeAAction(ActionEvent event) {
+    void jfxbAlterarImagemEsquerdaOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarFaltasSetsTimeBAction(ActionEvent event) {
+    void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarPeriodoAction(ActionEvent event) {
+    void jfxbExibirEscalacoesOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarPontosTimeAAction(ActionEvent event) {
+    void jfxbExibirImagemVideoOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarPontosTimeBAction(ActionEvent event) {
+    void jfxbPararEscalacoesOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirFaltasSetsTimeAAction(ActionEvent event) {
+    void jfxbPararImagemVideoOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirFaltasSetsTimeBAction(ActionEvent event) {
+    void jfxbRestaurarImagemDireitaOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirPeriodoAction(ActionEvent event) {
+    void jfxbRestaurarImagemEsquerdaOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirPontosTimeAAction(ActionEvent event) {
+    void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirPontosTimeBAction(ActionEvent event) {
+    void jfxtfEscalacoesOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bIniciarCronometroAction(ActionEvent event) {
+    void jfxtfImagemDireitaOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bPausarCronometroAction(ActionEvent event) {
+    void jfxtfImagemEsquerdaOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bResetarPropagandaAction(ActionEvent event) {
+    void jfxtfImagemVideoOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bZerarCronometroAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarFaltasSetsAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarPeriodoAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarPontosAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarTudoAction(ActionEvent event) {
+    void jfxtfTextoInferiorOnAction(ActionEvent event) {
 
     }
 

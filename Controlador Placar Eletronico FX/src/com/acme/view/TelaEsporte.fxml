@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -66,36 +67,39 @@
                         <Font size="34.0" />
                     </font>
                 </Label>
-                <JFXCheckBox fx:id="jfxcbBasquete" checkedColor="#7d217c" layoutX="226.0" layoutY="179.0" onAction="#jfxcbBasqueteOnAction" selected="true" text="Basquete" textFill="WHITE" unCheckedColor="WHITE">
-                    <font>
-                        <Font size="26.0" />
-                    </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-                </JFXCheckBox>
-                <JFXCheckBox fx:id="jfxcbFutsal" checkedColor="#7d217c" layoutX="524.0" layoutY="179.0" onAction="#jfxcbFutsalOnAction" text="Futsal" textFill="WHITE" unCheckedColor="WHITE">
-                    <font>
-                        <Font size="26.0" />
-                    </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-                </JFXCheckBox>
-                <JFXButton fx:id="jfxbOk" layoutX="309.0" layoutY="332.0" onAction="#jfxbOkOnAction" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #7d217c;" text="OK" textFill="WHITE">
+                <JFXButton fx:id="jfxbOk" layoutX="309.0" layoutY="321.0" onAction="#jfxbOkOnAction" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #7d217c;" text="OK" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-                <ImageView fitHeight="63.0" fitWidth="68.0" layoutX="146.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="129.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="563.0">
                     <image>
                         <Image url="@../resources/imagens/basquete.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="63.0" fitWidth="68.0" layoutX="444.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="458.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="234.0">
                     <image>
                         <Image url="@../resources/imagens/futsal.png" />
                     </image>
                 </ImageView>
+            <JFXRadioButton fx:id="jfxrbBasquete" layoutX="193.0" layoutY="173.0" prefHeight="38.0" prefWidth="142.0" selected="true" style="-jfx-selected-color: #7d217c; -jfx-unselected-color: white;" text="Basquete" textFill="WHITE">
+               <font>
+                  <Font size="27.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tgEsportes" />
+               </toggleGroup>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="jfxrbFutsal" layoutX="522.0" layoutY="173.0" prefHeight="38.0" prefWidth="95.0" style="-jfx-selected-color: #7d217c; -jfx-unselected-color: white;" text="Futsal" textFill="WHITE" toggleGroup="$tgEsportes">
+               <font>
+                  <Font size="27.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXRadioButton>
             </children>
         </AnchorPane>
     </children>

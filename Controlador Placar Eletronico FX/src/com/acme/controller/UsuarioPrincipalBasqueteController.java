@@ -1,198 +1,354 @@
 package com.acme.controller;
 
+import com.acme.MainApp;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 
 public class UsuarioPrincipalBasqueteController implements Initializable {
 
     @FXML
-    private Label lCronometro;
+    private FontAwesomeIconView faivSair;
 
     @FXML
-    private Button bIniciarCronometro;
+    private JFXTextField jfxtfNomeTimeLocal;
 
     @FXML
-    private Button bPausarCronometro;
+    private JFXButton jfxbAlterarNomeTimeLocal;
 
     @FXML
-    private Button bZerarCronometro;
+    private JFXButton jfxbRestaurarNomeTimeLocal;
 
     @FXML
-    private Label lPeriodo;
+    private JFXTextField jfxtfNomeTimeVisitante;
 
     @FXML
-    private Button bAumentarPeriodo;
+    private JFXButton jfxbAlterarNomeTimeVisitantejfxbAlterarNomeTimeVisitante;
 
     @FXML
-    private Button bDiminuirPeriodo;
+    private JFXButton jfxbRestaurarNomeTimeVisitante;
 
     @FXML
-    private Button bZerarPeriodo;
+    private JFXTextField jfxtfCronometro;
 
     @FXML
-    private Label lPontosTimeA;
+    private JFXButton jfxbIniciarCronometro;
 
     @FXML
-    private Label lNomeTimeAPontos;
+    private JFXButton jfxbPausarCronometro;
 
     @FXML
-    private Button bAumentarPontosTimeA;
+    private JFXButton jfxbRestaurarCronometro;
 
     @FXML
-    private Button bDiminuirPontosTimeA;
+    private JFXTextField jfxtfPeriodo;
 
     @FXML
-    private Button bZerarPontos;
+    private JFXButton jfxbAumentarPeriodo;
 
     @FXML
-    private Button bDiminuirPontosTimeB;
+    private JFXButton jfxbDiminuirPeriodo;
 
     @FXML
-    private Button bAumentarPontosTimeB;
+    private JFXButton jfxbRestaurarPeriodo;
 
     @FXML
-    private Label lPontosTimeB;
+    private JFXRadioButton jfxrbPosseLocal;
 
     @FXML
-    private Label lNomeTimeBPontos;
+    private ToggleGroup tgPosse;
 
     @FXML
-    private Label lFaltasSetsTimeA;
+    private JFXRadioButton jfxrbPosseVisitante;
 
     @FXML
-    private Label lNomeTimeAFaltasSets;
+    private JFXCheckBox jfxcbBonusLocal;
 
     @FXML
-    private Button bAumentarFaltasSetsTimeA;
+    private JFXCheckBox jfxcbBonusVisitante;
 
     @FXML
-    private Button bDiminuirFaltasSetsTimeA;
+    private Label lPontosTimeLocal;
 
     @FXML
-    private Button bZerarFaltasSets;
+    private JFXButton jfxbAumentar1PontoTimeLocal;
 
     @FXML
-    private Button bDiminuirFaltasSetsTimeB;
+    private JFXButton jfxbAumentar2PontoTimeLocal;
 
     @FXML
-    private Button bAumentarFaltasSetsTimeB;
+    private JFXButton jfxbAumentar3PontoTimeLocal;
 
     @FXML
-    private Label lFaltasSetsTimeB;
+    private JFXButton jfxbDiminuir1PontoTimeLocal;
 
     @FXML
-    private Label lNomeTimeBFaltasSets;
+    private JFXButton jfxbDiminuir2PontoTimeLocal;
 
     @FXML
-    private TextField tfPropaganda;
+    private JFXButton jfxbDiminuir3PontoTimeLocal;
 
     @FXML
-    private Button bAlterarPropaganda;
+    private Label lPontosTimeVisitante;
 
     @FXML
-    private Button bResetarPropaganda;
+    private JFXButton jfxbAumentar1PontoTimeVisitante;
 
     @FXML
-    private Button bZerarTudo;
+    private JFXButton jfxbAumentar2PontoTimeVisitante;
 
     @FXML
-    void bAlterarPropagandaAction(ActionEvent event) {
+    private JFXButton jfxbAumentar3PontoTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbDiminuir1PontoTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbDiminuir2PontoTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbDiminuir3PontoTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbZerarPontos;
+
+    @FXML
+    private Label lFaltasTimeLocal;
+
+    @FXML
+    private JFXButton jfxbAumentarFaltasTimeLocal;
+
+    @FXML
+    private JFXButton jfxbDiminuirFaltasTimeLocal;
+
+    @FXML
+    private Label lFaltasTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbAumentarFaltasTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbDiminuirFaltasTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbZerarFaltas;
+
+    @FXML
+    private JFXTextField jfxtfJogador;
+
+    @FXML
+    private JFXTextField jfxtfFaltas;
+
+    @FXML
+    private JFXButton jfxbAlterarUltimoJogador;
+
+    @FXML
+    private JFXButton jfxbRestaurarUltimoJogador;
+
+    @FXML
+    private JFXButton jfxbRestaurarTudo;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    @FXML
+    void faivSairOnMouseCliked(MouseEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+    }
+
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
+    }
+
+    @FXML
+    void jfxbAlterarNomeTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarFaltasSetsTimeAAction(ActionEvent event) {
+    void jfxbAlterarNomeTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarFaltasSetsTimeBAction(ActionEvent event) {
+    void jfxbAlterarUltimoJogadorOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarPeriodoAction(ActionEvent event) {
+    void jfxbAumentar1PontoTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarPontosTimeAAction(ActionEvent event) {
+    void jfxbAumentar1PontoTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarPontosTimeBAction(ActionEvent event) {
+    void jfxbAumentar2PontoTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirFaltasSetsTimeAAction(ActionEvent event) {
+    void jfxbAumentar2PontoTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirFaltasSetsTimeBAction(ActionEvent event) {
+    void jfxbAumentar3PontoTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirPeriodoAction(ActionEvent event) {
+    void jfxbAumentar3PontoTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirPontosTimeAAction(ActionEvent event) {
+    void jfxbAumentarFaltasTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bDiminuirPontosTimeBAction(ActionEvent event) {
+    void jfxbAumentarFaltasTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bIniciarCronometroAction(ActionEvent event) {
+    void jfxbAumentarPeriodoOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bPausarCronometroAction(ActionEvent event) {
+    void jfxbDiminuir1PontoTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bResetarPropagandaAction(ActionEvent event) {
+    void jfxbDiminuir1PontoTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bZerarCronometroAction(ActionEvent event) {
+    void jfxbDiminuir2PontoTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bZerarFaltasSetsAction(ActionEvent event) {
+    void jfxbDiminuir2PontoTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bZerarPeriodoAction(ActionEvent event) {
+    void jfxbDiminuir3PontoTimeLocalOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bZerarPontosAction(ActionEvent event) {
+    void jfxbDiminuir3PontoTimeVisitanteOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bZerarTudoAction(ActionEvent event) {
+    void jfxbDiminuirFaltasTimeLocalOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbDiminuirFaltasTimeVisitanteOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbDiminuirPeriodoOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbIniciarCronometroOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbPausarCronometroOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarCronometroOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarNomeTimeLocalOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarNomeTimeVisitanteOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarPeriodoOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarTudoOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarUltimoJogadorOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbZerarFaltasOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbZerarPontosOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxcbBonusLocalOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxcbBonusVisitanteOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxrbPosseLocalOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxrbPosseVisitanteOnAction(ActionEvent event) {
 
     }
 

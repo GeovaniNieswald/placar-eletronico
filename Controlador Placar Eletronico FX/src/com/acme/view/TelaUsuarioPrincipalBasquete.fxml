@@ -1,311 +1,310 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.UsuarioPrincipalBasqueteController">
+<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.UsuarioPrincipalBasqueteController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="44.0" prefWidth="0.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="44.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="92.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="7.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="0.0" percentHeight="22.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="0.0" percentHeight="6.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="0.0" percentHeight="29.5" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="6.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="14.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="5.5" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="92.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="3.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="NaN" prefHeight="0.0" />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="NaN" prefHeight="0.0" />
   </rowConstraints>
    <children>
-      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="28.0" prefWidth="0.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="0.0" percentHeight="38.0" prefHeight="0.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="0.0" percentHeight="62.0" prefHeight="0.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true" GridPane.columnSpan="3" GridPane.rowSpan="3">
+         <image>
+            <Image url="@../resources/imagens/background.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
-               <children>
-                  <Label fx:id="lCronometro" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="50.0" text="0:00" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bIniciarCronometro" mnemonicParsing="false" onAction="#bIniciarCronometroAction" prefHeight="30.0" prefWidth="70.0" text="Iniciar" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bPausarCronometro" mnemonicParsing="false" onAction="#bPausarCronometroAction" prefHeight="30.0" prefWidth="70.0" text="Pausar" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bZerarCronometro" mnemonicParsing="false" onAction="#bZerarCronometroAction" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="28.0" prefWidth="0.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="0.0" percentHeight="38.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" percentHeight="62.0" prefHeight="0.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3">
-               <children>
-                  <Label fx:id="lPeriodo" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="50.0" text="0" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bAumentarPeriodo" mnemonicParsing="false" onAction="#bAumentarPeriodoAction" prefHeight="30.0" prefWidth="70.0" text="+" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bDiminuirPeriodo" mnemonicParsing="false" onAction="#bDiminuirPeriodoAction" prefHeight="30.0" prefWidth="70.0" text="-" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="bZerarPeriodo" mnemonicParsing="false" onAction="#bZerarPeriodoAction" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="28.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="0.0" percentHeight="23.0" prefHeight="0.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" percentHeight="27.0" prefHeight="0.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-               <children>
-                  <Label fx:id="lPontosTimeA" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label fx:id="lNomeTimeAPontos" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time A" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="bAumentarPontosTimeA" mnemonicParsing="false" onAction="#bAumentarPontosTimeAAction" prefHeight="30.0" prefWidth="70.0" text="+" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="bDiminuirPontosTimeA" mnemonicParsing="false" onAction="#bDiminuirPontosTimeAAction" prefHeight="30.0" prefWidth="70.0" text="-" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="bZerarPontos" mnemonicParsing="false" onAction="#bZerarPontosAction" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="bDiminuirPontosTimeB" mnemonicParsing="false" onAction="#bDiminuirPontosTimeBAction" prefHeight="30.0" prefWidth="70.0" text="-" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="bAumentarPontosTimeB" mnemonicParsing="false" onAction="#bAumentarPontosTimeBAction" prefHeight="30.0" prefWidth="70.0" text="+" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <Label fx:id="lPontosTimeB" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-               <children>
-                  <Label fx:id="lNomeTimeBPontos" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time B" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="28.0" prefWidth="0.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="36.0" prefWidth="0.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" percentHeight="23.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" percentHeight="25.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="0.0" percentHeight="27.0" prefHeight="0.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-               <children>
-                  <Label fx:id="lFaltasSetsTimeA" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label fx:id="lNomeTimeAFaltasSets" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time A" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="bAumentarFaltasSetsTimeA" mnemonicParsing="false" onAction="#bAumentarFaltasSetsTimeAAction" prefHeight="30.0" prefWidth="70.0" text="+" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="bDiminuirFaltasSetsTimeA" mnemonicParsing="false" onAction="#bDiminuirFaltasSetsTimeAAction" prefHeight="30.0" prefWidth="70.0" text="-" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="bZerarFaltasSets" mnemonicParsing="false" onAction="#bZerarFaltasSetsAction" prefHeight="30.0" prefWidth="70.0" text="Zerar" />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-               <children>
-                  <Button fx:id="bDiminuirFaltasSetsTimeB" mnemonicParsing="false" onAction="#bDiminuirFaltasSetsTimeBAction" prefHeight="30.0" prefWidth="70.0" text="-" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <children>
-                  <Button fx:id="bAumentarFaltasSetsTimeB" mnemonicParsing="false" onAction="#bAumentarFaltasSetsTimeBAction" prefHeight="30.0" prefWidth="70.0" text="+" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <Label fx:id="lFaltasSetsTimeB" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="0" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-               <children>
-                  <Label fx:id="lNomeTimeBFaltasSets" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="Time B" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-      <GridPane style="-fx-border-width: 2; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="65.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="15.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="20.0" prefWidth="0.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <TextField fx:id="tfPropaganda" prefHeight="30.0">
-                     <VBox.margin>
-                        <Insets left="30.0" />
-                     </VBox.margin>
-                  </TextField>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-               <children>
-                  <Button fx:id="bAlterarPropaganda" mnemonicParsing="false" onAction="#bAlterarPropagandaAction" prefHeight="30.0" prefWidth="70.0" text="Alterar" textAlignment="CENTER" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-               <children>
-                  <Button fx:id="bResetarPropaganda" mnemonicParsing="false" onAction="#bResetarPropagandaAction" prefHeight="30.0" prefWidth="70.0" text="Resetar" />
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-         <children>
-            <Label text="Cronômetro" />
+            <Label alignment="CENTER" text="Controlador Placar Eletrônico - Basquete" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
          <children>
-            <Label text="Período" />
+            <FontAwesomeIconView fx:id="faivSair" fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
          </children>
       </VBox>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #56217d;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label text="Pontos" />
+            <Label layoutX="27.0" layoutY="14.0" text="Informações" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="14.0" />
+            <AnchorPane layoutX="27.0" layoutY="35.0" prefHeight="219.0" prefWidth="677.0" style="-fx-border-color: white; -fx-border-radius: 5;">
+               <children>
+                  <JFXTextField fx:id="jfxtfNomeTimeLocal" focusColor="#7d217c" layoutX="18.0" layoutY="20.0" prefHeight="31.0" prefWidth="436.0" promptText="Nome Time Local" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="20.0" />
+                  <JFXButton fx:id="jfxbAlterarNomeTimeLocal" layoutX="470.0" layoutY="23.0" onAction="#jfxbAlterarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.leftAnchor="470.0" AnchorPane.topAnchor="23.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbRestaurarNomeTimeLocal" layoutX="573.0" layoutY="23.0" onAction="#jfxbRestaurarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.leftAnchor="573.0" AnchorPane.topAnchor="23.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXTextField fx:id="jfxtfNomeTimeVisitante" focusColor="#7d217c" layoutX="18.0" layoutY="68.0" prefHeight="31.0" prefWidth="436.0" promptText="Nome Time Visitante" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="68.0" />
+                  <JFXButton fx:id="jfxbAlterarNomeTimeVisitantejfxbAlterarNomeTimeVisitante" layoutX="470.0" layoutY="72.0" onAction="#jfxbAlterarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="72.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbRestaurarNomeTimeVisitante" layoutX="573.0" layoutY="72.0" onAction="#jfxbRestaurarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="72.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXTextField fx:id="jfxtfCronometro" editable="false" focusColor="#7d217c" layoutX="18.0" layoutY="118.0" prefHeight="31.0" prefWidth="334.0" promptText="Cronômetro:                   00:00:00" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="118.0">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXButton fx:id="jfxbIniciarCronometro" layoutX="367.0" layoutY="121.0" onAction="#jfxbIniciarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Iniciar" textFill="WHITE" AnchorPane.leftAnchor="367.0" AnchorPane.topAnchor="121.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbPausarCronometro" layoutX="470.0" layoutY="121.0" onAction="#jfxbPausarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Pausar" textFill="WHITE" AnchorPane.topAnchor="121.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbRestaurarCronometro" layoutX="573.0" layoutY="119.0" onAction="#jfxbRestaurarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="119.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXTextField fx:id="jfxtfPeriodo" editable="false" focusColor="#7d217c" layoutX="17.0" layoutY="161.0" prefHeight="31.0" prefWidth="334.0" promptText="Período:                               1" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="161.0">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXButton fx:id="jfxbAumentarPeriodo" layoutX="367.0" layoutY="169.0" onAction="#jfxbAumentarPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="+" textFill="WHITE" AnchorPane.topAnchor="169.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuirPeriodo" layoutX="470.0" layoutY="169.0" onAction="#jfxbDiminuirPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="-" textFill="WHITE" AnchorPane.topAnchor="169.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbRestaurarPeriodo" layoutX="573.0" layoutY="169.0" onAction="#jfxbRestaurarPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="169.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <Label layoutX="729.0" layoutY="14.0" text="Posse" textFill="WHITE" AnchorPane.leftAnchor="729.0" AnchorPane.topAnchor="14.0" />
+            <AnchorPane layoutX="729.0" layoutY="35.0" prefHeight="85.0" prefWidth="164.0" style="-fx-border-color: white; -fx-border-radius: 5;">
+               <children>
+                  <JFXRadioButton fx:id="jfxrbPosseLocal" layoutX="14.0" layoutY="16.0" onAction="#jfxrbPosseLocalOnAction" prefHeight="21.0" prefWidth="65.0" selected="true" style="-jfx-selected-color: #7d217c; -jfx-unselected-color: white;" text="Local" textFill="WHITE">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tgPosse" />
+                     </toggleGroup>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="jfxrbPosseVisitante" layoutX="14.0" layoutY="48.0" onAction="#jfxrbPosseVisitanteOnAction" prefHeight="21.0" prefWidth="76.0" style="-jfx-selected-color: #7d217c; -jfx-unselected-color: white;" text="Visitante" textFill="WHITE" toggleGroup="$tgPosse">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXRadioButton>
+               </children>
+            </AnchorPane>
+            <Label layoutX="729.0" layoutY="148.0" text="Bônus" textFill="WHITE" AnchorPane.leftAnchor="729.0" AnchorPane.topAnchor="148.0" />
+            <AnchorPane layoutX="729.0" layoutY="169.0" prefHeight="85.0" prefWidth="164.0" style="-fx-border-color: white; -fx-border-radius: 5;">
+               <children>
+                  <JFXCheckBox fx:id="jfxcbBonusLocal" checkedColor="#7d217c" layoutX="29.0" layoutY="15.0" onAction="#jfxcbBonusLocalOnAction" text="Local" textFill="WHITE" unCheckedColor="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXCheckBox>
+                  <JFXCheckBox fx:id="jfxcbBonusVisitante" checkedColor="#7d217c" layoutX="29.0" layoutY="49.0" onAction="#jfxcbBonusVisitanteOnAction" text="Visitante" textFill="WHITE" unCheckedColor="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXCheckBox>
+               </children>
+            </AnchorPane>
+            <Label layoutX="27.0" layoutY="276.0" text="Pontos" textFill="WHITE" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="276.0" />
+            <AnchorPane layoutX="27.0" layoutY="297.0" prefHeight="205.0" prefWidth="507.0" style="-fx-border-color: white; -fx-border-radius: 5;" AnchorPane.topAnchor="297.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="8.0" prefHeight="190.0" prefWidth="24.0" text="L&#10;O&#10;C&#10;A&#10;L" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="14.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lPontosTimeLocal" alignment="CENTER" layoutX="48.0" layoutY="19.0" prefHeight="21.0" prefWidth="151.0" text="0" textFill="WHITE" />
+                  <JFXButton fx:id="jfxbAumentar1PontoTimeLocal" layoutX="48.0" layoutY="149.0" onAction="#jfxbAumentar1PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+ 1" textFill="WHITE" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="148.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbAumentar2PontoTimeLocal" layoutX="48.0" layoutY="102.0" onAction="#jfxbAumentar2PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+ 2" textFill="WHITE" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="102.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbAumentar3PontoTimeLocal" layoutX="48.0" layoutY="54.0" onAction="#jfxbAumentar3PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+ 3" textFill="WHITE" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="55.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuir1PontoTimeLocal" layoutX="137.0" layoutY="148.0" onAction="#jfxbDiminuir1PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="- 1" textFill="WHITE" AnchorPane.leftAnchor="136.0" AnchorPane.topAnchor="148.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuir2PontoTimeLocal" layoutX="137.0" layoutY="101.0" onAction="#jfxbDiminuir2PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="- 2" textFill="WHITE" AnchorPane.leftAnchor="136.0" AnchorPane.topAnchor="102.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuir3PontoTimeLocal" layoutX="136.0" layoutY="54.0" onAction="#jfxbDiminuir3PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="- 3" textFill="WHITE" AnchorPane.leftAnchor="136.0" AnchorPane.topAnchor="55.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <Label alignment="CENTER" layoutX="469.0" layoutY="8.0" prefHeight="190.0" prefWidth="24.0" text="V&#10;I&#10;S&#10;I&#10;T" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" AnchorPane.rightAnchor="14.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lPontosTimeVisitante" alignment="CENTER" layoutX="306.0" layoutY="19.0" prefHeight="21.0" prefWidth="151.0" text="0" textFill="WHITE" />
+                  <JFXButton fx:id="jfxbAumentar1PontoTimeVisitante" layoutX="307.0" layoutY="148.0" onAction="#jfxbAumentar1PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+ 1" textFill="WHITE" AnchorPane.leftAnchor="307.0" AnchorPane.topAnchor="148.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbAumentar2PontoTimeVisitante" layoutX="306.0" layoutY="101.0" onAction="#jfxbAumentar2PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+ 2" textFill="WHITE" AnchorPane.leftAnchor="307.0" AnchorPane.topAnchor="102.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbAumentar3PontoTimeVisitante" layoutX="306.0" layoutY="54.0" onAction="#jfxbAumentar3PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+ 3" textFill="WHITE" AnchorPane.leftAnchor="307.0" AnchorPane.topAnchor="55.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuir1PontoTimeVisitante" layoutX="394.0" layoutY="148.0" onAction="#jfxbDiminuir1PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="- 1" textFill="WHITE" AnchorPane.leftAnchor="392.0" AnchorPane.topAnchor="148.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuir2PontoTimeVisitante" layoutX="392.0" layoutY="101.0" onAction="#jfxbDiminuir2PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="- 2" textFill="WHITE" AnchorPane.leftAnchor="392.0" AnchorPane.topAnchor="102.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuir3PontoTimeVisitante" layoutX="392.0" layoutY="54.0" onAction="#jfxbDiminuir3PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="- 3" textFill="WHITE" AnchorPane.leftAnchor="392.0" AnchorPane.topAnchor="55.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbZerarPontos" layoutX="221.0" layoutY="148.0" onAction="#jfxbZerarPontosOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="Zerar" textFill="WHITE" AnchorPane.leftAnchor="221.0" AnchorPane.topAnchor="148.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <Label layoutX="559.0" layoutY="276.0" text="Faltas" textFill="WHITE" AnchorPane.leftAnchor="559.0" AnchorPane.topAnchor="276.0" />
+            <AnchorPane layoutX="559.0" layoutY="297.0" prefHeight="205.0" prefWidth="334.0" style="-fx-border-color: white; -fx-border-radius: 5;">
+               <children>
+                  <Label alignment="CENTER" layoutX="12.0" layoutY="21.0" prefHeight="164.0" prefWidth="24.0" text="L&#10;O&#10;C&#10;A&#10;L" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="12.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lFaltasTimeLocal" alignment="CENTER" layoutX="49.0" layoutY="42.0" prefHeight="21.0" prefWidth="65.0" text="0" textFill="WHITE" AnchorPane.leftAnchor="49.0" />
+                  <JFXButton fx:id="jfxbAumentarFaltasTimeLocal" layoutX="49.0" layoutY="80.0" onAction="#jfxbAumentarFaltasTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+" textFill="WHITE" AnchorPane.leftAnchor="49.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuirFaltasTimeLocal" layoutX="49.0" layoutY="133.0" onAction="#jfxbDiminuirFaltasTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="-" textFill="WHITE" AnchorPane.leftAnchor="49.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <Label alignment="CENTER" layoutX="298.0" layoutY="21.0" prefHeight="164.0" prefWidth="24.0" text="V&#10;I&#10;S&#10;I&#10;T" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" AnchorPane.rightAnchor="12.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lFaltasTimeVisitante" alignment="CENTER" layoutX="221.0" layoutY="42.0" prefHeight="21.0" prefWidth="65.0" text="0" textFill="WHITE" AnchorPane.leftAnchor="221.0" />
+                  <JFXButton fx:id="jfxbAumentarFaltasTimeVisitante" layoutX="221.0" layoutY="80.0" onAction="#jfxbAumentarFaltasTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+" textFill="WHITE" AnchorPane.leftAnchor="221.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbDiminuirFaltasTimeVisitante" layoutX="221.0" layoutY="133.0" onAction="#jfxbDiminuirFaltasTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="-" textFill="WHITE" AnchorPane.leftAnchor="221.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbZerarFaltas" layoutX="136.0" layoutY="133.0" onAction="#jfxbZerarFaltasOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="Zerar" textFill="WHITE" AnchorPane.leftAnchor="136.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <Label layoutX="27.0" layoutY="518.0" text="Último jogador a cometer falta" textFill="WHITE" />
+            <AnchorPane layoutX="27.0" layoutY="539.0" prefHeight="85.0" prefWidth="608.0" style="-fx-border-color: white; -fx-border-radius: 5;">
+               <children>
+                  <JFXTextField fx:id="jfxtfJogador" focusColor="#7d217c" layoutX="22.0" layoutY="26.0" prefHeight="31.0" prefWidth="270.0" promptText="Jogador: " style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
+                  <JFXTextField fx:id="jfxtfFaltas" focusColor="#7d217c" layoutX="292.0" layoutY="26.0" prefHeight="31.0" prefWidth="87.0" promptText="Faltas:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
+                  <JFXButton fx:id="jfxbAlterarUltimoJogador" layoutX="396.0" layoutY="29.0" onAction="#jfxbAlterarUltimoJogadorOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.leftAnchor="396.0" AnchorPane.topAnchor="29.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="jfxbRestaurarUltimoJogador" layoutX="499.0" layoutY="29.0" onAction="#jfxbRestaurarUltimoJogadorOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.leftAnchor="499.0" AnchorPane.topAnchor="29.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="jfxbRestaurarTudo" layoutX="704.0" layoutY="566.0" onAction="#jfxbRestaurarTudoOnAction" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #7d217c;" text="Restaurar Tudo" textFill="WHITE" AnchorPane.topAnchor="566.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
          </children>
-      </VBox>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <Label text="Faltas / Sets" />
-         </children>
-      </VBox>
-      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <children>
-            <Label text="Propaganda" />
-         </children>
-      </VBox>
-      <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7">
-         <children>
-            <Button fx:id="bZerarTudo" alignment="CENTER" mnemonicParsing="false" onAction="#bZerarTudoAction" prefHeight="30.0" text="Zerar Tudo" />
-         </children>
-      </VBox>
+      </AnchorPane>
    </children>
 </GridPane>

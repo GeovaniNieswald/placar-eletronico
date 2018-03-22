@@ -67,7 +67,7 @@
                         <Font size="34.0" />
                     </font>
                 </Label>
-                <JFXButton fx:id="jfxbOk" layoutX="309.0" layoutY="321.0" onAction="#jfxbOkOnAction" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #7d217c;" text="OK" textFill="WHITE">
+                <JFXButton fx:id="jfxbOk" layoutX="309.0" layoutY="321.0" onAction="#jfxbOkOnAction" onKeyPressed="#jfxbOkOnKeyPressed" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #7d217c;" text="OK" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>

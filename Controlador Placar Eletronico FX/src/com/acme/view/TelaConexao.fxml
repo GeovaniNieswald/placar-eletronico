@@ -58,8 +58,8 @@
             </Label>
             <JFXTextField fx:id="jfxtfEndereco" focusColor="#7d217c" layoutX="45.0" layoutY="109.0" prefHeight="31.0" prefWidth="251.0" promptText="Endereço" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
             <JFXTextField fx:id="jfxtfLogin" focusColor="#7d217c" layoutX="45.0" layoutY="175.0" prefHeight="31.0" prefWidth="251.0" promptText="Login" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
-            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#7d217c" layoutX="45.0" layoutY="235.0" prefHeight="31.0" prefWidth="251.0" promptText="Senha" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
-            <JFXButton fx:id="jfxbConectar" layoutX="45.0" layoutY="308.0" onAction="#jfxbConectarAction" prefHeight="31.0" prefWidth="251.0" style="-fx-background-color: #7d217c;" text="Conectar" textFill="WHITE">
+            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#7d217c" layoutX="45.0" layoutY="235.0" onKeyPressed="#jfxpfSenhaOnKeyPressed" prefHeight="31.0" prefWidth="251.0" promptText="Senha" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
+            <JFXButton fx:id="jfxbConectar" layoutX="45.0" layoutY="308.0" onAction="#jfxbConectarAction" onKeyPressed="#jfxbConectarOnKeyPressed" prefHeight="31.0" prefWidth="251.0" style="-fx-background-color: #7d217c;" text="Conectar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

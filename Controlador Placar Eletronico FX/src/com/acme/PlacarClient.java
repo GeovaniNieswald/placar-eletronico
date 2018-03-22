@@ -9,15 +9,13 @@ import java.net.Socket;
 
 public class PlacarClient {
 
-    private static BufferedReader in;
-    private static PrintWriter out;
     private static Socket socket;
 
     public static RespostaSocket conectar(String serverAddress, String login, String senha) throws IOException {
         socket = new Socket(serverAddress, 9898);
 
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
         out.println(login);
         out.println(senha);
@@ -37,9 +35,17 @@ public class PlacarClient {
         return RespostaSocket.CONEXAO_RECUSADA;
     }
 
+    public static void desconectar() {
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            // IMPLEMENTAR LOG
+        }
+    }
+
     public static RespostaSocket escolherEsporte(String comando) throws IOException {
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
         out.println(comando);
 
@@ -59,8 +65,8 @@ public class PlacarClient {
     }
 
     public static RespostaSocket verificarSeUsuarioPrincipalEstaConectado() throws IOException {
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
         out.println("#usuario-principal;0;0");
 

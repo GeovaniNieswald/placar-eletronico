@@ -1,6 +1,7 @@
 package com.acme.controller;
 
 import com.acme.MainApp;
+import com.acme.model.Tela;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
@@ -162,19 +163,26 @@ public class UsuarioPrincipalBasqueteController implements Initializable {
     private double yOffset = 0;
 
     @FXML
-    void faivSairOnMouseCliked(MouseEvent event) {
-        System.exit(0);
+    void faivVoltarOnMouseCliked(MouseEvent event) {
+        // Pedir confirmação
+        MainApp.trocarCena(Tela.ESPORTE);
     }
 
     @FXML
-    void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+    void faivSairOnMouseCliked(MouseEvent event) {
+        // Pedir confirmação
+        System.exit(0);
     }
 
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         xOffset = event.getSceneX();
         yOffset = event.getSceneY();
+    }
+
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
     }
 
     @FXML

@@ -66,18 +66,19 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
+        // Pedir confirmação
         System.exit(0);
-    }
-
-    @FXML
-    void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
     }
 
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         xOffset = event.getSceneX();
         yOffset = event.getSceneY();
+    }
+
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
     }
 
     @FXML

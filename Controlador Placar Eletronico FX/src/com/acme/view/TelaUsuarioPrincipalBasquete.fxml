@@ -38,6 +38,18 @@
             <Image url="@../resources/imagens/background.jpg" />
          </image>
       </ImageView>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </children>
+      </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
             <Label alignment="CENTER" text="Controlador Placar Eletrônico - Basquete" textAlignment="CENTER" textFill="WHITE">

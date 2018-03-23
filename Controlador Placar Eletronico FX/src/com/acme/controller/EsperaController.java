@@ -2,6 +2,7 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.PlacarClient;
+import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Tela;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -56,7 +57,7 @@ public class EsperaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         esperandoUsuarioPrincipal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             try {
-                RespostaSocket respostaUsuarioPrincipal = PlacarClient.verificarSeUsuarioPrincipalEstaConectado();
+                RespostaSocket respostaUsuarioPrincipal = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PRINCIPAL);
 
                 if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PRINCIPAL_CONECTADO) {
                     MainApp.trocarCena(Tela.USUARIO_PROPAGANDA);

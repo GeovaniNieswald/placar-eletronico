@@ -2,6 +2,7 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.PlacarClient;
+import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Tela;
 import java.io.IOException;
@@ -43,19 +44,19 @@ public class EsporteController implements Initializable {
 
     private void escolher() {
         try {
-            RespostaSocket respostaComando;
+            RespostaSocket respostaEsporte;
 
             if (jfxrbBasquete.isSelected()) {
-                respostaComando = PlacarClient.escolherEsporte("#esporte;basquete;1");
+                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "basquete");
             } else {
-                respostaComando = PlacarClient.escolherEsporte("#esporte;futsal;1");
+                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "futsal");
             }
 
-            switch (respostaComando) {
-                case COMANDO_ACEITO_BASQUETE:
+            switch (respostaEsporte) {
+                case ESPORTE_ACEITO_BASQUETE:
                     MainApp.trocarCena(Tela.USUARIO_PRINCIPAL_BASQUETE);
                     break;
-                case COMANDO_ACEITO_FUTSAL:
+                case ESPORTE_ACEITO_FUTSAL:
                     MainApp.trocarCena(Tela.USUARIO_PRINCIPAL_FUTSAL);
             }
         } catch (IOException ex) {

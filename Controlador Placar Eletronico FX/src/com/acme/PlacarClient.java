@@ -1,5 +1,6 @@
 package com.acme;
 
+import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,13 +23,11 @@ public class PlacarClient {
 
         String[] respostaConexao = in.readLine().split(";");
 
-        if (respostaConexao[0].equals("#conexao")) {
-            if (respostaConexao[1].equals("ok")) {
-                if (respostaConexao[2].equals("usuario-principal")) {
-                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
-                } else {
-                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
-                }
+        if (respostaConexao[1].equals("ok")) {
+            if (respostaConexao[2].equals("usuario-principal")) {
+                return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
+            } else {
+                return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
             }
         }
 
@@ -43,39 +42,45 @@ public class PlacarClient {
         }
     }
 
-    public static RespostaSocket escolherEsporte(String comando) throws IOException {
+    public static RespostaSocket enviarComando(Comando comando, String... valores) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-        out.println(comando);
+        switch (comando) {
+            case ESCOLHER_ESPORTE:
+                out.println("#esporte;" + valores[0]);
 
-        String[] respostaComando = in.readLine().split(";");
+                String[] respostaEsporte = in.readLine().split(";");
 
-        if (respostaComando[0].equals("#esporte")) {
-            if (respostaComando[1].equals("ok")) {
-                if (respostaComando[2].equals("basquete")) {
-                    return RespostaSocket.COMANDO_ACEITO_BASQUETE;
-                } else {
-                    return RespostaSocket.COMANDO_ACEITO_FUTSAL;
+                if (respostaEsporte[1].equals("ok")) {
+                    if (respostaEsporte[2].equals("basquete")) {
+                        return RespostaSocket.ESPORTE_ACEITO_BASQUETE;
+                    } else {
+                        return RespostaSocket.ESPORTE_ACEITO_FUTSAL;
+                    }
                 }
-            }
+
+                return RespostaSocket.ESPORTE_RECUSADO;
+
+            case VERIFICAR_USUARIO_PRINCIPAL:
+                out.println("#usuario-principal");
+
+                String respostaUsuarioPrincipal[] = in.readLine().split(";");
+
+                if (respostaUsuarioPrincipal[1].equals("ok")) {
+                    return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
+                } else {
+                    return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
+                }
+
+            case SET_TEXTO_INFERIOR_VISOR:
+                if (valores[0].equals("set")) {
+                    out.println("#texto-inferior-visor;set;" + valores[1]);
+                } else {
+
+                }
         }
 
         return RespostaSocket.COMANDO_RECUSADO;
-    }
-
-    public static RespostaSocket verificarSeUsuarioPrincipalEstaConectado() throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-        out.println("#usuario-principal;0;0");
-
-        String resposta[] = in.readLine().split(";");
-
-        if (resposta[0].equals("#usuario-principal") && resposta[1].equals("ok")) {
-            return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
-        } else {
-            return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
-        }
     }
 }

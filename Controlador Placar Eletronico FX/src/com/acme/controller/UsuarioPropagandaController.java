@@ -1,11 +1,16 @@
 package com.acme.controller;
 
 import com.acme.MainApp;
+import com.acme.PlacarClient;
+import com.acme.model.Comando;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -93,7 +98,11 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
-
+        try {
+            PlacarClient.enviarComando(Comando.SET_TEXTO_INFERIOR_VISOR, "set", jfxtfTextoInferior.getText());
+        } catch (IOException ex) {
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML

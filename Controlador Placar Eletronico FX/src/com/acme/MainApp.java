@@ -28,7 +28,7 @@ public class MainApp extends Application {
         stage = primaryStage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
-        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/com/acme/resources/icones/controls(64).png")));
+        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/com/acme/resources/icones/icone.png")));
 
         trocarCena(Tela.CONEXAO);
 

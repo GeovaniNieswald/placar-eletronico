@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/fontes/custom-font.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarFutsalController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/fontes/custom-font.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
@@ -116,7 +116,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="11" GridPane.rowIndex="7">
          <children>
-            <Label styleClass="propaganda" text="TEXTO PROPAGANDA" textFill="RED">
+            <Label fx:id="lTextoInferior" styleClass="propaganda" text="PlACAR ELETRONICO FX" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="96.0" />
                </font>

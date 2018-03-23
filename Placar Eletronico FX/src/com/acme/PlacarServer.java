@@ -1,5 +1,6 @@
 package com.acme;
 
+import com.acme.controller.PlacarController;
 import com.acme.model.Tela;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,9 +16,14 @@ public class PlacarServer extends Thread {
 
     private final Socket socket;
     private static boolean usuarioPrincipalOn;
+    private static PlacarController pc;
 
     public PlacarServer(Socket socket) {
         this.socket = socket;
+    }
+
+    public static void teste(PlacarController pc1) {
+        pc = pc1;
     }
 
     // Método para iniciar o servidor
@@ -63,7 +69,7 @@ public class PlacarServer extends Thread {
                     }
                 }
             } else {
-                out.println("#conexao;not-ok;0");
+                out.println("#conexao;not-ok");
             }
         } catch (IOException ex) {
             // IMPLEMENTAR LOG
@@ -106,7 +112,7 @@ public class PlacarServer extends Thread {
      */
     public static String processarComando(String comando) {
         String[] params = comando.split(";");
-        if (params != null && params.length == 3) {
+        if (params != null) {
             switch (params[0]) {
                 case "#esporte":
                     return comandoEsporte(params);
@@ -122,13 +128,13 @@ public class PlacarServer extends Thread {
                     return comandoCronometro(params);
                 case "#propagandas":
                     return comandoPropagandas(params);
-                case "#visor":
-                    return comandoVisor(params);
+                case "#texto-inferior-visor":
+                    return comandoTextoInferiorVisor(params);
                 default:
-                    return "Comando inválido: " + comando;
+                    return "#comando;not-ok";
             }
         } else {
-            return "Comando inválido: " + comando;
+            return "#comando;not-ok";
         }
     }
 
@@ -159,15 +165,15 @@ public class PlacarServer extends Thread {
 
                 return "#esporte;ok;futsal";
             default:
-                return "#esporte;not-ok;0";
+                return "#esporte;not-ok";
         }
     }
 
     public static String comandoUsuarioPrincipal(String[] params) {
         if (usuarioPrincipalOn) {
-            return "#usuario-principal;ok;1";
+            return "#usuario-principal;ok";
         } else {
-            return "#usuario-principal;not-ok;0";
+            return "#usuario-principal;not-ok";
         }
     }
 
@@ -230,12 +236,16 @@ public class PlacarServer extends Thread {
         }
     }
 
-    public static String comandoVisor(String[] params) {
+    public static String comandoTextoInferiorVisor(String[] params) {
         switch (params[1]) {
             case "set":
+                pc.setTextoInferiorVisor(params[2]);
+
+                return "#texto-inferior-visor;ok";
+            case "reset":
                 return "Set texto do visor: " + params[2];
             default:
-                return "Comando inválido! Parâmetro Tipo = " + params[2];
+                return "#texto-inferior-visor;not-ok";
         }
     }
 }

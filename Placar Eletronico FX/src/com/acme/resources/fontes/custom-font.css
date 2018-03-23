@@ -1,0 +1,19 @@
+.cronometro {
+    -fx-font-family: "DS-Digital";
+    -fx-font-size: 140;
+}
+
+.pontos {
+    -fx-font-family: "DS-Digital";
+    -fx-font-size: 96;
+}
+
+.infos-inferior {
+    -fx-font-family: "DS-Digital";
+    -fx-font-size: 76;
+}
+
+.propaganda {
+    -fx-font-family: "DS-Digital";
+    -fx-font-size: 96;
+}

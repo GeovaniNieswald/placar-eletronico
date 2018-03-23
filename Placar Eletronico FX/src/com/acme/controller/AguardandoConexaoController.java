@@ -1,14 +1,11 @@
 package com.acme.controller;
 
-import com.acme.PlacarServer;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -43,13 +40,6 @@ public class AguardandoConexaoController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         controlePontos = -1;
         df = new SimpleDateFormat("dd/MM/yyyy    -    HH:mm:ss");
-
-        // Inicia o servidor
-        try {
-            PlacarServer.iniciar();
-        } catch (Exception ex) {
-            Logger.getLogger(AguardandoConexaoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         // Relógio em tempo real
         Timeline relogio = new Timeline(new KeyFrame(Duration.ZERO, e -> {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarFutsalController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/fontes/custom-font.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarFutsalController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
@@ -37,7 +37,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Label text="19:35" textFill="RED">
+            <Label styleClass="cronometro" text="19:35" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="140.0" />
                </font>
@@ -51,9 +51,9 @@
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label text="01" textFill="RED">
+            <Label styleClass="pontos" text="01" textFill="RED">
                <font>
-                  <Font name="DS-Digital" size="85.0" />
+                  <Font size="96.0" />
                </font>
             </Label>
          </children>
@@ -65,7 +65,7 @@
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label text="03" textFill="RED">
+            <Label styleClass="pontos" text="03" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="96.0" />
                </font>
@@ -74,7 +74,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <Label text="08" textFill="RED">
+            <Label styleClass="infos-inferior" text="08" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
@@ -88,7 +88,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
          <children>
-            <Label text="05" textFill="RED">
+            <Label styleClass="infos-inferior" text="05" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
@@ -102,7 +102,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
          <children>
-            <Label text="01" textFill="RED">
+            <Label styleClass="infos-inferior" text="01" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
@@ -116,7 +116,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="11" GridPane.rowIndex="7">
          <children>
-            <Label text="TEXTO PROPAGANDA" textFill="RED">
+            <Label styleClass="propaganda" text="TEXTO PROPAGANDA" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="96.0" />
                </font>

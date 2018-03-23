@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -16,28 +14,23 @@ import javafx.util.Duration;
 public class PlacarServer extends Thread {
 
     private final Socket socket;
-    private final int clientNumber;
     private static boolean usuarioPrincipalOn;
 
-    public PlacarServer(Socket socket, int clientNumber) {
+    public PlacarServer(Socket socket) {
         this.socket = socket;
-        this.clientNumber = clientNumber;
-        System.out.println("Nova conexão com operador de placar " + clientNumber + " em " + socket.getLocalAddress());
     }
 
     // Método para iniciar o servidor
-    public static void iniciar() throws Exception {
+    public static void iniciar() {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("O servidor do placar foi iniciado.");
-                int clientNumber = 0;
                 try (ServerSocket listener = new ServerSocket(9898)) {
                     while (true) {
-                        new PlacarServer(listener.accept(), clientNumber++).start();
+                        new PlacarServer(listener.accept()).start();
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(PlacarServer.class.getName()).log(Level.SEVERE, null, ex);
+                    // IMPLEMENTAR LOG
                 }
             }
         });
@@ -73,12 +66,12 @@ public class PlacarServer extends Thread {
                 out.println("#conexao;not-ok;0");
             }
         } catch (IOException ex) {
-            System.out.println("Erro no operador " + clientNumber + ": " + ex);
+            // IMPLEMENTAR LOG
         } finally {
             try {
                 socket.close();
             } catch (IOException ex) {
-                System.out.println("Erro no operador " + clientNumber + ": " + ex.getMessage());
+                // IMPLEMENTAR LOG
             }
         }
     }
@@ -146,11 +139,8 @@ public class PlacarServer extends Thread {
             case "basquete":
                 Timeline telaBasquete = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                     usuarioPrincipalOn = true;
-                    try {
-                        MainApp.trocarCena(Tela.PLACAR_BASQUETE);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PlacarServer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                    MainApp.trocarCena(Tela.PLACAR_BASQUETE);
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
@@ -160,11 +150,8 @@ public class PlacarServer extends Thread {
             case "futsal":
                 Timeline telaFutsal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                     usuarioPrincipalOn = true;
-                    try {
-                        MainApp.trocarCena(Tela.PLACAR_FUTSAL);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PlacarServer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                    MainApp.trocarCena(Tela.PLACAR_FUTSAL);
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );

@@ -20,7 +20,7 @@ public class PlacarController implements Initializable {
     @FXML
     private Label lTextoInferior;
 
-    public void setTextoInferiorVisor(String texto) {
+    public void setTextoInferior(String texto) {
         Timeline textoInferior = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             lTextoInferior.setText(texto);
         }),
@@ -36,8 +36,7 @@ public class PlacarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        PlacarServer.teste(this);
-        lTextoInferior.setText("PLACAR ELETRONICO FX");
+        PlacarServer.instanciaPlacarController(this);
     }
 
 }

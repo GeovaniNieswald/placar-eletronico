@@ -1,7 +1,7 @@
 package com.acme;
 
 import com.acme.controller.PlacarController;
-import com.acme.model.Tela;
+import com.acme.model.Cena;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,14 +16,14 @@ public class PlacarServer extends Thread {
 
     private final Socket socket;
     private static boolean usuarioPrincipalOn;
-    private static PlacarController pc;
+    private static PlacarController controller;
 
     public PlacarServer(Socket socket) {
         this.socket = socket;
     }
 
-    public static void teste(PlacarController pc1) {
-        pc = pc1;
+    public static void instanciaPlacarController(PlacarController pc) {
+        controller = pc;
     }
 
     // Método para iniciar o servidor
@@ -105,10 +105,6 @@ public class PlacarServer extends Thread {
     
         Mudar texto que aparece no visor
         #visor;set;TEXTO TESTE
-    
-        Nenhum comando precisa de get, pois a informação nunca precisará ser retornada ao operador
-        A única coisa que é retornada ao operador é uma confirmação de que o comando foi executado
-        Qualquer texto informado que não estiver neste formato deve ser rejeitado pelo servidor
      */
     public static String processarComando(String comando) {
         String[] params = comando.split(";");
@@ -118,6 +114,8 @@ public class PlacarServer extends Thread {
                     return comandoEsporte(params);
                 case "#usuario-principal":
                     return comandoUsuarioPrincipal(params);
+                case "#texto-inferior":
+                    return comandoTextoInferior(params);
                 case "#pontos":
                     return comandoPontos(params);
                 case "#faltaset":
@@ -128,8 +126,6 @@ public class PlacarServer extends Thread {
                     return comandoCronometro(params);
                 case "#propagandas":
                     return comandoPropagandas(params);
-                case "#texto-inferior-visor":
-                    return comandoTextoInferiorVisor(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -138,32 +134,30 @@ public class PlacarServer extends Thread {
         }
     }
 
-    //Comandos abaixo hoje printam somente um retorno
-    //No futuro, eles irão também manipular o valor dos atributos que representam os dados do placar
     public static String comandoEsporte(String[] params) {
         switch (params[1]) {
             case "basquete":
                 Timeline telaBasquete = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                     usuarioPrincipalOn = true;
 
-                    MainApp.trocarCena(Tela.PLACAR_BASQUETE);
+                    MainApp.trocarCena(Cena.PLACAR_BASQUETE);
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
                 telaBasquete.play();
 
-                return "#esporte;ok;basquete";
+                return "#esporte;ok";
             case "futsal":
                 Timeline telaFutsal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                     usuarioPrincipalOn = true;
 
-                    MainApp.trocarCena(Tela.PLACAR_FUTSAL);
+                    MainApp.trocarCena(Cena.PLACAR_FUTSAL);
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
                 telaFutsal.play();
 
-                return "#esporte;ok;futsal";
+                return "#esporte;ok";
             default:
                 return "#esporte;not-ok";
         }
@@ -174,6 +168,19 @@ public class PlacarServer extends Thread {
             return "#usuario-principal;ok";
         } else {
             return "#usuario-principal;not-ok";
+        }
+    }
+
+    public static String comandoTextoInferior(String[] params) {
+        switch (params[1]) {
+            case "alterar":
+                controller.setTextoInferior(params[2]);
+                return "#texto-inferior;ok";
+            case "restaurar":
+                controller.setTextoInferior("PLACAR ELETRONICO FX");
+                return "#texto-inferior;ok";
+            default:
+                return "#texto-inferior;not-ok";
         }
     }
 
@@ -233,19 +240,6 @@ public class PlacarServer extends Thread {
                 return "Mudar propaganda a cada " + params[2] + " segundos";
             default:
                 return "Comando inválido! Parâmetro Tipo = " + params[2];
-        }
-    }
-
-    public static String comandoTextoInferiorVisor(String[] params) {
-        switch (params[1]) {
-            case "set":
-                pc.setTextoInferiorVisor(params[2]);
-
-                return "#texto-inferior-visor;ok";
-            case "reset":
-                return "Set texto do visor: " + params[2];
-            default:
-                return "#texto-inferior-visor;not-ok";
         }
     }
 }

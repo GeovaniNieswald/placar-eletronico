@@ -58,6 +58,10 @@ public class EsporteController implements Initializable {
                     break;
                 case ESPORTE_ACEITO_FUTSAL:
                     MainApp.trocarCena(Cena.USUARIO_PRINCIPAL_FUTSAL);
+                    break;
+                default:
+                // Falar que não foi possível escolher esporte
+                // IMPLEMENTAR LOG
             }
         } catch (IOException ex) {
             // Mostrar erro de conexão

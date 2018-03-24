@@ -103,8 +103,9 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
 
+            default:
+                return RespostaSocket.COMANDO_RECUSADO;
+            // IMPLEMENTAR LOG
         }
-
-        return RespostaSocket.COMANDO_RECUSADO;
     }
 }

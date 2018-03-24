@@ -58,7 +58,7 @@
       </VBox>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #56217d;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <JFXTextField fx:id="jfxtfTextoInferior" focusColor="#7d217c" layoutX="26.0" layoutY="29.0" onAction="#jfxtfTextoInferiorOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Texto inferior placar eletrônico" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
+            <JFXTextField fx:id="jfxtfTextoInferior" focusColor="#7d217c" layoutX="124.0" layoutY="29.0" onAction="#jfxtfTextoInferiorOnAction" prefHeight="31.0" prefWidth="389.0" promptText="PLACAR ELETRONICO FX" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
             <JFXButton fx:id="jfxbAlterarTextoInferior" layoutX="533.0" layoutY="35.0" onAction="#jfxbAlterarTextoInferiorOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -133,6 +133,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
+            <JFXTextField fx:id="jfxtfTextoInferiorL" editable="false" focusColor="WHITE" layoutX="25.0" layoutY="29.0" prefHeight="31.0" prefWidth="99.0" promptText="Texto Inferior:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
          </children>
       </AnchorPane>
    </children>

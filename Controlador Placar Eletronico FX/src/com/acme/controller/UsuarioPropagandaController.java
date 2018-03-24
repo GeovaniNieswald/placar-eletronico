@@ -3,6 +3,7 @@ package com.acme.controller;
 import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.Comando;
+import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -13,11 +14,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Paint;
 
 public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     private FontAwesomeIconView faivSair;
+
+    @FXML
+    private JFXTextField jfxtfTextoInferiorL;
 
     @FXML
     private JFXTextField jfxtfTextoInferior;
@@ -67,6 +72,15 @@ public class UsuarioPropagandaController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    private RespostaSocket respostaComando;
+
+    private void trocarCorJFXTextField(String corUnFocus, String corFocus, JFXTextField... componentes) {
+        for (JFXTextField comp : componentes) {
+            comp.setUnFocusColor(Paint.valueOf(corUnFocus));
+            comp.setFocusColor(Paint.valueOf(corFocus));
+        }
+    }
+
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
         // Pedir confirmação
@@ -96,11 +110,25 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
-        try {
-            PlacarClient.enviarComando(Comando.ALTERAR_TEXTO_INFERIOR, jfxtfTextoInferior.getText());
-        } catch (IOException ex) {
-            // Mostrar msg
-            // IMPLEMENTAR LOG
+        String textoInicial = jfxtfTextoInferior.getText();
+        String textoAjustado = textoInicial.replaceAll("[^A-Za-z0-9 ]", "");
+                
+        if (jfxtfTextoInferior.getText().trim().isEmpty() || !textoInicial.equals(textoAjustado)) {
+            trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+        } else {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.ALTERAR_TEXTO_INFERIOR, jfxtfTextoInferior.getText());
+
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfTextoInferiorL);
+                } else {
+                    trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
         }
     }
 
@@ -137,9 +165,17 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
         try {
-            PlacarClient.enviarComando(Comando.RESTAURAR_TEXTO_INFERIOR);
+            respostaComando = PlacarClient.enviarComando(Comando.RESTAURAR_TEXTO_INFERIOR);
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", "white", jfxtfTextoInferiorL);
+                jfxtfTextoInferior.setText("");
+            } else {
+                trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+            }
         } catch (IOException ex) {
-            // Mostrar msg
+            trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
     }

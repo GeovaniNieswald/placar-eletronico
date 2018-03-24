@@ -77,6 +77,8 @@ public class MainApp extends Application {
                     Parent fxmlUsuarioPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaUsuarioPropaganda.fxml"));
                     cenaUsuarioPropaganda = new Scene(fxmlUsuarioPropaganda);
                     configurarCena(cenaUsuarioPropaganda, "Propaganda - Controlador Placar Eletrônico");
+                default:
+                // Implementar log
             }
         } catch (IOException ex) {
             // IMPLEMENTAR LOG

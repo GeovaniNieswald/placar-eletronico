@@ -1,203 +1,69 @@
 package com.acme.controller;
 
+import com.acme.MainApp;
+import com.acme.PlacarClient;
+import com.acme.model.Cena;
+import com.acme.model.Comando;
+import com.acme.model.RespostaSocket;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-public class CadUsuarioController implements Initializable {
+public class CadUsuarioController {
 
     @FXML
-    private Label lCronometro;
+    private JFXTextField jfxtfUsername;
 
     @FXML
-    private Button bIniciarCronometro;
+    private JFXTextField jfxtfPassword;
 
     @FXML
-    private Button bPausarCronometro;
+    private JFXCheckBox jfxcbAdmin;
 
     @FXML
-    private Button bZerarCronometro;
+    private JFXCheckBox jfxcbProp;
 
     @FXML
-    private Label lPeriodo;
+    private JFXCheckBox jfxcbPlacar;
 
     @FXML
-    private Button bAumentarPeriodo;
+    private JFXButton jfxbSalvar;
 
     @FXML
-    private Button bDiminuirPeriodo;
+    private JFXButton jfxbCancelar;
 
     @FXML
-    private Button bZerarPeriodo;
-
-    @FXML
-    private Label lPontosTimeA;
-
-    @FXML
-    private Label lNomeTimeAPontos;
-
-    @FXML
-    private Button bAumentarPontosTimeA;
-
-    @FXML
-    private Button bDiminuirPontosTimeA;
-
-    @FXML
-    private Button bZerarPontos;
-
-    @FXML
-    private Button bDiminuirPontosTimeB;
-
-    @FXML
-    private Button bAumentarPontosTimeB;
-
-    @FXML
-    private Label lPontosTimeB;
-
-    @FXML
-    private Label lNomeTimeBPontos;
-
-    @FXML
-    private Label lFaltasSetsTimeA;
-
-    @FXML
-    private Label lNomeTimeAFaltasSets;
-
-    @FXML
-    private Button bAumentarFaltasSetsTimeA;
-
-    @FXML
-    private Button bDiminuirFaltasSetsTimeA;
-
-    @FXML
-    private Button bZerarFaltasSets;
-
-    @FXML
-    private Button bDiminuirFaltasSetsTimeB;
-
-    @FXML
-    private Button bAumentarFaltasSetsTimeB;
-
-    @FXML
-    private Label lFaltasSetsTimeB;
-
-    @FXML
-    private Label lNomeTimeBFaltasSets;
-
-    @FXML
-    private TextField tfPropaganda;
-
-    @FXML
-    private Button bAlterarPropaganda;
-
-    @FXML
-    private Button bResetarPropaganda;
-
-    @FXML
-    private Button bZerarTudo;
-
-    @FXML
-    void bAlterarPropagandaAction(ActionEvent event) {
+    void jfxbCancelarOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void bAumentarFaltasSetsTimeAAction(ActionEvent event) {
+    void jfxbSalvarOnAction(ActionEvent event) {
+        String nomeuser = jfxtfUsername.getText();
+        String senha = jfxtfPassword.getText();
 
+        try {
+            RespostaSocket resp = PlacarClient.enviarComando(Comando.CRIAR_USUARIO, nomeuser, senha);
+            switch (resp) {
+                case USUARIO_JA_EXISTE:
+                    break;
+                default:
+                    break;
+            }
+        } catch (IOException ex) {
+            // Mostrar erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
-    @FXML
-    void bAumentarFaltasSetsTimeBAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bAumentarPeriodoAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bAumentarPontosTimeAAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bAumentarPontosTimeBAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bDiminuirFaltasSetsTimeAAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bDiminuirFaltasSetsTimeBAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bDiminuirPeriodoAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bDiminuirPontosTimeAAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bDiminuirPontosTimeBAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bIniciarCronometroAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bPausarCronometroAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bResetarPropagandaAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarCronometroAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarFaltasSetsAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarPeriodoAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarPontosAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void bZerarTudoAction(ActionEvent event) {
-
-    }
-
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+
 }

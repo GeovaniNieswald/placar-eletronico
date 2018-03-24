@@ -47,9 +47,12 @@ public class CadUsuarioController {
     void jfxbSalvarOnAction(ActionEvent event) {
         String nomeuser = jfxtfUsername.getText();
         String senha = jfxtfPassword.getText();
+        String admin = String.valueOf(jfxcbAdmin.isSelected());
+        String placar = String.valueOf(jfxcbPlacar.isSelected());
+        String prop = String.valueOf(jfxcbProp.isSelected());
 
         try {
-            RespostaSocket resp = PlacarClient.enviarComando(Comando.CRIAR_USUARIO, nomeuser, senha);
+            RespostaSocket resp = PlacarClient.enviarComando(Comando.CRIAR_USUARIO, "add", nomeuser, senha, admin, placar, prop);
             switch (resp) {
                 case USUARIO_JA_EXISTE:
                     break;

@@ -126,6 +126,8 @@ public class PlacarServer extends Thread {
                     return comandoCronometro(params);
                 case "#propagandas":
                     return comandoPropagandas(params);
+                case "#cadastrouser":
+                    return comandoCadastroUser(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -242,4 +244,13 @@ public class PlacarServer extends Thread {
                 return "Comando inválido! Parâmetro Tipo = " + params[2];
         }
     }
+
+    public static String comandoCadastroUser(String[] params) {
+        switch (params[1]) { //to-do
+            default:
+                return "Deu ruim";
+        }
+    }
+
+
 }

@@ -9,8 +9,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -99,8 +97,9 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
         try {
-            PlacarClient.enviarComando(Comando.SET_TEXTO_INFERIOR_VISOR, "set", jfxtfTextoInferior.getText());
+            PlacarClient.enviarComando(Comando.ALTERAR_TEXTO_INFERIOR, jfxtfTextoInferior.getText());
         } catch (IOException ex) {
+            // Mostrar msg
             // IMPLEMENTAR LOG
         }
     }
@@ -137,7 +136,12 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
-
+        try {
+            PlacarClient.enviarComando(Comando.RESTAURAR_TEXTO_INFERIOR);
+        } catch (IOException ex) {
+            // Mostrar msg
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML

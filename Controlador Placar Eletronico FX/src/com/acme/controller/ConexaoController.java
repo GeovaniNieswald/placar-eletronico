@@ -3,7 +3,7 @@ package com.acme.controller;
 import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.RespostaSocket;
-import com.acme.model.Tela;
+import com.acme.model.Cena;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -82,10 +82,10 @@ public class ConexaoController implements Initializable {
 
                 switch (respostaConexao) {
                     case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
-                        MainApp.trocarCena(Tela.ESPORTE);
+                        MainApp.trocarCena(Cena.ESPORTE);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:
-                        MainApp.trocarCena(Tela.ESPERA);
+                        MainApp.trocarCena(Cena.ESPERA);
                         break;
                     default:
                         PlacarClient.desconectar();

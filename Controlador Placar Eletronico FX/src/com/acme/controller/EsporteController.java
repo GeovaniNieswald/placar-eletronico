@@ -4,7 +4,7 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
-import com.acme.model.Tela;
+import com.acme.model.Cena;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,17 +47,17 @@ public class EsporteController implements Initializable {
             RespostaSocket respostaEsporte;
 
             if (jfxrbBasquete.isSelected()) {
-                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "basquete");
+                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE_BASQUETE);
             } else {
-                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "futsal");
+                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE_FUTSAL);
             }
 
             switch (respostaEsporte) {
                 case ESPORTE_ACEITO_BASQUETE:
-                    MainApp.trocarCena(Tela.USUARIO_PRINCIPAL_BASQUETE);
+                    MainApp.trocarCena(Cena.USUARIO_PRINCIPAL_BASQUETE);
                     break;
                 case ESPORTE_ACEITO_FUTSAL:
-                    MainApp.trocarCena(Tela.USUARIO_PRINCIPAL_FUTSAL);
+                    MainApp.trocarCena(Cena.USUARIO_PRINCIPAL_FUTSAL);
             }
         } catch (IOException ex) {
             // Mostrar erro de conexão
@@ -72,7 +72,7 @@ public class EsporteController implements Initializable {
 
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
-        MainApp.trocarCena(Tela.CONEXAO);
+        MainApp.trocarCena(Cena.CONEXAO);
     }
 
     @FXML

@@ -2,7 +2,9 @@ package com.acme.model;
 
 public enum Comando {
 
-    ESCOLHER_ESPORTE(), VERIFICAR_USUARIO_PRINCIPAL(), SET_TEXTO_INFERIOR_VISOR();
+    // Comandos
+    ESCOLHER_ESPORTE_BASQUETE(), ESCOLHER_ESPORTE_FUTSAL(), VERIFICAR_USUARIO_PRINCIPAL(), ALTERAR_TEXTO_INFERIOR(), 
+    RESTAURAR_TEXTO_INFERIOR();
     
     // Construtor
     private Comando() {

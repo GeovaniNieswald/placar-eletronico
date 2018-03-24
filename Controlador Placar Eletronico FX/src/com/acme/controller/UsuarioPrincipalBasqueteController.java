@@ -1,7 +1,7 @@
 package com.acme.controller;
 
 import com.acme.MainApp;
-import com.acme.model.Tela;
+import com.acme.model.Cena;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
@@ -165,7 +165,7 @@ public class UsuarioPrincipalBasqueteController implements Initializable {
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         // Pedir confirmação
-        MainApp.trocarCena(Tela.ESPORTE);
+        MainApp.trocarCena(Cena.ESPORTE);
     }
 
     @FXML

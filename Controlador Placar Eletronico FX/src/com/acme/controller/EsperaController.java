@@ -4,7 +4,7 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
-import com.acme.model.Tela;
+import com.acme.model.Cena;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
@@ -49,7 +49,7 @@ public class EsperaController implements Initializable {
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         PlacarClient.desconectar();
-        MainApp.trocarCena(Tela.CONEXAO);
+        MainApp.trocarCena(Cena.CONEXAO);
         esperandoUsuarioPrincipal.stop();
     }
 
@@ -60,7 +60,7 @@ public class EsperaController implements Initializable {
                 RespostaSocket respostaUsuarioPrincipal = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PRINCIPAL);
 
                 if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PRINCIPAL_CONECTADO) {
-                    MainApp.trocarCena(Tela.USUARIO_PROPAGANDA);
+                    MainApp.trocarCena(Cena.USUARIO_PROPAGANDA);
                     esperandoUsuarioPrincipal.stop();
                 }
             } catch (IOException ex) {

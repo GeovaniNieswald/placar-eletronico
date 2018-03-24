@@ -45,19 +45,27 @@ public class PlacarClient {
     public static RespostaSocket enviarComando(Comando comando, String... valores) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        String[] respostaComando;
 
         switch (comando) {
-            case ESCOLHER_ESPORTE:
-                out.println("#esporte;" + valores[0]);
+            case ESCOLHER_ESPORTE_BASQUETE:
+                out.println("#esporte;basquete");
 
-                String[] respostaEsporte = in.readLine().split(";");
+                respostaComando = in.readLine().split(";");
 
-                if (respostaEsporte[1].equals("ok")) {
-                    if (respostaEsporte[2].equals("basquete")) {
-                        return RespostaSocket.ESPORTE_ACEITO_BASQUETE;
-                    } else {
-                        return RespostaSocket.ESPORTE_ACEITO_FUTSAL;
-                    }
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.ESPORTE_ACEITO_BASQUETE;
+                }
+
+                return RespostaSocket.ESPORTE_RECUSADO;
+
+            case ESCOLHER_ESPORTE_FUTSAL:
+                out.println("#esporte;futsal");
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.ESPORTE_ACEITO_FUTSAL;
                 }
 
                 return RespostaSocket.ESPORTE_RECUSADO;
@@ -65,20 +73,36 @@ public class PlacarClient {
             case VERIFICAR_USUARIO_PRINCIPAL:
                 out.println("#usuario-principal");
 
-                String respostaUsuarioPrincipal[] = in.readLine().split(";");
+                respostaComando = in.readLine().split(";");
 
-                if (respostaUsuarioPrincipal[1].equals("ok")) {
+                if (respostaComando[1].equals("ok")) {
                     return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
                 } else {
                     return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
                 }
 
-            case SET_TEXTO_INFERIOR_VISOR:
-                if (valores[0].equals("set")) {
-                    out.println("#texto-inferior-visor;set;" + valores[1]);
-                } else {
+            case ALTERAR_TEXTO_INFERIOR:
+                out.println("#texto-inferior;alterar;" + valores[0]);
 
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                } else {
+                    return RespostaSocket.COMANDO_RECUSADO;
                 }
+
+            case RESTAURAR_TEXTO_INFERIOR:
+                out.println("#texto-inferior;restaurar");
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                } else {
+                    return RespostaSocket.COMANDO_RECUSADO;
+                }
+
         }
 
         return RespostaSocket.COMANDO_RECUSADO;

@@ -23,14 +23,17 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         PlacarServer.iniciar();
-        
+
         stage = primaryStage;
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/com/acme/resources/icones/icone.png")));
 
         Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/DS-DIGI.TTF").toExternalForm(), 23.8);
 
+        /*PARA OS DEVS/TESTADORES:
+        * Pra quem testa server/client no local pode comentar essa duas linhas
+        * Aí a tela do placar em fullscreen não atrapalha, e não precisa ter 2 monitores :)
+         */
         trocarCena(Cena.AGUARDANDO_CONEXAO);
-
         stage.show();
     }
 
@@ -41,17 +44,17 @@ public class MainApp extends Application {
                     Parent fxmlAguardandoConexao = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaAguardandoConexao.fxml"));
                     cenaAguardandoConexao = new Scene(fxmlAguardandoConexao);
                     configurarCena(cenaAguardandoConexao, "Aguardando Conexão - Placar Eletrônico FX");
-                    break;                    
+                    break;
                 case PLACAR_BASQUETE:
                     Parent fxmlPlacarBasquete = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarBasquete.fxml"));
                     cenaPlacarBasquete = new Scene(fxmlPlacarBasquete);
                     configurarCena(cenaPlacarBasquete, "Basquete - Placar Eletrônico FX");
-                    break;                    
+                    break;
                 case PLACAR_FUTSAL:
                     Parent fxmlPlacarFutsal = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarFutsal.fxml"));
                     cenaPlacarFutsal = new Scene(fxmlPlacarFutsal);
                     configurarCena(cenaPlacarFutsal, "Futsal - Placar Eletrônico FX");
-                    break;                    
+                    break;
                 case PROPAGANDA:
                     Parent fxmlPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPropaganda.fxml"));
                     cenaPropaganda = new Scene(fxmlPropaganda);

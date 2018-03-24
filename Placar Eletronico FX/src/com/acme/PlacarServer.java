@@ -2,15 +2,24 @@ package com.acme;
 
 import com.acme.controller.PlacarController;
 import com.acme.model.Cena;
+import com.acme.model.DadosXML;
+import com.acme.model.ListaUsuarios;
+import com.acme.model.Usuario;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 public class PlacarServer extends Thread {
 
@@ -246,11 +255,44 @@ public class PlacarServer extends Thread {
     }
 
     public static String comandoCadastroUser(String[] params) {
-        switch (params[1]) { //to-do
+        switch (params[1]) {
+            case "add":
+                try {
+                    //carrega users já existentes, caso existam
+                    ListaUsuarios listaExistente = new ListaUsuarios();
+                    if (DadosXML.isEmpty("ListaUsuarios")) {
+                        listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+                    }
+
+                    //passa a lista antiga para o objeto novo, e inclui o registro novo
+                    ListaUsuarios listaNova = new ListaUsuarios();
+                    listaNova.setUsuarios(listaExistente.getUsuarios());
+                    Usuario novoUser = new Usuario();
+                    novoUser.setUsuario(params[2]);
+                    novoUser.setSenha(params[3]);
+                    novoUser.setAdmin(strToBoolean(params[4]));
+                    novoUser.setPlacar(strToBoolean(params[5]));
+                    novoUser.setPropaganda(strToBoolean(params[6]));
+                    listaNova.getUsuarios().add(novoUser);
+
+                    //grava a lista nova
+                    DadosXML.insert("ListaUsuarios", listaNova);
+                    return "Usuário salvo!";
+                } catch (JAXBException ex) {
+                    return "Erro: " + ex.getMessage();
+                }
             default:
-                return "Deu ruim";
+                return "Comando inválido! Parâmetro Tipo = " + params[1];
         }
     }
 
+    public static boolean strToBoolean(String str) {
+        if ("S".equalsIgnoreCase(str) || "T".equalsIgnoreCase(str) 
+                || "TRUE".equalsIgnoreCase(str)  || "V".equalsIgnoreCase(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

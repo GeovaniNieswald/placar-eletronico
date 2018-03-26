@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <listaUsuarios>
     <usuario>
-        <usuario>gfgdfg</usuario>
-        <senha>6456456</senha>
+        <usuario>admin</usuario>
+        <senha>admin</senha>
+        <admin>true</admin>
+        <placar>true</placar>
+        <propaganda>true</propaganda>
     </usuario>
     <usuario>
-        <usuario>gabrel</usuario>
-        <senha>lalalaliu</senha>
+        <usuario>pedro</usuario>
+        <senha>123</senha>
+        <admin>false</admin>
+        <placar>true</placar>
+        <propaganda>false</propaganda>
+    </usuario>
+    <usuario>
+        <usuario>jailson</usuario>
+        <senha>laranja</senha>
+        <admin>false</admin>
+        <placar>false</placar>
+        <propaganda>true</propaganda>
+    </usuario>
+    <usuario>
+        <usuario>gabriel</usuario>
+        <senha>1</senha>
+        <admin>true</admin>
+        <placar>true</placar>
+        <propaganda>true</propaganda>
     </usuario>
 </listaUsuarios>

@@ -31,11 +31,11 @@ public class DadosXML {
         jaxbMarshaller.marshal(values, arqNovo);
     }
 
-    public static boolean isEmpty(String arquivo){
+    public static boolean isEmpty(String arquivo) {
         File arq = new File(getArquivo(arquivo));
         return arq.length() == 0;
     }
-    
+
     private static String getArquivo(String arquivo) {
         return ARQUIVOS.get(arquivo);
     }

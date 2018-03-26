@@ -6,20 +6,15 @@ import com.acme.model.DadosXML;
 import com.acme.model.ListaUsuarios;
 import com.acme.model.Usuario;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 public class PlacarServer extends Thread {
 
@@ -260,9 +255,9 @@ public class PlacarServer extends Thread {
                 try {
                     //carrega users já existentes, caso existam
                     ListaUsuarios listaExistente = new ListaUsuarios();
-                    if (DadosXML.isEmpty("ListaUsuarios")) {
+                    if (!DadosXML.isEmpty("ListaUsuarios")) {
                         listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
-                    }
+                    } 
 
                     //passa a lista antiga para o objeto novo, e inclui o registro novo
                     ListaUsuarios listaNova = new ListaUsuarios();
@@ -277,7 +272,7 @@ public class PlacarServer extends Thread {
 
                     //grava a lista nova
                     DadosXML.insert("ListaUsuarios", listaNova);
-                    return "Usuário salvo!";
+                    return "Usuário salvo!;ok";
                 } catch (JAXBException ex) {
                     return "Erro: " + ex.getMessage();
                 }

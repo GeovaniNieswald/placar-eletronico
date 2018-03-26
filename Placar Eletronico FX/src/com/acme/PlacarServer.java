@@ -67,6 +67,8 @@ public class PlacarServer extends Thread {
                     out.println("#conexao;ok;usuario-placar");
                 } else if (u.isPropaganda()) {
                     out.println("#conexao;ok;usuario-propaganda");
+                } else {
+                    out.println("#conexao;not-ok");
                 }
 
                 while (true) {

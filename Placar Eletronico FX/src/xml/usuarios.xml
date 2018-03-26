@@ -28,4 +28,11 @@
         <placar>true</placar>
         <propaganda>true</propaganda>
     </usuario>
+    <usuario>
+        <usuario>geo</usuario>
+        <senha>geo</senha>
+        <admin>true</admin>
+        <placar>true</placar>
+        <propaganda>true</propaganda>
+    </usuario>
 </listaUsuarios>

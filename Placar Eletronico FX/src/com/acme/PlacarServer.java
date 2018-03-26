@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -55,12 +57,15 @@ public class PlacarServer extends Thread {
 
             String login = in.readLine();
             String senha = in.readLine();
+            Usuario u = new Usuario();
 
             // Fazer a validação de usuario e senha
-            if ((login.equals("geo") || login.equals("pedro")) && senha.equals("geo")) {
-                if (login.equals("geo")) { // verificar quais as permições do usuario
+            if (validaLogin(login, senha, u)) {
+                if (u.isAdmin()) { // verificar quais as permissões do usuario
                     out.println("#conexao;ok;usuario-principal");
-                } else {
+                } else if (u.isPlacar()) {
+                    out.println("#conexao;ok;usuario-placar");
+                } else if (u.isPropaganda()) {
                     out.println("#conexao;ok;usuario-propaganda");
                 }
 
@@ -257,7 +262,7 @@ public class PlacarServer extends Thread {
                     ListaUsuarios listaExistente = new ListaUsuarios();
                     if (!DadosXML.isEmpty("ListaUsuarios")) {
                         listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
-                    } 
+                    }
 
                     //passa a lista antiga para o objeto novo, e inclui o registro novo
                     ListaUsuarios listaNova = new ListaUsuarios();
@@ -282,12 +287,36 @@ public class PlacarServer extends Thread {
     }
 
     public static boolean strToBoolean(String str) {
-        if ("S".equalsIgnoreCase(str) || "T".equalsIgnoreCase(str) 
-                || "TRUE".equalsIgnoreCase(str)  || "V".equalsIgnoreCase(str)) {
+        if ("S".equalsIgnoreCase(str) || "T".equalsIgnoreCase(str)
+                || "TRUE".equalsIgnoreCase(str) || "V".equalsIgnoreCase(str)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public static boolean validaLogin(String login, String senha, Usuario usuario) {
+        try {
+            if (login == null || senha == null) {
+                return false;
+            } else {
+                ListaUsuarios users = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+                for (Usuario u : users.getUsuarios()) {
+                    if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
+                        usuario.setUsuario(u.getUsuario());
+                        usuario.setSenha(u.getSenha());
+                        usuario.setAdmin(u.isAdmin());
+                        usuario.setPlacar(u.isPlacar());
+                        usuario.setPropaganda(u.isPropaganda());
+                        return true;
+                    }
+                }
+            }
+        } catch (JAXBException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
 }

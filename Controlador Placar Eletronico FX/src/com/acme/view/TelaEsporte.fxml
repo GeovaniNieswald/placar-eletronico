@@ -102,5 +102,10 @@
             </JFXRadioButton>
             </children>
         </AnchorPane>
+      <JFXButton fx:id="btnNovoUsuario" onMousePressed="#onMouseClickedbtnNovoUsuario" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #7d217c;" text="Cadastrar usuario" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
     </children>
 </GridPane>

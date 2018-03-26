@@ -82,8 +82,8 @@ public class ConexaoController implements Initializable {
 
                 switch (respostaConexao) {
                     case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
-                        MainApp.trocarCena(Cena.CAD_USUARIO);
-//                        MainApp.trocarCena(Cena.ESPORTE);
+//                        MainApp.trocarCena(Cena.CAD_USUARIO);
+                        MainApp.trocarCena(Cena.ESPORTE);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:
                         MainApp.trocarCena(Cena.ESPERA);

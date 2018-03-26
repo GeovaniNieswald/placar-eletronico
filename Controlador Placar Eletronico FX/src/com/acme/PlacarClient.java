@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class PlacarClient {
 
@@ -104,7 +107,7 @@ public class PlacarClient {
                 }
 
             case CRIAR_USUARIO:
-                out.println("#cadastrouser;" + valores[0] + ";" + valores[1]);
+                out.println("#cadastrouser;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
 
                 respostaComando = in.readLine().split(";");
 
@@ -118,5 +121,15 @@ public class PlacarClient {
                 return RespostaSocket.COMANDO_RECUSADO;
             // IMPLEMENTAR LOG
         }
+    }
+
+    public static void alert(String msg, AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setContentText(msg);
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+
+            }
+        });
     }
 }

@@ -102,6 +102,11 @@ public class EsporteController implements Initializable {
         }
     }
 
+    @FXML
+    void onMouseClickedbtnNovoUsuario(MouseEvent event) {
+        MainApp.trocarCena(Cena.CAD_USUARIO);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

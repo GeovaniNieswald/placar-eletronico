@@ -33,8 +33,8 @@ public class MainApp extends Application {
         * Pra quem testa server/client no local pode comentar essa duas linhas
         * Aí a tela do placar em fullscreen não atrapalha, e não precisa ter 2 monitores :)
          */
-//        trocarCena(Cena.AGUARDANDO_CONEXAO);
-//        stage.show();
+        trocarCena(Cena.AGUARDANDO_CONEXAO);
+        stage.show();
     }
 
     public static void trocarCena(Cena c) {

@@ -20,6 +20,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
+/**
+ * Classe Referente ao controlador da cena de conexão.
+ *
+ * @author Alex Jung Celmer
+ * @author Daniel Frey
+ * @author Gabriel Cavalheiro Ullmann
+ * @author Geovani Alex Nieswald
+ */
 public class ConexaoController implements Initializable {
 
     @FXML
@@ -40,9 +48,18 @@ public class ConexaoController implements Initializable {
     @FXML
     private Label lInfos;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
+    // Variáveis para controlar o deslocamento
+    private double posicaoInicialX = 0;
+    private double posicaoInicialY = 0;
 
+    /**
+     * Método para trocar a cor dos campos TextField.
+     *
+     * @param corUnFocus String - Hexadecimal da cor quando o campo não está com
+     * foco.
+     * @param corFocus String - Hexadecimal da cor quando o campo está com foco.
+     * @param componentes JFXTextField - Varargs que contém os campos.
+     */
     private void trocarCorJFXTextField(String corUnFocus, String corFocus, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setUnFocusColor(Paint.valueOf(corUnFocus));
@@ -50,11 +67,23 @@ public class ConexaoController implements Initializable {
         }
     }
 
+    /**
+     * Método para trocar a cor do campo PasswordField.
+     *
+     * @param corUnFocus String - Hexadecimal da cor quando o campo não está com
+     * foco.
+     * @param corFocus String - Hexadecimal da cor quando o campo está com foco.
+     * @param componente JFXPasswordField - Campo.
+     */
     private void trocarCorJFXPasswordField(String corUnFocus, String corFocus, JFXPasswordField componente) {
         componente.setUnFocusColor(Paint.valueOf(corUnFocus));
         componente.setFocusColor(Paint.valueOf(corFocus));
     }
 
+    /**
+     * Método para conectar ao servidor (placar eletrônico).
+     *
+     */
     private void conectar() {
         lInfos.setText("");
 
@@ -82,7 +111,6 @@ public class ConexaoController implements Initializable {
 
                 switch (respostaConexao) {
                     case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
-//                        MainApp.trocarCena(Cena.CAD_USUARIO);
                         MainApp.trocarCena(Cena.ESPORTE);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:
@@ -104,15 +132,29 @@ public class ConexaoController implements Initializable {
         }
     }
 
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a posição atual
+     * horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
+    /**
+     * Método acionado quando o mouse é arrastado, ele pega a posição atual
+     * horizontal e vertical da cena, faz a subtração pela posição inicial
+     * horizontal e vertical separadamente, e chama o método que move a tela,
+     * passando os valores resultantes dessas subtrações.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML

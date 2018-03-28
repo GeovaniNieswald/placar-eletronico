@@ -16,6 +16,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
+/**
+ * Classe Referente ao controlador da cena de propaganda.
+ *
+ * @author Alex Jung Celmer
+ * @author Daniel Frey
+ * @author Gabriel Cavalheiro Ullmann
+ * @author Geovani Alex Nieswald
+ */
 public class UsuarioPropagandaController implements Initializable {
 
     @FXML
@@ -69,11 +77,20 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     private JFXButton jfxbPararEscalacoes;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
+    // Variáveis para controlar o deslocamento
+    private double posicaoInicialX = 0;
+    private double posicaoInicialY = 0;
 
     private RespostaSocket respostaComando;
 
+    /**
+     * Método para trocar a cor dos campos TextField.
+     *
+     * @param corUnFocus String - Hexadecimal da cor quando o campo não está com
+     * foco.
+     * @param corFocus String - Hexadecimal da cor quando o campo está com foco.
+     * @param componentes JFXTextField - Varargs que contém os campos.
+     */
     private void trocarCorJFXTextField(String corUnFocus, String corFocus, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setUnFocusColor(Paint.valueOf(corUnFocus));
@@ -87,15 +104,29 @@ public class UsuarioPropagandaController implements Initializable {
         System.exit(0);
     }
 
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
+    /**
+     * Método acionado quando o mouse é arrastado, ele pega a posição atual
+     * horizontal e vertical da cena, faz a subtração pela posição inicial
+     * horizontal e vertical separadamente, e chama o método que move a tela,
+     * passando os valores resultantes dessas subtrações.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML
@@ -108,11 +139,17 @@ public class UsuarioPropagandaController implements Initializable {
 
     }
 
+    /**
+     * Método que altera o texto inferior do placar eletrônico, fazendo as
+     * verificações de acentuação e etc.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
         String textoInicial = jfxtfTextoInferior.getText();
         String textoAjustado = textoInicial.replaceAll("[^A-Za-z0-9 ]", "");
-                
+
         if (jfxtfTextoInferior.getText().trim().isEmpty() || !textoInicial.equals(textoAjustado)) {
             trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
         } else {
@@ -162,6 +199,11 @@ public class UsuarioPropagandaController implements Initializable {
 
     }
 
+    /**
+     * Método que restaura o texto inferior do placar eletrônico.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
         try {

@@ -18,6 +18,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+/**
+ * Classe Referente ao controlador da cena de espera.
+ *
+ * @author Alex Jung Celmer
+ * @author Daniel Frey
+ * @author Gabriel Cavalheiro Ullmann
+ * @author Geovani Alex Nieswald
+ */
 public class EsperaController implements Initializable {
 
     @FXML
@@ -26,20 +34,35 @@ public class EsperaController implements Initializable {
     @FXML
     private FontAwesomeIconView faivSair;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
+    // Variáveis para controlar o deslocamento
+    private double posicaoInicialX = 0;
+    private double posicaoInicialY = 0;
 
     private Timeline esperandoUsuarioPrincipal = new Timeline();
 
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
+    /**
+     * Método acionado quando o mouse é arrastado, ele pega a posição atual
+     * horizontal e vertical da cena, faz a subtração pela posição inicial
+     * horizontal e vertical separadamente, e chama o método que move a tela,
+     * passando os valores resultantes dessas subtrações.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML
@@ -54,6 +77,14 @@ public class EsperaController implements Initializable {
         esperandoUsuarioPrincipal.stop();
     }
 
+    /**
+     * Método acionado quando a cena associada a este controlador é iniciada,
+     * ele fica em um loop esperando a conexão de um usuário principal, quando
+     * este se conecta, é exibida a tela de controle de propaganda.
+     *
+     * @param url URL.
+     * @param rb ResourceBundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         esperandoUsuarioPrincipal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -75,6 +106,7 @@ public class EsperaController implements Initializable {
         esperandoUsuarioPrincipal.play();
     }
 
+    // Fazer verificação
     @FXML
     void jfxbNovoUserOnMouseClicked(MouseEvent event) {
         trocarCena(Cena.CAD_USUARIO);

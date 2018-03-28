@@ -16,6 +16,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Classe Referente ao controlador da cena de basquete.
+ *
+ * @author Alex Jung Celmer
+ * @author Daniel Frey
+ * @author Gabriel Cavalheiro Ullmann
+ * @author Geovani Alex Nieswald
+ */
 public class UsuarioPrincipalBasqueteController implements Initializable {
 
     @FXML
@@ -159,8 +167,9 @@ public class UsuarioPrincipalBasqueteController implements Initializable {
     @FXML
     private JFXButton jfxbRestaurarTudo;
 
-    private double xOffset = 0;
-    private double yOffset = 0;
+    // Variáveis para controlar o deslocamento
+    private double posicaoInicialX = 0;
+    private double posicaoInicialY = 0;
 
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
@@ -174,15 +183,29 @@ public class UsuarioPrincipalBasqueteController implements Initializable {
         System.exit(0);
     }
 
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
+    /**
+     * Método acionado quando o mouse é arrastado, ele pega a posição atual
+     * horizontal e vertical da cena, faz a subtração pela posição inicial
+     * horizontal e vertical separadamente, e chama o método que move a tela,
+     * passando os valores resultantes dessas subtrações.
+     *
+     * @param event MouseEvent.
+     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - xOffset, event.getScreenY() - yOffset);
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML

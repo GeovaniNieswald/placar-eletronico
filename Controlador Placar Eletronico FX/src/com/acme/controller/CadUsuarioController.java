@@ -1,6 +1,5 @@
 package com.acme.controller;
 
-import com.acme.MainApp;
 import static com.acme.MainApp.trocarCena;
 import com.acme.PlacarClient;
 import com.acme.model.Cena;
@@ -15,8 +14,15 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
+/**
+ * Classe Referente ao controlador da cena de cadastro de usuário.
+ *
+ * @author Alex Jung Celmer
+ * @author Daniel Frey
+ * @author Gabriel Cavalheiro Ullmann
+ * @author Geovani Alex Nieswald
+ */
 public class CadUsuarioController {
 
     @FXML

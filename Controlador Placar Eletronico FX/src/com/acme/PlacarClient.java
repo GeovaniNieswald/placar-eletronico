@@ -154,6 +154,9 @@ public class PlacarClient {
                 } else {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
+                
+            case SOMAR:
+                out.println("#pontos;"+valores[0]+";"+valores[1]);
 
             // Aqui tem que ir adicionando os case, e no enum adicionar o nome 
             // do comando, acima tem os exemplos garai. 

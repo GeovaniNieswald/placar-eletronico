@@ -46,12 +46,12 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
-            <Label text="LOCAL" textFill="WHITE">
+            <Label fx:id="jfxlNomeTimeLocal" text="LOCAL" textFill="WHITE">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label fx:id="FXplacarLocal" styleClass="pontos" text="01" textFill="RED">
+            <Label styleClass="pontos" text="01" textFill="RED">
                <font>
                   <Font size="96.0" />
                </font>

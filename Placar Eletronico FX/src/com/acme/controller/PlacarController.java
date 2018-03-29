@@ -21,12 +21,11 @@ public class PlacarController implements Initializable {
     private Label lTextoInferior;
     
     @FXML
-    private Label FXplacarLocal;
+    private Label jfxlNomeTimeLocal;
     
-    @FXML
-    private Label lGolsTimeLocal;
-    
-    private int somador;
+    public void setAlterarNomeTimeLocal(String texto){
+        jfxlNomeTimeLocal.setText(texto);
+    }
 
     public void setTextoInferior(String texto) {
         Timeline textoInferior = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -35,21 +34,6 @@ public class PlacarController implements Initializable {
                 new KeyFrame(Duration.seconds(1))
         );
         textoInferior.play();
-    }
-    
-    public void somar(String texto){
-        Integer x = Integer.valueOf(texto);
-        somador += x;
-        String teste = Integer.toString(somador);
-        
-        Timeline pao = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            FXplacarLocal.setText(teste);
-            lGolsTimeLocal.setText(teste);
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        pao.play();
-        
     }
 
     @FXML

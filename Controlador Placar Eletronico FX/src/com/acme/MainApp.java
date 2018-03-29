@@ -41,7 +41,7 @@ public class MainApp extends Application {
      * @param primaryStage Stage - Primeira tela.
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         stage = primaryStage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);

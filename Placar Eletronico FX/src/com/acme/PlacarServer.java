@@ -200,13 +200,14 @@ public class PlacarServer extends Thread {
     public static String comandoPontos(String[] params) {
         switch (params[1]) {
             case "mais":
-                return "Soma pontos: " + params[2];
+                controller.somar(params[2]);
+                return "#pontos;ok";
             case "menos":
                 return "Subtrai pontos: " + params[2];
             case "set":
                 return "Set pontos: " + params[2];
             default:
-                return "Comando inválido! Parâmetro Tipo = " + params[2];
+                return "#pontos;not-ok";
         }
     }
 

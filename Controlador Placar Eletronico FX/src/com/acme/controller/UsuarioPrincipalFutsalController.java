@@ -8,17 +8,13 @@ import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 
 /**
  * Classe Referente ao controlador da cena de futsal.
@@ -124,10 +120,6 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
-    private RespostaSocket respostaComando;
-    
-    private int somador;
-
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         // Pedir confirmação
@@ -167,7 +159,13 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbAlterarNomeTimeLocalOnAction(ActionEvent event) {
+        try {
+            String nomeTimeLocal = jfxtfNomeTimeLocal.getText();
+            RespostaSocket resp = PlacarClient.enviarComando(Comando.ALTERAR_NOME_TIME_LOCAL, "alterar", nomeTimeLocal);
 
+        } catch (Exception ex) {
+
+        }
     }
 
     @FXML
@@ -187,18 +185,7 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbAumentarGolsTimeLocalOnAction(ActionEvent event) {
-        try {
-        
-            respostaComando = PlacarClient.enviarComando(Comando.SOMAR,"mais", "1");
-            somar("1");
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-            } else {
 
-            }
-        } catch (IOException ex) {
-            // Mostrar msg de erro de conexão
-            // IMPLEMENTAR LOG
-        }
     }
 
     @FXML
@@ -284,19 +271,5 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-    }
-    
-    public void somar(String texto){
-        Integer x = Integer.valueOf(texto);
-        somador += x;
-        String teste = Integer.toString(somador);
-        
-        Timeline pao = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            lGolsTimeLocal.setText(teste);
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        pao.play();
-        
     }
 }

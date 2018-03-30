@@ -82,7 +82,7 @@
                </cursor>
             </JFXButton>
             <JFXTextField fx:id="jfxtfNomeTimeVisitante" focusColor="#7d217c" layoutX="30.0" layoutY="92.0" prefHeight="31.0" prefWidth="453.0" promptText="Nome Time Visitante" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="92.0" />
-            <JFXButton fx:id="jfxbAlterarNomeTimeVisitantejfxbAlterarNomeTimeVisitante" layoutX="516.0" layoutY="95.0" onAction="#jfxbAlterarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="95.0">
+            <JFXButton fx:id="jfxbAlterarNomeTimeVisitante" layoutX="516.0" layoutY="95.0" onAction="#jfxbAlterarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="95.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -89,6 +89,18 @@ public class PlacarClient {
         String[] respostaComando;
 
         switch (comando) {
+            case ALTERAR_NOME_TIME_LOCAL:
+                 out.println("#alterar-nome-time-local;alterar");
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                }
+
+                return RespostaSocket.COMANDO_RECUSADO;
+                
+                
             case ESCOLHER_ESPORTE_BASQUETE:
                 out.println("#esporte;basquete");
 

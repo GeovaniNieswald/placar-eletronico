@@ -20,8 +20,8 @@ public enum RespostaSocket {
     USUARIO_JA_EXISTE(),
     // Respostas de comandos
     COMANDO_ACEITO(), COMANDO_RECUSADO();
-
-    // Construtor
+    
+        // Construtor
     private RespostaSocket() {
     }
 }

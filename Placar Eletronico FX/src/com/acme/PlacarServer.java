@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -121,14 +119,16 @@ public class PlacarServer extends Thread {
         String[] params = comando.split(";");
         if (params != null) {
             switch (params[0]) {
-                case "#alterar-nome-time-local":
-                    return comandoAlterarNomeTimeLocal(params);
                 case "#esporte":
                     return comandoEsporte(params);
                 case "#usuario-principal":
                     return comandoUsuarioPrincipal(params);
+                case "#nome-time":
+                    return comandoNomeTime(params);
                 case "#texto-inferior":
                     return comandoTextoInferior(params);
+                case "#cadastro-usuario":
+                    return comandoCadastroUsuario(params);
                 case "#pontos":
                     return comandoPontos(params);
                 case "#faltaset":
@@ -139,24 +139,11 @@ public class PlacarServer extends Thread {
                     return comandoCronometro(params);
                 case "#propagandas":
                     return comandoPropagandas(params);
-                case "#cadastrouser":
-                    return comandoCadastroUser(params);
                 default:
                     return "#comando;not-ok";
             }
         } else {
             return "#comando;not-ok";
-        }
-    }
-    
-public static String comandoAlterarNomeTimeLocal(String[] params) {
-        switch (params[1]) {
-            case "alterar":
-                controller.setAlterarNomeTimeLocal(params[2]);
-
-                return "#alterar-nome-time-local;ok";
-            default:
-                return "#alterar-nome-time-local;not-ok";
         }
     }
 
@@ -165,25 +152,23 @@ public static String comandoAlterarNomeTimeLocal(String[] params) {
             case "basquete":
                 Timeline telaBasquete = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                     usuarioPrincipalOn = true;
-
                     MainApp.trocarCena(Cena.PLACAR_BASQUETE);
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
                 telaBasquete.play();
 
-                return "#esporte;ok";
+                return "#esporte;basquete-ok";
             case "futsal":
                 Timeline telaFutsal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                     usuarioPrincipalOn = true;
-
                     MainApp.trocarCena(Cena.PLACAR_FUTSAL);
                 }),
                         new KeyFrame(Duration.seconds(1))
                 );
                 telaFutsal.play();
 
-                return "#esporte;ok";
+                return "#esporte;futsal-ok";
             default:
                 return "#esporte;not-ok";
         }
@@ -194,6 +179,35 @@ public static String comandoAlterarNomeTimeLocal(String[] params) {
             return "#usuario-principal;ok";
         } else {
             return "#usuario-principal;not-ok";
+        }
+    }
+
+    public static String comandoNomeTime(String[] params) {
+        switch (params[1]) {
+            case "local":
+                switch (params[2]) {
+                    case "alterar":
+                        controller.setNomeTimeLocal(params[3]);
+                        return "#nome-time;ok";
+                    case "restaurar":
+                        controller.setNomeTimeLocal("LOCAL");
+                        return "#nome-time;ok";
+                    default:
+                        return "#nome-time;not-ok";
+                }
+            case "visitante":
+                switch (params[2]) {
+                    case "alterar":
+                        controller.setNomeTimeVisitante(params[3]);
+                        return "#nome-time;ok";
+                    case "restaurar":
+                        controller.setNomeTimeVisitante("VISITANTE");
+                        return "#nome-time;ok";
+                    default:
+                        return "#nome-time;not-ok";
+                }
+            default:
+                return "#nome-time;not-ok";
         }
     }
 
@@ -212,13 +226,35 @@ public static String comandoAlterarNomeTimeLocal(String[] params) {
 
     public static String comandoPontos(String[] params) {
         switch (params[1]) {
-            case "mais":
-                controller.somar(params[2]);
+            case "local":
+                switch (params[2]) {
+                    case "mais":
+                        controller.aumentarPontosTimeLocal(Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    case "menos":
+                        controller.diminuirPontosTimeLocal(Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    case "set":
+                        break;
+                    default:
+                        return "#pontos;not-ok";
+                }
+            case "visitante":
+                switch (params[2]) {
+                    case "mais":
+                        controller.aumentarPontosTimeVisitante(Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    case "menos":
+                        controller.diminuirPontosTimeVisitante(Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    case "set":
+                        break;
+                    default:
+                        return "#pontos;not-ok";
+                }
+            case "zerar":
+                controller.zerarPontos();
                 return "#pontos;ok";
-            case "menos":
-                return "Subtrai pontos: " + params[2];
-            case "set":
-                return "Set pontos: " + params[2];
             default:
                 return "#pontos;not-ok";
         }
@@ -270,7 +306,7 @@ public static String comandoAlterarNomeTimeLocal(String[] params) {
         }
     }
 
-    public static String comandoCadastroUser(String[] params) {
+    public static String comandoCadastroUsuario(String[] params) {
         switch (params[1]) {
             case "add":
                 try {
@@ -286,37 +322,39 @@ public static String comandoAlterarNomeTimeLocal(String[] params) {
                     Usuario novoUser = new Usuario();
                     novoUser.setUsuario(params[2]);
                     novoUser.setSenha(params[3]);
-                    novoUser.setAdmin(strToBoolean(params[4]));
-                    novoUser.setPlacar(strToBoolean(params[5]));
-                    novoUser.setPropaganda(strToBoolean(params[6]));
+                    novoUser.setAdmin(stringParaBoolean(params[4]));
+                    novoUser.setPlacar(stringParaBoolean(params[5]));
+                    novoUser.setPropaganda(stringParaBoolean(params[6]));
                     listaNova.getUsuarios().add(novoUser);
 
                     //grava a lista nova
                     DadosXML.insert("ListaUsuarios", listaNova);
-                    return "Usuário salvo!;ok";
+
+                    return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
-                    return "Erro: " + ex.getMessage();
+                    // IMPLEMENTAR LOG
+                    return "#cadastro-usuario;not-ok";
                 }
             default:
-                return "Comando inválido! Parâmetro Tipo = " + params[1];
+                return "#cadastro-usuario;not-ok";
         }
     }
 
-    public static boolean strToBoolean(String str) {
-        if ("S".equalsIgnoreCase(str) || "T".equalsIgnoreCase(str)
-                || "TRUE".equalsIgnoreCase(str) || "V".equalsIgnoreCase(str)) {
+    private static boolean stringParaBoolean(String str) {
+        if (str.equalsIgnoreCase("S") || str.equalsIgnoreCase("T") || str.equalsIgnoreCase("TRUE") || str.equalsIgnoreCase("V")) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static boolean validaLogin(String login, String senha, Usuario usuario) {
+    private static boolean validaLogin(String login, String senha, Usuario usuario) {
         try {
             if (login == null || senha == null) {
                 return false;
             } else {
                 ListaUsuarios users = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+
                 for (Usuario u : users.getUsuarios()) {
                     if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
                         usuario.setUsuario(u.getUsuario());
@@ -324,15 +362,16 @@ public static String comandoAlterarNomeTimeLocal(String[] params) {
                         usuario.setAdmin(u.isAdmin());
                         usuario.setPlacar(u.isPlacar());
                         usuario.setPropaganda(u.isPropaganda());
+
                         return true;
                     }
                 }
             }
         } catch (JAXBException ex) {
-            ex.printStackTrace();
+            // IMPLEMENTAR LOGIN
             return false;
         }
+
         return false;
     }
-
 }

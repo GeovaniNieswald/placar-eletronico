@@ -19,24 +19,89 @@ public class PlacarController implements Initializable {
 
     @FXML
     private Label lTextoInferior;
-    
-    @FXML
-    private Label jfxlNomeTimeLocal;
-    
-    public void setAlterarNomeTimeLocal(String texto){
-        jfxlNomeTimeLocal.setText(texto);
-    }
 
-    public void setTextoInferior(String texto) {
-        Timeline textoInferior = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            lTextoInferior.setText(texto);
+    @FXML
+    private Label lNomeTimeLocal;
+
+    @FXML
+    private Label lNomeTimeVisitante;
+
+    @FXML
+    private Label lPontosTimeLocal;
+
+    @FXML
+    private Label lPontosTimeVisitante;
+
+    private int pontosTimeLocal;
+    private int pontosTimeVisitante;
+
+    private void linhaDoTempo(Label label, String texto) {
+        Timeline tl = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            label.setText(texto);
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        textoInferior.play();
+        tl.play();
     }
-    public void somar (String texto){
-      //codigo Celmer  
+
+    public void setNomeTimeLocal(String texto) {
+        linhaDoTempo(lNomeTimeLocal, texto);
+    }
+
+    public void setNomeTimeVisitante(String texto) {
+        linhaDoTempo(lNomeTimeVisitante, texto);
+    }
+
+    public void setTextoInferior(String texto) {
+        linhaDoTempo(lTextoInferior, texto);
+    }
+
+    public void aumentarPontosTimeLocal(int pontos) {
+        pontosTimeLocal += pontos;
+
+        if (pontosTimeLocal > 9) {
+            linhaDoTempo(lPontosTimeLocal, pontosTimeLocal + "");
+        } else {
+            linhaDoTempo(lPontosTimeLocal, "0" + pontosTimeLocal);
+        }
+    }
+
+    public void diminuirPontosTimeLocal(int pontos) {
+        pontosTimeLocal -= pontos;
+
+        if (pontosTimeLocal > 9) {
+            linhaDoTempo(lPontosTimeLocal, pontosTimeLocal + "");
+        } else {
+            linhaDoTempo(lPontosTimeLocal, "0" + pontosTimeLocal);
+        }
+    }
+
+    public void aumentarPontosTimeVisitante(int pontos) {
+        pontosTimeVisitante += pontos;
+
+        if (pontosTimeVisitante > 9) {
+            linhaDoTempo(lPontosTimeVisitante, pontosTimeVisitante + "");
+        } else {
+            linhaDoTempo(lPontosTimeVisitante, "0" + pontosTimeVisitante);
+        }
+    }
+
+    public void diminuirPontosTimeVisitante(int pontos) {
+        pontosTimeVisitante -= pontos;
+
+        if (pontosTimeVisitante > 9) {
+            linhaDoTempo(lPontosTimeVisitante, pontosTimeVisitante + "");
+        } else {
+            linhaDoTempo(lPontosTimeVisitante, "0" + pontosTimeVisitante);
+        }
+    }
+
+    public void zerarPontos() {
+        pontosTimeLocal = 0;
+        pontosTimeVisitante = 0;
+
+        linhaDoTempo(lPontosTimeLocal, "00");
+        linhaDoTempo(lPontosTimeVisitante, "00");
     }
 
     @FXML

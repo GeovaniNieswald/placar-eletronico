@@ -46,12 +46,12 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="jfxlNomeTimeLocal" text="LOCAL" textFill="WHITE">
+            <Label fx:id="lNomeTimeLocal" text="LOCAL" textFill="WHITE">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label styleClass="pontos" text="01" textFill="RED">
+            <Label fx:id="lPontosTimeLocal" styleClass="pontos" text="00" textFill="RED">
                <font>
                   <Font size="96.0" />
                </font>
@@ -60,12 +60,12 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
-            <Label text="VISITANTE" textFill="WHITE">
+            <Label fx:id="lNomeTimeVisitante" text="VISITANTE" textFill="WHITE">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label styleClass="pontos" text="03" textFill="RED">
+            <Label fx:id="lPontosTimeVisitante" styleClass="pontos" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="96.0" />
                </font>

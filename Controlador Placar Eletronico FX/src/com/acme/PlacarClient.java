@@ -167,7 +167,7 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
                 
-            case SOMAR:
+             case SOMAR:
                 out.println("#pontos;"+valores[0]+";"+valores[1]);
 
             // Aqui tem que ir adicionando os case, e no enum adicionar o nome 

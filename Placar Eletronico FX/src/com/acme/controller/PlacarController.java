@@ -35,6 +35,9 @@ public class PlacarController implements Initializable {
         );
         textoInferior.play();
     }
+    public void somar (String texto){
+      //codigo Celmer  
+    }
 
     @FXML
     void bFecharAction(ActionEvent event) {

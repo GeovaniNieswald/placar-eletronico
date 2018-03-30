@@ -121,6 +121,8 @@ public class PlacarServer extends Thread {
         String[] params = comando.split(";");
         if (params != null) {
             switch (params[0]) {
+                case "#alterar-nome-time-local":
+                    return comandoAlterarNomeTimeLocal(params);
                 case "#esporte":
                     return comandoEsporte(params);
                 case "#usuario-principal":
@@ -144,6 +146,17 @@ public class PlacarServer extends Thread {
             }
         } else {
             return "#comando;not-ok";
+        }
+    }
+    
+public static String comandoAlterarNomeTimeLocal(String[] params) {
+        switch (params[1]) {
+            case "alterar":
+                controller.setAlterarNomeTimeLocal(params[2]);
+
+                return "#alterar-nome-time-local;ok";
+            default:
+                return "#alterar-nome-time-local;not-ok";
         }
     }
 

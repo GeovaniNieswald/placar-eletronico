@@ -65,7 +65,7 @@ public class CadUsuarioController {
             PlacarClient.alert("Usuário precisa ter pelo menos 1 permissão marcada!", Alert.AlertType.WARNING);
         } else {
             try {
-                RespostaSocket resp = PlacarClient.enviarComando(Comando.CRIAR_USUARIO, "add", nomeuser, senha, admin, placar, prop);
+                RespostaSocket resp = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "add", nomeuser, senha, admin, placar, prop);
                 switch (resp) {
                     case USUARIO_JA_EXISTE:
                         break;

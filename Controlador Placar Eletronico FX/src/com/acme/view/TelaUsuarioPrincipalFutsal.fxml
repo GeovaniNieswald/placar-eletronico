@@ -70,7 +70,7 @@
       </VBox>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #56217d;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <JFXTextField fx:id="jfxtfNomeTimeLocal" focusColor="#7d217c" layoutX="30.0" layoutY="31.0" prefHeight="31.0" prefWidth="453.0" promptText="Nome Time Local" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="31.0" />
+            <JFXTextField fx:id="jfxtfNomeTimeLocal" focusColor="#7d217c" layoutX="162.0" layoutY="31.0" prefHeight="31.0" prefWidth="321.0" promptText="LOCAL" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="31.0" />
             <JFXButton fx:id="jfxbAlterarNomeTimeLocal" layoutX="516.0" layoutY="34.0" onAction="#jfxbAlterarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="34.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -81,13 +81,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfNomeTimeVisitante" focusColor="#7d217c" layoutX="30.0" layoutY="92.0" prefHeight="31.0" prefWidth="453.0" promptText="Nome Time Visitante" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="92.0" />
+            <JFXTextField fx:id="jfxtfNomeTimeVisitante" focusColor="#7d217c" layoutX="184.0" layoutY="92.0" prefHeight="31.0" prefWidth="299.0" promptText="VISITANTE" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="92.0" />
             <JFXButton fx:id="jfxbAlterarNomeTimeVisitante" layoutX="516.0" layoutY="95.0" onAction="#jfxbAlterarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="95.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarImagemDireita" layoutX="639.0" layoutY="95.0" onAction="#jfxbRestaurarImagemDireitaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="95.0">
+            <JFXButton fx:id="jfxbRestaurarNomeTimeVisitante" layoutX="639.0" layoutY="95.0" onAction="#jfxbRestaurarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #7d217c;" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="95.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -140,7 +140,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lGolsTimeLocal" alignment="CENTER" layoutX="51.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" text="0" textFill="WHITE" />
+                  <Label fx:id="lGolsTimeLocal" alignment="CENTER" layoutX="51.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" text="00" textFill="WHITE" />
                   <JFXButton fx:id="jfxbAumentarGolsTimeLocal" layoutX="50.0" layoutY="52.0" onAction="#jfxbAumentarGolsTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+" textFill="WHITE" AnchorPane.leftAnchor="50.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -156,7 +156,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lGolsTimeVisitante" alignment="CENTER" layoutX="222.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" text="0" textFill="WHITE" />
+                  <Label fx:id="lGolsTimeVisitante" alignment="CENTER" layoutX="222.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" text="00" textFill="WHITE" />
                   <JFXButton fx:id="jfxbAumentarGolsTimeVisitante" layoutX="222.0" layoutY="52.0" onAction="#jfxbAumentarGolsTimeVisitante" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #7d217c;" text="+" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -221,6 +221,16 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
+            <JFXTextField fx:id="jfxtfNomeTimeLocalL" editable="false" focusColor="WHITE" layoutX="30.0" layoutY="31.0" prefHeight="31.0" prefWidth="132.0" promptText="Nome Time Local:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField fx:id="jfxtfNomeTimeVisitanteL" editable="false" focusColor="WHITE" layoutX="30.0" layoutY="92.0" prefHeight="31.0" prefWidth="154.0" promptText="Nome Time Visitante:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
          </children>
       </AnchorPane>
    </children>

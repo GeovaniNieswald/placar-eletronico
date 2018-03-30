@@ -60,9 +60,9 @@ public class EsporteController implements Initializable {
             RespostaSocket respostaEsporte;
 
             if (jfxrbBasquete.isSelected()) {
-                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE_BASQUETE);
+                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "basquete");
             } else {
-                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE_FUTSAL);
+                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "futsal");
             }
 
             switch (respostaEsporte) {

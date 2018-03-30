@@ -154,7 +154,7 @@ public class UsuarioPropagandaController implements Initializable {
             trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
         } else {
             try {
-                respostaComando = PlacarClient.enviarComando(Comando.ALTERAR_TEXTO_INFERIOR, jfxtfTextoInferior.getText());
+                respostaComando = PlacarClient.enviarComando(Comando.TEXTO_INFERIOR, "alterar", jfxtfTextoInferior.getText());
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                     trocarCorJFXTextField("#09a104", "#09a104", jfxtfTextoInferiorL);
@@ -207,7 +207,7 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.RESTAURAR_TEXTO_INFERIOR);
+            respostaComando = PlacarClient.enviarComando(Comando.TEXTO_INFERIOR, "restaurar");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorJFXTextField("white", "white", jfxtfTextoInferiorL);

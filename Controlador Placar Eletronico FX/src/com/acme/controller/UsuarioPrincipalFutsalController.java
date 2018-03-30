@@ -11,14 +11,12 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
+import javafx.scene.paint.Paint;
 
 /**
  * Classe Referente ao controlador da cena de futsal.
@@ -31,7 +29,13 @@ import javafx.util.Duration;
 public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
+    private FontAwesomeIconView faivVoltar;
+
+    @FXML
     private FontAwesomeIconView faivSair;
+
+    @FXML
+    private JFXTextField jfxtfNomeTimeLocalL;
 
     @FXML
     private JFXTextField jfxtfNomeTimeLocal;
@@ -46,10 +50,13 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     private JFXTextField jfxtfNomeTimeVisitante;
 
     @FXML
-    private JFXButton jfxbAlterarNomeTimeVisitantejfxbAlterarNomeTimeVisitante;
+    private JFXTextField jfxtfNomeTimeVisitanteL;
 
     @FXML
-    private JFXButton jfxbRestaurarImagemDireita;
+    private JFXButton jfxbAlterarNomeTimeVisitante;
+
+    @FXML
+    private JFXButton jfxbRestaurarNomeTimeVisitante;
 
     @FXML
     private JFXTextField jfxtfCronometro;
@@ -124,14 +131,30 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
-     private RespostaSocket respostaComando;
-    
-    private int somador;
-    
-    @FXML
-    void faivVoltarOnMouseCliked(MouseEvent event) {
-        // Pedir confirmação
-        MainApp.trocarCena(Cena.ESPORTE);
+    private RespostaSocket respostaComando;
+
+    private int pontosTimeLocal;
+    private int pontosTimeVisitante;
+
+    /**
+     * Método para trocar a cor dos campos TextField.
+     *
+     * @param cor String - Hexadecimal da cor.
+     * @param componente JFXTextField - Campo.
+     */
+    private void trocarCorJFXTextField(String cor, JFXTextField componente) {
+        componente.setUnFocusColor(Paint.valueOf(cor));
+        componente.setFocusColor(Paint.valueOf(cor));
+    }
+
+    /**
+     * Método para trocar a cor dos labels.
+     *
+     * @param cor String - Hexadecimal da cor.
+     * @param componente Label.
+     */
+    private void trocarCorLabel(String cor, Label componente) {
+        componente.setTextFill(Paint.valueOf(cor));
     }
 
     @FXML
@@ -140,16 +163,10 @@ public class UsuarioPrincipalFutsalController implements Initializable {
         System.exit(0);
     }
 
-    /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
-    void gpOnMousePressed(MouseEvent event) {
-        posicaoInicialX = event.getSceneX();
-        posicaoInicialY = event.getSceneY();
+    void faivVoltarOnMouseCliked(MouseEvent event) {
+        // Pedir confirmação
+        MainApp.trocarCena(Cena.ESPORTE);
     }
 
     /**
@@ -165,20 +182,58 @@ public class UsuarioPrincipalFutsalController implements Initializable {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
+    }
+
     @FXML
     void jfxbAlterarNomeTimeLocalOnAction(ActionEvent event) {
-        try {
-            String nomeTimeLocal = jfxtfNomeTimeLocal.getText();
-            RespostaSocket resp = PlacarClient.enviarComando(Comando.ALTERAR_NOME_TIME_LOCAL, "alterar", nomeTimeLocal);
+        if (jfxtfNomeTimeLocal.getText().trim().isEmpty() || jfxtfNomeTimeLocal.getText().length() > 15) {
+            trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+        } else {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.NOME_TIME, "local", "alterar", jfxtfNomeTimeLocal.getText());
 
-        } catch (Exception ex) {
-
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", jfxtfNomeTimeLocalL);
+                } else {
+                    trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
         }
     }
 
     @FXML
     void jfxbAlterarNomeTimeVisitanteOnAction(ActionEvent event) {
+        if (jfxtfNomeTimeVisitante.getText().trim().isEmpty() || jfxtfNomeTimeVisitante.getText().length() > 15) {
+            trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+        } else {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.NOME_TIME, "visitante", "alterar", jfxtfNomeTimeVisitante.getText());
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", jfxtfNomeTimeVisitanteL);
+                } else {
+                    trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
@@ -191,25 +246,54 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     }
 
-     @FXML
+    @FXML
     void jfxbAumentarGolsTimeLocalOnAction(ActionEvent event) {
         try {
-        
-            respostaComando = PlacarClient.enviarComando(Comando.SOMAR,"mais", "1");
-            somar("1");
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-            } else {
+            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "local", "mais", "1");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                pontosTimeLocal++;
+
+                if (pontosTimeLocal > 9) {
+                    lGolsTimeLocal.setText(pontosTimeLocal + "");
+                } else {
+                    lGolsTimeLocal.setText("0" + pontosTimeLocal);
+                }
+
+                trocarCorLabel("white", lGolsTimeLocal);
+            } else {
+                trocarCorLabel("red", lGolsTimeLocal);
             }
         } catch (IOException ex) {
+            trocarCorLabel("red", lGolsTimeLocal);
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
     }
-   
+
     @FXML
     void jfxbAumentarGolsTimeVisitante(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "visitante", "mais", "1");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                pontosTimeVisitante++;
+
+                if (pontosTimeVisitante > 9) {
+                    lGolsTimeVisitante.setText(pontosTimeVisitante + "");
+                } else {
+                    lGolsTimeVisitante.setText("0" + pontosTimeVisitante);
+                }
+
+                trocarCorLabel("white", lGolsTimeVisitante);
+            } else {
+                trocarCorLabel("red", lGolsTimeVisitante);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lGolsTimeVisitante);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
@@ -229,12 +313,56 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbDiminuirGolsTimeLocalOnAction(ActionEvent event) {
+        if (pontosTimeLocal > 0) {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "local", "menos", "1");
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    pontosTimeLocal--;
+
+                    if (pontosTimeLocal > 9) {
+                        lGolsTimeLocal.setText(pontosTimeLocal + "");
+                    } else {
+                        lGolsTimeLocal.setText("0" + pontosTimeLocal);
+                    }
+
+                    trocarCorLabel("white", lGolsTimeLocal);
+                } else {
+                    trocarCorLabel("red", lGolsTimeLocal);
+                }
+            } catch (IOException ex) {
+                trocarCorLabel("red", lGolsTimeLocal);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
     void jfxbDiminuirGolsTimeVisitanteOnAction(ActionEvent event) {
+        if (pontosTimeVisitante > 0) {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "visitante", "menos", "1");
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    pontosTimeVisitante--;
+
+                    if (pontosTimeVisitante > 9) {
+                        lGolsTimeVisitante.setText(pontosTimeVisitante + "");
+                    } else {
+                        lGolsTimeVisitante.setText("0" + pontosTimeVisitante);
+                    }
+
+                    trocarCorLabel("white", lGolsTimeVisitante);
+                } else {
+                    trocarCorLabel("red", lGolsTimeVisitante);
+                }
+            } catch (IOException ex) {
+                trocarCorLabel("red", lGolsTimeVisitante);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
@@ -258,13 +386,39 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     }
 
     @FXML
-    void jfxbRestaurarImagemDireitaOnAction(ActionEvent event) {
+    void jfxbRestaurarNomeTimeLocalOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.NOME_TIME, "local", "restaurar", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", jfxtfNomeTimeLocalL);
+                jfxtfNomeTimeLocal.setText("");
+            } else {
+                trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
-    void jfxbRestaurarNomeTimeLocalOnAction(ActionEvent event) {
+    void jfxbRestaurarNomeTimeVisitanteOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.NOME_TIME, "visitante", "restaurar", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", jfxtfNomeTimeVisitanteL);
+                jfxtfNomeTimeVisitante.setText("");
+            } else {
+                trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
@@ -284,24 +438,32 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbZerarGolsOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "zerar", "", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                pontosTimeLocal = 0;
+                pontosTimeVisitante = 0;
+
+                lGolsTimeLocal.setText("00");
+                lGolsTimeVisitante.setText("00");
+
+                trocarCorLabel("white", lGolsTimeLocal);
+                trocarCorLabel("white", lGolsTimeVisitante);
+            } else {
+                trocarCorLabel("red", lGolsTimeLocal);
+                trocarCorLabel("red", lGolsTimeVisitante);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lGolsTimeLocal);
+            trocarCorLabel("red", lGolsTimeVisitante);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-    }
-     public void somar(String texto){
-        Integer x = Integer.valueOf(texto);
-        somador += x;
-        String teste = Integer.toString(somador);
-        
-        Timeline pao = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            lGolsTimeLocal.setText(teste);
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        pao.play();
-        
     }
 }

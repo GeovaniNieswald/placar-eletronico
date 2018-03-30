@@ -89,39 +89,19 @@ public class PlacarClient {
         String[] respostaComando;
 
         switch (comando) {
-            case ALTERAR_NOME_TIME_LOCAL:
-                 out.println("#alterar-nome-time-local;alterar");
+            case ESCOLHER_ESPORTE:
+                out.println("#esporte;" + valores[0]);
 
                 respostaComando = in.readLine().split(";");
 
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
+                switch (respostaComando[1]) {
+                    case "basquete-ok":
+                        return RespostaSocket.ESPORTE_ACEITO_BASQUETE;
+                    case "futsal-ok":
+                        return RespostaSocket.ESPORTE_ACEITO_FUTSAL;
+                    default:
+                        return RespostaSocket.COMANDO_RECUSADO;
                 }
-
-                return RespostaSocket.COMANDO_RECUSADO;
-                
-                
-            case ESCOLHER_ESPORTE_BASQUETE:
-                out.println("#esporte;basquete");
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.ESPORTE_ACEITO_BASQUETE;
-                }
-
-                return RespostaSocket.ESPORTE_RECUSADO;
-
-            case ESCOLHER_ESPORTE_FUTSAL:
-                out.println("#esporte;futsal");
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.ESPORTE_ACEITO_FUTSAL;
-                }
-
-                return RespostaSocket.ESPORTE_RECUSADO;
 
             case VERIFICAR_USUARIO_PRINCIPAL:
                 out.println("#usuario-principal");
@@ -134,8 +114,8 @@ public class PlacarClient {
                     return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
                 }
 
-            case ALTERAR_TEXTO_INFERIOR:
-                out.println("#texto-inferior;alterar;" + valores[0]);
+            case NOME_TIME:
+                out.println("#nome-time;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
 
                 respostaComando = in.readLine().split(";");
 
@@ -145,8 +125,8 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
 
-            case RESTAURAR_TEXTO_INFERIOR:
-                out.println("#texto-inferior;restaurar");
+            case TEXTO_INFERIOR:
+                out.println("#texto-inferior;" + valores[0] + ";" + valores[1]);
 
                 respostaComando = in.readLine().split(";");
 
@@ -156,8 +136,8 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
 
-            case CRIAR_USUARIO:
-                out.println("#cadastrouser;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
+            case CADASTRO_USUARIO:
+                out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
 
                 respostaComando = in.readLine().split(";");
 
@@ -166,9 +146,17 @@ public class PlacarClient {
                 } else {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
-                
-             case SOMAR:
-                out.println("#pontos;"+valores[0]+";"+valores[1]);
+
+            case PONTOS:
+                out.println("#pontos;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                } else {
+                    return RespostaSocket.COMANDO_RECUSADO;
+                }
 
             // Aqui tem que ir adicionando os case, e no enum adicionar o nome 
             // do comando, acima tem os exemplos garai. 

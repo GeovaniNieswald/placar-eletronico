@@ -133,8 +133,8 @@ public class ConexaoController implements Initializable {
     }
 
     /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a posição atual
-     * horizontal e vertical da cena.
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
      *
      * @param event MouseEvent.
      */

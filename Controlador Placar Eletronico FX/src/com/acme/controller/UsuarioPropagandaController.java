@@ -2,6 +2,7 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.PlacarClient;
+import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
@@ -76,6 +77,9 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     private JFXButton jfxbPararEscalacoes;
+
+    @FXML
+    private FontAwesomeIconView faivCadastroUsuario;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -245,6 +249,12 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     void jfxtfTextoInferiorOnAction(ActionEvent event) {
 
+    }
+
+    // Fazer a verificação
+    @FXML
+    void faivCadastroUsuarioOnMouseClicked(MouseEvent event) {
+        MainApp.trocarCena(Cena.CAD_USUARIO);
     }
 
     @Override

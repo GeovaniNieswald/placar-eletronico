@@ -7,8 +7,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="480.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.ConexaoController">
+<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.ConexaoController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="49.0" prefWidth="0.0" />
@@ -32,11 +30,6 @@
       <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ImageView fitHeight="480.0" fitWidth="850.0" pickOnBounds="true" GridPane.rowSpan="6">
-         <image>
-            <Image url="@../resources/imagens/background.jpg" />
-         </image>
-      </ImageView>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
          <children>
             <FontAwesomeIconView fx:id="faivSair" fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
@@ -49,40 +42,24 @@
             </FontAwesomeIconView>
          </children>
       </VBox>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #56217d;" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <AnchorPane id="logo" prefHeight="183.0" prefWidth="416.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="2" GridPane.rowSpan="6">
          <children>
-            <Label layoutX="120.0" layoutY="45.0" text="Conectar-se" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="75.0" prefHeight="31.0" prefWidth="290.0" styleClass="texto" text="Conectar-se" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="jfxtfEndereco" focusColor="#7d217c" layoutX="45.0" layoutY="109.0" prefHeight="31.0" prefWidth="251.0" promptText="Endereço" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
-            <JFXTextField fx:id="jfxtfLogin" focusColor="#7d217c" layoutX="45.0" layoutY="175.0" prefHeight="31.0" prefWidth="251.0" promptText="Login" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
-            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#7d217c" layoutX="45.0" layoutY="235.0" onKeyPressed="#jfxpfSenhaOnKeyPressed" prefHeight="31.0" prefWidth="251.0" promptText="Senha" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
-            <JFXButton fx:id="jfxbConectar" layoutX="45.0" layoutY="308.0" onAction="#jfxbConectarAction" onKeyPressed="#jfxbConectarOnKeyPressed" prefHeight="31.0" prefWidth="251.0" style="-fx-background-color: #7d217c;" text="Conectar" textFill="WHITE">
+            <JFXTextField fx:id="jfxtfEndereco" focusColor="#890e01" layoutX="45.0" layoutY="166.0" prefHeight="31.0" prefWidth="290.0" promptText="Endereço" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="texto" unFocusColor="WHITE" AnchorPane.topAnchor="166.0" />
+            <JFXTextField fx:id="jfxtfLogin" focusColor="#890e01" layoutX="45.0" layoutY="232.0" prefHeight="31.0" prefWidth="290.0" promptText="Login" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="texto" unFocusColor="WHITE" AnchorPane.topAnchor="232.0" />
+            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#890e01" layoutX="45.0" layoutY="298.0" onKeyPressed="#jfxpfSenhaOnKeyPressed" prefHeight="31.0" prefWidth="290.0" promptText="Senha" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="texto" unFocusColor="WHITE" AnchorPane.topAnchor="298.0" />
+            <JFXButton fx:id="jfxbConectar" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="392.0" onAction="#jfxbConectarAction" onKeyPressed="#jfxbConectarOnKeyPressed" prefHeight="34.0" prefWidth="290.0" style="-fx-background-color: #890e01;" styleClass="texto" text="Conectar" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="392.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <Label fx:id="lInfos" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="82.0" prefHeight="21.0" prefWidth="251.0" textAlignment="CENTER" textFill="RED" />
+            <Label fx:id="lInfos" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="140.0" prefHeight="21.0" prefWidth="290.0" styleClass="texto" stylesheets="@../resources/css/custom-css.css" textAlignment="CENTER" textFill="RED" AnchorPane.topAnchor="140.0" />
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="4">
-         <children>
-            <Label prefHeight="80.0" prefWidth="446.0" text="Bem Vindo ao &#10;Controlador de Placar Eletrônico" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="181.0" fitWidth="424.0" opacity="0.91" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/imagens/sports.png" />
-               </image>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
-      </VBox>
    </children>
 </GridPane>

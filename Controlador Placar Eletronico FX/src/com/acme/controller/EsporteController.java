@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
@@ -45,7 +44,7 @@ public class EsporteController implements Initializable {
     private JFXRadioButton jfxrbFutsal;
 
     @FXML
-    private JFXButton jfxbOk;
+    private FontAwesomeIconView faivCadastroUsuario;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -132,7 +131,7 @@ public class EsporteController implements Initializable {
 
     // Fazer a verificação
     @FXML
-    void onMouseClickedbtnNovoUsuario(MouseEvent event) {
+    void faivCadastroUsuarioOnMouseClicked(MouseEvent event) {
         MainApp.trocarCena(Cena.CAD_USUARIO);
     }
 

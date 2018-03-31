@@ -5,8 +5,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="480.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsperaController">
+<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsperaController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="89.0" prefWidth="0.0" />
@@ -29,11 +27,6 @@
       <RowConstraints />
   </rowConstraints>
    <children>
-      <ImageView fitHeight="480.0" fitWidth="850.0" pickOnBounds="true" GridPane.rowSpan="6">
-         <image>
-            <Image url="@../resources/imagens/background.jpg" />
-         </image>
-      </ImageView>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
@@ -58,14 +51,14 @@
             </FontAwesomeIconView>
          </children>
       </VBox>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label layoutX="186.0" layoutY="153.0" text="Esperando a conexão&#10;de um usuário principal" textAlignment="RIGHT" textFill="WHITE">
+            <Label layoutX="194.0" layoutY="161.0" styleClass="texto" text="Esperando a conexão&#10;de um usuário principal" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <JFXSpinner layoutX="501.0" layoutY="153.0" prefHeight="78.0" prefWidth="70.0" />
+            <JFXSpinner layoutX="554.0" layoutY="161.0" prefHeight="78.0" prefWidth="70.0" />
          </children>
       </AnchorPane>
    </children>

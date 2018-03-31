@@ -1,7 +1,6 @@
 package com.acme.controller;
 
 import com.acme.MainApp;
-import static com.acme.MainApp.trocarCena;
 import com.acme.PlacarClient;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
@@ -104,11 +103,5 @@ public class EsperaController implements Initializable {
         );
         esperandoUsuarioPrincipal.setCycleCount(Animation.INDEFINITE);
         esperandoUsuarioPrincipal.play();
-    }
-
-    // Fazer verificação
-    @FXML
-    void jfxbNovoUserOnMouseClicked(MouseEvent event) {
-        trocarCena(Cena.CAD_USUARIO);
     }
 }

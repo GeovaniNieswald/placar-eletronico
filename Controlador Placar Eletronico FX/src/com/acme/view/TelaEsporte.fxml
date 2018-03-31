@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="480.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsporteController">
+<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsporteController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="89.0" prefWidth="0.0" />
@@ -31,11 +32,6 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-        <ImageView fitHeight="480.0" fitWidth="850.0" pickOnBounds="true" GridPane.rowSpan="6">
-            <image>
-                <Image url="@../resources/imagens/background.jpg" />
-            </image>
-        </ImageView>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
             <children>
                 <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
@@ -60,52 +56,65 @@
                 </FontAwesomeIconView>
             </children>
         </VBox>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Label layoutX="236.0" layoutY="35.0" text="Selecione o esporte" textAlignment="RIGHT" textFill="WHITE">
+                <Label layoutX="241.0" layoutY="59.0" styleClass="texto" text="Selecione o esporte" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font size="34.0" />
                     </font>
                 </Label>
-                <JFXButton fx:id="jfxbOk" layoutX="309.0" layoutY="321.0" onAction="#jfxbOkOnAction" onKeyPressed="#jfxbOkOnKeyPressed" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #7d217c;" text="OK" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></JFXButton>
-                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="129.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="563.0">
-                    <image>
-                        <Image url="@../resources/imagens/basquete.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="458.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="234.0">
+                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="497.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="285.0">
                     <image>
                         <Image url="@../resources/imagens/futsal.png" />
                     </image>
                 </ImageView>
-            <JFXRadioButton fx:id="jfxrbBasquete" layoutX="193.0" layoutY="173.0" prefHeight="38.0" prefWidth="142.0" selected="true" style="-jfx-selected-color: #7d217c; -jfx-unselected-color: white;" text="Basquete" textFill="WHITE">
+            <JFXRadioButton fx:id="jfxrbFutsal" layoutX="561.0" layoutY="181.0" prefHeight="38.0" prefWidth="95.0" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" text="Futsal" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                <toggleGroup>
                   <ToggleGroup fx:id="tgEsportes" />
                </toggleGroup>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+               <styleClass>
+                  <String fx:value="texto" />
+                  <String fx:value="esporte" />
+               </styleClass>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="jfxrbFutsal" layoutX="522.0" layoutY="173.0" prefHeight="38.0" prefWidth="95.0" style="-jfx-selected-color: #7d217c; -jfx-unselected-color: white;" text="Futsal" textFill="WHITE" toggleGroup="$tgEsportes">
+            <JFXRadioButton fx:id="jfxrbBasquete" layoutX="216.0" layoutY="181.0" prefHeight="38.0" prefWidth="142.0" selected="true" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" text="Basquete" textFill="WHITE" toggleGroup="$tgEsportes">
                <font>
                   <Font size="27.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <styleClass>
+                  <String fx:value="texto" />
+                  <String fx:value="esporte" />
+               </styleClass>
             </JFXRadioButton>
+                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="152.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="630.0">
+                    <image>
+                        <Image url="@../resources/imagens/basquete.png" />
+                    </image>
+                </ImageView>
+                <JFXButton fx:id="jfxbOk" layoutX="342.0" layoutY="303.0" onAction="#jfxbOkOnAction" onKeyPressed="#jfxbOkOnKeyPressed" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #890e01;" styleClass="texto" text="OK" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
             </children>
         </AnchorPane>
-      <JFXButton fx:id="btnNovoUsuario" onMousePressed="#onMouseClickedbtnNovoUsuario" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #7d217c;" text="Cadastrar usuario" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <FontAwesomeIconView fx:id="faivCadastroUsuario" fill="WHITE" glyphName="USER" onMouseClicked="#faivCadastroUsuarioOnMouseClicked" size="30">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </children>
+      </VBox>
     </children>
 </GridPane>

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -46,6 +47,8 @@ public class MainApp extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/com/acme/resources/icones/icone.png")));
+
+        Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/Comfortaa.ttf").toExternalForm(), 57.8);
 
         trocarCena(Cena.CONEXAO);
 

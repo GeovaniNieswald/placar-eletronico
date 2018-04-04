@@ -15,15 +15,8 @@
         <propaganda>false</propaganda>
     </usuario>
     <usuario>
-        <usuario>jailson</usuario>
-        <senha>laranja</senha>
-        <admin>false</admin>
-        <placar>false</placar>
-        <propaganda>true</propaganda>
-    </usuario>
-    <usuario>
         <usuario>gabriel</usuario>
-        <senha>1</senha>
+        <senha>2208</senha>
         <admin>true</admin>
         <placar>true</placar>
         <propaganda>true</propaganda>
@@ -34,5 +27,12 @@
         <admin>true</admin>
         <placar>true</placar>
         <propaganda>true</propaganda>
+    </usuario>
+    <usuario>
+        <usuario>jailson</usuario>
+        <senha>laranja</senha>
+        <admin>false</admin>
+        <placar>true</placar>
+        <propaganda>false</propaganda>
     </usuario>
 </listaUsuarios>

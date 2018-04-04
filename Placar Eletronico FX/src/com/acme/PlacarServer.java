@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -363,6 +364,45 @@ public class PlacarServer extends Thread {
                     }
                 } catch (JAXBException ex) {
                     return "#cadastro-usuario;not-ok;erro";
+                }
+            case "delete":
+                try {
+                    ListaUsuarios listaExistente = new ListaUsuarios();
+                    ArrayList<Usuario> listaPermanece = new ArrayList<>();
+                    if (!DadosXML.isEmpty("ListaUsuarios")) {
+                        listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+                    }
+                    ListaUsuarios listaAtualizada = new ListaUsuarios();
+                    listaAtualizada.setUsuarios(listaExistente.getUsuarios());
+                    for (Usuario u : listaAtualizada.getUsuarios()) {
+                        if (!u.getUsuario().equals(params[2])) {
+                            listaPermanece.add(u);
+                        }
+                    }
+                    listaAtualizada.setUsuarios(listaPermanece);
+                    DadosXML.insert("ListaUsuarios", listaAtualizada);
+                    return "#cadastro-usuario;ok";
+                } catch (JAXBException ex) {
+                    return "#cadastro-usuario;not-ok";
+                }
+            case "update":
+                try {
+                    ListaUsuarios listaExistente = new ListaUsuarios();
+                    if (!DadosXML.isEmpty("ListaUsuarios")) {
+                        listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+                    }
+                    ListaUsuarios listaAtualizada = new ListaUsuarios();
+                    listaAtualizada.setUsuarios(listaExistente.getUsuarios());
+                    for (Usuario u : listaAtualizada.getUsuarios()) {
+                        if (u.getUsuario().equals(params[2])) {
+                            u.setSenha(params[3]);
+                            break;
+                        }
+                    }
+                    DadosXML.insert("ListaUsuarios", listaAtualizada);
+                    return "#cadastro-usuario;ok";
+                } catch (JAXBException ex) {
+                    return "#cadastro-usuario;not-ok";
                 }
             default:
                 return "#cadastro-usuario;not-ok";

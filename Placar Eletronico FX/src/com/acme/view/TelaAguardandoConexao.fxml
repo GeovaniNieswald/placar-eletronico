@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="1216.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.AguardandoConexaoController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.AguardandoConexaoController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="10.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="80.0" prefWidth="0.0" />
@@ -26,27 +30,9 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label text="Placar Eletrônico FX" textFill="#ff4a00">
+            <Label styleClass="fonte-padrao" text="Placar Eletrônico FX" textFill="#ff4a00">
                <font>
                   <Font size="65.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <Label fx:id="lAguardandoConexao" text="Aguardando Conexão" textFill="WHITE">
-               <font>
-                  <Font size="50.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <children>
-            <Label fx:id="lRelogio" text="22:45:10" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
                </font>
             </Label>
          </children>
@@ -56,5 +42,49 @@
             <Button fx:id="bFechar" mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
          </children>
       </VBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Label prefHeight="73.0" prefWidth="605.0" styleClass="fonte-padrao" text="Aguardando Conexão" textFill="WHITE">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <JFXSpinner prefHeight="216.0" prefWidth="48.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Label fx:id="lData" alignment="CENTER" contentDisplay="CENTER" prefHeight="77.0" prefWidth="595.0" text="04/04/2018" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="font-size-medio" />
+               </styleClass>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="77.0" prefWidth="68.0" text="-" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="font-size-medio" />
+               </styleClass>
+            </Label>
+            <Label fx:id="lHora" alignment="CENTER" contentDisplay="CENTER" prefHeight="77.0" prefWidth="444.0" text="22:45:10" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="font-size-medio" />
+               </styleClass>
+            </Label>
+         </children>
+      </HBox>
    </children>
+   <cursor>
+      <Cursor fx:constant="NONE" />
+   </cursor>
 </GridPane>

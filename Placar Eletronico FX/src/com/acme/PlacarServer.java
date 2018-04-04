@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -59,9 +58,8 @@ public class PlacarServer extends Thread {
             String senha = in.readLine();
             Usuario u = new Usuario();
 
-            // Fazer a validação de usuario e senha
             if (validaLogin(login, senha, u)) {
-                if (u.isAdmin()) { // verificar quais as permissões do usuario
+                if (u.isAdmin()) {
                     out.println("#conexao;ok;usuario-principal");
                 } else if (u.isPlacar()) {
                     out.println("#conexao;ok;usuario-placar");

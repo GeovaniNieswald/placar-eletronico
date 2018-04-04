@@ -1,0 +1,27 @@
+.fonte-digital {
+    -fx-font-family: "DS-Digital";
+}
+
+.cronometro {
+    -fx-font-size: 180;
+}
+
+.pontos {
+    -fx-font-size: 120;
+}
+
+.infos-inferior {
+    -fx-font-size: 76;
+}
+
+.propaganda {
+    -fx-font-size: 96;
+}
+
+.font-size-medio {
+    -fx-font-size: 65;
+}
+
+.fonte-padrao {
+    -fx-font-family: "Comfortaa";
+}

@@ -22,13 +22,13 @@ public class AguardandoConexaoController implements Initializable {
     private Button bFechar;
 
     @FXML
-    private Label lAguardandoConexao;
+    private Label lData;
 
     @FXML
-    private Label lRelogio;
+    private Label lHora;
 
-    private int controlePontos;
-    private DateFormat df;
+    private DateFormat sdfData;
+    private DateFormat sdfHora;
     private Calendar cal;
 
     @FXML
@@ -38,43 +38,19 @@ public class AguardandoConexaoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        controlePontos = -1;
-        df = new SimpleDateFormat("dd/MM/yyyy    -    HH:mm:ss");
+        sdfData = new SimpleDateFormat("dd/MM/yyyy");
+        sdfHora = new SimpleDateFormat("HH:mm:ss");
 
         // Relógio em tempo real
         Timeline relogio = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             cal = GregorianCalendar.getInstance();
-            lRelogio.setText(df.format(cal.getTime()));
+            lData.setText(sdfData.format(cal.getTime()));
+            lHora.setText(sdfHora.format(cal.getTime()));
 
         }),
                 new KeyFrame(Duration.seconds(1))
         );
         relogio.setCycleCount(Animation.INDEFINITE);
         relogio.play();
-
-        // Mensagem de aguardo
-        Timeline aguardando = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            controlePontos++;
-
-            switch (controlePontos) {
-                case 0:
-                    lAguardandoConexao.setText("Aguardando Conexão");
-                    break;
-                case 1:
-                    lAguardandoConexao.setText("Aguardando Conexão.");
-                    break;
-                case 2:
-                    lAguardandoConexao.setText("Aguardando Conexão..");
-                    break;
-                case 3:
-                    lAguardandoConexao.setText("Aguardando Conexão...");
-                    controlePontos = -1;
-                    break;
-            }
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        aguardando.setCycleCount(Animation.INDEFINITE);
-        aguardando.play();
     }
 }

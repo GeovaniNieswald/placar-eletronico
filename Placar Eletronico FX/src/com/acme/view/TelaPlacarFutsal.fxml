@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/fontes/custom-font.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
@@ -28,58 +29,74 @@
       <RowConstraints minHeight="0.0" percentHeight="18.75" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="18.75" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="7.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="18.75" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="3.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="18.75" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Label styleClass="cronometro" text="19:35" textFill="RED">
+            <Label text="19:35" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="140.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="cronometro" />
+               </styleClass>
             </Label>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="lNomeTimeLocal" text="LOCAL" textFill="WHITE">
+            <Label fx:id="lNomeTimeLocal" styleClass="fonte-padrao" text="LOCAL" textFill="WHITE">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label fx:id="lPontosTimeLocal" styleClass="pontos" text="00" textFill="RED">
+            <Label fx:id="lPontosTimeLocal" text="00" textFill="RED">
                <font>
                   <Font size="96.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="pontos" />
+               </styleClass>
             </Label>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="lNomeTimeVisitante" text="VISITANTE" textFill="WHITE">
+            <Label fx:id="lNomeTimeVisitante" styleClass="fonte-padrao" text="VISITANTE" textFill="WHITE">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label fx:id="lPontosTimeVisitante" styleClass="pontos" text="00" textFill="RED">
+            <Label fx:id="lPontosTimeVisitante" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="96.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="pontos" />
+               </styleClass>
             </Label>
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <Label styleClass="infos-inferior" text="08" textFill="RED">
+            <Label text="08" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="infos-inferior" />
+               </styleClass>
             </Label>
-            <Label text="FALTAS" textFill="WHITE">
+            <Label styleClass="fonte-padrao" text="FALTAS" textFill="WHITE">
                <font>
                   <Font size="33.0" />
                </font>
@@ -88,12 +105,16 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
          <children>
-            <Label styleClass="infos-inferior" text="05" textFill="RED">
+            <Label text="05" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="infos-inferior" />
+               </styleClass>
             </Label>
-            <Label text="FALTAS" textFill="WHITE">
+            <Label styleClass="fonte-padrao" text="FALTAS" textFill="WHITE">
                <font>
                   <Font size="33.0" />
                </font>
@@ -102,12 +123,16 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
          <children>
-            <Label styleClass="infos-inferior" text="01" textFill="RED">
+            <Label text="01" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="infos-inferior" />
+               </styleClass>
             </Label>
-            <Label text="PERÍODO" textFill="WHITE">
+            <Label styleClass="fonte-padrao" text="PERÍODO" textFill="WHITE">
                <font>
                   <Font size="33.0" />
                </font>
@@ -116,10 +141,14 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="11" GridPane.rowIndex="7">
          <children>
-            <Label fx:id="lTextoInferior" styleClass="propaganda" text="PlACAR ELETRONICO FX" textFill="RED">
+            <Label fx:id="lTextoInferior" text="PlACAR ELETRONICO FX" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="96.0" />
                </font>
+               <styleClass>
+                  <String fx:value="fonte-digital" />
+                  <String fx:value="propaganda" />
+               </styleClass>
             </Label>
          </children>
       </VBox>

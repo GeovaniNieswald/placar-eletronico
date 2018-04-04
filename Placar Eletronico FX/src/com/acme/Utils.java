@@ -1,7 +1,5 @@
 package com.acme;
 
-import java.util.List;
-
 public class Utils {
 
     public static boolean stringParaBoolean(String str) {
@@ -19,5 +17,4 @@ public class Utils {
             listaStr += separador + novoValor;
         }
     }
-
 }

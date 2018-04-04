@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -322,29 +323,49 @@ public class PlacarServer extends Thread {
                     Usuario novoUser = new Usuario();
                     novoUser.setUsuario(params[2]);
                     novoUser.setSenha(params[3]);
-                    novoUser.setAdmin(stringParaBoolean(params[4]));
-                    novoUser.setPlacar(stringParaBoolean(params[5]));
-                    novoUser.setPropaganda(stringParaBoolean(params[6]));
+                    novoUser.setAdmin(Utils.stringParaBoolean(params[4]));
+                    novoUser.setPlacar(Utils.stringParaBoolean(params[5]));
+                    novoUser.setPropaganda(Utils.stringParaBoolean(params[6]));
                     listaNova.getUsuarios().add(novoUser);
 
                     //grava a lista nova
                     DadosXML.insert("ListaUsuarios", listaNova);
-
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
-                    // IMPLEMENTAR LOG
                     return "#cadastro-usuario;not-ok";
+                }
+            case "get":
+                try {
+                    ListaUsuarios listaExistente;
+                    String listaRetorno = "";
+                    if (!DadosXML.isEmpty("ListaUsuarios")) {
+                        listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+                        for (Usuario u : listaExistente.getUsuarios()) {
+                            if ("all".equalsIgnoreCase(params[2])) {
+                                if (listaRetorno.isEmpty()) {
+                                    listaRetorno += u.getUsuario();
+                                } else {
+                                    listaRetorno += "," + u.getUsuario();
+                                }
+                            } else {
+                                if (u.getUsuario().equalsIgnoreCase(params[2])) {
+                                    if (listaRetorno.isEmpty()) {
+                                        listaRetorno += u.getUsuario();
+                                    } else {
+                                        listaRetorno += "," + u.getUsuario();
+                                    }
+                                }
+                            }
+                        }
+                        return "#cadastro-usuario;ok;" + listaRetorno;
+                    } else {
+                        return "#cadastro-usuario;not-ok;vazio";
+                    }
+                } catch (JAXBException ex) {
+                    return "#cadastro-usuario;not-ok;erro";
                 }
             default:
                 return "#cadastro-usuario;not-ok";
-        }
-    }
-
-    private static boolean stringParaBoolean(String str) {
-        if (str.equalsIgnoreCase("S") || str.equalsIgnoreCase("T") || str.equalsIgnoreCase("TRUE") || str.equalsIgnoreCase("V")) {
-            return true;
-        } else {
-            return false;
         }
     }
 

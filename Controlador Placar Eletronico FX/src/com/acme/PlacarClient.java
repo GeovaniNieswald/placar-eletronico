@@ -141,6 +141,10 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 } else if ("add".equalsIgnoreCase(valores[0])) {
                     out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
+                } else if ("delete".equalsIgnoreCase(valores[0])) {
+                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1]);
+                } else if ("update".equalsIgnoreCase(valores[0])) {
+                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 }
 
                 respostaComando = in.readLine().split(";");
@@ -197,14 +201,4 @@ public class PlacarClient {
         }
     }
 
-    // Vai ser trocado por uma mensagem na própria tela
-    public static void alert(String msg, AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setContentText(msg);
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-
-            }
-        });
-    }
 }

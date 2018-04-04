@@ -40,7 +40,7 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label fx:id="jfxlStatus" layoutX="367.0" layoutY="102.0" />
+            <Label fx:id="jfxlStatus" alignment="CENTER" layoutX="207.0" layoutY="102.0" prefHeight="16.0" prefWidth="364.0" text="WED APR 01 00:00:00 BRT 2018" textAlignment="CENTER" wrapText="true" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
@@ -50,8 +50,9 @@
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <children>
-            <JFXButton fx:id="jfxbTrocaSenha" layoutX="270.0" layoutY="14.0" onMouseClicked="#jfxbTrocaSenhaOnClick" text="Trocar Senha" />
-            <JFXButton fx:id="jfxbExcluirUser" layoutX="429.0" layoutY="14.0" onMouseClicked="#jfxbExcluirUserOnClick" text="Excluir Usuario" />
+            <JFXButton fx:id="jfxbTrocaSenha" layoutX="185.0" layoutY="14.0" onMouseClicked="#jfxbTrocaSenhaOnClick" text="Trocar Senha" />
+            <JFXButton fx:id="jfxbExcluirUser" layoutX="483.0" layoutY="14.0" onMouseClicked="#jfxbExcluirUserOnClick" text="Excluir Usuario" />
+            <JFXButton fx:id="jfxbNovoUser" layoutX="343.0" layoutY="14.0" onMouseClicked="#jfxbNovoUserOnClick" text="Novo Usuario" />
          </children>
       </AnchorPane>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">

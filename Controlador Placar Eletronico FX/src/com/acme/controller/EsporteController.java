@@ -132,7 +132,8 @@ public class EsporteController implements Initializable {
     // Fazer a verificação
     @FXML
     void faivCadastroUsuarioOnMouseClicked(MouseEvent event) {
-        MainApp.trocarCena(Cena.CAD_USUARIO);
+//        MainApp.trocarCena(Cena.CAD_USUARIO);
+        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
     }
 
     @Override

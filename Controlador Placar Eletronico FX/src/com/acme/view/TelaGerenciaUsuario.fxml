@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.GerUsuarioController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="44.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="44.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="4.0" prefWidth="0.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="0.0" percentHeight="7.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="22.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="6.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="29.5" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="6.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="14.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.5" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+         <children>
+            <Label alignment="CENTER" layoutX="186.0" layoutY="50.0" prefHeight="16.0" prefWidth="414.0" text="Gerenciar usuarios" textAlignment="CENTER">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="jfxlStatus" layoutX="367.0" layoutY="102.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+         <children>
+            <JFXListView fx:id="jfxList" layoutX="186.0" prefHeight="216.0" prefWidth="414.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+         <children>
+            <JFXButton fx:id="jfxbTrocaSenha" layoutX="270.0" layoutY="14.0" onMouseClicked="#jfxbTrocaSenhaOnClick" text="Trocar Senha" />
+            <JFXButton fx:id="jfxbExcluirUser" layoutX="429.0" layoutY="14.0" onMouseClicked="#jfxbExcluirUserOnClick" text="Excluir Usuario" />
+         </children>
+      </AnchorPane>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </children>
+      </VBox>
+   </children>
+</GridPane>

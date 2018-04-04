@@ -24,33 +24,33 @@ import javafx.scene.control.Alert;
  * @author Geovani Alex Nieswald
  */
 public class CadUsuarioController {
-
+    
     @FXML
     private JFXTextField jfxtfUsername;
-
+    
     @FXML
     private JFXTextField jfxtfPassword;
-
+    
     @FXML
     private JFXCheckBox jfxcbAdmin;
-
+    
     @FXML
     private JFXCheckBox jfxcbProp;
-
+    
     @FXML
     private JFXCheckBox jfxcbPlacar;
-
+    
     @FXML
     private JFXButton jfxbSalvar;
-
+    
     @FXML
     private JFXButton jfxbCancelar;
-
+    
     @FXML
     void jfxbCancelarOnAction(ActionEvent event) {
         trocarCena(Cena.ESPORTE);
     }
-
+    
     @FXML
     void jfxbSalvarOnAction(ActionEvent event) {
         String nomeuser = jfxtfUsername.getText();
@@ -58,9 +58,11 @@ public class CadUsuarioController {
         String admin = String.valueOf(jfxcbAdmin.isSelected());
         String placar = String.valueOf(jfxcbPlacar.isSelected());
         String prop = String.valueOf(jfxcbProp.isSelected());
-
+        
         if (nomeuser.trim().isEmpty() || senha.trim().isEmpty()) {
             PlacarClient.alert("Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
+        } else if (nomeuser.contains(",") || nomeuser.contains(";")) {
+            PlacarClient.alert("Nome de usuário não pode conter vírgula nem ponto-e-vírgula", Alert.AlertType.WARNING);
         } else if (!(jfxcbAdmin.isSelected() || jfxcbPlacar.isSelected() || jfxcbProp.isSelected())) {
             PlacarClient.alert("Usuário precisa ter pelo menos 1 permissão marcada!", Alert.AlertType.WARNING);
         } else {
@@ -84,9 +86,9 @@ public class CadUsuarioController {
             }
         }
     }
-
+    
     public void initialize(URL url, ResourceBundle rb) {
-
+        
     }
-
+    
 }

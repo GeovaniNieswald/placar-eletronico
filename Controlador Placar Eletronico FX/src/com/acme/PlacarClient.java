@@ -137,7 +137,11 @@ public class PlacarClient {
                 }
 
             case CADASTRO_USUARIO:
-                out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
+                if ("get".equalsIgnoreCase(valores[0])) {
+                    return RespostaSocket.COMANDO_RECUSADO;
+                } else if ("add".equalsIgnoreCase(valores[0])) {
+                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
+                }
 
                 respostaComando = in.readLine().split(";");
 
@@ -163,6 +167,33 @@ public class PlacarClient {
             default:
                 return RespostaSocket.COMANDO_RECUSADO;
             // IMPLEMENTAR LOG
+        }
+    }
+
+    public static String enviarComandoResp(Comando comando, String... valores) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        String[] respostaComando;
+
+        switch (comando) {
+            case CADASTRO_USUARIO:
+                if ("get".equalsIgnoreCase(valores[0])) {
+                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1]);
+                } else if ("add".equalsIgnoreCase(valores[0])) {
+                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
+                }
+                respostaComando = in.readLine().split(";");
+                if ("get".equalsIgnoreCase(valores[0])) {
+                    return respostaComando[2];
+                } else {
+                    if (respostaComando[1].equals("ok")) {
+                        return "ok";
+                    } else {
+                        return "not-ok";
+                    }
+                }
+            default:
+                return "not-ok";
         }
     }
 

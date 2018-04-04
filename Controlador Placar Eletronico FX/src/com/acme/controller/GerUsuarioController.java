@@ -25,10 +25,10 @@ import javafx.scene.input.MouseEvent;
 public class GerUsuarioController implements Initializable {
 
     @FXML
-    private JFXListView<?> jfxList;
+    private Label jfxlStatus;
 
     @FXML
-    private Label jfxlStatus;
+    private JFXListView<?> jfxList;
 
     @FXML
     private JFXButton jfxbTrocaSenha;
@@ -43,13 +43,45 @@ public class GerUsuarioController implements Initializable {
     private FontAwesomeIconView faivVoltar;
 
     @FXML
-    void faivVoltarOnMouseCliked(MouseEvent event) {
-        MainApp.trocarCena(Cena.ESPORTE);
+    private FontAwesomeIconView faivSair;
+
+    // Variáveis para controlar o deslocamento
+    private double posicaoInicialX = 0;
+    private double posicaoInicialY = 0;
+
+    @FXML
+    void faivSairOnMouseCliked(MouseEvent event) {
+        // Implementar
     }
 
     @FXML
-    void jfxbNovoUserOnClick(MouseEvent event) {
-        MainApp.trocarCena(Cena.CAD_USUARIO);
+    void faivVoltarOnMouseCliked(MouseEvent event) {
+        MainApp.trocarCena(Cena.ESPORTE); // Verificar
+    }
+
+    /**
+     * Método acionado quando o mouse é arrastado, ele pega a posição atual
+     * horizontal e vertical da cena, faz a subtração pela posição inicial
+     * horizontal e vertical separadamente, e chama o método que move a tela,
+     * passando os valores resultantes dessas subtrações.
+     *
+     * @param event MouseEvent.
+     */
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
+    }
+
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
     @FXML
@@ -69,6 +101,11 @@ public class GerUsuarioController implements Initializable {
         } catch (IOException ex) {
             jfxlStatus.setText("Erro: " + ex.getMessage());
         }
+    }
+
+    @FXML
+    void jfxbNovoUserOnClick(MouseEvent event) {
+        MainApp.trocarCena(Cena.CAD_USUARIO);
     }
 
     @FXML

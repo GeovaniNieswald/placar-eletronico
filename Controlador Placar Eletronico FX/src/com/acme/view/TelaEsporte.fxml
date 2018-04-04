@@ -58,17 +58,12 @@
         </VBox>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Label layoutX="241.0" layoutY="59.0" styleClass="texto" text="Selecione o esporte" textAlignment="RIGHT" textFill="WHITE">
-                    <font>
-                        <Font size="34.0" />
-                    </font>
-                </Label>
-                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="497.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="285.0">
+                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="161.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="621.0">
                     <image>
                         <Image url="@../resources/imagens/futsal.png" />
                     </image>
                 </ImageView>
-            <JFXRadioButton fx:id="jfxrbFutsal" layoutX="561.0" layoutY="181.0" prefHeight="38.0" prefWidth="95.0" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" text="Futsal" textFill="WHITE">
+            <JFXRadioButton fx:id="jfxrbFutsal" layoutX="225.0" layoutY="235.0" prefHeight="38.0" prefWidth="179.0" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" text="Futsal" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
@@ -79,11 +74,11 @@
                   <ToggleGroup fx:id="tgEsportes" />
                </toggleGroup>
                <styleClass>
-                  <String fx:value="texto" />
+                  <String fx:value="fonte-padrao" />
                   <String fx:value="esporte" />
                </styleClass>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="jfxrbBasquete" layoutX="216.0" layoutY="181.0" prefHeight="38.0" prefWidth="142.0" selected="true" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" text="Basquete" textFill="WHITE" toggleGroup="$tgEsportes">
+            <JFXRadioButton fx:id="jfxrbBasquete" layoutX="225.0" layoutY="127.0" prefHeight="38.0" prefWidth="142.0" selected="true" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" text="Basquete" textFill="WHITE" toggleGroup="$tgEsportes">
                <font>
                   <Font size="27.0" />
                </font>
@@ -91,16 +86,16 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <styleClass>
-                  <String fx:value="texto" />
+                  <String fx:value="fonte-padrao" />
                   <String fx:value="esporte" />
                </styleClass>
             </JFXRadioButton>
-                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="152.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="630.0">
+                <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="161.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="621.0">
                     <image>
                         <Image url="@../resources/imagens/basquete.png" />
                     </image>
                 </ImageView>
-                <JFXButton fx:id="jfxbOk" layoutX="342.0" layoutY="303.0" onAction="#jfxbOkOnAction" onKeyPressed="#jfxbOkOnKeyPressed" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #890e01;" styleClass="texto" text="OK" textFill="WHITE">
+                <JFXButton fx:id="jfxbOk" layoutX="583.0" layoutY="181.0" onAction="#jfxbOkOnAction" onKeyPressed="#jfxbOkOnKeyPressed" prefHeight="38.0" prefWidth="114.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="OK" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -114,6 +109,15 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </FontAwesomeIconView>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <children>
+            <Label alignment="CENTER" prefHeight="42.0" prefWidth="559.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Escolha o Esporte" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
     </children>

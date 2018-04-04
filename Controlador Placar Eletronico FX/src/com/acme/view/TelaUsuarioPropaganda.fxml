@@ -20,9 +20,9 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="9.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="0.0" percentHeight="82.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="8.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="9.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints />
       <RowConstraints percentHeight="NaN" />
       <RowConstraints percentHeight="NaN" />
@@ -31,7 +31,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <Label alignment="CENTER" text="Controlador Placar Eletrônico - Propaganda" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Propaganda" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
@@ -52,82 +52,82 @@
       </VBox>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <JFXTextField fx:id="jfxtfTextoInferior" focusColor="#890e01" layoutX="169.0" layoutY="25.0" onAction="#jfxtfTextoInferiorOnAction" prefHeight="31.0" prefWidth="389.0" promptText="PLACAR ELETRONICO FX" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" />
-            <JFXButton fx:id="jfxbAlterarTextoInferior" layoutX="578.0" layoutY="31.0" onAction="#jfxbAlterarTextoInferiorOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Alterar" textFill="WHITE">
+            <JFXTextField fx:id="jfxtfTextoInferior" focusColor="#890e01" layoutX="166.0" layoutY="26.0" onAction="#jfxtfTextoInferiorOnAction" prefHeight="31.0" prefWidth="373.0" promptText="PLACAR ELETRONICO FX" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
+            <JFXButton fx:id="jfxbAlterarTextoInferior" layoutX="577.0" layoutY="29.0" onAction="#jfxbAlterarTextoInferiorOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarTextoInferior" layoutX="688.0" layoutY="31.0" onAction="#jfxbRestaurarTextoInferiorOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Restaurar" textFill="WHITE">
+            <JFXButton fx:id="jfxbRestaurarTextoInferior" layoutX="698.0" layoutY="29.0" onAction="#jfxbRestaurarTextoInferiorOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfImagemDireita" editable="false" focusColor="#890e01" layoutX="71.0" layoutY="86.0" onAction="#jfxtfImagemDireitaOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem direita:    selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="86.0">
+            <JFXTextField fx:id="jfxtfImagemDireita" editable="false" focusColor="#890e01" layoutX="52.0" layoutY="87.0" onAction="#jfxtfImagemDireitaOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem direita:    selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="87.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXTextField>
-            <JFXButton fx:id="jfxbAlterarImagemDireita" layoutX="578.0" layoutY="92.0" onAction="#jfxbAlterarImagemDireitaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Alterar" textFill="WHITE">
+            <JFXButton fx:id="jfxbAlterarImagemDireita" layoutX="577.0" layoutY="90.0" onAction="#jfxbAlterarImagemDireitaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarImagemDireita" layoutX="688.0" layoutY="90.0" onAction="#jfxbRestaurarImagemDireitaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Restaurar" textFill="WHITE">
+            <JFXButton fx:id="jfxbRestaurarImagemDireita" layoutX="698.0" layoutY="88.0" onAction="#jfxbRestaurarImagemDireitaOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfImagemEsquerda" editable="false" focusColor="#890e01" layoutX="71.0" layoutY="149.0" onAction="#jfxtfImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem esquerda:    selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="149.0">
+            <JFXTextField fx:id="jfxtfImagemEsquerda" editable="false" focusColor="#890e01" layoutX="52.0" layoutY="150.0" onAction="#jfxtfImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem esquerda:    selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXTextField>
-            <JFXButton fx:id="jfxbAlterarImagemEsquerda" layoutX="578.0" layoutY="155.0" onAction="#jfxbAlterarImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Alterar" textFill="WHITE">
+            <JFXButton fx:id="jfxbAlterarImagemEsquerda" layoutX="577.0" layoutY="153.0" onAction="#jfxbAlterarImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarImagemEsquerda" layoutX="688.0" layoutY="155.0" onAction="#jfxbRestaurarImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Restaurar" textFill="WHITE">
+            <JFXButton fx:id="jfxbRestaurarImagemEsquerda" layoutX="698.0" layoutY="153.0" onAction="#jfxbRestaurarImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <AnchorPane layoutX="70.0" layoutY="216.0" prefHeight="38.0" prefWidth="706.0" style="-fx-border-color: white; -fx-border-radius: 5;" AnchorPane.topAnchor="216.0">
+            <AnchorPane layoutX="51.0" layoutY="217.0" prefHeight="38.0" prefWidth="744.0" style="-fx-border-color: white; -fx-border-radius: 5;" AnchorPane.topAnchor="217.0">
                <children>
-                  <Label layoutX="193.0" layoutY="9.0" text="Funções abaixo sobrepõe a tela do placar" textFill="WHITE" />
+                  <Label layoutX="193.0" layoutY="9.0" styleClass="fonte-padrao" text="Funções abaixo sobrepõe a tela do placar" textFill="WHITE" />
                </children>
             </AnchorPane>
-            <JFXTextField fx:id="jfxtfImagemVideo" editable="false" focusColor="#890e01" layoutX="71.0" layoutY="284.0" onAction="#jfxtfImagemVideoOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem ou vídeo:    selecionar" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="284.0">
+            <JFXTextField fx:id="jfxtfImagemVideo" editable="false" focusColor="#890e01" layoutX="52.0" layoutY="285.0" onAction="#jfxtfImagemVideoOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem ou vídeo:    selecionar" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="285.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXTextField>
-            <JFXButton fx:id="jfxbExibirImagemVideo" layoutX="578.0" layoutY="289.0" onAction="#jfxbExibirImagemVideoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Exibir" textFill="WHITE">
+            <JFXButton fx:id="jfxbExibirImagemVideo" layoutX="577.0" layoutY="287.0" onAction="#jfxbExibirImagemVideoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbPararImagemVideo" layoutX="688.0" layoutY="289.0" onAction="#jfxbPararImagemVideoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Parar" textFill="WHITE">
+            <JFXButton fx:id="jfxbPararImagemVideo" layoutX="698.0" layoutY="287.0" onAction="#jfxbPararImagemVideoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfEscalacoes" editable="false" focusColor="#890e01" layoutX="71.0" layoutY="350.0" onAction="#jfxtfEscalacoesOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Escalações:    criar" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE" AnchorPane.topAnchor="350.0">
+            <JFXTextField fx:id="jfxtfEscalacoes" editable="false" focusColor="#890e01" layoutX="52.0" layoutY="351.0" onAction="#jfxtfEscalacoesOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Escalações:    criar" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="351.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXTextField>
-            <JFXButton fx:id="jfxbExibirEscalacoes" layoutX="578.0" layoutY="355.0" onAction="#jfxbExibirEscalacoesOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Exibir" textFill="WHITE">
+            <JFXButton fx:id="jfxbExibirEscalacoes" layoutX="577.0" layoutY="353.0" onAction="#jfxbExibirEscalacoesOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbPararEscalacoes" layoutX="688.0" layoutY="355.0" onAction="#jfxbPararEscalacoesOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" text="Parar" textFill="WHITE">
+            <JFXButton fx:id="jfxbPararEscalacoes" layoutX="698.0" layoutY="353.0" onAction="#jfxbPararEscalacoesOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfTextoInferiorL" editable="false" focusColor="WHITE" layoutX="70.0" layoutY="25.0" prefHeight="31.0" prefWidth="99.0" promptText="Texto Inferior:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="WHITE">
+            <JFXTextField fx:id="jfxtfTextoInferiorL" editable="false" focusColor="WHITE" layoutX="51.0" layoutY="26.0" prefHeight="31.0" prefWidth="116.0" promptText="Texto Inferior:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

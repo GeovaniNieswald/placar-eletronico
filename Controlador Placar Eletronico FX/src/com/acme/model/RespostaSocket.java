@@ -11,7 +11,7 @@ package com.acme.model;
 public enum RespostaSocket {
 
     // Respostas de conexao
-    CONEXAO_ACEITA_USUARIO_PRINCIPAL(), CONEXAO_ACEITA_USUARIO_PROPAGANDA(), CONEXAO_RECUSADA(),
+    CONEXAO_ACEITA_USUARIO_PRINCIPAL(), CONEXAO_ACEITA_USUARIO_PLACAR(), CONEXAO_ACEITA_USUARIO_PROPAGANDA(), CONEXAO_RECUSADA(),
     // Respostas de escolha de esporte
     ESPORTE_ACEITO_BASQUETE(), ESPORTE_ACEITO_FUTSAL(),
     // Respostas verificação de usuario principal

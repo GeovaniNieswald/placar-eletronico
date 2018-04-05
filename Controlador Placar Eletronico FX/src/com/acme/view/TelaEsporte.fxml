@@ -102,18 +102,9 @@
             </JFXButton>
             </children>
         </AnchorPane>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-         <children>
-            <FontAwesomeIconView fx:id="faivCadastroUsuario" fill="WHITE" glyphName="USER" onMouseClicked="#faivCadastroUsuarioOnMouseClicked" size="30">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <Label alignment="CENTER" prefHeight="42.0" prefWidth="559.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Escolha o Esporte" textAlignment="CENTER" textFill="WHITE">
+            <Label prefHeight="42.0" prefWidth="836.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Escolha o Esporte" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>

@@ -127,9 +127,6 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     @FXML
     private JFXButton jfxbRestaurarTudo;
 
-    @FXML
-    private FontAwesomeIconView faivCadastroUsuario;
-
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
@@ -463,12 +460,6 @@ public class UsuarioPrincipalFutsalController implements Initializable {
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
-    }
-
-    // Fazer a verificação
-    @FXML
-    void faivCadastroUsuarioOnMouseClicked(MouseEvent event) {
-        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
     }
 
     @Override

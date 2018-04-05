@@ -51,12 +51,13 @@ public class GerUsuarioController implements Initializable {
 
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
-        // Implementar
+        System.exit(0);
     }
 
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
-        MainApp.trocarCena(Cena.ESPORTE); // Verificar
+        PlacarClient.desconectar();
+        MainApp.trocarCena(Cena.CONEXAO);
     }
 
     /**

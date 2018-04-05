@@ -8,7 +8,6 @@ import javafx.scene.control.TextInputDialog;
 
 public class Utils {
 
-    // Vai ser trocado por uma mensagem na própria tela
     public static void alert(String msg, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setContentText(msg);

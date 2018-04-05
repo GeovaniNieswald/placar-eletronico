@@ -43,9 +43,6 @@ public class EsporteController implements Initializable {
     @FXML
     private JFXRadioButton jfxrbFutsal;
 
-    @FXML
-    private FontAwesomeIconView faivCadastroUsuario;
-
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
@@ -127,12 +124,6 @@ public class EsporteController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             escolher();
         }
-    }
-
-    // Fazer a verificação
-    @FXML
-    void faivCadastroUsuarioOnMouseClicked(MouseEvent event) {
-        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
     }
 
     @Override

@@ -33,9 +33,6 @@ public class EsperaController implements Initializable {
     @FXML
     private FontAwesomeIconView faivSair;
 
-    @FXML
-    private FontAwesomeIconView faivCadastroUsuario;
-
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
@@ -77,12 +74,6 @@ public class EsperaController implements Initializable {
         PlacarClient.desconectar();
         MainApp.trocarCena(Cena.CONEXAO);
         esperandoUsuarioPrincipal.stop();
-    }
-
-    // Fazer a verificação
-    @FXML
-    void faivCadastroUsuarioOnMouseClicked(MouseEvent event) {
-        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
     }
 
     /**

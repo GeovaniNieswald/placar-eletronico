@@ -9,7 +9,9 @@ import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,16 +34,16 @@ public class CadUsuarioController {
     private JFXTextField jfxtfUsername;
 
     @FXML
-    private JFXTextField jfxtfPassword;
+    private JFXPasswordField jfxtfPassword;
 
     @FXML
     private JFXCheckBox jfxcbAdmin;
 
     @FXML
-    private JFXCheckBox jfxcbProp;
+    private JFXCheckBox jfxcbPlacar;
 
     @FXML
-    private JFXCheckBox jfxcbPlacar;
+    private JFXCheckBox jfxcbProp;
 
     @FXML
     private JFXButton jfxbSalvar;
@@ -50,13 +52,59 @@ public class CadUsuarioController {
     private JFXButton jfxbCancelar;
 
     @FXML
-    void jfxbCancelarOnAction(ActionEvent event) {
-        trocarCena(Cena.GERENCIAR_USUARIOS);
+    private JFXTextField jfxtfUsernameL;
+
+    @FXML
+    private JFXTextField jfxtfPasswordL;
+
+    @FXML
+    private FontAwesomeIconView faivVoltar;
+
+    @FXML
+    private FontAwesomeIconView faivSair;
+
+    // Variáveis para controlar o deslocamento
+    private double posicaoInicialX = 0;
+    private double posicaoInicialY = 0;
+
+    @FXML
+    void faivSairOnMouseCliked(MouseEvent event) {
+        System.exit(0);
     }
 
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
+    }
+
+    @FXML
+    void jfxbCancelarOnAction(ActionEvent event) {
+        trocarCena(Cena.GERENCIAR_USUARIOS);
+    }
+
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
+    }
+
+    /**
+     * Método acionado quando o mouse é arrastado, ele pega a posição atual
+     * horizontal e vertical da cena, faz a subtração pela posição inicial
+     * horizontal e vertical separadamente, e chama o método que move a tela,
+     * passando os valores resultantes dessas subtrações.
+     *
+     * @param event MouseEvent.
+     */
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML
@@ -93,6 +141,24 @@ public class CadUsuarioController {
                 // IMPLEMENTAR LOG
             }
         }
+    }
+
+    @FXML
+    void jfxcbAdminOnAction(ActionEvent event) {
+        jfxcbPlacar.setSelected(false);
+        jfxcbProp.setSelected(false);
+    }
+
+    @FXML
+    void jfxcbPlacarOnAction(ActionEvent event) {
+        jfxcbAdmin.setSelected(false);
+        jfxcbProp.setSelected(false);
+    }
+
+    @FXML
+    void jfxcbPropOnAction(ActionEvent event) {
+        jfxcbAdmin.setSelected(false);
+        jfxcbPlacar.setSelected(false);
     }
 
     public void initialize(URL url, ResourceBundle rb) {

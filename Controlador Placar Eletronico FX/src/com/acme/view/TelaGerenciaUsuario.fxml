@@ -28,18 +28,18 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="jfxlStatus" alignment="CENTER" layoutX="212.0" layoutY="42.0" prefHeight="20.0" prefWidth="423.0" styleClass="fonte-padrao" text="WED APR 01 00:00:00 BRT 2018" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+            <Label fx:id="jfxlStatus" alignment="CENTER" layoutX="68.0" layoutY="31.0" prefHeight="31.0" prefWidth="710.0" styleClass="fonte-padrao" text="WED APR 01 00:00:00 BRT 2018" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
             <JFXListView fx:id="jfxList" layoutX="68.0" layoutY="76.0" prefHeight="216.0" prefWidth="710.0" />
-            <JFXButton fx:id="jfxbTrocaSenha" layoutX="143.0" layoutY="328.0" onMouseClicked="#jfxbTrocaSenhaOnClick" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Trocar Senha" textFill="WHITE" AnchorPane.leftAnchor="143.0">
+            <JFXButton fx:id="jfxbTrocaSenha" layoutX="68.0" layoutY="328.0" onMouseClicked="#jfxbTrocaSenhaOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Trocar Senha" textFill="WHITE" AnchorPane.leftAnchor="68.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-            <JFXButton fx:id="jfxbNovoUser" layoutX="563.0" layoutY="328.0" onMouseClicked="#jfxbNovoUserOnClick" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Novo Usuario" textFill="WHITE" AnchorPane.leftAnchor="563.0">
+            <JFXButton fx:id="jfxbExcluirUser" layoutX="353.0" layoutY="328.0" onMouseClicked="#jfxbExcluirUserOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Excluir Usuário" textFill="WHITE" AnchorPane.leftAnchor="353.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbExcluirUser" layoutX="353.0" layoutY="328.0" onMouseClicked="#jfxbExcluirUserOnClick" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Excluir Usuario" textFill="WHITE" AnchorPane.leftAnchor="353.0">
+            <JFXButton fx:id="jfxbNovoUser" layoutX="638.0" layoutY="328.0" onMouseClicked="#jfxbNovoUserOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Novo Usuário" textFill="WHITE" AnchorPane.leftAnchor="638.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -72,7 +72,7 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <Label alignment="CENTER" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Gerenciar Usuários" textAlignment="CENTER" textFill="WHITE">
+            <Label prefHeight="42.0" prefWidth="840.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Gerenciar Usuários" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>

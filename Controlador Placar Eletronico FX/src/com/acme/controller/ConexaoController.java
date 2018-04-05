@@ -87,8 +87,8 @@ public class ConexaoController implements Initializable {
     private void conectar() {
         lInfos.setText("");
 
-        trocarCorJFXTextField("white", "#7d217c", jfxtfLogin, jfxtfEndereco);
-        trocarCorJFXPasswordField("white", "#7d217c", jfxpfSenha);
+        trocarCorJFXTextField("white", "#890e01", jfxtfLogin, jfxtfEndereco);
+        trocarCorJFXPasswordField("white", "#890e01", jfxpfSenha);
 
         if (jfxtfEndereco.getText().trim().isEmpty() || jfxtfLogin.getText().trim().isEmpty() || jfxpfSenha.getText().trim().isEmpty()) {
             lInfos.setText("Você não preencheu algum campo!");
@@ -111,6 +111,9 @@ public class ConexaoController implements Initializable {
 
                 switch (respostaConexao) {
                     case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
+                        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
+                        break;
+                    case CONEXAO_ACEITA_USUARIO_PLACAR:
                         MainApp.trocarCena(Cena.ESPORTE);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:

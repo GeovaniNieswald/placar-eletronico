@@ -46,10 +46,15 @@ public class PlacarClient {
         String[] respostaConexao = in.readLine().split(";");
 
         if (respostaConexao[1].equals("ok")) {
-            if (respostaConexao[2].equals("usuario-principal")) {
-                return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
-            } else {
-                return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
+            switch (respostaConexao[2]) {
+                case "usuario-principal":
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
+                case "usuario-placar":
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PLACAR;
+                case "usuario-propaganda":
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
+                default:
+                    return RespostaSocket.CONEXAO_RECUSADA;
             }
         }
 

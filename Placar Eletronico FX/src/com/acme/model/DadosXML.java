@@ -39,5 +39,4 @@ public class DadosXML {
     private static String getArquivo(String arquivo) {
         return ARQUIVOS.get(arquivo);
     }
-
 }

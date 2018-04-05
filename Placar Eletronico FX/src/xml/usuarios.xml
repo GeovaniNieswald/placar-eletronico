@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <listaUsuarios>
     <usuario>
-        <usuario>admin</usuario>
-        <senha>admin</senha>
-        <admin>true</admin>
-        <placar>true</placar>
-        <propaganda>true</propaganda>
-    </usuario>
-    <usuario>
-        <usuario>pedro</usuario>
-        <senha>123</senha>
+        <usuario>placar</usuario>
+        <senha>placar</senha>
         <admin>false</admin>
         <placar>true</placar>
         <propaganda>false</propaganda>
     </usuario>
     <usuario>
-        <usuario>gabriel</usuario>
-        <senha>2208</senha>
-        <admin>true</admin>
-        <placar>true</placar>
-        <propaganda>true</propaganda>
-    </usuario>
-    <usuario>
-        <usuario>geo</usuario>
-        <senha>geo</senha>
-        <admin>true</admin>
-        <placar>true</placar>
-        <propaganda>true</propaganda>
-    </usuario>
-    <usuario>
-        <usuario>jailson</usuario>
-        <senha>laranja</senha>
+        <usuario>prop</usuario>
+        <senha>prop</senha>
         <admin>false</admin>
-        <placar>true</placar>
+        <placar>false</placar>
+        <propaganda>true</propaganda>
+    </usuario>
+    <usuario>
+        <usuario>adm</usuario>
+        <senha>adm</senha>
+        <admin>true</admin>
+        <placar>false</placar>
         <propaganda>false</propaganda>
     </usuario>
 </listaUsuarios>

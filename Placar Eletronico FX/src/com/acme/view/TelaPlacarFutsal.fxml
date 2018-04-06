@@ -13,15 +13,15 @@
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="17.8" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="17.8" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
@@ -38,7 +38,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Label text="19:35" textFill="RED">
+            <Label fx:id="lCronometro" text="19:35" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="140.0" />
                </font>
@@ -49,7 +49,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lNomeTimeLocal" styleClass="fonte-padrao" text="LOCAL" textFill="WHITE">
                <font>
@@ -67,7 +67,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.rowIndex="1">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lNomeTimeVisitante" styleClass="fonte-padrao" text="VISITANTE" textFill="WHITE">
                <font>
@@ -87,7 +87,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <Label text="08" textFill="RED">
+            <Label fx:id="lFaltasTimeLocal" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
@@ -105,7 +105,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
          <children>
-            <Label text="05" textFill="RED">
+            <Label fx:id="lFaltasTimeVisitante" text="00" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
@@ -123,7 +123,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
          <children>
-            <Label text="01" textFill="RED">
+            <Label fx:id="lPeriodo" text="01" textFill="RED">
                <font>
                   <Font name="DS-Digital" size="76.0" />
                </font>
@@ -141,7 +141,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="11" GridPane.rowIndex="7">
          <children>
-            <Label fx:id="lTextoInferior" text="PlACAR ELETRONICO FX" textFill="RED">
+            <Label fx:id="lTextoInferior" text="PLACAR ELETRONICO FX" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="96.0" />
                </font>
@@ -153,7 +153,7 @@
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: green;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: green;" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3" />
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: green;" GridPane.columnIndex="9" GridPane.rowIndex="2" GridPane.rowSpan="3" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="6">
          <children>
             <Button fx:id="bFechar" mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />

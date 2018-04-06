@@ -20,7 +20,7 @@ import javax.xml.bind.JAXBException;
 public class PlacarServer extends Thread {
 
     private final Socket socket;
-    private static boolean usuarioPrincipalOn;
+    private static boolean usuarioPlacarOn;
     private static PlacarController controller;
 
     public PlacarServer(Socket socket) {
@@ -121,8 +121,8 @@ public class PlacarServer extends Thread {
             switch (params[0]) {
                 case "#esporte":
                     return comandoEsporte(params);
-                case "#usuario-principal":
-                    return comandoUsuarioPrincipal(params);
+                case "#usuario-placar":
+                    return comandoUsuarioPlacar(params);
                 case "#nome-time":
                     return comandoNomeTime(params);
                 case "#texto-inferior":
@@ -151,7 +151,7 @@ public class PlacarServer extends Thread {
         switch (params[1]) {
             case "basquete":
                 Timeline telaBasquete = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-                    usuarioPrincipalOn = true;
+                    usuarioPlacarOn = true;
                     MainApp.trocarCena(Cena.PLACAR_BASQUETE);
                 }),
                         new KeyFrame(Duration.seconds(1))
@@ -161,7 +161,7 @@ public class PlacarServer extends Thread {
                 return "#esporte;basquete-ok";
             case "futsal":
                 Timeline telaFutsal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-                    usuarioPrincipalOn = true;
+                    usuarioPlacarOn = true;
                     MainApp.trocarCena(Cena.PLACAR_FUTSAL);
                 }),
                         new KeyFrame(Duration.seconds(1))
@@ -174,11 +174,11 @@ public class PlacarServer extends Thread {
         }
     }
 
-    public static String comandoUsuarioPrincipal(String[] params) {
-        if (usuarioPrincipalOn) {
-            return "#usuario-principal;ok";
+    public static String comandoUsuarioPlacar(String[] params) {
+        if (usuarioPlacarOn) {
+            return "#usuario-placar;ok";
         } else {
-            return "#usuario-principal;not-ok";
+            return "#usuario-placar;not-ok";
         }
     }
 

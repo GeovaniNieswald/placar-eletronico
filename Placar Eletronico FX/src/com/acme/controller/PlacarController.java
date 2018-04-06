@@ -1,6 +1,7 @@
 package com.acme.controller;
 
 import com.acme.PlacarServer;
+import de.jensd.fx.glyphs.octicons.OctIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -15,25 +16,60 @@ import javafx.util.Duration;
 public class PlacarController implements Initializable {
 
     @FXML
-    private Button bFechar;
-
-    @FXML
-    private Label lTextoInferior;
+    private Label lCronometro;
 
     @FXML
     private Label lNomeTimeLocal;
 
     @FXML
-    private Label lNomeTimeVisitante;
+    private Label lPontosTimeLocal;
 
     @FXML
-    private Label lPontosTimeLocal;
+    private Label lNomeTimeVisitante;
 
     @FXML
     private Label lPontosTimeVisitante;
 
+    @FXML
+    private Label lFaltasTimeLocal;
+
+    @FXML
+    private Label lFaltasTimeVisitante;
+
+    @FXML
+    private Label lPeriodo;
+
+    @FXML
+    private Label lTextoInferior;
+
+    @FXML
+    private Button bFechar;
+
+    @FXML
+    private OctIconView ovBonusTimeLocal;
+
+    @FXML
+    private OctIconView ovBonusTimeVisitante;
+
+    @FXML
+    private OctIconView ovPosseTimeVisitante;
+
+    @FXML
+    private OctIconView ovPosseTimeLocal;
+
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
+
+    private int faltasTimeLocal;
+    private int faltasTimeVisitante;
+
+    private int periodo;
+
+    @FXML
+    private Label lNumJogador;
+
+    @FXML
+    private Label lFaltasJogador;
 
     private void linhaDoTempo(Label label, String texto) {
         Timeline tl = new Timeline(new KeyFrame(Duration.ZERO, e -> {

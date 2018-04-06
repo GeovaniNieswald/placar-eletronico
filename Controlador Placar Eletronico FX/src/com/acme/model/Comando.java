@@ -11,7 +11,7 @@ package com.acme.model;
 public enum Comando {
 
     // Comandos
-    ESCOLHER_ESPORTE(), VERIFICAR_USUARIO_PRINCIPAL(), TEXTO_INFERIOR(),
+    ESCOLHER_ESPORTE(), VERIFICAR_USUARIO_PLACAR(), TEXTO_INFERIOR(),
     CADASTRO_USUARIO(), NOME_TIME(), PONTOS();
 
     // Construtor

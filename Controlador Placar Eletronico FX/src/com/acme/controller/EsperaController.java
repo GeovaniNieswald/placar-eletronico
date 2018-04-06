@@ -88,9 +88,9 @@ public class EsperaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         esperandoUsuarioPrincipal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             try {
-                RespostaSocket respostaUsuarioPrincipal = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PRINCIPAL);
+                RespostaSocket respostaUsuarioPrincipal = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PLACAR);
 
-                if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PRINCIPAL_CONECTADO) {
+                if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PLACAR_CONECTADO) {
                     MainApp.trocarCena(Cena.USUARIO_PROPAGANDA);
                     esperandoUsuarioPrincipal.stop();
                 }

@@ -15,7 +15,7 @@ public enum RespostaSocket {
     // Respostas de escolha de esporte
     ESPORTE_ACEITO_BASQUETE(), ESPORTE_ACEITO_FUTSAL(),
     // Respostas verificação de usuario principal
-    USUARIO_PRINCIPAL_CONECTADO(), USUARIO_PRINCIPAL_NAO_CONECTADO(),
+    USUARIO_PLACAR_CONECTADO(), USUARIO_PLACAR_NAO_CONECTADO(),
     //Cadastro de usuario
     USUARIO_JA_EXISTE(),
     // Respostas de comandos

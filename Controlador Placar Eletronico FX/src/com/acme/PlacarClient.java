@@ -105,15 +105,15 @@ public class PlacarClient {
                         return RespostaSocket.COMANDO_RECUSADO;
                 }
 
-            case VERIFICAR_USUARIO_PRINCIPAL:
-                out.println("#usuario-principal");
+            case VERIFICAR_USUARIO_PLACAR:
+                out.println("#usuario-placar");
 
                 respostaComando = in.readLine().split(";");
 
                 if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.USUARIO_PRINCIPAL_CONECTADO;
+                    return RespostaSocket.USUARIO_PLACAR_CONECTADO;
                 } else {
-                    return RespostaSocket.USUARIO_PRINCIPAL_NAO_CONECTADO;
+                    return RespostaSocket.USUARIO_PLACAR_NAO_CONECTADO;
                 }
 
             case NOME_TIME:

@@ -101,6 +101,27 @@ public class PlacarController implements Initializable {
             linhaDoTempo(lPontosTimeLocal, "0" + pontosTimeLocal);
         }
     }
+    
+    
+    public void aumentarFaltasTimeLocal(int pontos) {
+        faltasTimeLocal += pontos;
+
+        if (pontosTimeLocal > 9) {
+            linhaDoTempo(lFaltasTimeLocal, faltasTimeLocal + "");
+        } else {
+            linhaDoTempo(lFaltasTimeLocal, "0" + faltasTimeLocal);
+        }
+    }
+    
+    public void aumentarFaltasTimeVisitante(int pontos) {
+        faltasTimeVisitante += pontos;
+
+        if (pontosTimeLocal > 9) {
+            linhaDoTempo(lFaltasTimeVisitante, faltasTimeVisitante + "");
+        } else {
+            linhaDoTempo(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
+        }
+    }
 
     public void diminuirPontosTimeLocal(int pontos) {
         pontosTimeLocal -= pontos;

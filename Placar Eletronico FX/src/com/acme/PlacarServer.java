@@ -236,6 +236,11 @@ public class PlacarServer extends Thread {
                         return "#pontos;ok";
                     case "set":
                         break;
+                        
+                    case "somaFalta":
+                        controller.aumentarFaltasTimeLocal(Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                        
                     default:
                         return "#pontos;not-ok";
                 }
@@ -246,6 +251,9 @@ public class PlacarServer extends Thread {
                         return "#pontos;ok";
                     case "menos":
                         controller.diminuirPontosTimeVisitante(Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    case "somaFalta":
+                        controller.aumentarFaltasTimeVisitante(Integer.parseInt(params[3]));
                         return "#pontos;ok";
                     case "set":
                         break;

@@ -135,6 +135,9 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
+    
+    private int faltasTimeLocal;
+    private int faltasTimeVisitante;
 
     /**
      * Método para trocar a cor dos campos TextField.
@@ -238,12 +241,52 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbAumentarFaltasTimeLocalOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "local", "somaFalta", "1");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                faltasTimeLocal++;
+
+                if (pontosTimeLocal > 9) {
+                    lFaltasTimeLocal.setText(faltasTimeLocal + "");
+                } else {
+                    lFaltasTimeLocal.setText("0" + faltasTimeLocal);
+                }
+
+               trocarCorLabel("white", lFaltasTimeLocal);
+            } else {
+                trocarCorLabel("red", lFaltasTimeLocal);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lFaltasTimeLocal);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
     void jfxbAumentarFaltasTimeVisitanteOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "visitante", "somaFalta", "1");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                faltasTimeVisitante++;
+
+                if (faltasTimeVisitante > 9) {
+                    lFaltasTimeVisitante.setText(faltasTimeVisitante + "");
+                } else {
+                    lFaltasTimeVisitante.setText("0" + faltasTimeVisitante);
+                }
+
+                trocarCorLabel("white", lFaltasTimeVisitante);
+            } else {
+                trocarCorLabel("red", lFaltasTimeVisitante);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lFaltasTimeVisitante);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML

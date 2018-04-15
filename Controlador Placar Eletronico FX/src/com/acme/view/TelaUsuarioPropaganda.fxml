@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.UsuarioPropagandaController">
+<GridPane fx:id="gpTelaPropaganda" alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.UsuarioPropagandaController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="89.0" prefWidth="0.0" />
@@ -63,7 +63,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfImagemDireita" editable="false" focusColor="#890e01" layoutX="52.0" layoutY="87.0" onAction="#jfxtfImagemDireitaOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem direita:    selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="87.0">
+            <JFXTextField fx:id="jfxtfImagemDireita" editable="false" focusColor="#890e01" layoutX="213.0" layoutY="87.0" onMouseClicked="#jfxtfImagemDireitaOnMouseClicked" prefHeight="31.0" prefWidth="326.0" promptText="selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="87.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXTextField>
@@ -77,7 +77,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfImagemEsquerda" editable="false" focusColor="#890e01" layoutX="52.0" layoutY="150.0" onAction="#jfxtfImagemEsquerdaOnAction" prefHeight="31.0" prefWidth="487.0" promptText="Imagem esquerda:    selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="150.0">
+            <JFXTextField fx:id="jfxtfImagemEsquerda" editable="false" focusColor="#890e01" layoutX="213.0" layoutY="150.0" onMouseClicked="#jfxtfImagemEsquerdaOnMouseClicked" prefHeight="31.0" prefWidth="326.0" promptText="selecionar imagem" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -128,6 +128,16 @@
                </cursor>
             </JFXButton>
             <JFXTextField fx:id="jfxtfTextoInferiorL" editable="false" focusColor="WHITE" layoutX="51.0" layoutY="26.0" prefHeight="31.0" prefWidth="116.0" promptText="Texto Inferior:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField fx:id="jfxtfImagemDireitaL" editable="false" focusColor="WHITE" layoutX="52.0" layoutY="87.0" prefHeight="31.0" prefWidth="162.0" promptText="Imagem direita:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField fx:id="jfxtfImagemEsquerdaL" editable="false" focusColor="WHITE" layoutX="52.0" layoutY="150.0" prefHeight="31.0" prefWidth="162.0" promptText="Imagem esquerda:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

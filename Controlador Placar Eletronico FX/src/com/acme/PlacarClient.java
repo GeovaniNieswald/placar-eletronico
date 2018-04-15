@@ -168,8 +168,28 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
 
-            // Aqui tem que ir adicionando os case, e no enum adicionar o nome 
-            // do comando, acima tem os exemplos garai. 
+            case FALTAS:
+                out.println("#faltas;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                } else {
+                    return RespostaSocket.COMANDO_RECUSADO;
+                }
+
+            case IMAGENS:
+                out.println("#imagens;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                } else {
+                    return RespostaSocket.COMANDO_RECUSADO;
+                }
+
             default:
                 return RespostaSocket.COMANDO_RECUSADO;
             // IMPLEMENTAR LOG
@@ -188,7 +208,9 @@ public class PlacarClient {
                 } else if ("add".equalsIgnoreCase(valores[0])) {
                     out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
                 }
+
                 respostaComando = in.readLine().split(";");
+
                 if ("get".equalsIgnoreCase(valores[0])) {
                     return respostaComando[2];
                 } else {
@@ -202,5 +224,4 @@ public class PlacarClient {
                 return "not-ok";
         }
     }
-
 }

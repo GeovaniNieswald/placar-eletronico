@@ -135,7 +135,7 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
-    
+
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
 
@@ -242,18 +242,18 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     @FXML
     void jfxbAumentarFaltasTimeLocalOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "local", "somaFalta", "1");
+            respostaComando = PlacarClient.enviarComando(Comando.FALTAS, "local", "mais", "1");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 faltasTimeLocal++;
 
-                if (pontosTimeLocal > 9) {
+                if (faltasTimeLocal > 9) {
                     lFaltasTimeLocal.setText(faltasTimeLocal + "");
                 } else {
                     lFaltasTimeLocal.setText("0" + faltasTimeLocal);
                 }
 
-               trocarCorLabel("white", lFaltasTimeLocal);
+                trocarCorLabel("white", lFaltasTimeLocal);
             } else {
                 trocarCorLabel("red", lFaltasTimeLocal);
             }
@@ -267,7 +267,7 @@ public class UsuarioPrincipalFutsalController implements Initializable {
     @FXML
     void jfxbAumentarFaltasTimeVisitanteOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "visitante", "somaFalta", "1");
+            respostaComando = PlacarClient.enviarComando(Comando.FALTAS, "visitante", "mais", "1");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 faltasTimeVisitante++;
@@ -346,12 +346,56 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbDiminuirFaltasTimeLocalOnAction(ActionEvent event) {
+        if (faltasTimeLocal > 0) {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.FALTAS, "local", "menos", "1");
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    faltasTimeLocal--;
+
+                    if (faltasTimeLocal > 9) {
+                        lFaltasTimeLocal.setText(faltasTimeLocal + "");
+                    } else {
+                        lFaltasTimeLocal.setText("0" + faltasTimeLocal);
+                    }
+
+                    trocarCorLabel("white", lFaltasTimeLocal);
+                } else {
+                    trocarCorLabel("red", lFaltasTimeLocal);
+                }
+            } catch (IOException ex) {
+                trocarCorLabel("red", lFaltasTimeLocal);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
     void jfxbDiminuirFaltasTimeVisitanteOnAction(ActionEvent event) {
+        if (faltasTimeVisitante > 0) {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.FALTAS, "visitante", "menos", "1");
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    faltasTimeVisitante--;
+
+                    if (faltasTimeVisitante > 9) {
+                        lFaltasTimeVisitante.setText(faltasTimeVisitante + "");
+                    } else {
+                        lFaltasTimeVisitante.setText("0" + faltasTimeVisitante);
+                    }
+
+                    trocarCorLabel("white", lFaltasTimeVisitante);
+                } else {
+                    trocarCorLabel("red", lFaltasTimeVisitante);
+                }
+            } catch (IOException ex) {
+                trocarCorLabel("red", lFaltasTimeVisitante);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
@@ -476,7 +520,28 @@ public class UsuarioPrincipalFutsalController implements Initializable {
 
     @FXML
     void jfxbZerarFaltasOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.FALTAS, "zerar", "", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                faltasTimeLocal = 0;
+                faltasTimeVisitante = 0;
+
+                lFaltasTimeLocal.setText("00");
+                lFaltasTimeVisitante.setText("00");
+
+                trocarCorLabel("white", lFaltasTimeLocal);
+                trocarCorLabel("white", lFaltasTimeVisitante);
+            } else {
+                trocarCorLabel("red", lFaltasTimeLocal);
+                trocarCorLabel("red", lFaltasTimeVisitante);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lFaltasTimeLocal);
+            trocarCorLabel("red", lFaltasTimeVisitante);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML

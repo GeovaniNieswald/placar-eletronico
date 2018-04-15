@@ -1,7 +1,6 @@
 package com.acme.controller;
 
 import com.acme.MainApp;
-import static com.acme.MainApp.trocarCena;
 import com.acme.PlacarClient;
 import com.acme.Utils;
 import com.acme.model.Cena;
@@ -79,7 +78,7 @@ public class CadUsuarioController {
 
     @FXML
     void jfxbCancelarOnAction(ActionEvent event) {
-        trocarCena(Cena.GERENCIAR_USUARIOS);
+        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
     }
 
     /**
@@ -162,7 +161,5 @@ public class CadUsuarioController {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
-
     }
-
 }

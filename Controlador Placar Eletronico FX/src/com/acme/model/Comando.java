@@ -12,7 +12,7 @@ public enum Comando {
 
     // Comandos
     ESCOLHER_ESPORTE(), VERIFICAR_USUARIO_PLACAR(), TEXTO_INFERIOR(),
-    CADASTRO_USUARIO(), NOME_TIME(), PONTOS();
+    CADASTRO_USUARIO(), NOME_TIME(), PONTOS(), FALTAS(), IMAGENS();
 
     // Construtor
     private Comando() {

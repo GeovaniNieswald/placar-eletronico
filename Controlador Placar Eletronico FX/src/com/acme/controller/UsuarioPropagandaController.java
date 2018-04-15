@@ -2,11 +2,13 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.PlacarClient;
+import com.acme.Utils;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * Classe Referente ao controlador da cena de propaganda.
@@ -45,6 +50,9 @@ public class UsuarioPropagandaController implements Initializable {
     private JFXTextField jfxtfImagemDireita;
 
     @FXML
+    private JFXTextField jfxtfImagemDireitaL;
+
+    @FXML
     private JFXButton jfxbAlterarImagemDireita;
 
     @FXML
@@ -52,6 +60,9 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     private JFXTextField jfxtfImagemEsquerda;
+
+    @FXML
+    private JFXTextField jfxtfImagemEsquerdaL;
 
     @FXML
     private JFXButton jfxbAlterarImagemEsquerda;
@@ -77,11 +88,17 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     private JFXButton jfxbPararEscalacoes;
 
+    @FXML
+    private GridPane gpTelaPropaganda;
+
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
     private RespostaSocket respostaComando;
+
+    private String imagemDireita;
+    private String imagemEsquerda;
 
     /**
      * Método para trocar a cor dos campos TextField.
@@ -131,12 +148,44 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     void jfxbAlterarImagemDireitaOnAction(ActionEvent event) {
+        if (imagemDireita == null || imagemDireita.trim().isEmpty()) {
+            trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+        } else {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "direita", "alterar", imagemDireita);
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfImagemDireitaL);
+                } else {
+                    trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
     void jfxbAlterarImagemEsquerdaOnAction(ActionEvent event) {
+        if (imagemEsquerda == null || imagemEsquerda.trim().isEmpty()) {
+            trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+        } else {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "esquerda", "alterar", imagemEsquerda);
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfImagemEsquerdaL);
+                } else {
+                    trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     /**
@@ -191,12 +240,40 @@ public class UsuarioPropagandaController implements Initializable {
 
     @FXML
     void jfxbRestaurarImagemDireitaOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "direita", "restaurar", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", "white", jfxtfImagemDireitaL);
+                jfxtfImagemDireita.setText("");
+                imagemDireita = "";
+            } else {
+                trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
     void jfxbRestaurarImagemEsquerdaOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "esquerda", "restaurar", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", "white", jfxtfImagemEsquerdaL);
+                jfxtfImagemEsquerda.setText("");
+                imagemEsquerda = "";
+            } else {
+                trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     /**
@@ -207,7 +284,7 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.TEXTO_INFERIOR, "restaurar");
+            respostaComando = PlacarClient.enviarComando(Comando.TEXTO_INFERIOR, "restaurar", "");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorJFXTextField("white", "white", jfxtfTextoInferiorL);
@@ -228,13 +305,53 @@ public class UsuarioPropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxtfImagemDireitaOnAction(ActionEvent event) {
+    void jfxtfImagemDireitaOnMouseClicked(MouseEvent event) {
+        FileChooser fcImagem = new FileChooser();
 
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens", ".bmp", ".jpeg", ".jpg", ".png");
+
+        fcImagem.setTitle("Selecione uma Imagem");
+        fcImagem.setSelectedExtensionFilter(filtro);
+
+        File file = fcImagem.showOpenDialog((Stage) gpTelaPropaganda.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                imagemDireita = Utils.codificar(file);
+
+                jfxtfImagemDireita.setText(file.getName());
+
+                trocarCorJFXTextField("white", "white", jfxtfImagemDireitaL);
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                // Implementar log
+            }
+        }
     }
 
     @FXML
-    void jfxtfImagemEsquerdaOnAction(ActionEvent event) {
+    void jfxtfImagemEsquerdaOnMouseClicked(MouseEvent event) {
+        FileChooser fcImagem = new FileChooser();
 
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens", ".bmp", ".jpeg", ".jpg", ".png");
+
+        fcImagem.setTitle("Selecione uma Imagem");
+        fcImagem.setSelectedExtensionFilter(filtro);
+
+        File file = fcImagem.showOpenDialog((Stage) gpTelaPropaganda.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                imagemEsquerda = Utils.codificar(file);
+
+                jfxtfImagemEsquerda.setText(file.getName());
+
+                trocarCorJFXTextField("white", "white", jfxtfImagemEsquerdaL);
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                // Implementar log
+            }
+        }
     }
 
     @FXML
@@ -249,6 +366,5 @@ public class UsuarioPropagandaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 }

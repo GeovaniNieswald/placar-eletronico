@@ -91,8 +91,10 @@ public class GerUsuarioController implements Initializable {
             String user = (String) jfxList.getSelectionModel().getSelectedItem();
             boolean conf = Utils.confirm("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + user + "?\n"
                     + "Esta operação não pode ser desfeita.", Alert.AlertType.WARNING);
+
             if (conf) {
                 RespostaSocket resp = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "delete", user);
+
                 if (resp == RespostaSocket.COMANDO_ACEITO) {
                     updateList("Usuário " + user + " foi excluído.");
                 } else {
@@ -115,6 +117,7 @@ public class GerUsuarioController implements Initializable {
             String user = (String) jfxList.getSelectionModel().getSelectedItem();
             Optional<String> senha = Utils.prompt("Trocar senha", "Trocar senha do usuario " + user, "Nova senha:");
             RespostaSocket resp = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", user, senha.get());
+
             if (resp == RespostaSocket.COMANDO_ACEITO) {
                 updateList("Usuário " + user + " teve a senha atualizada.");
             } else {
@@ -131,9 +134,11 @@ public class GerUsuarioController implements Initializable {
             String resp = PlacarClient.enviarComandoResp(Comando.CADASTRO_USUARIO, "get", "all");
             String[] users = resp.split(",");
             ObservableList data = FXCollections.observableArrayList();
+
             for (String s : users) {
                 data.add(s);
             }
+
             jfxList.setItems(data);
 
             if (msg == null) {
@@ -141,7 +146,6 @@ public class GerUsuarioController implements Initializable {
             } else {
                 jfxlStatus.setText(msg);
             }
-
         } catch (IOException ex) {
             jfxlStatus.setText("Erro: " + ex.getMessage());
         }
@@ -151,5 +155,4 @@ public class GerUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         updateList(null);
     }
-
 }

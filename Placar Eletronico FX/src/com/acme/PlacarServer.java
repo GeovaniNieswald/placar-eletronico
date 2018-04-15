@@ -131,8 +131,10 @@ public class PlacarServer extends Thread {
                     return comandoCadastroUsuario(params);
                 case "#pontos":
                     return comandoPontos(params);
-                case "#faltaset":
-                    return comandoFaltaSet(params);
+                case "#faltas":
+                    return comandoFaltas(params);
+                case "#imagens":
+                    return comandoImagens(params);
                 case "#tempos":
                     return comandoTempos(params);
                 case "#cronometro":
@@ -236,11 +238,6 @@ public class PlacarServer extends Thread {
                         return "#pontos;ok";
                     case "set":
                         break;
-                        
-                    case "somaFalta":
-                        controller.aumentarFaltasTimeLocal(Integer.parseInt(params[3]));
-                        return "#pontos;ok";
-                        
                     default:
                         return "#pontos;not-ok";
                 }
@@ -251,9 +248,6 @@ public class PlacarServer extends Thread {
                         return "#pontos;ok";
                     case "menos":
                         controller.diminuirPontosTimeVisitante(Integer.parseInt(params[3]));
-                        return "#pontos;ok";
-                    case "somaFalta":
-                        controller.aumentarFaltasTimeVisitante(Integer.parseInt(params[3]));
                         return "#pontos;ok";
                     case "set":
                         break;
@@ -268,16 +262,68 @@ public class PlacarServer extends Thread {
         }
     }
 
-    public static String comandoFaltaSet(String[] params) {
+    public static String comandoFaltas(String[] params) {
         switch (params[1]) {
-            case "mais":
-                return "Soma faltas/sets: " + params[2];
-            case "menos":
-                return "Subtrai faltas/sets: " + params[2];
-            case "set":
-                return "Set faltas/sets: " + params[2];
+            case "local":
+                switch (params[2]) {
+                    case "mais":
+                        controller.aumentarFaltasTimeLocal(Integer.parseInt(params[3]));
+                        return "#faltas;ok";
+                    case "menos":
+                        controller.diminuirFaltasTimeLocal(Integer.parseInt(params[3]));
+                        return "#faltas;ok";
+                    default:
+                        return "#faltas;not-ok";
+                }
+            case "visitante":
+                switch (params[2]) {
+                    case "mais":
+                        controller.aumentarFaltasTimeVisitante(Integer.parseInt(params[3]));
+                        return "#faltas;ok";
+                    case "menos":
+                        controller.diminuirFaltasTimeVisitante(Integer.parseInt(params[3]));
+                        return "#faltas;ok";
+                    default:
+                        return "#faltas;not-ok";
+                }
+            case "zerar":
+                controller.zerarFaltas();
+                return "#faltas;ok";
             default:
-                return "Comando inválido! Parâmetro Tipo = " + params[2];
+                return "#faltas;not-ok";
+        }
+    }
+
+    public static String comandoImagens(String[] params) {
+        try {
+            switch (params[1]) {
+                case "direita":
+                    switch (params[2]) {
+                        case "alterar":
+                            controller.alterarImagemDireita(Utils.decodificar(params[3]));
+                            return "#imagens;ok";
+                        case "restaurar":
+                            controller.restaurarImagemDireita();
+                            return "#imagens;ok";
+                        default:
+                            return "#imagens;not-ok";
+                    }
+                case "esquerda":
+                    switch (params[2]) {
+                        case "alterar":
+                            controller.alterarImagemEsquerda(Utils.decodificar(params[3]));
+                            return "#imagens;ok";
+                        case "restaurar":
+                            controller.restaurarImagemEsquerda();
+                            return "#imagens;ok";
+                        default:
+                            return "#imagens;not-ok";
+                    }
+                default:
+                    return "#imagens;not-ok";
+            }
+        } catch (IOException ex) {
+            return "#imagens;not-ok";
         }
     }
 

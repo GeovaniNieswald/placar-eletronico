@@ -30,10 +30,6 @@ public class MainApp extends Application {
         Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/DS-DIGI.TTF").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/Comfortaa.ttf").toExternalForm(), 57.8);
 
-        /*PARA OS DEVS/TESTADORES:
-        * Pra quem testa server/client no local pode comentar essa duas linhas
-        * Aí a tela do placar em fullscreen não atrapalha, e não precisa ter 2 monitores :)
-         */
         trocarCena(Cena.AGUARDANDO_CONEXAO);
         stage.show();
     }

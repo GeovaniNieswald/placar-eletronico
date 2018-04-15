@@ -2,6 +2,7 @@ package com.acme.controller;
 
 import com.acme.PlacarServer;
 import de.jensd.fx.glyphs.octicons.OctIconView;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -9,8 +10,19 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 public class PlacarController implements Initializable {
@@ -57,13 +69,11 @@ public class PlacarController implements Initializable {
     @FXML
     private OctIconView ovPosseTimeLocal;
 
-    private int pontosTimeLocal;
-    private int pontosTimeVisitante;
+    @FXML
+    private VBox vbImagenEsquerda;
 
-    private int faltasTimeLocal;
-    private int faltasTimeVisitante;
-
-    private int periodo;
+    @FXML
+    private VBox vbImagenDireita;
 
     @FXML
     private Label lNumJogador;
@@ -71,55 +81,61 @@ public class PlacarController implements Initializable {
     @FXML
     private Label lFaltasJogador;
 
-    private void linhaDoTempo(Label label, String texto) {
-        Timeline tl = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+    private int pontosTimeLocal;
+    private int pontosTimeVisitante;
+
+    private int faltasTimeLocal;
+    private int faltasTimeVisitante;
+
+    private void linhaDoTempoLabel(Label label, String texto) {
+        Timeline tlL = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             label.setText(texto);
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        tl.play();
+        tlL.play();
+    }
+
+    private void linhaDoTempoVBox(VBox vBox, File file) {
+        Background background;
+
+        if (file == null) {
+            BackgroundFill backgroundFill = new BackgroundFill(Paint.valueOf("black"), CornerRadii.EMPTY, Insets.EMPTY);
+            background = new Background(backgroundFill);
+        } else {
+            Image image = new Image(file.toURI().toString());
+            BackgroundSize backgroundSize = new BackgroundSize(vBox.getWidth(), vBox.getHeight(), false, false, false, false);
+            BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+            background = new Background(backgroundImage);
+        }
+
+        Timeline tlVB = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            vBox.setBackground(background);
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        tlVB.play();
     }
 
     public void setNomeTimeLocal(String texto) {
-        linhaDoTempo(lNomeTimeLocal, texto);
+        linhaDoTempoLabel(lNomeTimeLocal, texto);
     }
 
     public void setNomeTimeVisitante(String texto) {
-        linhaDoTempo(lNomeTimeVisitante, texto);
+        linhaDoTempoLabel(lNomeTimeVisitante, texto);
     }
 
     public void setTextoInferior(String texto) {
-        linhaDoTempo(lTextoInferior, texto);
+        linhaDoTempoLabel(lTextoInferior, texto);
     }
 
     public void aumentarPontosTimeLocal(int pontos) {
         pontosTimeLocal += pontos;
 
         if (pontosTimeLocal > 9) {
-            linhaDoTempo(lPontosTimeLocal, pontosTimeLocal + "");
+            linhaDoTempoLabel(lPontosTimeLocal, pontosTimeLocal + "");
         } else {
-            linhaDoTempo(lPontosTimeLocal, "0" + pontosTimeLocal);
-        }
-    }
-    
-    
-    public void aumentarFaltasTimeLocal(int pontos) {
-        faltasTimeLocal += pontos;
-
-        if (pontosTimeLocal > 9) {
-            linhaDoTempo(lFaltasTimeLocal, faltasTimeLocal + "");
-        } else {
-            linhaDoTempo(lFaltasTimeLocal, "0" + faltasTimeLocal);
-        }
-    }
-    
-    public void aumentarFaltasTimeVisitante(int pontos) {
-        faltasTimeVisitante += pontos;
-
-        if (pontosTimeLocal > 9) {
-            linhaDoTempo(lFaltasTimeVisitante, faltasTimeVisitante + "");
-        } else {
-            linhaDoTempo(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
+            linhaDoTempoLabel(lPontosTimeLocal, "0" + pontosTimeLocal);
         }
     }
 
@@ -127,9 +143,9 @@ public class PlacarController implements Initializable {
         pontosTimeLocal -= pontos;
 
         if (pontosTimeLocal > 9) {
-            linhaDoTempo(lPontosTimeLocal, pontosTimeLocal + "");
+            linhaDoTempoLabel(lPontosTimeLocal, pontosTimeLocal + "");
         } else {
-            linhaDoTempo(lPontosTimeLocal, "0" + pontosTimeLocal);
+            linhaDoTempoLabel(lPontosTimeLocal, "0" + pontosTimeLocal);
         }
     }
 
@@ -137,9 +153,9 @@ public class PlacarController implements Initializable {
         pontosTimeVisitante += pontos;
 
         if (pontosTimeVisitante > 9) {
-            linhaDoTempo(lPontosTimeVisitante, pontosTimeVisitante + "");
+            linhaDoTempoLabel(lPontosTimeVisitante, pontosTimeVisitante + "");
         } else {
-            linhaDoTempo(lPontosTimeVisitante, "0" + pontosTimeVisitante);
+            linhaDoTempoLabel(lPontosTimeVisitante, "0" + pontosTimeVisitante);
         }
     }
 
@@ -147,9 +163,9 @@ public class PlacarController implements Initializable {
         pontosTimeVisitante -= pontos;
 
         if (pontosTimeVisitante > 9) {
-            linhaDoTempo(lPontosTimeVisitante, pontosTimeVisitante + "");
+            linhaDoTempoLabel(lPontosTimeVisitante, pontosTimeVisitante + "");
         } else {
-            linhaDoTempo(lPontosTimeVisitante, "0" + pontosTimeVisitante);
+            linhaDoTempoLabel(lPontosTimeVisitante, "0" + pontosTimeVisitante);
         }
     }
 
@@ -157,8 +173,72 @@ public class PlacarController implements Initializable {
         pontosTimeLocal = 0;
         pontosTimeVisitante = 0;
 
-        linhaDoTempo(lPontosTimeLocal, "00");
-        linhaDoTempo(lPontosTimeVisitante, "00");
+        linhaDoTempoLabel(lPontosTimeLocal, "00");
+        linhaDoTempoLabel(lPontosTimeVisitante, "00");
+    }
+
+    public void aumentarFaltasTimeLocal(int faltas) {
+        faltasTimeLocal += faltas;
+
+        if (faltasTimeLocal > 9) {
+            linhaDoTempoLabel(lFaltasTimeLocal, faltasTimeLocal + "");
+        } else {
+            linhaDoTempoLabel(lFaltasTimeLocal, "0" + faltasTimeLocal);
+        }
+    }
+
+    public void diminuirFaltasTimeLocal(int faltas) {
+        faltasTimeLocal -= faltas;
+
+        if (faltasTimeLocal > 9) {
+            linhaDoTempoLabel(lFaltasTimeLocal, faltasTimeLocal + "");
+        } else {
+            linhaDoTempoLabel(lFaltasTimeLocal, "0" + faltasTimeLocal);
+        }
+    }
+
+    public void aumentarFaltasTimeVisitante(int faltas) {
+        faltasTimeVisitante += faltas;
+
+        if (faltasTimeVisitante > 9) {
+            linhaDoTempoLabel(lFaltasTimeVisitante, faltasTimeVisitante + "");
+        } else {
+            linhaDoTempoLabel(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
+        }
+    }
+
+    public void diminuirFaltasTimeVisitante(int faltas) {
+        faltasTimeVisitante -= faltas;
+
+        if (faltasTimeVisitante > 9) {
+            linhaDoTempoLabel(lFaltasTimeVisitante, faltasTimeVisitante + "");
+        } else {
+            linhaDoTempoLabel(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
+        }
+    }
+
+    public void zerarFaltas() {
+        faltasTimeLocal = 0;
+        faltasTimeVisitante = 0;
+
+        linhaDoTempoLabel(lFaltasTimeLocal, "00");
+        linhaDoTempoLabel(lFaltasTimeVisitante, "00");
+    }
+
+    public void alterarImagemDireita(File file) {
+        linhaDoTempoVBox(vbImagenDireita, file);
+    }
+
+    public void alterarImagemEsquerda(File file) {
+        linhaDoTempoVBox(vbImagenEsquerda, file);
+    }
+
+    public void restaurarImagemDireita() {
+        linhaDoTempoVBox(vbImagenDireita, null);
+    }
+
+    public void restaurarImagemEsquerda() {
+        linhaDoTempoVBox(vbImagenEsquerda, null);
     }
 
     @FXML
@@ -170,5 +250,4 @@ public class PlacarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         PlacarServer.instanciaPlacarController(this);
     }
-
 }

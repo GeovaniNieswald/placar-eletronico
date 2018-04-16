@@ -190,6 +190,17 @@ public class PlacarClient {
                     return RespostaSocket.COMANDO_RECUSADO;
                 }
 
+            case PROPAGANDA:
+                out.println("#propaganda;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+
+                respostaComando = in.readLine().split(";");
+
+                if (respostaComando[1].equals("ok")) {
+                    return RespostaSocket.COMANDO_ACEITO;
+                } else {
+                    return RespostaSocket.COMANDO_RECUSADO;
+                }
+
             default:
                 return RespostaSocket.COMANDO_RECUSADO;
             // IMPLEMENTAR LOG

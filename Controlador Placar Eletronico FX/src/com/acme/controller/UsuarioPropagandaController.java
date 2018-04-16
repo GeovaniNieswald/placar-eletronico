@@ -5,9 +5,7 @@ import com.acme.PlacarClient;
 import com.acme.Utils;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -32,64 +30,37 @@ import javafx.stage.Stage;
 public class UsuarioPropagandaController implements Initializable {
 
     @FXML
-    private FontAwesomeIconView faivSair;
-
-    @FXML
-    private JFXTextField jfxtfTextoInferiorL;
+    private GridPane gpTelaPropaganda;
 
     @FXML
     private JFXTextField jfxtfTextoInferior;
 
     @FXML
-    private JFXButton jfxbAlterarTextoInferior;
-
-    @FXML
-    private JFXButton jfxbRestaurarTextoInferior;
-
-    @FXML
     private JFXTextField jfxtfImagemDireita;
-
-    @FXML
-    private JFXTextField jfxtfImagemDireitaL;
-
-    @FXML
-    private JFXButton jfxbAlterarImagemDireita;
-
-    @FXML
-    private JFXButton jfxbRestaurarImagemDireita;
 
     @FXML
     private JFXTextField jfxtfImagemEsquerda;
 
     @FXML
-    private JFXTextField jfxtfImagemEsquerdaL;
-
-    @FXML
-    private JFXButton jfxbAlterarImagemEsquerda;
-
-    @FXML
-    private JFXButton jfxbRestaurarImagemEsquerda;
-
-    @FXML
-    private JFXTextField jfxtfImagemVideo;
-
-    @FXML
-    private JFXButton jfxbExibirImagemVideo;
-
-    @FXML
-    private JFXButton jfxbPararImagemVideo;
+    private JFXTextField jfxtfPropaganda;
 
     @FXML
     private JFXTextField jfxtfEscalacoes;
 
     @FXML
-    private JFXButton jfxbExibirEscalacoes;
+    private JFXTextField jfxtfTextoInferiorL;
 
     @FXML
-    private JFXButton jfxbPararEscalacoes;
+    private JFXTextField jfxtfImagemDireitaL;
 
     @FXML
-    private GridPane gpTelaPropaganda;
+    private JFXTextField jfxtfImagemEsquerdaL;
+
+    @FXML
+    private JFXTextField jfxtfPropagandaL;
+
+    @FXML
+    private JFXTextField jfxtfEscalacoesL;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -99,6 +70,9 @@ public class UsuarioPropagandaController implements Initializable {
 
     private String imagemDireita;
     private String imagemEsquerda;
+    private String propaganda;
+
+    private boolean propagandaImagem;
 
     /**
      * Método para trocar a cor dos campos TextField.
@@ -122,18 +96,6 @@ public class UsuarioPropagandaController implements Initializable {
     }
 
     /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
-    @FXML
-    void gpOnMousePressed(MouseEvent event) {
-        posicaoInicialX = event.getSceneX();
-        posicaoInicialY = event.getSceneY();
-    }
-
-    /**
      * Método acionado quando o mouse é arrastado, ele pega a posição atual
      * horizontal e vertical da cena, faz a subtração pela posição inicial
      * horizontal e vertical separadamente, e chama o método que move a tela,
@@ -144,6 +106,18 @@ public class UsuarioPropagandaController implements Initializable {
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
+    }
+
+    /**
+     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
+     * posição atual horizontal e vertical da cena.
+     *
+     * @param event MouseEvent.
+     */
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
     @FXML
@@ -224,8 +198,28 @@ public class UsuarioPropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxbExibirImagemVideoOnAction(ActionEvent event) {
+    void jfxbExibirPropagandaOnAction(ActionEvent event) {
+        if (propaganda == null || propaganda.trim().isEmpty()) {
+            trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+        } else {
+            try {
+                if (propagandaImagem) {
+                    respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "exibir", propaganda);
+                } else {
+                    respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "video", "exibir", propaganda);
+                }
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfPropagandaL);
+                } else {
+                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
@@ -234,8 +228,24 @@ public class UsuarioPropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxbPararImagemVideoOnAction(ActionEvent event) {
+    void jfxbPararPropagandaOnAction(ActionEvent event) {
+        try {
+            if (propagandaImagem) {
+                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "parar", "");
+            } else {
+                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "video", "parar", "");
+            }
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+            } else {
+                trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
@@ -300,7 +310,7 @@ public class UsuarioPropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxtfEscalacoesOnAction(ActionEvent event) {
+    void jfxtfEscalacoesOnClicked(MouseEvent event) {
 
     }
 
@@ -308,10 +318,10 @@ public class UsuarioPropagandaController implements Initializable {
     void jfxtfImagemDireitaOnMouseClicked(MouseEvent event) {
         FileChooser fcImagem = new FileChooser();
 
-        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens", ".bmp", ".jpeg", ".jpg", ".png");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens", "*.bmp", "*.jpeg", "*.jpg", "*.png");
 
         fcImagem.setTitle("Selecione uma Imagem");
-        fcImagem.setSelectedExtensionFilter(filtro);
+        fcImagem.getExtensionFilters().add(filtro);
 
         File file = fcImagem.showOpenDialog((Stage) gpTelaPropaganda.getScene().getWindow());
 
@@ -333,10 +343,10 @@ public class UsuarioPropagandaController implements Initializable {
     void jfxtfImagemEsquerdaOnMouseClicked(MouseEvent event) {
         FileChooser fcImagem = new FileChooser();
 
-        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens", ".bmp", ".jpeg", ".jpg", ".png");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens", "*.bmp", "*.jpeg", "*.jpg", "*.png");
 
         fcImagem.setTitle("Selecione uma Imagem");
-        fcImagem.setSelectedExtensionFilter(filtro);
+        fcImagem.getExtensionFilters().add(filtro);
 
         File file = fcImagem.showOpenDialog((Stage) gpTelaPropaganda.getScene().getWindow());
 
@@ -355,13 +365,32 @@ public class UsuarioPropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxtfImagemVideoOnAction(ActionEvent event) {
+    void jfxtfPropagandaOnClicked(MouseEvent event) {
+        FileChooser fcImagemVideo = new FileChooser();
 
-    }
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens/Vídeos", ".mkv", "*.avi", "*.mpeg", "*.mpg", "*.mp4", "*.wmv", "*.bmp", "*.jpeg", "*.jpg", "*.png");
 
-    @FXML
-    void jfxtfTextoInferiorOnAction(ActionEvent event) {
+        fcImagemVideo.setTitle("Selecione uma Imagem ou um Vídeo");
+        fcImagemVideo.getExtensionFilters().add(filtro);
 
+        File file = fcImagemVideo.showOpenDialog((Stage) gpTelaPropaganda.getScene().getWindow());
+
+        if (file != null) {
+            String extencao = file.getAbsolutePath();
+
+            propagandaImagem = extencao.endsWith("bmp") || extencao.endsWith("jpeg") || extencao.endsWith("jpg") || extencao.endsWith("png");
+
+            try {
+                propaganda = Utils.codificar(file);
+
+                jfxtfPropaganda.setText(file.getName());
+
+                trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                // Implementar log
+            }
+        }
     }
 
     @Override

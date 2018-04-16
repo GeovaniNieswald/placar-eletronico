@@ -19,8 +19,20 @@ public class Utils {
         }
     }
 
-    public static File decodificar(String fileCodificado) throws IOException {
-        File file = new File("teste.png");
+    public static File decodificar(String tipo, String fileCodificado) throws IOException {
+        File file;
+
+        switch (tipo) {
+            case "imagem":
+                file = new File("imagem.png");
+                break;
+            case "video":
+                file = new File("video.mp4");
+                break;
+            default:
+                file = new File("imagem.png");
+                break;
+        }
 
         byte[] bytes = Base64.getDecoder().decode(fileCodificado);
 

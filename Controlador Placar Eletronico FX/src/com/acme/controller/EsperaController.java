@@ -5,7 +5,6 @@ import com.acme.PlacarClient;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,12 +25,6 @@ import javafx.util.Duration;
  * @author Geovani Alex Nieswald
  */
 public class EsperaController implements Initializable {
-
-    @FXML
-    private FontAwesomeIconView faivVoltar;
-
-    @FXML
-    private FontAwesomeIconView faivSair;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -91,7 +84,7 @@ public class EsperaController implements Initializable {
                 RespostaSocket respostaUsuarioPrincipal = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PLACAR);
 
                 if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PLACAR_CONECTADO) {
-                    MainApp.trocarCena(Cena.USUARIO_PROPAGANDA);
+                    MainApp.trocarCena(Cena.PLACAR_PROPAGANDA);
                     esperandoUsuarioPrincipal.stop();
                 }
             } catch (IOException ex) {

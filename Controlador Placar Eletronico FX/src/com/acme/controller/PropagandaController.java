@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  * @author Gabriel Cavalheiro Ullmann
  * @author Geovani Alex Nieswald
  */
-public class UsuarioPropagandaController implements Initializable {
+public class PropagandaController implements Initializable {
 
     @FXML
     private GridPane gpTelaPropaganda;
@@ -238,6 +238,8 @@ public class UsuarioPropagandaController implements Initializable {
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+                jfxtfPropaganda.setText("");
+                propaganda = "";
             } else {
                 trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
             }

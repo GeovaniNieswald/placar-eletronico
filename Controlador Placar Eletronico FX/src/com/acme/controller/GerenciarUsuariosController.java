@@ -6,9 +6,7 @@ import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -22,28 +20,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-public class GerUsuarioController implements Initializable {
+public class GerenciarUsuariosController implements Initializable {
 
     @FXML
-    private Label jfxlStatus;
+    private Label lStatus;
 
     @FXML
-    private JFXListView<?> jfxList;
-
-    @FXML
-    private JFXButton jfxbTrocaSenha;
-
-    @FXML
-    private JFXButton jfxbNovoUser;
-
-    @FXML
-    private JFXButton jfxbExcluirUser;
-
-    @FXML
-    private FontAwesomeIconView faivVoltar;
-
-    @FXML
-    private FontAwesomeIconView faivSair;
+    private JFXListView<?> jfxlvLista;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -86,68 +69,75 @@ public class GerUsuarioController implements Initializable {
     }
 
     @FXML
-    void jfxbExcluirUserOnClick(MouseEvent event) {
+    void jfxbExcluirUsuarioOnClick(MouseEvent event) {
         try {
-            String user = (String) jfxList.getSelectionModel().getSelectedItem();
-            boolean conf = Utils.confirm("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + user + "?\n"
+            String usuario = (String) jfxlvLista.getSelectionModel().getSelectedItem();
+            boolean conf = Utils.confirm("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + usuario + "?\n"
                     + "Esta operação não pode ser desfeita.", Alert.AlertType.WARNING);
 
             if (conf) {
-                RespostaSocket resp = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "delete", user);
+                RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "delete", usuario);
 
-                if (resp == RespostaSocket.COMANDO_ACEITO) {
-                    updateList("Usuário " + user + " foi excluído.");
+                if (resposta == RespostaSocket.COMANDO_ACEITO) {
+                    updateList("Usuário " + usuario + " foi excluído.");
                 } else {
-                    jfxlStatus.setText("Ocorreu um erro na exclusão.");
+                    lStatus.setText("Ocorreu um erro na exclusão.");
                 }
             }
         } catch (IOException ex) {
-            jfxlStatus.setText("Erro: " + ex.getMessage());
+            // implementar log
+            lStatus.setText("Erro: " + ex.getMessage());
         }
     }
 
     @FXML
-    void jfxbNovoUserOnClick(MouseEvent event) {
-        MainApp.trocarCena(Cena.CAD_USUARIO);
+    void jfxbNovoUsuarioOnClick(MouseEvent event) {
+        MainApp.trocarCena(Cena.CADASTRO_USUARIO);
     }
 
     @FXML
-    void jfxbTrocaSenhaOnClick(MouseEvent event) {
+    void jfxbTrocarSenhaUsuarioOnClick(MouseEvent event) {
         try {
-            String user = (String) jfxList.getSelectionModel().getSelectedItem();
-            Optional<String> senha = Utils.prompt("Trocar senha", "Trocar senha do usuario " + user, "Nova senha:");
-            RespostaSocket resp = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", user, senha.get());
+            String usuario = (String) jfxlvLista.getSelectionModel().getSelectedItem();
+            Optional<String> senha = Utils.prompt("Trocar senha", "Trocar senha do usuario " + usuario, "Nova senha:");
+            RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", usuario, senha.get());
 
-            if (resp == RespostaSocket.COMANDO_ACEITO) {
-                updateList("Usuário " + user + " teve a senha atualizada.");
+            if (resposta == RespostaSocket.COMANDO_ACEITO) {
+                updateList("Usuário " + usuario + " teve a senha atualizada.");
             } else {
-                jfxlStatus.setText("Ocorreu um erro na troca de senha.");
+                lStatus.setText("Ocorreu um erro na troca de senha.");
             }
         } catch (IOException ex) {
-            jfxlStatus.setText("Erro: " + ex.getMessage());
+            // implementar log
+            lStatus.setText("Erro: " + ex.getMessage());
         }
     }
 
-    private void updateList(String msg) {
+    private void updateList(String mensagem) {
         try {
             Date d = new Date();
-            String resp = PlacarClient.enviarComandoResp(Comando.CADASTRO_USUARIO, "get", "all");
-            String[] users = resp.split(",");
-            ObservableList data = FXCollections.observableArrayList();
+            String resposta = PlacarClient.enviarComandoResp(Comando.CADASTRO_USUARIO, "get", "all");
+            String[] usuarios = resposta.split(",");
+            ObservableList dados = FXCollections.observableArrayList();
 
-            for (String s : users) {
-                data.add(s);
+            for (String s : usuarios) {
+                dados.add(s);
             }
 
-            jfxList.setItems(data);
+            jfxlvLista.setItems(dados);
 
-            if (msg == null) {
-                jfxlStatus.setText("Lista atualizada: " + d);
+            if (usuarios.length != 0) {
+                jfxlvLista.getSelectionModel().select(0);
+            }
+
+            if (mensagem == null) {
+                lStatus.setText("Lista atualizada: " + d);
             } else {
-                jfxlStatus.setText(msg);
+                lStatus.setText(mensagem);
             }
         } catch (IOException ex) {
-            jfxlStatus.setText("Erro: " + ex.getMessage());
+            // implementar log
+            lStatus.setText("Erro: " + ex.getMessage());
         }
     }
 

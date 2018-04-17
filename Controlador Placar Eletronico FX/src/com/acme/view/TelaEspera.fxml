@@ -29,7 +29,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+            <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
                <VBox.margin>
                   <Insets right="5.0" />
                </VBox.margin>
@@ -41,7 +41,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
          <children>
-            <FontAwesomeIconView fx:id="faivSair" fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

@@ -4,10 +4,8 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,9 +29,6 @@ import javafx.scene.paint.Paint;
 public class ConexaoController implements Initializable {
 
     @FXML
-    private FontAwesomeIconView faivSair;
-
-    @FXML
     private JFXTextField jfxtfEndereco;
 
     @FXML
@@ -41,9 +36,6 @@ public class ConexaoController implements Initializable {
 
     @FXML
     private JFXPasswordField jfxpfSenha;
-
-    @FXML
-    private JFXButton jfxbConectar;
 
     @FXML
     private Label lInfos;

@@ -6,11 +6,9 @@ import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,49 +25,26 @@ import javafx.scene.input.MouseEvent;
  * @author Gabriel Cavalheiro Ullmann
  * @author Geovani Alex Nieswald
  */
-public class CadUsuarioController {
+public class CadastroUsuarioController {
 
     @FXML
     private JFXTextField jfxtfUsername;
 
     @FXML
-    private JFXPasswordField jfxtfPassword;
+    private JFXPasswordField jfxpfPassword;
 
     @FXML
-    private JFXCheckBox jfxcbAdmin;
+    private JFXCheckBox jfxcbAdministrador;
 
     @FXML
     private JFXCheckBox jfxcbPlacar;
 
     @FXML
-    private JFXCheckBox jfxcbProp;
-
-    @FXML
-    private JFXButton jfxbSalvar;
-
-    @FXML
-    private JFXButton jfxbCancelar;
-
-    @FXML
-    private JFXTextField jfxtfUsernameL;
-
-    @FXML
-    private JFXTextField jfxtfPasswordL;
-
-    @FXML
-    private FontAwesomeIconView faivVoltar;
-
-    @FXML
-    private FontAwesomeIconView faivSair;
+    private JFXCheckBox jfxcbPropaganda;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
-
-    @FXML
-    void faivSairOnMouseCliked(MouseEvent event) {
-        System.exit(0);
-    }
 
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
@@ -108,31 +83,30 @@ public class CadUsuarioController {
 
     @FXML
     void jfxbSalvarOnAction(ActionEvent event) {
-        String nomeuser = jfxtfUsername.getText();
-        String senha = jfxtfPassword.getText();
-        String admin = String.valueOf(jfxcbAdmin.isSelected());
-        String placar = String.valueOf(jfxcbPlacar.isSelected());
-        String prop = String.valueOf(jfxcbProp.isSelected());
+        String nomeUsuario = jfxtfUsername.getText();
+        String senha = jfxpfPassword.getText();
+        String usuarioAdministrador = String.valueOf(jfxcbAdministrador.isSelected());
+        String usuarioPlacar = String.valueOf(jfxcbPlacar.isSelected());
+        String usuarioPropaganda = String.valueOf(jfxcbPropaganda.isSelected());
 
-        if (nomeuser.trim().isEmpty() || senha.trim().isEmpty()) {
+        if (nomeUsuario.trim().isEmpty() || senha.trim().isEmpty()) {
             Utils.alert("Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
-        } else if (nomeuser.contains(",") || nomeuser.contains(";")) {
+        } else if (nomeUsuario.contains(",") || nomeUsuario.contains(";")) {
             Utils.alert("Nome de usuário não pode conter vírgula nem ponto-e-vírgula", Alert.AlertType.WARNING);
-        } else if (!(jfxcbAdmin.isSelected() || jfxcbPlacar.isSelected() || jfxcbProp.isSelected())) {
-            Utils.alert("Usuário precisa ter pelo menos 1 permissão marcada!", Alert.AlertType.WARNING);
         } else {
             try {
-                RespostaSocket resp = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "add", nomeuser, senha, admin, placar, prop);
-                switch (resp) {
+                RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "add", nomeUsuario, senha, usuarioAdministrador, usuarioPlacar, usuarioPropaganda);
+
+                switch (resposta) {
                     case USUARIO_JA_EXISTE:
                         break;
                     default:
                         Utils.alert("Usuário salvo!", Alert.AlertType.INFORMATION);
                         jfxtfUsername.setText("");
-                        jfxtfPassword.setText("");
-                        jfxcbAdmin.setSelected(false);
+                        jfxpfPassword.setText("");
+                        jfxcbAdministrador.setSelected(false);
                         jfxcbPlacar.setSelected(false);
-                        jfxcbProp.setSelected(false);
+                        jfxcbPropaganda.setSelected(false);
                         break;
                 }
             } catch (IOException ex) {
@@ -143,20 +117,20 @@ public class CadUsuarioController {
     }
 
     @FXML
-    void jfxcbAdminOnAction(ActionEvent event) {
+    void jfxcbAdministradorOnActionOnAction(ActionEvent event) {
         jfxcbPlacar.setSelected(false);
-        jfxcbProp.setSelected(false);
+        jfxcbPropaganda.setSelected(false);
     }
 
     @FXML
     void jfxcbPlacarOnAction(ActionEvent event) {
-        jfxcbAdmin.setSelected(false);
-        jfxcbProp.setSelected(false);
+        jfxcbAdministrador.setSelected(false);
+        jfxcbPropaganda.setSelected(false);
     }
 
     @FXML
-    void jfxcbPropOnAction(ActionEvent event) {
-        jfxcbAdmin.setSelected(false);
+    void jfxcbPropagandaOnAction(ActionEvent event) {
+        jfxcbAdministrador.setSelected(false);
         jfxcbPlacar.setSelected(false);
     }
 

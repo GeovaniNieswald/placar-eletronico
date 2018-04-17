@@ -27,13 +27,13 @@ public class MainApp extends Application {
 
     // Cenas da aplicação.
     private static Scene cenaConexao;
-    private static Scene cenaCadUsuario;
+    private static Scene cenaCadastroUsuario;
     private static Scene cenaEsporte;
     private static Scene cenaEspera;
-    private static Scene cenaUsuarioPrincipalBasquete;
-    private static Scene cenaUsuarioPrincipalFutsal;
-    private static Scene cenaUsuarioPropaganda;
-    private static Scene cenaGerUsuario;
+    private static Scene cenaPlacarBasquete;
+    private static Scene cenaPlacarFutsal;
+    private static Scene cenaPropaganda;
+    private static Scene cenaGerenciarUsuarios;
 
     /**
      * Método que é chamado quando a aplicação é executada. São definidos
@@ -84,10 +84,15 @@ public class MainApp extends Application {
                     cenaConexao = new Scene(fxmlConexao);
                     configurarTela(cenaConexao, "Conexão - Controlador Placar Eletrônico");
                     break;
-                case CAD_USUARIO:
-                    Parent fxmlCadUsuario = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaCadUsuario.fxml"));
-                    cenaCadUsuario = new Scene(fxmlCadUsuario);
-                    configurarTela(cenaCadUsuario, "Cadastro de usuário - Controlador Placar Eletrônico");
+                case GERENCIAR_USUARIOS:
+                    Parent fxmlGerUsuario = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaGerenciarUsuarios.fxml"));
+                    cenaGerenciarUsuarios = new Scene(fxmlGerUsuario);
+                    configurarTela(cenaGerenciarUsuarios, "Usuários - Controlador Placar Eletrônico");
+                    break;
+                case CADASTRO_USUARIO:
+                    Parent fxmlCadUsuario = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaCadastroUsuario.fxml"));
+                    cenaCadastroUsuario = new Scene(fxmlCadUsuario);
+                    configurarTela(cenaCadastroUsuario, "Cadastro de usuário - Controlador Placar Eletrônico");
                     break;
                 case ESPORTE:
                     Parent fxmlEsporte = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaEsporte.fxml"));
@@ -99,25 +104,20 @@ public class MainApp extends Application {
                     cenaEspera = new Scene(fxmlEspera);
                     configurarTela(cenaEspera, "Esperando - Controlador Placar Eletrônico");
                     break;
-                case USUARIO_PRINCIPAL_BASQUETE:
-                    Parent fxmlUsuarioPrincipalBasquete = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaUsuarioPrincipalBasquete.fxml"));
-                    cenaUsuarioPrincipalBasquete = new Scene(fxmlUsuarioPrincipalBasquete);
-                    configurarTela(cenaUsuarioPrincipalBasquete, "Basquete - Controlador Placar Eletrônico");
+                case PLACAR_BASQUETE:
+                    Parent fxmlUsuarioPrincipalBasquete = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarBasquete.fxml"));
+                    cenaPlacarBasquete = new Scene(fxmlUsuarioPrincipalBasquete);
+                    configurarTela(cenaPlacarBasquete, "Basquete - Controlador Placar Eletrônico");
                     break;
-                case USUARIO_PRINCIPAL_FUTSAL:
-                    Parent fxmlUsuarioPrincipalFutsal = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaUsuarioPrincipalFutsal.fxml"));
-                    cenaUsuarioPrincipalFutsal = new Scene(fxmlUsuarioPrincipalFutsal);
-                    configurarTela(cenaUsuarioPrincipalFutsal, "Futsal - Controlador Placar Eletrônico");
+                case PLACAR_FUTSAL:
+                    Parent fxmlUsuarioPrincipalFutsal = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarFutsal.fxml"));
+                    cenaPlacarFutsal = new Scene(fxmlUsuarioPrincipalFutsal);
+                    configurarTela(cenaPlacarFutsal, "Futsal - Controlador Placar Eletrônico");
                     break;
-                case USUARIO_PROPAGANDA:
-                    Parent fxmlUsuarioPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaUsuarioPropaganda.fxml"));
-                    cenaUsuarioPropaganda = new Scene(fxmlUsuarioPropaganda);
-                    configurarTela(cenaUsuarioPropaganda, "Propaganda - Controlador Placar Eletrônico");
-                    break;
-                case GERENCIAR_USUARIOS:
-                    Parent fxmlGerUsuario = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaGerenciaUsuario.fxml"));
-                    cenaGerUsuario = new Scene(fxmlGerUsuario);
-                    configurarTela(cenaGerUsuario, "Usuários - Controlador Placar Eletrônico");
+                case PLACAR_PROPAGANDA:
+                    Parent fxmlUsuarioPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPropaganda.fxml"));
+                    cenaPropaganda = new Scene(fxmlUsuarioPropaganda);
+                    configurarTela(cenaPropaganda, "Propaganda - Controlador Placar Eletrônico");
                     break;
                 default:
                 // Implementar log

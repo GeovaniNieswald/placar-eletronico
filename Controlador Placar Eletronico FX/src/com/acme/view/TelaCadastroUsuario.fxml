@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.CadastroUsuarioController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="89.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="80.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <JFXTextField fx:id="jfxtfUsername" focusColor="#890e01" layoutX="241.0" layoutY="66.0" prefHeight="31.0" prefWidth="440.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
+            <JFXPasswordField fx:id="jfxpfPassword" focusColor="#890e01" layoutX="232.0" layoutY="143.0" prefHeight="31.0" prefWidth="449.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
+            <JFXCheckBox fx:id="jfxcbAdministrador" checkedColor="#890e01" layoutX="200.0" layoutY="232.0" onAction="#jfxcbAdministradorOnAction" selected="true" styleClass="fonte-padrao" text="Administrador" textFill="WHITE" unCheckedColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXCheckBox>
+            <JFXCheckBox fx:id="jfxcbPlacar" checkedColor="#890e01" layoutX="200.0" layoutY="273.0" onAction="#jfxcbPlacarOnAction" styleClass="fonte-padrao" text="Placar" textFill="WHITE" unCheckedColor="WHITE" AnchorPane.topAnchor="273.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXCheckBox>
+            <JFXCheckBox fx:id="jfxcbPropaganda" checkedColor="#890e01" layoutX="200.0" layoutY="314.0" onAction="#jfxcbPropagandaOnAction" styleClass="fonte-padrao" text="Propagandas" textFill="WHITE" unCheckedColor="WHITE" AnchorPane.topAnchor="314.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXCheckBox>
+            <JFXButton layoutX="511.0" layoutY="238.0" onAction="#jfxbSalvarOnAction" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Salvar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <JFXButton layoutX="511.0" layoutY="299.0" onAction="#jfxbCancelarOnAction" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Cancelar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <JFXTextField editable="false" focusColor="WHITE" layoutX="166.0" layoutY="66.0" prefHeight="31.0" prefWidth="75.0" promptText="Usuário:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></JFXTextField>
+            <JFXTextField editable="false" focusColor="WHITE" layoutX="166.0" layoutY="143.0" prefHeight="31.0" prefWidth="67.0" promptText="Senha:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></JFXTextField>
+         </children>
+      </AnchorPane>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <children>
+            <Label prefHeight="42.0" prefWidth="837.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Gerenciar Usuários - Cadastro" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</GridPane>

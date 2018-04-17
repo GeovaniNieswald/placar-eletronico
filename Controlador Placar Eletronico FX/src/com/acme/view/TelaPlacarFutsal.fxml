@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="box-futsal" alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="645.0" prefWidth="850.0" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.UsuarioPrincipalFutsalController">
+<GridPane id="box-futsal" alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="645.0" prefWidth="850.0" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="89.0" prefWidth="0.0" />
@@ -31,7 +31,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <FontAwesomeIconView fx:id="faivVoltar" fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+            <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
                <VBox.margin>
                   <Insets right="5.0" />
                </VBox.margin>
@@ -52,7 +52,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
          <children>
-            <FontAwesomeIconView fx:id="faivSair" fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -64,64 +64,64 @@
       </VBox>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <JFXTextField fx:id="jfxtfNomeTimeLocal" focusColor="#890e01" layoutX="175.0" layoutY="31.0" prefHeight="31.0" prefWidth="308.0" promptText="LOCAL" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="31.0" />
-            <JFXButton fx:id="jfxbAlterarNomeTimeLocal" layoutX="510.0" layoutY="34.0" onAction="#jfxbAlterarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="34.0">
+            <JFXTextField fx:id="jfxtfNomeTimeLocal" alignment="CENTER" focusColor="#890e01" layoutX="175.0" layoutY="31.0" prefHeight="31.0" prefWidth="308.0" promptText="LOCAL" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="31.0" />
+            <JFXButton layoutX="510.0" layoutY="34.0" onAction="#jfxbAlterarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="34.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarNomeTimeLocal" layoutX="625.0" layoutY="34.0" onAction="#jfxbRestaurarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="34.0">
+            <JFXButton layoutX="625.0" layoutY="34.0" onAction="#jfxbRestaurarNomeTimeLocalOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="34.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfNomeTimeVisitante" focusColor="#890e01" layoutX="200.0" layoutY="92.0" prefHeight="31.0" prefWidth="283.0" promptText="VISITANTE" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="92.0" />
-            <JFXButton fx:id="jfxbAlterarNomeTimeVisitante" layoutX="510.0" layoutY="95.0" onAction="#jfxbAlterarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="95.0">
+            <JFXTextField fx:id="jfxtfNomeTimeVisitante" alignment="CENTER" focusColor="#890e01" layoutX="200.0" layoutY="92.0" prefHeight="31.0" prefWidth="283.0" promptText="VISITANTE" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="92.0" />
+            <JFXButton layoutX="510.0" layoutY="95.0" onAction="#jfxbAlterarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Alterar" textFill="WHITE" AnchorPane.topAnchor="95.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarNomeTimeVisitante" layoutX="625.0" layoutY="95.0" onAction="#jfxbRestaurarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="95.0">
+            <JFXButton layoutX="625.0" layoutY="95.0" onAction="#jfxbRestaurarNomeTimeVisitanteOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="95.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfCronometro" editable="false" focusColor="#890e01" layoutX="30.0" layoutY="153.0" prefHeight="31.0" prefWidth="334.0" promptText="Cronômetro:                   00:00:00" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="153.0">
+            <JFXTextField fx:id="jfxtfCronometro" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="138.0" layoutY="153.0" prefHeight="31.0" prefWidth="226.0" promptText="00:00:00" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="153.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXButton fx:id="jfxbIniciarCronometro" layoutX="396.0" layoutY="156.0" onAction="#jfxbIniciarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Iniciar" textFill="WHITE" AnchorPane.topAnchor="156.0">
+            <JFXButton layoutX="396.0" layoutY="156.0" onAction="#jfxbIniciarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Iniciar" textFill="WHITE" AnchorPane.topAnchor="156.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbPausarCronometro" layoutX="510.0" layoutY="156.0" onAction="#jfxbPausarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Pausar" textFill="WHITE" AnchorPane.topAnchor="156.0">
+            <JFXButton layoutX="510.0" layoutY="156.0" onAction="#jfxbPausarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Pausar" textFill="WHITE" AnchorPane.topAnchor="156.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarCronometro" layoutX="625.0" layoutY="156.0" onAction="#jfxbRestaurarCronometroOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="156.0">
+            <JFXButton layoutX="625.0" layoutY="156.0" onAction="#jfxbRestaurarCronometroOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="156.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfPeriodo" editable="false" focusColor="#890e01" layoutX="30.0" layoutY="214.0" prefHeight="31.0" prefWidth="334.0" promptText="Período:                               1" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="214.0">
+            <JFXTextField fx:id="jfxtfPeriodo" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="104.0" layoutY="214.0" prefHeight="31.0" prefWidth="260.0" promptText="1" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="214.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXButton fx:id="jfxbAumentarPeriodo" layoutX="396.0" layoutY="217.0" onAction="#jfxbAumentarPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE" AnchorPane.topAnchor="217.0">
+            <JFXButton layoutX="396.0" layoutY="217.0" onAction="#jfxbAumentarPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE" AnchorPane.topAnchor="217.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbDiminuirPeriodo" layoutX="510.0" layoutY="217.0" onAction="#jfxbDiminuirPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.topAnchor="217.0">
+            <JFXButton layoutX="510.0" layoutY="217.0" onAction="#jfxbDiminuirPeriodoOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.topAnchor="217.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="jfxbRestaurarPeriodo" layoutX="626.0" layoutY="217.0" onAction="#jfxbRestaurarPeriodoOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="217.0">
+            <JFXButton layoutX="626.0" layoutY="217.0" onAction="#jfxbRestaurarPeriodoOnAction" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.topAnchor="217.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -134,13 +134,13 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lGolsTimeLocal" alignment="CENTER" layoutX="51.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="00" textFill="WHITE" />
-                  <JFXButton fx:id="jfxbAumentarGolsTimeLocal" layoutX="50.0" layoutY="52.0" onAction="#jfxbAumentarGolsTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+                  <Label fx:id="lPontosTimeLocal" alignment="CENTER" layoutX="51.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="00" textFill="WHITE" />
+                  <JFXButton layoutX="50.0" layoutY="52.0" onAction="#jfxbAumentar1PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE" AnchorPane.leftAnchor="50.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="jfxbDiminuirGolsTimeLocal" layoutX="50.0" layoutY="97.0" onAction="#jfxbDiminuirGolsTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+                  <JFXButton layoutX="50.0" layoutY="97.0" onAction="#jfxbDiminuir1PontoTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="50.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -150,18 +150,18 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lGolsTimeVisitante" alignment="CENTER" layoutX="222.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="00" textFill="WHITE" />
-                  <JFXButton fx:id="jfxbAumentarGolsTimeVisitante" layoutX="222.0" layoutY="52.0" onAction="#jfxbAumentarGolsTimeVisitante" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE">
+                  <Label fx:id="lPontosTimeVisitante" alignment="CENTER" layoutX="222.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="00" textFill="WHITE" />
+                  <JFXButton layoutX="222.0" layoutY="52.0" onAction="#jfxbAumentar1PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="jfxbDiminuirGolsTimeVisitante" layoutX="222.0" layoutY="97.0" onAction="#jfxbDiminuirGolsTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="222.0">
+                  <JFXButton layoutX="222.0" layoutY="97.0" onAction="#jfxbDiminuir1PontoTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="222.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="jfxbZerarGols" layoutX="136.0" layoutY="97.0" onAction="#jfxbZerarGolsOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Zerar" textFill="WHITE" AnchorPane.leftAnchor="136.0">
+                  <JFXButton layoutX="136.0" layoutY="97.0" onAction="#jfxbZerarPontosOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Zerar" textFill="WHITE" AnchorPane.leftAnchor="136.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -176,13 +176,13 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lFaltasTimeLocal" alignment="CENTER" layoutX="51.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="0" textFill="WHITE" />
-                  <JFXButton fx:id="jfxbAumentarFaltasTimeLocal" layoutX="50.0" layoutY="52.0" onAction="#jfxbAumentarFaltasTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+                  <Label fx:id="lFaltasTimeLocal" alignment="CENTER" layoutX="51.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="00" textFill="WHITE" />
+                  <JFXButton layoutX="50.0" layoutY="52.0" onAction="#jfxbAumentarFaltasTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE" AnchorPane.leftAnchor="50.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="jfxbDiminuirFaltasTimeLocal" layoutX="50.0" layoutY="97.0" onAction="#jfxbDiminuirFaltasTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="50.0">
+                  <JFXButton layoutX="50.0" layoutY="97.0" onAction="#jfxbDiminuirFaltasTimeLocalOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="50.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -192,25 +192,25 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lFaltasTimeVisitante" alignment="CENTER" layoutX="222.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="0" textFill="WHITE" />
-                  <JFXButton fx:id="jfxbAumentarFaltasTimeVisitante" layoutX="222.0" layoutY="52.0" onAction="#jfxbAumentarFaltasTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE">
+                  <Label fx:id="lFaltasTimeVisitante" alignment="CENTER" layoutX="222.0" layoutY="23.0" prefHeight="21.0" prefWidth="65.0" styleClass="fonte-padrao" text="00" textFill="WHITE" />
+                  <JFXButton layoutX="222.0" layoutY="52.0" onAction="#jfxbAumentarFaltasTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="+" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="jfxbDiminuirFaltasTimeVisitante" layoutX="222.0" layoutY="97.0" onAction="#jfxbDiminuirFaltasTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="222.0">
+                  <JFXButton layoutX="222.0" layoutY="97.0" onAction="#jfxbDiminuirFaltasTimeVisitanteOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="-" textFill="WHITE" AnchorPane.leftAnchor="222.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="jfxbZerarFaltas" layoutX="136.0" layoutY="97.0" onAction="#jfxbZerarFaltasOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Zerar" textFill="WHITE" AnchorPane.leftAnchor="136.0">
+                  <JFXButton layoutX="136.0" layoutY="97.0" onAction="#jfxbZerarFaltasOnAction" prefHeight="31.0" prefWidth="65.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Zerar" textFill="WHITE" AnchorPane.leftAnchor="136.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
                </children>
             </AnchorPane>
-            <JFXButton fx:id="jfxbRestaurarTudo" layoutX="581.0" layoutY="479.0" onAction="#jfxbRestaurarTudoOnAction" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar Tudo" textFill="WHITE" AnchorPane.topAnchor="479.0">
+            <JFXButton layoutX="581.0" layoutY="479.0" onAction="#jfxbRestaurarTudoOnAction" prefHeight="31.0" prefWidth="146.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar Tudo" textFill="WHITE" AnchorPane.topAnchor="479.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -221,6 +221,16 @@
                </cursor>
             </JFXTextField>
             <JFXTextField fx:id="jfxtfNomeTimeVisitanteL" editable="false" focusColor="WHITE" layoutX="30.0" layoutY="92.0" prefHeight="31.0" prefWidth="171.0" promptText="Nome Time Visitante:" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField fx:id="jfxtfCronometroL" editable="false" focusColor="WHITE" layoutX="30.0" layoutY="153.0" prefHeight="31.0" prefWidth="110.0" promptText="Cronômetro: " style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField fx:id="jfxtfPeriodoL" editable="false" focusColor="WHITE" layoutX="30.0" layoutY="217.0" prefHeight="31.0" prefWidth="76.0" promptText="Período:                               1" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="214.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

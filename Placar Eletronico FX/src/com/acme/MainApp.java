@@ -4,6 +4,7 @@ import com.acme.model.Cena;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -42,7 +43,6 @@ public class MainApp extends Application {
                     Parent fxmlAguardandoConexao = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaAguardandoConexao.fxml"));
                     cenaAguardandoConexao = new Scene(fxmlAguardandoConexao);
                     configurarCena(cenaAguardandoConexao, "Aguardando Conexão - Placar Eletrônico FX");
-                    cenaAtual = cenaAguardandoConexao;
                     break;
                 case PLACAR_BASQUETE:
                     Parent fxmlPlacarBasquete = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPlacarBasquete.fxml"));
@@ -60,10 +60,9 @@ public class MainApp extends Application {
                     Parent fxmlPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPropaganda.fxml"));
                     cenaPropaganda = new Scene(fxmlPropaganda);
                     configurarCena(cenaPropaganda, "Propaganda - Placar Eletrônico FX");
-                    cenaAtual = cenaPropaganda;
                     break;
                 case ATUAL:
-                    configurarCena(cenaAtual, "Propaganda - Placar Eletrônico FX");
+                    configurarCena(cenaAtual, "Placar Eletrônico FX");
             }
         } catch (IOException ex) {
             // IMPLEMENTAR LOG
@@ -71,12 +70,11 @@ public class MainApp extends Application {
     }
 
     private static void configurarCena(Scene cena, String titulo) {
+        cena.setCursor(Cursor.NONE);
+        
         stage.setScene(cena);
-        
-        if (cena != cenaAtual) {
-            stage.setTitle(titulo);
-        }
-        
+
+        stage.setTitle(titulo);
         stage.setFullScreen(true);
         stage.setFullScreenExitHint("");
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);

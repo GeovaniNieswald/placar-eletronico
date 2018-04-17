@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -359,6 +361,7 @@ public class PlacarServer extends Thread {
                     switch (params[2]) {
                         case "exibir":
                             linhadoTempoTrocarCena(Cena.PROPAGANDA);
+                            sleep(1000);
                             propagandaController.exibirPropagandaImagem(Utils.decodificar("imagem", params[3]));
                             return "#propaganda;ok";
                         case "parar":
@@ -371,6 +374,7 @@ public class PlacarServer extends Thread {
                     switch (params[2]) {
                         case "exibir":
                             linhadoTempoTrocarCena(Cena.PROPAGANDA);
+                            sleep(1000);
                             propagandaController.exibirPropagandaVideo(Utils.decodificar("video", params[3]));
                             return "#propaganda;ok";
                         case "parar":
@@ -382,7 +386,7 @@ public class PlacarServer extends Thread {
                 default:
                     return "#propaganda;not-ok";
             }
-        } catch (IOException ex) {
+        } catch (IOException | InterruptedException ex) {
             return "#propaganda;not-ok";
         }
     }

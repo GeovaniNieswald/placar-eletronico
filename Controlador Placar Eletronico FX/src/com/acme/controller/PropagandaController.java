@@ -370,7 +370,7 @@ public class PropagandaController implements Initializable {
     void jfxtfPropagandaOnClicked(MouseEvent event) {
         FileChooser fcImagemVideo = new FileChooser();
 
-        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens/Vídeos", ".mkv", "*.avi", "*.mpeg", "*.mpg", "*.mp4", "*.wmv", "*.bmp", "*.jpeg", "*.jpg", "*.png");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Imagens/Vídeos", "*.mkv", "*.avi", "*.mpeg", "*.mpg", "*.mp4", "*.wmv", "*.bmp", "*.jpeg", "*.jpg", "*.png");
 
         fcImagemVideo.setTitle("Selecione uma Imagem ou um Vídeo");
         fcImagemVideo.getExtensionFilters().add(filtro);
@@ -380,17 +380,21 @@ public class PropagandaController implements Initializable {
         if (file != null) {
             String extencao = file.getAbsolutePath();
 
-            propagandaImagem = extencao.endsWith("bmp") || extencao.endsWith("jpeg") || extencao.endsWith("jpg") || extencao.endsWith("png");
+            if (extencao.endsWith(".mkv") || extencao.endsWith(".avi") || extencao.endsWith(".mpeg") || extencao.endsWith(".mpg") || extencao.endsWith(".mp4") || extencao.endsWith(".wmv") || extencao.endsWith(".bmp") || extencao.endsWith(".jpeg") || extencao.endsWith(".jpg") || extencao.endsWith(".png")) {
+                propagandaImagem = extencao.endsWith(".bmp") || extencao.endsWith(".jpeg") || extencao.endsWith(".jpg") || extencao.endsWith(".png");
 
-            try {
-                propaganda = Utils.codificar(file);
+                try {
+                    propaganda = Utils.codificar(file);
 
-                jfxtfPropaganda.setText(file.getName());
+                    jfxtfPropaganda.setText(file.getName());
 
-                trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
-            } catch (IOException ex) {
+                    trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+                } catch (IOException ex) {
+                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                    // Implementar log
+                }
+            } else {
                 trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
-                // Implementar log
             }
         }
     }

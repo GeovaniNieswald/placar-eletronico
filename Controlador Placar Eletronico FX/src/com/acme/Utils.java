@@ -73,7 +73,7 @@ public class Utils {
      * @param titulo String - Título da tela.
      * @param cabecalho String - Cabeçalho da tela.
      * @param msg String - Mensagem que será exibida.
-     * @return Optional<String> - Informação digitada.
+     * @return Optional String - Informação digitada.
      */
     public static Optional<String> prompt(String titulo, String cabecalho, String msg) {
         TextInputDialog dialog = new TextInputDialog();

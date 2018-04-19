@@ -88,12 +88,12 @@ public class PlacarController implements Initializable {
     private int faltasTimeVisitante;
 
     private void linhaDoTempoLabel(Label label, String texto) {
-        Timeline tlL = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Timeline tlLabel = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             label.setText(texto);
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        tlL.play();
+        tlLabel.play();
     }
 
     private void linhaDoTempoVBox(VBox vBox, File file) {
@@ -109,12 +109,12 @@ public class PlacarController implements Initializable {
             background = new Background(backgroundImage);
         }
 
-        Timeline tlVB = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Timeline tlVBox = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             vBox.setBackground(background);
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        tlVB.play();
+        tlVBox.play();
     }
 
     public void setNomeTimeLocal(String texto) {

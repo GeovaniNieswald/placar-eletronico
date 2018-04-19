@@ -31,7 +31,6 @@ public class Utils {
                 break;
             default:
                 file = new File("imagem.png");
-                break;
         }
 
         byte[] bytes = Base64.getDecoder().decode(fileCodificado);

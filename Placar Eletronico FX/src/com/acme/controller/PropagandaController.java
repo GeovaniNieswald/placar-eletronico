@@ -28,41 +28,47 @@ public class PropagandaController implements Initializable {
     @FXML
     private MediaView mvVideo;
 
-    private void linhaDoTempoVBox(String tipo, File file) {
-        if (tipo.equals("imagem")) {
-            Timeline tlVBox = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-                Image image = new Image(file.toURI().toString());
+    private void linhaDoTempo(String tipo, File file) {
+        Timeline tl = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            if (tipo.equals("imagem")) {
+                Image img = new Image(file.toURI().toString());
                 BackgroundSize backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, false);
-                BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+                BackgroundImage backgroundImage = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
                 Background background = new Background(backgroundImage);
-
                 vbPropaganda.setBackground(background);
-            }),
-                    new KeyFrame(Duration.seconds(1))
-            );
-            tlVBox.play();
-        } else {
-            Timeline tlMediaView = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-                Media media = new Media(file.toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mvVideo.setFitHeight(vbPropaganda.getHeight());
-                mvVideo.setFitWidth(vbPropaganda.getWidth());
-                mvVideo.setMediaPlayer(mediaPlayer);
-                mediaPlayer.play();
-                mediaPlayer.play();
-            }),
-                    new KeyFrame(Duration.seconds(1))
-            );
-            tlMediaView.play();
-        }
+            } else {
+                if (file == null) {
+                    mvVideo.getMediaPlayer().stop();
+                } else {
+                    Media media = new Media(file.toURI().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(media);
+                    mvVideo.setFitHeight(vbPropaganda.getHeight());
+                    mvVideo.setFitWidth(vbPropaganda.getWidth());
+                    mvVideo.setMediaPlayer(mediaPlayer);
+
+                    if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                        mediaPlayer.stop();
+                    }
+
+                    mediaPlayer.play();
+                }
+            }
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        tl.play();
     }
 
     public void exibirPropagandaImagem(File file) {
-        linhaDoTempoVBox("imagem", file);
+        linhaDoTempo("imagem", file);
     }
 
     public void exibirPropagandaVideo(File file) {
-        linhaDoTempoVBox("video", file);
+        linhaDoTempo("video", file);
+    }
+
+    public void pararPropagandaVideo() {
+        linhaDoTempo("video", null);
     }
 
     @Override

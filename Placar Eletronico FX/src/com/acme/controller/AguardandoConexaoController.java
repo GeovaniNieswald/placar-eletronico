@@ -46,7 +46,6 @@ public class AguardandoConexaoController implements Initializable {
             cal = GregorianCalendar.getInstance();
             lData.setText(sdfData.format(cal.getTime()));
             lHora.setText(sdfHora.format(cal.getTime()));
-
         }),
                 new KeyFrame(Duration.seconds(1))
         );

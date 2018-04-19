@@ -376,6 +376,8 @@ public class PlacarServer extends Thread {
                             propagandaController.exibirPropagandaVideo(Utils.decodificar("video", params[3]));
                             return "#propaganda;ok";
                         case "parar":
+                            propagandaController.pararPropagandaVideo();
+                            sleep(1000);
                             linhadoTempoTrocarCena(Cena.ATUAL);
                             return "#propaganda;ok";
                         default:
@@ -393,25 +395,33 @@ public class PlacarServer extends Thread {
         switch (params[1]) {
             case "add":
                 try {
-                    //carrega users já existentes, caso existam
-                    ListaUsuarios listaExistente = new ListaUsuarios();
-                    if (!DadosXML.isEmpty("ListaUsuarios")) {
-                        listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
-                    }
-
-                    //passa a lista antiga para o objeto novo, e inclui o registro novo
-                    ListaUsuarios listaNova = new ListaUsuarios();
-                    listaNova.setUsuarios(listaExistente.getUsuarios());
                     Usuario novoUser = new Usuario();
                     novoUser.setUsuario(params[2]);
                     novoUser.setSenha(params[3]);
                     novoUser.setAdmin(Utils.stringParaBoolean(params[4]));
                     novoUser.setPlacar(Utils.stringParaBoolean(params[5]));
                     novoUser.setPropaganda(Utils.stringParaBoolean(params[6]));
+
+                    //carrega users já existentes, caso existam
+                    ListaUsuarios listaExistente = new ListaUsuarios();
+                    if (!DadosXML.isEmpty("ListaUsuarios")) {
+                        listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+
+                        for (Usuario u : listaExistente.getUsuarios()) {
+                            if (u.getUsuario().equals(novoUser.getUsuario())) {
+                                return "#cadastro-usuario;usuario-existe";
+                            }
+                        }
+                    }
+
+                    //passa a lista antiga para o objeto novo, e inclui o registro novo
+                    ListaUsuarios listaNova = new ListaUsuarios();
+                    listaNova.setUsuarios(listaExistente.getUsuarios());
                     listaNova.getUsuarios().add(novoUser);
 
                     //grava a lista nova
                     DadosXML.insert("ListaUsuarios", listaNova);
+
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
                     return "#cadastro-usuario;not-ok";
@@ -420,8 +430,10 @@ public class PlacarServer extends Thread {
                 try {
                     ListaUsuarios listaExistente;
                     String listaRetorno = "";
+
                     if (!DadosXML.isEmpty("ListaUsuarios")) {
                         listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+
                         for (Usuario u : listaExistente.getUsuarios()) {
                             if ("all".equalsIgnoreCase(params[2])) {
                                 if (listaRetorno.isEmpty()) {
@@ -450,18 +462,23 @@ public class PlacarServer extends Thread {
                 try {
                     ListaUsuarios listaExistente = new ListaUsuarios();
                     ArrayList<Usuario> listaPermanece = new ArrayList<>();
+
                     if (!DadosXML.isEmpty("ListaUsuarios")) {
                         listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
                     }
+
                     ListaUsuarios listaAtualizada = new ListaUsuarios();
                     listaAtualizada.setUsuarios(listaExistente.getUsuarios());
+
                     for (Usuario u : listaAtualizada.getUsuarios()) {
                         if (!u.getUsuario().equals(params[2])) {
                             listaPermanece.add(u);
                         }
                     }
+
                     listaAtualizada.setUsuarios(listaPermanece);
                     DadosXML.insert("ListaUsuarios", listaAtualizada);
+
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
                     return "#cadastro-usuario;not-ok";
@@ -469,18 +486,23 @@ public class PlacarServer extends Thread {
             case "update":
                 try {
                     ListaUsuarios listaExistente = new ListaUsuarios();
+
                     if (!DadosXML.isEmpty("ListaUsuarios")) {
                         listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
                     }
+
                     ListaUsuarios listaAtualizada = new ListaUsuarios();
                     listaAtualizada.setUsuarios(listaExistente.getUsuarios());
+
                     for (Usuario u : listaAtualizada.getUsuarios()) {
                         if (u.getUsuario().equals(params[2])) {
                             u.setSenha(params[3]);
                             break;
                         }
                     }
+
                     DadosXML.insert("ListaUsuarios", listaAtualizada);
+
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
                     return "#cadastro-usuario;not-ok";

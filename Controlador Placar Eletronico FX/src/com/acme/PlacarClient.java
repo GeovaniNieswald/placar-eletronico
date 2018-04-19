@@ -139,22 +139,29 @@ public class PlacarClient {
                 }
 
             case CADASTRO_USUARIO:
-                if ("get".equalsIgnoreCase(valores[0])) {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                } else if ("add".equalsIgnoreCase(valores[0])) {
-                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
-                } else if ("delete".equalsIgnoreCase(valores[0])) {
-                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1]);
-                } else if ("update".equalsIgnoreCase(valores[0])) {
-                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+                switch (valores[0]) {
+                    case "add":
+                        out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
+                        break;
+                    case "delete":
+                        out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1]);
+                        break;
+                    case "update":
+                        out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+                        break;
+                    default:
+                        return RespostaSocket.COMANDO_RECUSADO;
                 }
 
                 respostaComando = in.readLine().split(";");
 
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
+                switch (respostaComando[1]) {
+                    case "ok":
+                        return RespostaSocket.COMANDO_ACEITO;
+                    case "usuario-existe":
+                        return RespostaSocket.USUARIO_JA_EXISTE;
+                    default:
+                        return RespostaSocket.COMANDO_RECUSADO;
                 }
 
             case PONTOS:

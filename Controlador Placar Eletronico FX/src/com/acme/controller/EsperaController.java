@@ -65,8 +65,8 @@ public class EsperaController implements Initializable {
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         PlacarClient.desconectar();
-        MainApp.trocarCena(Cena.CONEXAO);
         esperandoUsuarioPrincipal.stop();
+        MainApp.trocarCena(Cena.CONEXAO);
     }
 
     /**

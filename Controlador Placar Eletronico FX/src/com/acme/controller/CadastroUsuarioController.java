@@ -28,10 +28,10 @@ import javafx.scene.input.MouseEvent;
 public class CadastroUsuarioController {
 
     @FXML
-    private JFXTextField jfxtfUsername;
+    private JFXTextField jfxtfUsuario;
 
     @FXML
-    private JFXPasswordField jfxpfPassword;
+    private JFXPasswordField jfxpfSenha;
 
     @FXML
     private JFXCheckBox jfxcbAdministrador;
@@ -83,41 +83,44 @@ public class CadastroUsuarioController {
 
     @FXML
     void jfxbSalvarOnAction(ActionEvent event) {
-        String nomeUsuario = jfxtfUsername.getText();
-        String senha = jfxpfPassword.getText();
-        String usuarioAdministrador = String.valueOf(jfxcbAdministrador.isSelected());
-        String usuarioPlacar = String.valueOf(jfxcbPlacar.isSelected());
-        String usuarioPropaganda = String.valueOf(jfxcbPropaganda.isSelected());
-
-        if (nomeUsuario.trim().isEmpty() || senha.trim().isEmpty()) {
-            Utils.alert("Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
-        } else if (nomeUsuario.contains(",") || nomeUsuario.contains(";")) {
-            Utils.alert("Nome de usuário não pode conter vírgula nem ponto-e-vírgula", Alert.AlertType.WARNING);
+        if (jfxtfUsuario.getText().trim().isEmpty() || jfxpfSenha.getText().trim().isEmpty()) {
+            Utils.telaAlerta("Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
         } else {
-            try {
-                RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "add", nomeUsuario, senha, usuarioAdministrador, usuarioPlacar, usuarioPropaganda);
+            if (jfxtfUsuario.getText().contains(",") || jfxtfUsuario.getText().contains(";")) {
+                Utils.telaAlerta("Nome de usuário não pode conter vírgula nem ponto-e-vírgula", Alert.AlertType.WARNING);
+            } else {
+                String usuario = jfxtfUsuario.getText();
+                String senha = jfxpfSenha.getText();
+                String usuarioAdministrador = String.valueOf(jfxcbAdministrador.isSelected());
+                String usuarioPlacar = String.valueOf(jfxcbPlacar.isSelected());
+                String usuarioPropaganda = String.valueOf(jfxcbPropaganda.isSelected());
 
-                switch (resposta) {
-                    case USUARIO_JA_EXISTE:
-                        break;
-                    default:
-                        Utils.alert("Usuário salvo!", Alert.AlertType.INFORMATION);
-                        jfxtfUsername.setText("");
-                        jfxpfPassword.setText("");
-                        jfxcbAdministrador.setSelected(false);
-                        jfxcbPlacar.setSelected(false);
-                        jfxcbPropaganda.setSelected(false);
-                        break;
+                try {
+                    RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "add", usuario, senha, usuarioAdministrador, usuarioPlacar, usuarioPropaganda);
+
+                    switch (resposta) {
+                        case COMANDO_ACEITO:
+                            Utils.telaAlerta("Usuário salvo!", Alert.AlertType.INFORMATION);
+                            jfxtfUsuario.setText("");
+                            jfxpfSenha.setText("");
+                            jfxcbAdministrador.setSelected(true);
+                            break;
+                        case USUARIO_JA_EXISTE:
+                            Utils.telaAlerta("Usuário já existe!", Alert.AlertType.WARNING);
+                            break;
+                        default:
+                            Utils.telaAlerta("Não foi possível cadastrar o usuário!", Alert.AlertType.WARNING);
+                    }
+                } catch (IOException ex) {
+                    // Mostrar erro de conexão
+                    // IMPLEMENTAR LOG
                 }
-            } catch (IOException ex) {
-                // Mostrar erro de conexão
-                // IMPLEMENTAR LOG
             }
         }
     }
 
     @FXML
-    void jfxcbAdministradorOnActionOnAction(ActionEvent event) {
+    void jfxcbAdministradorOnAction(ActionEvent event) {
         jfxcbPlacar.setSelected(false);
         jfxcbPropaganda.setSelected(false);
     }

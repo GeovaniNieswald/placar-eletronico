@@ -26,11 +26,11 @@ public class Utils {
      * @param msg String - Mensagem que será exibida.
      * @param tipo Alert.AlertType - Tipo de tela.
      */
-    public static void alert(String msg, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setContentText(msg);
+    public static void telaAlerta(String msg, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setContentText(msg);
 
-        alert.showAndWait().ifPresent(response -> {
+        alerta.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
             }
         });
@@ -45,22 +45,22 @@ public class Utils {
      * @param tipo Alert.AlertType - Tipo de tela.
      * @return boolean - True ou False dependendo do botão clicado.
      */
-    public static boolean confirm(String titulo, String cabecalho, String msg, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(cabecalho);
-        alert.setContentText(msg);
+    public static boolean telaConfirmacao(String titulo, String cabecalho, String msg, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(msg);
 
-        ButtonType buttonTypeOne = new ButtonType("Sim");
-        ButtonType buttonTypeCancel = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
+        ButtonType botaoSim = new ButtonType("Sim");
+        ButtonType botaoCancelar = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+        alerta.getButtonTypes().setAll(botaoSim, botaoCancelar);
 
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> resultado = alerta.showAndWait();
 
-        if (result.get() == buttonTypeOne) {
+        if (resultado.get() == botaoSim) {
             return true;
-        } else if (result.get() == buttonTypeCancel) {
+        } else if (resultado.get() == botaoCancelar) {
             return false;
         } else {
             return false;
@@ -75,7 +75,7 @@ public class Utils {
      * @param msg String - Mensagem que será exibida.
      * @return Optional String - Informação digitada.
      */
-    public static Optional<String> prompt(String titulo, String cabecalho, String msg) {
+    public static Optional<String> telaPrompt(String titulo, String cabecalho, String msg) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(titulo);
         dialog.setHeaderText(cabecalho);
@@ -103,8 +103,6 @@ public class Utils {
         byte[] bytes = new byte[(int) file.length()];
         fis.read(bytes);
 
-        String fileCodificado = new String(Base64.getEncoder().encode(bytes), "UTF-8");
-
-        return fileCodificado;
+        return new String(Base64.getEncoder().encode(bytes), "UTF-8");
     }
 }

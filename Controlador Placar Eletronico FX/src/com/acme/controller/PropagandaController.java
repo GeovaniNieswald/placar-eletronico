@@ -74,6 +74,8 @@ public class PropagandaController implements Initializable {
 
     private boolean propagandaImagem;
 
+    private boolean executandoVideo;
+
     /**
      * Método para trocar a cor dos campos TextField.
      *
@@ -211,6 +213,7 @@ public class PropagandaController implements Initializable {
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                     trocarCorJFXTextField("#09a104", "#09a104", jfxtfPropagandaL);
+                    executandoVideo = true;
                 } else {
                     trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
                 }
@@ -229,24 +232,27 @@ public class PropagandaController implements Initializable {
 
     @FXML
     void jfxbPararPropagandaOnAction(ActionEvent event) {
-        try {
-            if (propagandaImagem) {
-                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "parar", "");
-            } else {
-                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "video", "parar", "");
-            }
+        if (executandoVideo) {
+            try {
+                if (propagandaImagem) {
+                    respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "parar", "");
+                } else {
+                    respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "video", "parar", "");
+                }
 
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
-                jfxtfPropaganda.setText("");
-                propaganda = "";
-            } else {
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+                    jfxtfPropaganda.setText("");
+                    propaganda = "";
+                    executandoVideo = false;
+                } else {
+                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                }
+            } catch (IOException ex) {
                 trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
             }
-        } catch (IOException ex) {
-            trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
-            // Mostrar msg de erro de conexão
-            // IMPLEMENTAR LOG
         }
     }
 
@@ -378,23 +384,31 @@ public class PropagandaController implements Initializable {
         File file = fcImagemVideo.showOpenDialog((Stage) gpTelaPropaganda.getScene().getWindow());
 
         if (file != null) {
-            String extencao = file.getAbsolutePath();
+            long fileSizeInBytes = file.length();
+            long fileSizeInKB = fileSizeInBytes / 1024;
+            long fileSizeInMB = fileSizeInKB / 1024;
 
-            if (extencao.endsWith(".mkv") || extencao.endsWith(".avi") || extencao.endsWith(".mpeg") || extencao.endsWith(".mpg") || extencao.endsWith(".mp4") || extencao.endsWith(".wmv") || extencao.endsWith(".bmp") || extencao.endsWith(".jpeg") || extencao.endsWith(".jpg") || extencao.endsWith(".png")) {
-                propagandaImagem = extencao.endsWith(".bmp") || extencao.endsWith(".jpeg") || extencao.endsWith(".jpg") || extencao.endsWith(".png");
-
-                try {
-                    propaganda = Utils.codificar(file);
-
-                    jfxtfPropaganda.setText(file.getName());
-
-                    trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
-                } catch (IOException ex) {
-                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
-                    // Implementar log
-                }
-            } else {
+            if (fileSizeInMB > 120) {
                 trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+            } else {
+                String extencao = file.getAbsolutePath();
+
+                if (extencao.endsWith(".mkv") || extencao.endsWith(".avi") || extencao.endsWith(".mpeg") || extencao.endsWith(".mpg") || extencao.endsWith(".mp4") || extencao.endsWith(".wmv") || extencao.endsWith(".bmp") || extencao.endsWith(".jpeg") || extencao.endsWith(".jpg") || extencao.endsWith(".png")) {
+                    propagandaImagem = extencao.endsWith(".bmp") || extencao.endsWith(".jpeg") || extencao.endsWith(".jpg") || extencao.endsWith(".png");
+
+                    try {
+                        propaganda = Utils.codificar(file);
+
+                        jfxtfPropaganda.setText(file.getName());
+
+                        trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+                    } catch (IOException ex) {
+                        trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                        // Implementar log
+                    }
+                } else {
+                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                }
             }
         }
     }

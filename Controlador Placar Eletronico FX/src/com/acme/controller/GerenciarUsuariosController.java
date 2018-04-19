@@ -72,10 +72,10 @@ public class GerenciarUsuariosController implements Initializable {
     void jfxbExcluirUsuarioOnClick(MouseEvent event) {
         try {
             String usuario = (String) jfxlvLista.getSelectionModel().getSelectedItem();
-            boolean conf = Utils.confirm("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + usuario + "?\n"
+            boolean confirmacao = Utils.telaConfirmacao("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + usuario + "?\n"
                     + "Esta operação não pode ser desfeita.", Alert.AlertType.WARNING);
 
-            if (conf) {
+            if (confirmacao) {
                 RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "delete", usuario);
 
                 if (resposta == RespostaSocket.COMANDO_ACEITO) {
@@ -99,7 +99,7 @@ public class GerenciarUsuariosController implements Initializable {
     void jfxbTrocarSenhaUsuarioOnClick(MouseEvent event) {
         try {
             String usuario = (String) jfxlvLista.getSelectionModel().getSelectedItem();
-            Optional<String> senha = Utils.prompt("Trocar senha", "Trocar senha do usuario " + usuario, "Nova senha:");
+            Optional<String> senha = Utils.telaPrompt("Trocar senha", "Trocar senha do usuario " + usuario, "Nova senha:");
             RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", usuario, senha.get());
 
             if (resposta == RespostaSocket.COMANDO_ACEITO) {

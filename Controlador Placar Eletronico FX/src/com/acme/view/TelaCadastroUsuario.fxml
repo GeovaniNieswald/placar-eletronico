@@ -30,17 +30,17 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <JFXTextField fx:id="jfxtfUsername" focusColor="#890e01" layoutX="241.0" layoutY="66.0" prefHeight="31.0" prefWidth="440.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
-            <JFXPasswordField fx:id="jfxpfPassword" focusColor="#890e01" layoutX="232.0" layoutY="143.0" prefHeight="31.0" prefWidth="449.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
+            <JFXTextField fx:id="jfxtfUsuario" focusColor="#890e01" layoutX="241.0" layoutY="66.0" prefHeight="31.0" prefWidth="440.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
+            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#890e01" layoutX="232.0" layoutY="143.0" prefHeight="31.0" prefWidth="449.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" />
             <JFXCheckBox fx:id="jfxcbAdministrador" checkedColor="#890e01" layoutX="200.0" layoutY="232.0" onAction="#jfxcbAdministradorOnAction" selected="true" styleClass="fonte-padrao" text="Administrador" textFill="WHITE" unCheckedColor="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXCheckBox>
-            <JFXCheckBox fx:id="jfxcbPlacar" checkedColor="#890e01" layoutX="200.0" layoutY="273.0" onAction="#jfxcbPlacarOnAction" styleClass="fonte-padrao" text="Placar" textFill="WHITE" unCheckedColor="WHITE" AnchorPane.topAnchor="273.0">
+            <JFXCheckBox fx:id="jfxcbPlacar" checkedColor="#890e01" layoutX="200.0" layoutY="273.0" onAction="#jfxcbPlacarOnAction" prefHeight="20.0" prefWidth="140.0" styleClass="fonte-padrao" text="Placar" textFill="WHITE" unCheckedColor="WHITE" AnchorPane.topAnchor="273.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXCheckBox>
-            <JFXCheckBox fx:id="jfxcbPropaganda" checkedColor="#890e01" layoutX="200.0" layoutY="314.0" onAction="#jfxcbPropagandaOnAction" styleClass="fonte-padrao" text="Propagandas" textFill="WHITE" unCheckedColor="WHITE" AnchorPane.topAnchor="314.0">
+            <JFXCheckBox fx:id="jfxcbPropaganda" checkedColor="#890e01" layoutX="200.0" layoutY="314.0" onAction="#jfxcbPropagandaOnAction" prefHeight="20.0" prefWidth="140.0" styleClass="fonte-padrao" text="Propagandas" textFill="WHITE" unCheckedColor="WHITE" AnchorPane.topAnchor="314.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXCheckBox>

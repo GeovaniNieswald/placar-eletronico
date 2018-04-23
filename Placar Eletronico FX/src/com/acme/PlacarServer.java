@@ -66,7 +66,7 @@ public class PlacarServer extends Thread {
 
             if (validaLogin(login, senha, u)) {
                 if (u.isAdmin()) {
-                    out.println("#conexao;ok;usuario-principal");
+                    out.println("#conexao;ok;usuario-administrador");
                 } else if (u.isPlacar()) {
                     out.println("#conexao;ok;usuario-placar");
                 } else if (u.isPropaganda()) {
@@ -155,7 +155,7 @@ public class PlacarServer extends Thread {
         }
     }
 
-    private static void linhadoTempoTrocarCena(Cena c) {
+    private static void linhaDoTempoTrocarCena(Cena c) {
         Timeline cena = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             MainApp.trocarCena(c);
         }),
@@ -167,11 +167,11 @@ public class PlacarServer extends Thread {
     public static String comandoEsporte(String[] params) {
         switch (params[1]) {
             case "basquete":
-                linhadoTempoTrocarCena(Cena.PLACAR_BASQUETE);
+                linhaDoTempoTrocarCena(Cena.PLACAR_BASQUETE);
                 usuarioPlacarOn = true;
                 return "#esporte;basquete-ok";
             case "futsal":
-                linhadoTempoTrocarCena(Cena.PLACAR_FUTSAL);
+                linhaDoTempoTrocarCena(Cena.PLACAR_FUTSAL);
                 usuarioPlacarOn = true;
                 return "#esporte;futsal-ok";
             default:
@@ -358,12 +358,12 @@ public class PlacarServer extends Thread {
                 case "imagem":
                     switch (params[2]) {
                         case "exibir":
-                            linhadoTempoTrocarCena(Cena.PROPAGANDA);
+                            linhaDoTempoTrocarCena(Cena.PROPAGANDA);
                             sleep(1000);
                             propagandaController.exibirPropagandaImagem(Utils.decodificar("imagem", params[3]));
                             return "#propaganda;ok";
                         case "parar":
-                            linhadoTempoTrocarCena(Cena.ATUAL);
+                            linhaDoTempoTrocarCena(Cena.ATUAL);
                             return "#propaganda;ok";
                         default:
                             return "#propaganda;not-ok";
@@ -371,14 +371,29 @@ public class PlacarServer extends Thread {
                 case "video":
                     switch (params[2]) {
                         case "exibir":
-                            linhadoTempoTrocarCena(Cena.PROPAGANDA);
+                            linhaDoTempoTrocarCena(Cena.PROPAGANDA);
                             sleep(1000);
                             propagandaController.exibirPropagandaVideo(Utils.decodificar("video", params[3]));
                             return "#propaganda;ok";
                         case "parar":
                             propagandaController.pararPropagandaVideo();
                             sleep(1000);
-                            linhadoTempoTrocarCena(Cena.ATUAL);
+                            linhaDoTempoTrocarCena(Cena.ATUAL);
+                            return "#propaganda;ok";
+                        default:
+                            return "#propaganda;not-ok";
+                    }
+                case "escalacao":
+                    switch (params[2]) {
+                        case "exibir":
+                            linhaDoTempoTrocarCena(Cena.PROPAGANDA);
+                            sleep(1000);
+                            propagandaController.exibirEscalacao(params[3]);
+                            return "#propaganda;ok";
+                        case "parar":
+                            propagandaController.pararEscalacao();
+                            sleep(1000);
+                            linhaDoTempoTrocarCena(Cena.ATUAL);
                             return "#propaganda;ok";
                         default:
                             return "#propaganda;not-ok";
@@ -435,7 +450,7 @@ public class PlacarServer extends Thread {
                         listaExistente = (ListaUsuarios) DadosXML.select("ListaUsuarios");
 
                         for (Usuario u : listaExistente.getUsuarios()) {
-                            if ("all".equalsIgnoreCase(params[2])) {
+                            if (params[2].equalsIgnoreCase("all")) {
                                 if (listaRetorno.isEmpty()) {
                                     listaRetorno += u.getUsuario();
                                 } else {
@@ -451,12 +466,13 @@ public class PlacarServer extends Thread {
                                 }
                             }
                         }
+
                         return "#cadastro-usuario;ok;" + listaRetorno;
                     } else {
-                        return "#cadastro-usuario;not-ok;vazio";
+                        return "#cadastro-usuario;not-ok";
                     }
                 } catch (JAXBException ex) {
-                    return "#cadastro-usuario;not-ok;erro";
+                    return "#cadastro-usuario;not-ok";
                 }
             case "delete":
                 try {

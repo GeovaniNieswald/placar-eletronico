@@ -22,6 +22,14 @@
     -fx-font-size: 65;
 }
 
+.font-size-pequeno {
+    -fx-font-size: 35;
+}
+
+.font-size-pequeno-2 {
+    -fx-font-size: 25;
+}
+
 .fonte-padrao {
     -fx-font-family: "Comfortaa";
 }

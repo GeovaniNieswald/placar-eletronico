@@ -33,7 +33,9 @@ public class MainApp extends Application {
     private static Scene cenaPlacarBasquete;
     private static Scene cenaPlacarFutsal;
     private static Scene cenaPropaganda;
+    private static Scene cenaEscalacao;
     private static Scene cenaGerenciarUsuarios;
+    private static Scene cenaPropagandaAtual;
 
     /**
      * Método que é chamado quando a aplicação é executada. São definidos
@@ -114,10 +116,19 @@ public class MainApp extends Application {
                     cenaPlacarFutsal = new Scene(fxmlUsuarioPrincipalFutsal);
                     configurarTela(cenaPlacarFutsal, "Futsal - Controlador Placar Eletrônico");
                     break;
-                case PLACAR_PROPAGANDA:
+                case PROPAGANDA:
                     Parent fxmlUsuarioPropaganda = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaPropaganda.fxml"));
                     cenaPropaganda = new Scene(fxmlUsuarioPropaganda);
                     configurarTela(cenaPropaganda, "Propaganda - Controlador Placar Eletrônico");
+                    cenaPropagandaAtual = cenaPropaganda;
+                    break;
+                case ESCALACAO:
+                    Parent fxmlEscalacao = FXMLLoader.load(MainApp.class.getResource("/com/acme/view/TelaEscalacao.fxml"));
+                    cenaEscalacao = new Scene(fxmlEscalacao);
+                    configurarTela(cenaEscalacao, "Escalação - Propaganda - Controlador Placar Eletrônico");
+                    break;
+                case PROPAGANDA_ATUAL:
+                    configurarTela(cenaPropagandaAtual, "Propaganda - Controlador Placar Eletrônico");
                     break;
                 default:
                 // Implementar log

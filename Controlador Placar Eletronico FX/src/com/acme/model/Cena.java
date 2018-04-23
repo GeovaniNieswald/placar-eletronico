@@ -12,7 +12,7 @@ public enum Cena {
 
     // Cenas
     CONEXAO(), GERENCIAR_USUARIOS(), CADASTRO_USUARIO(), ESPERA(), ESPORTE(), PLACAR_BASQUETE(), PLACAR_FUTSAL(),
-    PLACAR_PROPAGANDA();
+    PROPAGANDA(), ESCALACAO(), PROPAGANDA_ATUAL();
 
     // Construtor
     Cena() {

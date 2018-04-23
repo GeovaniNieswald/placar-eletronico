@@ -26,14 +26,11 @@ public class Utils {
      * @param msg String - Mensagem que será exibida.
      * @param tipo Alert.AlertType - Tipo de tela.
      */
-    public static void telaAlerta(String msg, Alert.AlertType tipo) {
+    public static void telaMensagem(String msg, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
         alerta.setContentText(msg);
 
-        alerta.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-            }
-        });
+        alerta.showAndWait();
     }
 
     /**
@@ -58,13 +55,7 @@ public class Utils {
 
         Optional<ButtonType> resultado = alerta.showAndWait();
 
-        if (resultado.get() == botaoSim) {
-            return true;
-        } else if (resultado.get() == botaoCancelar) {
-            return false;
-        } else {
-            return false;
-        }
+        return resultado.get() == botaoSim;
     }
 
     /**
@@ -81,10 +72,10 @@ public class Utils {
         dialog.setHeaderText(cabecalho);
         dialog.setContentText(msg);
 
-        Optional<String> result = dialog.showAndWait();
+        Optional<String> resultado = dialog.showAndWait();
 
-        if (result.isPresent()) {
-            return result;
+        if (resultado.isPresent()) {
+            return resultado;
         } else {
             return null;
         }

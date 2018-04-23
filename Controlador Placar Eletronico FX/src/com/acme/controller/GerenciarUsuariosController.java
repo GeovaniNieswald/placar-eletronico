@@ -9,6 +9,7 @@ import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -72,14 +73,14 @@ public class GerenciarUsuariosController implements Initializable {
     void jfxbExcluirUsuarioOnClick(MouseEvent event) {
         try {
             String usuario = (String) jfxlvLista.getSelectionModel().getSelectedItem();
-            boolean confirmacao = Utils.telaConfirmacao("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + usuario + "?\n"
-                    + "Esta operação não pode ser desfeita.", Alert.AlertType.WARNING);
+
+            boolean confirmacao = Utils.telaConfirmacao("Exclusão de usuário", "Exclusão de usuário", "Deseja excluir o usuario " + usuario + "?\nEsta operação não pode ser desfeita.", Alert.AlertType.WARNING);
 
             if (confirmacao) {
                 RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "delete", usuario);
 
                 if (resposta == RespostaSocket.COMANDO_ACEITO) {
-                    updateList("Usuário " + usuario + " foi excluído.");
+                    atualizarLista("Usuário " + usuario + " foi excluído.");
                 } else {
                     lStatus.setText("Ocorreu um erro na exclusão.");
                 }
@@ -103,7 +104,7 @@ public class GerenciarUsuariosController implements Initializable {
             RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", usuario, senha.get());
 
             if (resposta == RespostaSocket.COMANDO_ACEITO) {
-                updateList("Usuário " + usuario + " teve a senha atualizada.");
+                atualizarLista("Usuário " + usuario + " teve a senha atualizada.");
             } else {
                 lStatus.setText("Ocorreu um erro na troca de senha.");
             }
@@ -113,36 +114,39 @@ public class GerenciarUsuariosController implements Initializable {
         }
     }
 
-    private void updateList(String mensagem) {
+    private void atualizarLista(String mensagem) {
         try {
             Date d = new Date();
-            String resposta = PlacarClient.enviarComandoResp(Comando.CADASTRO_USUARIO, "get", "all");
-            String[] usuarios = resposta.split(",");
-            ObservableList dados = FXCollections.observableArrayList();
+            String resposta = PlacarClient.retornarUsuarios();
 
-            for (String s : usuarios) {
-                dados.add(s);
-            }
-
-            jfxlvLista.setItems(dados);
-
-            if (usuarios.length != 0) {
-                jfxlvLista.getSelectionModel().select(0);
-            }
-
-            if (mensagem == null) {
-                lStatus.setText("Lista atualizada: " + d);
+            if (resposta.contains("not-ok")) {
+                lStatus.setText("Não foi possível atualziar a lista!");
             } else {
-                lStatus.setText(mensagem);
+                String[] usuarios = resposta.split(",");
+                ObservableList dados = FXCollections.observableArrayList();
+
+                dados.addAll(Arrays.asList(usuarios));
+
+                jfxlvLista.setItems(dados);
+
+                if (usuarios.length != 0) {
+                    jfxlvLista.getSelectionModel().select(0);
+                }
+
+                if (mensagem == null) {
+                    lStatus.setText("Lista atualizada: " + d);
+                } else {
+                    lStatus.setText(mensagem);
+                }
             }
         } catch (IOException ex) {
             // implementar log
-            lStatus.setText("Erro: " + ex.getMessage());
+            lStatus.setText("Não foi possível atualziar a lista!");
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        updateList(null);
+        atualizarLista(null);
     }
 }

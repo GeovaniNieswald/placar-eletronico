@@ -37,7 +37,7 @@ public class EsporteController implements Initializable {
      * Método para escolher o esporte do placar eletrônico.
      *
      */
-    private void escolher() {
+    private void escolherEsporte() {
         try {
             RespostaSocket respostaEsporte;
 
@@ -102,13 +102,13 @@ public class EsporteController implements Initializable {
 
     @FXML
     void jfxbOkOnAction(ActionEvent event) {
-        escolher();
+        escolherEsporte();
     }
 
     @FXML
     void jfxbOkOnKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            escolher();
+            escolherEsporte();
         }
     }
 

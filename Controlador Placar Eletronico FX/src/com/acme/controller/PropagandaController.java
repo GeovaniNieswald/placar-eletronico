@@ -3,12 +3,15 @@ package com.acme.controller;
 import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.Utils;
+import com.acme.model.Cena;
 import com.acme.model.Comando;
+import com.acme.model.Jogador;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,9 +48,6 @@ public class PropagandaController implements Initializable {
     private JFXTextField jfxtfPropaganda;
 
     @FXML
-    private JFXTextField jfxtfEscalacoes;
-
-    @FXML
     private JFXTextField jfxtfTextoInferiorL;
 
     @FXML
@@ -60,7 +60,10 @@ public class PropagandaController implements Initializable {
     private JFXTextField jfxtfPropagandaL;
 
     @FXML
-    private JFXTextField jfxtfEscalacoesL;
+    private JFXTextField jfxtfEscalacaoL;
+
+    @FXML
+    private JFXTextField jfxtfEscalacaoAtual;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -76,18 +79,42 @@ public class PropagandaController implements Initializable {
 
     private boolean executandoVideo;
 
+    private String escalacao;
+
+    public void receberEscalacao(ArrayList<ArrayList<Jogador>> escalacao) {
+        ArrayList<Jogador> escalacaoLocal = escalacao.get(0);
+        ArrayList<Jogador> escalacaoVisitante = escalacao.get(1);
+
+        this.escalacao = "";
+
+        for (Jogador j : escalacaoLocal) {
+            this.escalacao += j.getPosicao().get() + "-" + j.getNumero().get() + "-" + j.getNome().get() + ">";
+        }
+
+        this.escalacao = this.escalacao.substring(0, this.escalacao.length() - 1);
+
+        this.escalacao += "§";
+
+        for (Jogador j : escalacaoVisitante) {
+            this.escalacao += j.getPosicao().get() + "-" + j.getNumero().get() + "-" + j.getNome().get() + ">";
+        }
+
+        this.escalacao = this.escalacao.substring(0, this.escalacao.length() - 1);
+
+        jfxtfEscalacaoAtual.setText("Escalação Criada");
+    }
+
     /**
      * Método para trocar a cor dos campos TextField.
      *
-     * @param corUnFocus String - Hexadecimal da cor quando o campo não está com
-     * foco.
-     * @param corFocus String - Hexadecimal da cor quando o campo está com foco.
+     * @param cor String - Hexadecimal da cor quando o campo não está com foco e
+     * quando está.
      * @param componentes JFXTextField - Varargs que contém os campos.
      */
-    private void trocarCorJFXTextField(String corUnFocus, String corFocus, JFXTextField... componentes) {
+    private void trocarCorJFXTextField(String cor, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
-            comp.setUnFocusColor(Paint.valueOf(corUnFocus));
-            comp.setFocusColor(Paint.valueOf(corFocus));
+            comp.setUnFocusColor(Paint.valueOf(cor));
+            comp.setFocusColor(Paint.valueOf(cor));
         }
     }
 
@@ -125,18 +152,18 @@ public class PropagandaController implements Initializable {
     @FXML
     void jfxbAlterarImagemDireitaOnAction(ActionEvent event) {
         if (imagemDireita == null || imagemDireita.trim().isEmpty()) {
-            trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+            trocarCorJFXTextField("red", jfxtfImagemDireitaL);
         } else {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "direita", "alterar", imagemDireita);
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfImagemDireitaL);
+                    trocarCorJFXTextField("#09a104", jfxtfImagemDireitaL);
                 } else {
-                    trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                    trocarCorJFXTextField("red", jfxtfImagemDireitaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                trocarCorJFXTextField("red", jfxtfImagemDireitaL);
                 // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
             }
@@ -146,18 +173,18 @@ public class PropagandaController implements Initializable {
     @FXML
     void jfxbAlterarImagemEsquerdaOnAction(ActionEvent event) {
         if (imagemEsquerda == null || imagemEsquerda.trim().isEmpty()) {
-            trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+            trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
         } else {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "esquerda", "alterar", imagemEsquerda);
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfImagemEsquerdaL);
+                    trocarCorJFXTextField("#09a104", jfxtfImagemEsquerdaL);
                 } else {
-                    trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                    trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
                 // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
             }
@@ -176,18 +203,18 @@ public class PropagandaController implements Initializable {
         String textoAjustado = textoInicial.replaceAll("[^A-Za-z0-9 ]", "");
 
         if (jfxtfTextoInferior.getText().trim().isEmpty() || !textoInicial.equals(textoAjustado)) {
-            trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+            trocarCorJFXTextField("red", jfxtfTextoInferiorL);
         } else {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.TEXTO_INFERIOR, "alterar", jfxtfTextoInferior.getText());
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfTextoInferiorL);
+                    trocarCorJFXTextField("#09a104", jfxtfTextoInferiorL);
                 } else {
-                    trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+                    trocarCorJFXTextField("red", jfxtfTextoInferiorL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+                trocarCorJFXTextField("red", jfxtfTextoInferiorL);
                 // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
             }
@@ -195,14 +222,30 @@ public class PropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxbExibirEscalacoesOnAction(ActionEvent event) {
+    void jfxbExibirEscalacaoOnAction(ActionEvent event) {
+        if (escalacao == null || escalacao.trim().isEmpty()) {
+            trocarCorJFXTextField("red", jfxtfEscalacaoL);
+        } else {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "escalacao", "exibir", escalacao);
 
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    trocarCorJFXTextField("#09a104", jfxtfEscalacaoL);
+                } else {
+                    trocarCorJFXTextField("red", jfxtfEscalacaoL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", jfxtfEscalacaoL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
+            }
+        }
     }
 
     @FXML
     void jfxbExibirPropagandaOnAction(ActionEvent event) {
         if (propaganda == null || propaganda.trim().isEmpty()) {
-            trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+            trocarCorJFXTextField("red", jfxtfPropagandaL);
         } else {
             try {
                 if (propagandaImagem) {
@@ -212,13 +255,13 @@ public class PropagandaController implements Initializable {
                 }
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    trocarCorJFXTextField("#09a104", "#09a104", jfxtfPropagandaL);
+                    trocarCorJFXTextField("#09a104", jfxtfPropagandaL);
                     executandoVideo = true;
                 } else {
-                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                    trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                trocarCorJFXTextField("red", jfxtfPropagandaL);
                 // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
             }
@@ -226,8 +269,20 @@ public class PropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxbPararEscalacoesOnAction(ActionEvent event) {
+    void jfxbPararEscalacaoOnAction(ActionEvent event) {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "escalacao", "parar", "");
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", jfxtfEscalacaoL);
+            } else {
+                trocarCorJFXTextField("red", jfxtfEscalacaoL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", jfxtfEscalacaoL);
+            // Mostrar msg de erro de conexão
+            // IMPLEMENTAR LOG
+        }
     }
 
     @FXML
@@ -241,15 +296,15 @@ public class PropagandaController implements Initializable {
                 }
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+                    trocarCorJFXTextField("white", jfxtfPropagandaL);
                     jfxtfPropaganda.setText("");
                     propaganda = "";
                     executandoVideo = false;
                 } else {
-                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                    trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                trocarCorJFXTextField("red", jfxtfPropagandaL);
                 // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
             }
@@ -262,14 +317,14 @@ public class PropagandaController implements Initializable {
             respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "direita", "restaurar", "");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                trocarCorJFXTextField("white", "white", jfxtfImagemDireitaL);
+                trocarCorJFXTextField("white", jfxtfImagemDireitaL);
                 jfxtfImagemDireita.setText("");
                 imagemDireita = "";
             } else {
-                trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                trocarCorJFXTextField("red", jfxtfImagemDireitaL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+            trocarCorJFXTextField("red", jfxtfImagemDireitaL);
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
@@ -281,14 +336,14 @@ public class PropagandaController implements Initializable {
             respostaComando = PlacarClient.enviarComando(Comando.IMAGENS, "esquerda", "restaurar", "");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                trocarCorJFXTextField("white", "white", jfxtfImagemEsquerdaL);
+                trocarCorJFXTextField("white", jfxtfImagemEsquerdaL);
                 jfxtfImagemEsquerda.setText("");
                 imagemEsquerda = "";
             } else {
-                trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+            trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
@@ -305,21 +360,22 @@ public class PropagandaController implements Initializable {
             respostaComando = PlacarClient.enviarComando(Comando.TEXTO_INFERIOR, "restaurar", "");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                trocarCorJFXTextField("white", "white", jfxtfTextoInferiorL);
+                trocarCorJFXTextField("white", jfxtfTextoInferiorL);
                 jfxtfTextoInferior.setText("");
             } else {
-                trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+                trocarCorJFXTextField("red", jfxtfTextoInferiorL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", "red", jfxtfTextoInferiorL);
+            trocarCorJFXTextField("red", jfxtfTextoInferiorL);
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
     }
 
     @FXML
-    void jfxtfEscalacoesOnClicked(MouseEvent event) {
-
+    void jfxtfNovaEscalacaoOnClicked(MouseEvent event) {
+        MainApp.trocarCena(Cena.ESCALACAO);
+        EscalacaoController.instanciaPropagandaController(this);
     }
 
     @FXML
@@ -339,9 +395,9 @@ public class PropagandaController implements Initializable {
 
                 jfxtfImagemDireita.setText(file.getName());
 
-                trocarCorJFXTextField("white", "white", jfxtfImagemDireitaL);
+                trocarCorJFXTextField("white", jfxtfImagemDireitaL);
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfImagemDireitaL);
+                trocarCorJFXTextField("red", jfxtfImagemDireitaL);
                 // Implementar log
             }
         }
@@ -364,9 +420,9 @@ public class PropagandaController implements Initializable {
 
                 jfxtfImagemEsquerda.setText(file.getName());
 
-                trocarCorJFXTextField("white", "white", jfxtfImagemEsquerdaL);
+                trocarCorJFXTextField("white", jfxtfImagemEsquerdaL);
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", "red", jfxtfImagemEsquerdaL);
+                trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
                 // Implementar log
             }
         }
@@ -389,7 +445,7 @@ public class PropagandaController implements Initializable {
             long fileSizeInMB = fileSizeInKB / 1024;
 
             if (fileSizeInMB > 120) {
-                trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                trocarCorJFXTextField("red", jfxtfPropagandaL);
             } else {
                 String extencao = file.getAbsolutePath();
 
@@ -401,13 +457,13 @@ public class PropagandaController implements Initializable {
 
                         jfxtfPropaganda.setText(file.getName());
 
-                        trocarCorJFXTextField("white", "white", jfxtfPropagandaL);
+                        trocarCorJFXTextField("white", jfxtfPropagandaL);
                     } catch (IOException ex) {
-                        trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                        trocarCorJFXTextField("red", jfxtfPropagandaL);
                         // Implementar log
                     }
                 } else {
-                    trocarCorJFXTextField("red", "red", jfxtfPropagandaL);
+                    trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             }
         }

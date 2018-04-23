@@ -47,8 +47,8 @@ public class PlacarClient {
 
         if (respostaConexao[1].equals("ok")) {
             switch (respostaConexao[2]) {
-                case "usuario-principal":
-                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_PRINCIPAL;
+                case "usuario-administrador":
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_ADMINISTRADOR;
                 case "usuario-placar":
                     return RespostaSocket.CONEXAO_ACEITA_USUARIO_PLACAR;
                 case "usuario-propaganda":
@@ -70,6 +70,21 @@ public class PlacarClient {
             socket.close();
         } catch (IOException ex) {
             // IMPLEMENTAR LOG
+        }
+    }
+
+    /**
+     * Método para converter a resposta para RespostaSocket.
+     *
+     * @param respostaComando String[] - Vetor com as respostas.
+     * @return RespostaSocket - Enum que representa se o comando foi aceito ou
+     * recusado.
+     */
+    private static RespostaSocket converterResposta(String[] respostaComando) {
+        if (respostaComando[1].equals("ok")) {
+            return RespostaSocket.COMANDO_ACEITO;
+        } else {
+            return RespostaSocket.COMANDO_RECUSADO;
         }
     }
 
@@ -118,25 +133,11 @@ public class PlacarClient {
 
             case NOME_TIME:
                 out.println("#nome-time;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                }
+                return converterResposta(in.readLine().split(";"));
 
             case TEXTO_INFERIOR:
                 out.println("#texto-inferior;" + valores[0] + ";" + valores[1]);
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                }
+                return converterResposta(in.readLine().split(";"));
 
             case CADASTRO_USUARIO:
                 switch (valores[0]) {
@@ -166,47 +167,19 @@ public class PlacarClient {
 
             case PONTOS:
                 out.println("#pontos;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                }
+                return converterResposta(in.readLine().split(";"));
 
             case FALTAS:
                 out.println("#faltas;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                }
+                return converterResposta(in.readLine().split(";"));
 
             case IMAGENS:
                 out.println("#imagens;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                }
+                return converterResposta(in.readLine().split(";"));
 
             case PROPAGANDA:
                 out.println("#propaganda;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-
-                respostaComando = in.readLine().split(";");
-
-                if (respostaComando[1].equals("ok")) {
-                    return RespostaSocket.COMANDO_ACEITO;
-                } else {
-                    return RespostaSocket.COMANDO_RECUSADO;
-                }
+                return converterResposta(in.readLine().split(";"));
 
             default:
                 return RespostaSocket.COMANDO_RECUSADO;
@@ -214,32 +187,18 @@ public class PlacarClient {
         }
     }
 
-    public static String enviarComandoResp(Comando comando, String... valores) throws IOException {
+    public static String retornarUsuarios() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        String[] respostaComando;
 
-        switch (comando) {
-            case CADASTRO_USUARIO:
-                if ("get".equalsIgnoreCase(valores[0])) {
-                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1]);
-                } else if ("add".equalsIgnoreCase(valores[0])) {
-                    out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2] + ";" + valores[3] + ";" + valores[4] + ";" + valores[5]);
-                }
+        out.println("#cadastro-usuario;get;all");
 
-                respostaComando = in.readLine().split(";");
+        String[] respostaComando = in.readLine().split(";");
 
-                if ("get".equalsIgnoreCase(valores[0])) {
-                    return respostaComando[2];
-                } else {
-                    if (respostaComando[1].equals("ok")) {
-                        return "ok";
-                    } else {
-                        return "not-ok";
-                    }
-                }
-            default:
-                return "not-ok";
+        if (respostaComando[1].equalsIgnoreCase("not-ok")) {
+            return "#cadastro-usuario;not-ok";
+        } else {
+            return respostaComando[2];
         }
     }
 }

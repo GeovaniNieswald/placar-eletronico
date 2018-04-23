@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
@@ -25,7 +26,7 @@ import javafx.scene.input.MouseEvent;
  * @author Gabriel Cavalheiro Ullmann
  * @author Geovani Alex Nieswald
  */
-public class CadastroUsuarioController {
+public class CadastroUsuarioController implements Initializable {
 
     @FXML
     private JFXTextField jfxtfUsuario;
@@ -84,10 +85,10 @@ public class CadastroUsuarioController {
     @FXML
     void jfxbSalvarOnAction(ActionEvent event) {
         if (jfxtfUsuario.getText().trim().isEmpty() || jfxpfSenha.getText().trim().isEmpty()) {
-            Utils.telaAlerta("Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
+            Utils.telaMensagem("Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
         } else {
             if (jfxtfUsuario.getText().contains(",") || jfxtfUsuario.getText().contains(";")) {
-                Utils.telaAlerta("Nome de usuário não pode conter vírgula nem ponto-e-vírgula", Alert.AlertType.WARNING);
+                Utils.telaMensagem("Nome de usuário não pode conter vírgula nem ponto-e-vírgula", Alert.AlertType.WARNING);
             } else {
                 String usuario = jfxtfUsuario.getText();
                 String senha = jfxpfSenha.getText();
@@ -100,16 +101,16 @@ public class CadastroUsuarioController {
 
                     switch (resposta) {
                         case COMANDO_ACEITO:
-                            Utils.telaAlerta("Usuário salvo!", Alert.AlertType.INFORMATION);
+                            Utils.telaMensagem("Usuário salvo!", Alert.AlertType.INFORMATION);
                             jfxtfUsuario.setText("");
                             jfxpfSenha.setText("");
                             jfxcbAdministrador.setSelected(true);
                             break;
                         case USUARIO_JA_EXISTE:
-                            Utils.telaAlerta("Usuário já existe!", Alert.AlertType.WARNING);
+                            Utils.telaMensagem("Usuário já existe!", Alert.AlertType.WARNING);
                             break;
                         default:
-                            Utils.telaAlerta("Não foi possível cadastrar o usuário!", Alert.AlertType.WARNING);
+                            Utils.telaMensagem("Não foi possível cadastrar o usuário!", Alert.AlertType.WARNING);
                     }
                 } catch (IOException ex) {
                     // Mostrar erro de conexão
@@ -137,6 +138,7 @@ public class CadastroUsuarioController {
         jfxcbPlacar.setSelected(false);
     }
 
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 }

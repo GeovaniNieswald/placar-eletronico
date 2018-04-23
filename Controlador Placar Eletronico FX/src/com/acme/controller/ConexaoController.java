@@ -102,7 +102,7 @@ public class ConexaoController implements Initializable {
                 RespostaSocket respostaConexao = PlacarClient.conectar(jfxtfEndereco.getText(), jfxtfLogin.getText(), jfxpfSenha.getText());
 
                 switch (respostaConexao) {
-                    case CONEXAO_ACEITA_USUARIO_PRINCIPAL:
+                    case CONEXAO_ACEITA_USUARIO_ADMINISTRADOR:
                         MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PLACAR:

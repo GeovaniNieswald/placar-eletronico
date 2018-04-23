@@ -112,17 +112,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfEscalacoes" editable="false" focusColor="#890e01" layoutX="134.0" layoutY="352.0" onMouseClicked="#jfxtfEscalacoesOnClicked" prefHeight="31.0" prefWidth="441.0" promptText="Criar" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="352.0">
+            <JFXTextField alignment="CENTER" editable="false" focusColor="#890e01" layoutX="159.0" layoutY="352.0" onMouseClicked="#jfxtfNovaEscalacaoOnClicked" prefHeight="31.0" prefWidth="134.0" promptText="Criar Nova" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="352.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXTextField>
-            <JFXButton layoutX="596.0" layoutY="352.0" onAction="#jfxbExibirEscalacoesOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
+            <JFXButton layoutX="596.0" layoutY="352.0" onAction="#jfxbExibirEscalacaoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="722.0" layoutY="353.0" onAction="#jfxbPararEscalacoesOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
+            <JFXButton layoutX="722.0" layoutY="353.0" onAction="#jfxbPararEscalacaoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -147,7 +147,12 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXTextField fx:id="jfxtfEscalacoesL" editable="false" focusColor="WHITE" layoutX="28.0" layoutY="352.0" prefHeight="31.0" prefWidth="106.0" promptText="Escalações :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+            <JFXTextField fx:id="jfxtfEscalacaoL" editable="false" focusColor="WHITE" layoutX="28.0" layoutY="352.0" prefHeight="31.0" prefWidth="105.0" promptText="Escalação :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextField>
+            <JFXTextField fx:id="jfxtfEscalacaoAtual" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="335.0" layoutY="352.0" prefHeight="31.0" prefWidth="238.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

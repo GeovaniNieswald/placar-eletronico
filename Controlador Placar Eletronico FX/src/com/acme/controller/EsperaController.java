@@ -30,7 +30,7 @@ public class EsperaController implements Initializable {
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
-    private Timeline esperandoUsuarioPrincipal = new Timeline();
+    private Timeline esperandoUsuarioPlacar = new Timeline();
 
     /**
      * Método acionado quando o algum botão do mouse é pressionado, ele pega a
@@ -65,7 +65,7 @@ public class EsperaController implements Initializable {
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         PlacarClient.desconectar();
-        esperandoUsuarioPrincipal.stop();
+        esperandoUsuarioPlacar.stop();
         MainApp.trocarCena(Cena.CONEXAO);
     }
 
@@ -79,13 +79,13 @@ public class EsperaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        esperandoUsuarioPrincipal = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        esperandoUsuarioPlacar = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             try {
-                RespostaSocket respostaUsuarioPrincipal = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PLACAR);
+                RespostaSocket respostaUsuarioPlacar = PlacarClient.enviarComando(Comando.VERIFICAR_USUARIO_PLACAR);
 
-                if (respostaUsuarioPrincipal == RespostaSocket.USUARIO_PLACAR_CONECTADO) {
-                    MainApp.trocarCena(Cena.PLACAR_PROPAGANDA);
-                    esperandoUsuarioPrincipal.stop();
+                if (respostaUsuarioPlacar == RespostaSocket.USUARIO_PLACAR_CONECTADO) {
+                    MainApp.trocarCena(Cena.PROPAGANDA);
+                    esperandoUsuarioPlacar.stop();
                 }
             } catch (IOException ex) {
                 // Informar erro de conexão
@@ -94,7 +94,7 @@ public class EsperaController implements Initializable {
         }),
                 new KeyFrame(Duration.seconds(5))
         );
-        esperandoUsuarioPrincipal.setCycleCount(Animation.INDEFINITE);
-        esperandoUsuarioPrincipal.play();
+        esperandoUsuarioPlacar.setCycleCount(Animation.INDEFINITE);
+        esperandoUsuarioPlacar.play();
     }
 }

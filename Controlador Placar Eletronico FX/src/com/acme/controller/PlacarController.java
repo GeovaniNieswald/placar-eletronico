@@ -5,11 +5,14 @@ import com.acme.PlacarClient;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -80,6 +83,15 @@ public class PlacarController implements Initializable {
 
     @FXML
     private JFXTextField jfxtfFaltasL;
+
+    @FXML
+    private JFXButton jfxIniciar;
+
+    @FXML
+    private JFXButton jfxPausar;
+
+    @FXML
+    private JFXButton jfxRestaurar;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -458,17 +470,38 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbIniciarCronometroOnAction(ActionEvent event) {
-
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOS, "start");
+            jfxIniciar.setDisable(true);
+            jfxPausar.setDisable(false);
+            jfxRestaurar.setDisable(true);
+        } catch (IOException ex) {
+            Logger.getLogger(PlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     void jfxbPausarCronometroOnAction(ActionEvent event) {
-
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOS, "pause");
+            jfxIniciar.setDisable(false);
+            jfxPausar.setDisable(true);
+            jfxRestaurar.setDisable(false);
+        } catch (IOException ex) {
+            Logger.getLogger(PlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     void jfxbRestaurarCronometroOnAction(ActionEvent event) {
-
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOS, "reset");
+            jfxIniciar.setDisable(false);
+            jfxPausar.setDisable(false);
+            jfxRestaurar.setDisable(true);
+        } catch (IOException ex) {
+            Logger.getLogger(PlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

@@ -180,7 +180,9 @@ public class PlacarClient {
             case PROPAGANDA:
                 out.println("#propaganda;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));
-
+            case CRONOS:
+                out.println("#cronometro;" + valores[0]);
+                return converterResposta(in.readLine().split(";"));
             default:
                 return RespostaSocket.COMANDO_RECUSADO;
             // IMPLEMENTAR LOG

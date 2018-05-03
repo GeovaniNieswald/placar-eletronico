@@ -71,7 +71,7 @@ public class MainApp extends Application {
 
     private static void configurarCena(Scene cena, String titulo) {
         cena.setCursor(Cursor.NONE);
-        
+
         stage.setScene(cena);
 
         stage.setTitle(titulo);

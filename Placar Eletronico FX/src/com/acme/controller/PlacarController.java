@@ -1,10 +1,13 @@
 package com.acme.controller;
 
 import com.acme.PlacarServer;
+import com.acme.model.Cronos;
 import de.jensd.fx.glyphs.octicons.OctIconView;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -26,6 +29,10 @@ import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 public class PlacarController implements Initializable {
+
+    private boolean primeiraVez = true;
+    private boolean executando;
+    private Thread t;
 
     @FXML
     private Label lCronometro;
@@ -80,6 +87,13 @@ public class PlacarController implements Initializable {
 
     @FXML
     private Label lFaltasJogador;
+
+//    @FXML
+//    private Label lHora;
+    @FXML
+    private Label lMin;
+    @FXML
+    private Label lSeg;
 
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
@@ -239,6 +253,69 @@ public class PlacarController implements Initializable {
 
     public void restaurarImagemEsquerda() {
         linhaDoTempoVBox(vbImagenEsquerda, null);
+    }
+
+    public boolean isExecutando() {
+        return executando;
+    }
+
+    public void setExecutando(boolean executando) {
+        this.executando = executando;
+    }
+
+    public void alterarCronometro(int segundos, int minutos, int horas) {
+        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            if (segundos < 10) {
+                lSeg.setText("0" + segundos);
+            } else {
+                lSeg.setText("" + segundos);
+            }
+
+            if (minutos < 10) {
+                lMin.setText("0" + minutos);
+            } else {
+                lMin.setText("" + minutos);
+            }
+
+//            if (horas < 10) {
+//                lHora.setText("0" + horas);
+//            } else {
+//                lHora.setText("" + horas);
+//            }
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        tlCronometro.play();
+    }
+
+    public void iniciar() {
+        this.executando = true;
+        if (primeiraVez) {
+            t = new Thread(new Cronos(this));
+            primeiraVez = false;
+            t.start();
+        } else {
+            t.resume();
+        }
+    }
+
+    public void pausar() {
+        this.executando = false;
+        t.suspend();
+    }
+
+    public void zerar() {
+        this.executando = false;
+        this.primeiraVez = true;
+        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            lSeg.setText("00");
+            lMin.setText("00");
+//            lHora.setText("00");
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        tlCronometro.play();
+        t.stop();
     }
 
     @FXML

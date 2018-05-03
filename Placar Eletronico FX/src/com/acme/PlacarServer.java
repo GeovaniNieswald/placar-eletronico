@@ -345,10 +345,17 @@ public class PlacarServer extends Thread {
 
     public static String comandoCronometro(String[] params) {
         switch (params[1]) {
-            case "set":
-                return "Set tempo do cronômetro: " + params[2];
+            case "start":
+                placarController.iniciar();
+                return "#comando;ok";
+            case "pause":
+                placarController.pausar();
+                return "#comando;ok";
+            case "reset":
+                placarController.zerar();
+                return "#comando;ok";
             default:
-                return "Comando inválido! Parâmetro Tipo = " + params[2];
+                 return "#comando;not-ok";
         }
     }
 

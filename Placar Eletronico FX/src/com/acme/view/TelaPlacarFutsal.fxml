@@ -18,6 +18,8 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="0.0" prefWidth="0.0" />
@@ -38,7 +40,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Label fx:id="lCronometro" text="19:35" textFill="RED">
+            <Label fx:id="lCronometro11" contentDisplay="CENTER" prefHeight="262.0" prefWidth="242.0" text=":" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="140.0" />
                </font>
@@ -67,7 +69,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lNomeTimeVisitante" styleClass="fonte-padrao" text="VISITANTE" textFill="WHITE">
                <font>
@@ -103,7 +105,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="5">
          <children>
             <Label fx:id="lFaltasTimeVisitante" text="00" textFill="RED">
                <font>
@@ -153,12 +155,22 @@
          </children>
       </VBox>
       <VBox fx:id="vbImagenEsquerda" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3" />
-      <VBox fx:id="vbImagenDireita" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="2" GridPane.rowSpan="3" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="6">
+      <VBox fx:id="vbImagenDireita" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="11" GridPane.rowIndex="2" GridPane.rowSpan="3" />
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="11" GridPane.rowIndex="6">
          <children>
             <Button fx:id="bFechar" mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
          </children>
       </VBox>
+      <Label fx:id="lSeg" contentDisplay="CENTER" prefHeight="262.0" prefWidth="244.0" styleClass="fonte-digital" text="00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="6" GridPane.rowIndex="3">
+         <font>
+            <Font name="DS-Digital Bold" size="140.0" />
+         </font>
+      </Label>
+      <Label fx:id="lMin" contentDisplay="CENTER" prefHeight="262.0" prefWidth="314.0" styleClass="fonte-digital" text="00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <font>
+            <Font name="DS-Digital Bold" size="140.0" />
+         </font>
+      </Label>
    </children>
    <cursor>
       <Cursor fx:constant="NONE" />

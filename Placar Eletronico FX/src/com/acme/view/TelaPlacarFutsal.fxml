@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
+<GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="17.8" prefWidth="0.0" />
@@ -40,7 +40,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Label fx:id="lCronometro11" contentDisplay="CENTER" prefHeight="262.0" prefWidth="242.0" text=":" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="lCronometro11" contentDisplay="CENTER" prefHeight="262.0" prefWidth="44.0" text=":" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="140.0" />
                </font>
@@ -161,12 +161,12 @@
             <Button fx:id="bFechar" mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
          </children>
       </VBox>
-      <Label fx:id="lSeg" contentDisplay="CENTER" prefHeight="262.0" prefWidth="244.0" styleClass="fonte-digital" text="00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="6" GridPane.rowIndex="3">
+      <Label fx:id="lSeg" contentDisplay="CENTER" prefHeight="204.0" prefWidth="158.0" text="00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="6" GridPane.rowIndex="3">
          <font>
-            <Font name="DS-Digital Bold" size="140.0" />
+            <Font size="42.0" />
          </font>
       </Label>
-      <Label fx:id="lMin" contentDisplay="CENTER" prefHeight="262.0" prefWidth="314.0" styleClass="fonte-digital" text="00" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="3">
+      <Label fx:id="lMin" contentDisplay="CENTER" prefHeight="262.0" prefWidth="314.0" styleClass="fonte-digital" text="20" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <font>
             <Font name="DS-Digital Bold" size="140.0" />
          </font>

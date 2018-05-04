@@ -100,6 +100,8 @@ public class PlacarController implements Initializable {
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
+    
+    private Timeline timeCronos = new Timeline();
 
     private void linhaDoTempoLabel(Label label, String texto) {
         Timeline tlLabel = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -263,8 +265,8 @@ public class PlacarController implements Initializable {
         this.executando = executando;
     }
 
-    public void alterarCronometro(int segundos, int minutos, int horas) {
-        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+    public void alterarCronometro(int segundos, int minutos) {
+        timeCronos = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             if (segundos < 10) {
                 lSeg.setText("0" + segundos);
             } else {
@@ -285,7 +287,7 @@ public class PlacarController implements Initializable {
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        tlCronometro.play();
+        timeCronos.play();
     }
 
     public void iniciar() {
@@ -309,7 +311,7 @@ public class PlacarController implements Initializable {
         this.primeiraVez = true;
         Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             lSeg.setText("00");
-            lMin.setText("00");
+            lMin.setText("20");
 //            lHora.setText("00");
         }),
                 new KeyFrame(Duration.seconds(1))

@@ -4,6 +4,7 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
+import com.acme.model.Cronos;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -11,12 +12,11 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
@@ -37,7 +37,16 @@ public class PlacarController implements Initializable {
     private JFXTextField jfxtfNomeTimeVisitante;
 
     @FXML
-    private JFXTextField jfxtfCronometro;
+    private JFXTextField jfxtfMinutos;
+
+    @FXML
+    private JFXButton jfxbIniciarCronometro;
+
+    @FXML
+    private JFXButton jfxbPausarCronometro;
+
+    @FXML
+    private JFXButton jfxbRestaurarCronometro;
 
     @FXML
     private JFXTextField jfxtfPeriodo;
@@ -67,6 +76,15 @@ public class PlacarController implements Initializable {
     private JFXTextField jfxtfPeriodoL;
 
     @FXML
+    private JFXTextField jfxtfSegundos;
+
+    @FXML
+    private JFXButton jfxbDefinirCronometro;
+
+    @FXML
+    private ToggleGroup tgPosse;
+
+    @FXML
     private JFXCheckBox jfxcbBonusLocal;
 
     @FXML
@@ -84,15 +102,6 @@ public class PlacarController implements Initializable {
     @FXML
     private JFXTextField jfxtfFaltasL;
 
-    @FXML
-    private JFXButton jfxIniciar;
-
-    @FXML
-    private JFXButton jfxPausar;
-
-    @FXML
-    private JFXButton jfxRestaurar;
-
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
@@ -105,15 +114,25 @@ public class PlacarController implements Initializable {
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
 
+    private int minutos;
+    private int segundos;
+
+    private boolean primeiraVez = true;
+    private boolean executando;
+    private Thread t;
+
     /**
      * Método para trocar a cor dos campos TextField.
      *
-     * @param cor String - Hexadecimal da cor.
-     * @param componente JFXTextField - Campo.
+     * @param cor String - Hexadecimal da cor quando o campo não está com foco e
+     * quando está.
+     * @param componentes JFXTextField - Varargs que contém os campos.
      */
-    private void trocarCorJFXTextField(String cor, JFXTextField componente) {
-        componente.setUnFocusColor(Paint.valueOf(cor));
-        componente.setFocusColor(Paint.valueOf(cor));
+    private void trocarCorJFXTextField(String cor, JFXTextField... componentes) {
+        for (JFXTextField comp : componentes) {
+            comp.setUnFocusColor(Paint.valueOf(cor));
+            comp.setFocusColor(Paint.valueOf(cor));
+        }
     }
 
     /**
@@ -468,39 +487,213 @@ public class PlacarController implements Initializable {
 
     }
 
+    public boolean isExecutando() {
+        return executando;
+    }
+
+    public void setExecutando(boolean executando) {
+        this.executando = executando;
+    }
+
+    public void alterarCronometro(int segundos, int minutos) {
+        if (segundos < 10) {
+            jfxtfSegundos.setText("0" + segundos);
+        } else {
+            jfxtfSegundos.setText("" + segundos);
+        }
+        if (minutos < 10) {
+            jfxtfMinutos.setText("0" + minutos);
+        } else {
+            jfxtfMinutos.setText("" + minutos);
+        }
+    }
+
+    @FXML
+    void jfxbDefinirCronometroOnAction(ActionEvent event) {
+        boolean erro = false;
+
+        if (jfxtfMinutos.getText().trim().isEmpty()) {
+            trocarCorJFXTextField("red", jfxtfMinutos);
+            erro = true;
+        } else {
+            try {
+                int minutosLocal = Integer.parseInt(jfxtfMinutos.getText());
+
+                if (minutosLocal < 0 || minutosLocal > 999) {
+                    trocarCorJFXTextField("red", jfxtfMinutos);
+                    erro = true;
+                } else {
+                    trocarCorJFXTextField("white", jfxtfMinutos);
+                }
+            } catch (NumberFormatException ex) {
+                trocarCorJFXTextField("red", jfxtfMinutos);
+                jfxbIniciarCronometro.setDisable(true);
+                erro = true;
+            }
+        }
+
+        if (jfxtfSegundos.getText().trim().isEmpty()) {
+            trocarCorJFXTextField("red", jfxtfSegundos);
+            erro = true;
+        } else {
+            try {
+                int segundosLocal = Integer.parseInt(jfxtfSegundos.getText());
+
+                if (segundosLocal < 0 || segundosLocal > 59) {
+                    trocarCorJFXTextField("red", jfxtfSegundos);
+                    erro = true;
+                } else {
+                    trocarCorJFXTextField("white", jfxtfSegundos);
+                }
+            } catch (NumberFormatException ex) {
+                trocarCorJFXTextField("red", jfxtfSegundos);
+                jfxbIniciarCronometro.setDisable(true);
+                erro = true;
+            }
+        }
+
+        if (!erro) {
+            minutos = Integer.parseInt(jfxtfMinutos.getText());
+            segundos = Integer.parseInt(jfxtfSegundos.getText());
+
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "definir", "" + minutos, "" + segundos);
+
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    if (minutos < 10) {
+                        jfxtfMinutos.setText("0" + minutos);
+                    }
+                    if (segundos < 10) {
+                        jfxtfSegundos.setText("0" + segundos);
+                    }
+
+                    trocarCorJFXTextField("#09a104", jfxtfMinutos, jfxtfSegundos);
+                    jfxbIniciarCronometro.setDisable(false);
+                } else {
+                    trocarCorJFXTextField("red", jfxtfMinutos, jfxtfSegundos);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", jfxtfMinutos, jfxtfSegundos);
+                //IMPLEMENTAR LOG
+            }
+        }
+    }
+
+    private void iniciarCronometro(String minutos, String segundos) {
+        this.executando = true;
+
+        if (primeiraVez) {
+            t = new Thread(new Cronos(this, minutos, segundos));
+            primeiraVez = false;
+            t.start();
+        } else {
+            t.resume();
+        }
+    }
+
+    private void pausarCronometro() {
+        this.executando = false;
+        t.suspend();
+    }
+
+    private void zerarCronometro() {
+        this.executando = false;
+        this.primeiraVez = true;
+        t.stop();
+    }
+
+    private void iniciar() {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "iniciar", "" + minutos, "" + segundos);
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                iniciarCronometro(minutos + "", segundos + "");
+
+                trocarCorJFXTextField("#09a104", jfxtfCronometroL);
+
+                jfxbDefinirCronometro.setDisable(true);
+                jfxbIniciarCronometro.setDisable(true);
+                jfxbPausarCronometro.setDisable(false);
+                jfxbRestaurarCronometro.setDisable(true);
+
+                jfxtfMinutos.setEditable(false);
+                jfxtfSegundos.setEditable(false);
+            } else {
+                trocarCorJFXTextField("red", jfxtfCronometroL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", jfxtfCronometroL);
+            //IMPLEMENTAR LOG
+        }
+    }
+
     @FXML
     void jfxbIniciarCronometroOnAction(ActionEvent event) {
-        try {
-            respostaComando = PlacarClient.enviarComando(Comando.CRONOS, "start");
-            jfxIniciar.setDisable(true);
-            jfxPausar.setDisable(false);
-            jfxRestaurar.setDisable(true);
-        } catch (IOException ex) {
-            Logger.getLogger(PlacarController.class.getName()).log(Level.SEVERE, null, ex);
+        if (primeiraVez) {
+            try {
+                if (minutos == Integer.parseInt(jfxtfMinutos.getText()) && segundos == Integer.parseInt(jfxtfSegundos.getText())) {
+                    iniciar();
+                } else {
+                    trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos);
+                    jfxbIniciarCronometro.setDisable(true);
+                }
+            } catch (NumberFormatException ex) {
+                trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos);
+                jfxbIniciarCronometro.setDisable(true);
+            }
+        } else {
+            iniciar();
         }
     }
 
     @FXML
     void jfxbPausarCronometroOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.CRONOS, "pause");
-            jfxIniciar.setDisable(false);
-            jfxPausar.setDisable(true);
-            jfxRestaurar.setDisable(false);
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "pausar", "", "");
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                pausarCronometro();
+
+                trocarCorJFXTextField("#09a104", jfxtfCronometroL);
+
+                jfxbIniciarCronometro.setDisable(false);
+                jfxbPausarCronometro.setDisable(true);
+                jfxbRestaurarCronometro.setDisable(false);
+            } else {
+                trocarCorJFXTextField("red", jfxtfCronometroL);
+            }
         } catch (IOException ex) {
-            Logger.getLogger(PlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            trocarCorJFXTextField("red", jfxtfCronometroL);
+            // Implementar log
         }
     }
 
     @FXML
     void jfxbRestaurarCronometroOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.CRONOS, "reset");
-            jfxIniciar.setDisable(false);
-            jfxPausar.setDisable(false);
-            jfxRestaurar.setDisable(true);
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "zerar", "", "");
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                zerarCronometro();
+
+                jfxbDefinirCronometro.setDisable(false);
+                jfxbIniciarCronometro.setDisable(true);
+                jfxbPausarCronometro.setDisable(true);
+                jfxbRestaurarCronometro.setDisable(true);
+
+                jfxtfMinutos.setEditable(true);
+                jfxtfSegundos.setEditable(true);
+
+                jfxtfMinutos.setText("20");
+                jfxtfSegundos.setText("00");
+
+                trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos, jfxtfCronometroL);
+            } else {
+                trocarCorJFXTextField("red", jfxtfCronometroL);
+            }
         } catch (IOException ex) {
-            Logger.getLogger(PlacarController.class.getName()).log(Level.SEVERE, null, ex);
+            trocarCorJFXTextField("red", jfxtfCronometroL);
+            // Implementar log
         }
     }
 
@@ -538,21 +731,6 @@ public class PlacarController implements Initializable {
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
-    }
-
-    @FXML
-    void jfxbRestaurarPeriodoOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void jfxbRestaurarTudoOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void jfxbRestaurarUltimoJogadorOnAction(ActionEvent event) {
-
     }
 
     @FXML
@@ -608,6 +786,21 @@ public class PlacarController implements Initializable {
     }
 
     @FXML
+    void jfxbRestaurarPeriodoOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarTudoOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbRestaurarUltimoJogadorOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
     void jfxcbBonusLocalOnAction(ActionEvent event) {
 
     }
@@ -624,11 +817,6 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxrbPosseVisitanteOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void jfxbAumentar1PontoTimeVisitante(ActionEvent event) {
 
     }
 

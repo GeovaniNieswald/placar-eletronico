@@ -97,30 +97,6 @@ public class PlacarServer extends Thread {
         }
     }
 
-    /*
-    Protocolo de comunição: #comando;tipo;valor
-    Exemplos:
-    
-        Somar/subtrair/resetar placar
-        Mesma lógica nos comando: #faltaset, #tempos
-        #pontos;mais;1
-        #pontos;menos;1
-        #pontos;set;0
-    
-        Mudar tempo no cronômetro
-        #cronometro;set;10:00
-        #cronometro;play
-        #cronometro;pause
-    
-        Primeira propaganda da lista de imagens que estão na pasta no servidor
-        #propaganda;set;1
-    
-        Fazer propagandas mudarem automaticamente a cada X segundos
-        #propaganda;autoplay;10
-    
-        Mudar texto que aparece no visor
-        #visor;set;TEXTO TESTE
-     */
     public static String processarComando(String comando) {
         String[] params = comando.split(";");
         if (params != null) {
@@ -133,20 +109,20 @@ public class PlacarServer extends Thread {
                     return comandoNomeTime(params);
                 case "#texto-inferior":
                     return comandoTextoInferior(params);
-                case "#cadastro-usuario":
-                    return comandoCadastroUsuario(params);
                 case "#pontos":
                     return comandoPontos(params);
                 case "#faltas":
                     return comandoFaltas(params);
                 case "#imagens":
                     return comandoImagens(params);
-                case "#tempos":
-                    return comandoTempos(params);
                 case "#cronometro":
                     return comandoCronometro(params);
                 case "#propaganda":
                     return comandoPropaganda(params);
+                case "#tempos":
+                    return comandoTempos(params);
+                case "#cadastro-usuario":
+                    return comandoCadastroUsuario(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -330,32 +306,22 @@ public class PlacarServer extends Thread {
         }
     }
 
-    public static String comandoTempos(String[] params) {
-        switch (params[1]) {
-            case "mais":
-                return "Soma tempos: " + params[2];
-            case "menos":
-                return "Subtrai tempos: " + params[2];
-            case "set":
-                return "Set tempos: " + params[2];
-            default:
-                return "Comando inválido! Parâmetro Tipo = " + params[2];
-        }
-    }
-
     public static String comandoCronometro(String[] params) {
         switch (params[1]) {
-            case "start":
-                placarController.iniciar();
-                return "#comando;ok";
-            case "pause":
+            case "definir":
+                placarController.definir(params[2], params[3]);
+                return "#cronometro;ok";
+            case "iniciar":
+                placarController.iniciar(params[2], params[3]);
+                return "#cronometro;ok";
+            case "pausar":
                 placarController.pausar();
-                return "#comando;ok";
-            case "reset":
+                return "#cronometro;ok";
+            case "zerar":
                 placarController.zerar();
-                return "#comando;ok";
+                return "#cronometro;ok";
             default:
-                 return "#comando;not-ok";
+                return "#cronometro;not-ok";
         }
     }
 
@@ -410,6 +376,19 @@ public class PlacarServer extends Thread {
             }
         } catch (IOException | InterruptedException ex) {
             return "#propaganda;not-ok";
+        }
+    }
+
+    public static String comandoTempos(String[] params) {
+        switch (params[1]) {
+            case "mais":
+                return "Soma tempos: " + params[2];
+            case "menos":
+                return "Subtrai tempos: " + params[2];
+            case "set":
+                return "Set tempos: " + params[2];
+            default:
+                return "Comando inválido! Parâmetro Tipo = " + params[2];
         }
     }
 

@@ -6,15 +6,12 @@ import de.jensd.fx.glyphs.octicons.OctIconView;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -29,10 +26,6 @@ import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 public class PlacarController implements Initializable {
-
-    private boolean primeiraVez = true;
-    private boolean executando;
-    private Thread t;
 
     @FXML
     private Label lCronometro;
@@ -62,9 +55,6 @@ public class PlacarController implements Initializable {
     private Label lTextoInferior;
 
     @FXML
-    private Button bFechar;
-
-    @FXML
     private OctIconView ovBonusTimeLocal;
 
     @FXML
@@ -88,20 +78,15 @@ public class PlacarController implements Initializable {
     @FXML
     private Label lFaltasJogador;
 
-//    @FXML
-//    private Label lHora;
-    @FXML
-    private Label lMin;
-    @FXML
-    private Label lSeg;
-
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
-    
-    private Timeline timeCronos = new Timeline();
+
+    private boolean primeiraVez = true;
+    private boolean executando;
+    private Thread t;
 
     private void linhaDoTempoLabel(Label label, String texto) {
         Timeline tlLabel = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -266,34 +251,45 @@ public class PlacarController implements Initializable {
     }
 
     public void alterarCronometro(int segundos, int minutos) {
-        timeCronos = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            String[] cronometro = lCronometro.getText().split(":");
+
             if (segundos < 10) {
-                lSeg.setText("0" + segundos);
+                lCronometro.setText(cronometro[0] + ":0" + segundos);
             } else {
-                lSeg.setText("" + segundos);
+                lCronometro.setText(cronometro[0] + ":" + segundos);
             }
+
+            cronometro = lCronometro.getText().split(":");
 
             if (minutos < 10) {
-                lMin.setText("0" + minutos);
+                lCronometro.setText("0" + minutos + ":" + cronometro[1]);
             } else {
-                lMin.setText("" + minutos);
+                lCronometro.setText(minutos + ":" + cronometro[1]);
             }
-
-//            if (horas < 10) {
-//                lHora.setText("0" + horas);
-//            } else {
-//                lHora.setText("" + horas);
-//            }
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        timeCronos.play();
+        tlCronometro.play();
     }
 
-    public void iniciar() {
+    public void definir(String minutos, String segundos) {
+        if (minutos.length() == 1) {
+            minutos = "0" + minutos;
+        }
+
+        if (segundos.length() == 1) {
+            segundos = "0" + segundos;
+        }
+
+        linhaDoTempoLabel(lCronometro, minutos + ":" + segundos);
+    }
+
+    public void iniciar(String minutos, String segundos) {
         this.executando = true;
+
         if (primeiraVez) {
-            t = new Thread(new Cronos(this));
+            t = new Thread(new Cronos(this, minutos, segundos));
             primeiraVez = false;
             t.start();
         } else {
@@ -309,10 +305,9 @@ public class PlacarController implements Initializable {
     public void zerar() {
         this.executando = false;
         this.primeiraVez = true;
+
         Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            lSeg.setText("00");
-            lMin.setText("20");
-//            lHora.setText("00");
+            lCronometro.setText("20:00");
         }),
                 new KeyFrame(Duration.seconds(1))
         );

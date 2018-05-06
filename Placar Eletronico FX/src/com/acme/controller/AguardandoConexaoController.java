@@ -19,9 +19,6 @@ import javafx.util.Duration;
 public class AguardandoConexaoController implements Initializable {
 
     @FXML
-    private Button bFechar;
-
-    @FXML
     private Label lData;
 
     @FXML
@@ -29,7 +26,7 @@ public class AguardandoConexaoController implements Initializable {
 
     private DateFormat sdfData;
     private DateFormat sdfHora;
-    private Calendar cal;
+    private Calendar calendario;
 
     @FXML
     void bFecharAction(ActionEvent event) {
@@ -43,9 +40,9 @@ public class AguardandoConexaoController implements Initializable {
 
         // Relógio em tempo real
         Timeline relogio = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            cal = GregorianCalendar.getInstance();
-            lData.setText(sdfData.format(cal.getTime()));
-            lHora.setText(sdfHora.format(cal.getTime()));
+            calendario = GregorianCalendar.getInstance();
+            lData.setText(sdfData.format(calendario.getTime()));
+            lHora.setText(sdfHora.format(calendario.getTime()));
         }),
                 new KeyFrame(Duration.seconds(1))
         );

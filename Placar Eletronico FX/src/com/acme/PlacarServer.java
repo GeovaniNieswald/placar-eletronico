@@ -123,6 +123,8 @@ public class PlacarServer extends Thread {
                     return comandoTempos(params);
                 case "#cadastro-usuario":
                     return comandoCadastroUsuario(params);
+                case "#periodos":
+                    return comandoPeriodo(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -270,6 +272,26 @@ public class PlacarServer extends Thread {
                 return "#faltas;ok";
             default:
                 return "#faltas;not-ok";
+        }
+    }
+
+    public static String comandoPeriodo(String[] params) {
+        switch (params[1]) {
+            case "mais":
+
+                placarController.aumentarPeriodo(Integer.parseInt(params[2]));
+                return "#periodos;ok";
+
+            case "menos":
+
+                placarController.diminuirPeriodo(Integer.parseInt(params[2]));
+                return "#periodos;ok";
+
+            case "zerar":
+                placarController.restaurarPeriodo();
+                return "#periodos;ok";
+            default:
+                return "#periodos;not-ok";
         }
     }
 

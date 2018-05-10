@@ -83,6 +83,7 @@ public class PlacarController implements Initializable {
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
+    private int periodos = 1;
 
     private boolean primeiraVez = true;
     private boolean executando;
@@ -176,6 +177,37 @@ public class PlacarController implements Initializable {
 
         linhaDoTempoLabel(lPontosTimeLocal, "00");
         linhaDoTempoLabel(lPontosTimeVisitante, "00");
+    }
+
+    public void aumentarPeriodo(int periodo) {
+        periodos += periodo;
+
+        if (periodos > 9) {
+            linhaDoTempoLabel(lPeriodo, periodos + "");
+        } else {
+            linhaDoTempoLabel(lPeriodo, "0" + periodos);
+        }
+    }
+
+    public void diminuirPeriodo(int periodo) {
+        periodos -= periodo;
+
+        if (periodos > 9) {
+            linhaDoTempoLabel(lPeriodo, periodos + "");
+        } else {
+            linhaDoTempoLabel(lPeriodo, "0" + periodos);
+        }
+
+    }
+    public void restaurarPeriodo() {
+        periodos =1;
+
+//        if (periodos > 9) {
+//            linhaDoTempoLabel(lPeriodo, periodos + "");
+//        } else {
+            linhaDoTempoLabel(lPeriodo, "0" + periodos);
+//        }
+
     }
 
     public void aumentarFaltasTimeLocal(int faltas) {

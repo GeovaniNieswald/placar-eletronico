@@ -172,6 +172,10 @@ public class PlacarClient {
             case FALTAS:
                 out.println("#faltas;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));
+                
+            case PERIODOS:
+                out.println("#periodos;" + valores[0] + ";" + valores[1]);
+                return converterResposta(in.readLine().split(";"));
 
             case IMAGENS:
                 out.println("#imagens;" + valores[0] + ";" + valores[1] + ";" + valores[2]);

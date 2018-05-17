@@ -741,8 +741,9 @@ public class PlacarController implements Initializable {
         } else {
             try {
                 int segundosLocal = Integer.parseInt(jfxtfSegundos.getText());
+                int minutosLocal = Integer.parseInt(jfxtfMinutos.getText());
 
-                if (segundosLocal < 0 || segundosLocal > 59) {
+                if (segundosLocal < 0 || (minutosLocal == 0 && segundosLocal == 0) || segundosLocal > 59) {
                     trocarCorJFXTextField("red", jfxtfSegundos);
                     erro = true;
                 } else {
@@ -830,6 +831,21 @@ public class PlacarController implements Initializable {
         }
     }
 
+    public void bloqueiaBotoes() {
+        this.executando = false;
+        this.primeiraVez = true;
+        
+        jfxbDefinirCronometro.setDisable(false);
+        jfxbIniciarCronometro.setDisable(true);
+        jfxbPausarCronometro.setDisable(true);
+        jfxbRestaurarCronometro.setDisable(true);
+        jfxtfMinutos.setDisable(false);
+        jfxtfSegundos.setDisable(false);
+        jfxtfMinutos.setEditable(true);
+        jfxtfSegundos.setEditable(true);
+        t.stop();
+    }
+    
     @FXML
     void jfxbIniciarCronometroOnAction(ActionEvent event) {
         if (primeiraVez) {
@@ -991,7 +1007,7 @@ public class PlacarController implements Initializable {
     @FXML
     void jfxbRestaurarPeriodoOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.PERIODOS, "zerar","1");
+            respostaComando = PlacarClient.enviarComando(Comando.PERIODOS, "zerar", "1");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 periodo = 1;

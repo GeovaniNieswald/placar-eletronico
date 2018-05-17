@@ -28,6 +28,7 @@ public class Cronos implements Runnable {
             tela.alterarCronometro(segundos, minutos);
 
             if (minutos == 0 && segundos == 0) {
+                tela.pararCronometro();
                 break;
             }
 

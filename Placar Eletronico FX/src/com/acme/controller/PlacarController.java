@@ -83,7 +83,7 @@ public class PlacarController implements Initializable {
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
-    private int periodos = 1;
+    private int periodo = 1;
 
     private boolean primeiraVez = true;
     private boolean executando;
@@ -180,34 +180,30 @@ public class PlacarController implements Initializable {
     }
 
     public void aumentarPeriodo(int periodo) {
-        periodos += periodo;
+        periodo += periodo;
 
-        if (periodos > 9) {
-            linhaDoTempoLabel(lPeriodo, periodos + "");
+        if (periodo > 9) {
+            linhaDoTempoLabel(lPeriodo, periodo + "");
         } else {
-            linhaDoTempoLabel(lPeriodo, "0" + periodos);
+            linhaDoTempoLabel(lPeriodo, "0" + periodo);
         }
     }
 
     public void diminuirPeriodo(int periodo) {
-        periodos -= periodo;
+        periodo -= periodo;
 
-        if (periodos > 9) {
-            linhaDoTempoLabel(lPeriodo, periodos + "");
+        if (periodo > 9) {
+            linhaDoTempoLabel(lPeriodo, periodo + "");
         } else {
-            linhaDoTempoLabel(lPeriodo, "0" + periodos);
+            linhaDoTempoLabel(lPeriodo, "0" + periodo);
         }
 
     }
+
     public void restaurarPeriodo() {
-        periodos =1;
+        periodo = 1;
 
-//        if (periodos > 9) {
-//            linhaDoTempoLabel(lPeriodo, periodos + "");
-//        } else {
-            linhaDoTempoLabel(lPeriodo, "0" + periodos);
-//        }
-
+        linhaDoTempoLabel(lPeriodo, "0" + periodo);
     }
 
     public void aumentarFaltasTimeLocal(int faltas) {
@@ -344,6 +340,13 @@ public class PlacarController implements Initializable {
                 new KeyFrame(Duration.seconds(1))
         );
         tlCronometro.play();
+        t.stop();
+    }
+
+    public void pararCronometro() {
+        this.executando = false;
+        this.primeiraVez = true;
+
         t.stop();
     }
 

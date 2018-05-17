@@ -113,7 +113,7 @@ public class PlacarController implements Initializable {
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
-    
+
     private int periodo = 1;
 
     private int minutos;
@@ -723,6 +723,70 @@ public class PlacarController implements Initializable {
         }
     }
 
+    private void iniciarCronometro(String minutos, String segundos) {
+        this.executando = true;
+
+        if (primeiraVez) {
+            t = new Thread(new Cronos(this, minutos, segundos));
+            primeiraVez = false;
+            t.start();
+        } else {
+            t.resume();
+        }
+    }
+
+    private void pausarCronometro() {
+        this.executando = false;
+        t.suspend();
+    }
+
+    private void zerarCronometro() {
+        this.executando = false;
+        this.primeiraVez = true;
+        t.stop();
+    }
+
+    public void pararCronometro() {
+        this.executando = false;
+        this.primeiraVez = true;
+
+        jfxbDefinirCronometro.setDisable(false);
+        jfxbIniciarCronometro.setDisable(true);
+        jfxbPausarCronometro.setDisable(true);
+        jfxbRestaurarCronometro.setDisable(true);
+        jfxtfMinutos.setDisable(false);
+        jfxtfSegundos.setDisable(false);
+        jfxtfMinutos.setEditable(true);
+        jfxtfSegundos.setEditable(true);
+
+        t.stop();
+    }
+
+    private void iniciarCronometroPlacar() {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "iniciar", "" + minutos, "" + segundos);
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                iniciarCronometro(minutos + "", segundos + "");
+
+                trocarCorJFXTextField("#09a104", jfxtfCronometroL);
+
+                jfxbDefinirCronometro.setDisable(true);
+                jfxbIniciarCronometro.setDisable(true);
+                jfxbPausarCronometro.setDisable(false);
+                jfxbRestaurarCronometro.setDisable(true);
+
+                jfxtfMinutos.setEditable(false);
+                jfxtfSegundos.setEditable(false);
+            } else {
+                trocarCorJFXTextField("red", jfxtfCronometroL);
+            }
+        } catch (IOException ex) {
+            trocarCorJFXTextField("red", jfxtfCronometroL);
+            //IMPLEMENTAR LOG
+        }
+    }
+
     @FXML
     void jfxbDefinirCronometroOnAction(ActionEvent event) {
         boolean erro = false;
@@ -753,8 +817,9 @@ public class PlacarController implements Initializable {
         } else {
             try {
                 int segundosLocal = Integer.parseInt(jfxtfSegundos.getText());
+                int minutosLocal = Integer.parseInt(jfxtfMinutos.getText());
 
-                if (segundosLocal < 0 || segundosLocal > 59) {
+                if (segundosLocal < 0 || (minutosLocal == 0 && segundosLocal == 0) || segundosLocal > 59) {
                     trocarCorJFXTextField("red", jfxtfSegundos);
                     erro = true;
                 } else {
@@ -794,60 +859,12 @@ public class PlacarController implements Initializable {
         }
     }
 
-    private void iniciarCronometro(String minutos, String segundos) {
-        this.executando = true;
-
-        if (primeiraVez) {
-            t = new Thread(new Cronos(this, minutos, segundos));
-            primeiraVez = false;
-            t.start();
-        } else {
-            t.resume();
-        }
-    }
-
-    private void pausarCronometro() {
-        this.executando = false;
-        t.suspend();
-    }
-
-    private void zerarCronometro() {
-        this.executando = false;
-        this.primeiraVez = true;
-        t.stop();
-    }
-
-    private void iniciar() {
-        try {
-            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "iniciar", "" + minutos, "" + segundos);
-
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                iniciarCronometro(minutos + "", segundos + "");
-
-                trocarCorJFXTextField("#09a104", jfxtfCronometroL);
-
-                jfxbDefinirCronometro.setDisable(true);
-                jfxbIniciarCronometro.setDisable(true);
-                jfxbPausarCronometro.setDisable(false);
-                jfxbRestaurarCronometro.setDisable(true);
-
-                jfxtfMinutos.setEditable(false);
-                jfxtfSegundos.setEditable(false);
-            } else {
-                trocarCorJFXTextField("red", jfxtfCronometroL);
-            }
-        } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfCronometroL);
-            //IMPLEMENTAR LOG
-        }
-    }
-
     @FXML
     void jfxbIniciarCronometroOnAction(ActionEvent event) {
         if (primeiraVez) {
             try {
                 if (minutos == Integer.parseInt(jfxtfMinutos.getText()) && segundos == Integer.parseInt(jfxtfSegundos.getText())) {
-                    iniciar();
+                    iniciarCronometroPlacar();
                 } else {
                     trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos);
                     jfxbIniciarCronometro.setDisable(true);
@@ -857,7 +874,7 @@ public class PlacarController implements Initializable {
                 jfxbIniciarCronometro.setDisable(true);
             }
         } else {
-            iniciar();
+            iniciarCronometroPlacar();
         }
     }
 

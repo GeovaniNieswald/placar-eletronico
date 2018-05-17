@@ -113,7 +113,7 @@ public class PlacarController implements Initializable {
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
-
+    
     private int periodo = 1;
 
     private int minutos;

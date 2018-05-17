@@ -127,7 +127,7 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                   </JFXTextField>
-                  <JFXTextField fx:id="jfxtfPeriodo" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="93.0" layoutY="165.0" prefHeight="31.0" prefWidth="260.0" promptText="1" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="165.0">
+                  <JFXTextField fx:id="jfxtfPeriodo" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="93.0" layoutY="165.0" prefHeight="31.0" prefWidth="260.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" text="01" unFocusColor="WHITE" AnchorPane.topAnchor="165.0">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>

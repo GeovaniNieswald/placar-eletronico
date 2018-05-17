@@ -172,9 +172,9 @@ public class PlacarClient {
             case FALTAS:
                 out.println("#faltas;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));
-                
-            case PERIODOS:
-                out.println("#periodos;" + valores[0] + ";" + valores[1]);
+
+            case PERIODO:
+                out.println("#periodo;" + valores[0] + ";" + valores[1]);
                 return converterResposta(in.readLine().split(";"));
 
             case IMAGENS:
@@ -184,6 +184,7 @@ public class PlacarClient {
             case PROPAGANDA:
                 out.println("#propaganda;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));
+
             case CRONOMETRO:
                 out.println("#cronometro;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));

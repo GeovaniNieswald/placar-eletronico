@@ -113,6 +113,7 @@ public class PlacarController implements Initializable {
 
     private int faltasTimeLocal;
     private int faltasTimeVisitante;
+
     private int periodo = 1;
 
     private int minutos;
@@ -434,18 +435,23 @@ public class PlacarController implements Initializable {
     @FXML
     void jfxbAumentarPeriodoOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.PERIODOS, "mais", "1");
+            respostaComando = PlacarClient.enviarComando(Comando.PERIODO, "mais", "1");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 periodo++;
-                jfxtfPeriodo.setText(periodo + "");
-//
-//                trocarCorLabel("white", lFaltasTimeVisitante);
-//            } else {
-//                trocarCorLabel("red", lFaltasTimeVisitante);
+
+                if (periodo > 9) {
+                    jfxtfPeriodo.setText(periodo + "");
+                } else {
+                    jfxtfPeriodo.setText("0" + periodo);
+                }
+
+                trocarCorJFXTextField("#09a104", jfxtfPeriodoL);
+            } else {
+                trocarCorJFXTextField("red", jfxtfPeriodoL);
             }
         } catch (IOException ex) {
-//            trocarCorLabel("red", lFaltasTimeVisitante);
+            trocarCorJFXTextField("red", jfxtfPeriodoL);
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
@@ -454,23 +460,29 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbDiminuirPeriodoOnAction(ActionEvent event) {
-        try {
-            respostaComando = PlacarClient.enviarComando(Comando.PERIODOS, "menos", "1");
+        if (periodo > 1) {
+            try {
+                respostaComando = PlacarClient.enviarComando(Comando.PERIODO, "menos", "1");
 
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                periodo--;
-                jfxtfPeriodo.setText(periodo + "");
-//
-//                trocarCorLabel("white", lFaltasTimeVisitante);
-//            } else {
-//                trocarCorLabel("red", lFaltasTimeVisitante);
+                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                    periodo--;
+
+                    if (periodo > 9) {
+                        jfxtfPeriodo.setText(periodo + "");
+                    } else {
+                        jfxtfPeriodo.setText("0" + periodo);
+                    }
+
+                    trocarCorJFXTextField("#09a104", jfxtfPeriodoL);
+                } else {
+                    trocarCorJFXTextField("red", jfxtfPeriodoL);
+                }
+            } catch (IOException ex) {
+                trocarCorJFXTextField("red", jfxtfPeriodoL);
+                // Mostrar msg de erro de conexão
+                // IMPLEMENTAR LOG
             }
-        } catch (IOException ex) {
-//            trocarCorLabel("red", lFaltasTimeVisitante);
-            // Mostrar msg de erro de conexão
-            // IMPLEMENTAR LOG
         }
-
     }
 
     @FXML
@@ -529,7 +541,7 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbDiminuir2PontoTimeLocalOnAction(ActionEvent event) {
-        if (pontosTimeLocal > 0) {
+        if (pontosTimeLocal > 1) {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "local", "menos", "2");
 
@@ -556,7 +568,7 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbDiminuir2PontoTimeVisitanteOnAction(ActionEvent event) {
-        if (pontosTimeVisitante > 0) {
+        if (pontosTimeVisitante > 1) {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "visitante", "menos", "2");
 
@@ -583,7 +595,7 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbDiminuir3PontoTimeLocalOnAction(ActionEvent event) {
-        if (pontosTimeLocal > 0) {
+        if (pontosTimeLocal > 2) {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "local", "menos", "3");
 
@@ -611,7 +623,7 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbDiminuir3PontoTimeVisitanteOnAction(ActionEvent event) {
-        if (pontosTimeVisitante > 0) {
+        if (pontosTimeVisitante > 2) {
             try {
                 respostaComando = PlacarClient.enviarComando(Comando.PONTOS, "visitante", "menos", "3");
 
@@ -991,32 +1003,26 @@ public class PlacarController implements Initializable {
     @FXML
     void jfxbRestaurarPeriodoOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.PERIODOS, "zerar","1");
+            respostaComando = PlacarClient.enviarComando(Comando.PERIODO, "zerar", "1");
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 periodo = 1;
-                jfxtfPeriodo.setText(periodo + "");
-//
-//                trocarCorLabel("white", lFaltasTimeVisitante);
-//            } else {
-//                trocarCorLabel("red", lFaltasTimeVisitante);
+
+                jfxtfPeriodo.setText("0" + periodo);
+
+                trocarCorJFXTextField("white", jfxtfPeriodoL);
+            } else {
+                trocarCorJFXTextField("red", jfxtfPeriodoL);
             }
         } catch (IOException ex) {
-//            trocarCorLabel("red", lFaltasTimeVisitante);
+            trocarCorJFXTextField("red", jfxtfPeriodoL);
             // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
         }
-
     }
 
     @FXML
     void jfxbRestaurarTudoOnAction(ActionEvent event) {
-        jfxbRestaurarPeriodoOnAction(event);
-        jfxbZerarPontosOnAction(event);
-        jfxbZerarFaltasOnAction(event);
-        jfxbRestaurarNomeTimeVisitanteOnAction(event);
-        jfxbRestaurarNomeTimeLocalOnAction(event);
-        jfxbRestaurarCronometroOnAction(event);
 
     }
 

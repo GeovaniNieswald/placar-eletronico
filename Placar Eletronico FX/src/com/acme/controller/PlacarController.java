@@ -199,13 +199,14 @@ public class PlacarController implements Initializable {
         }
 
     }
+
     public void restaurarPeriodo() {
-        periodos =1;
+        periodos = 1;
 
 //        if (periodos > 9) {
 //            linhaDoTempoLabel(lPeriodo, periodos + "");
 //        } else {
-            linhaDoTempoLabel(lPeriodo, "0" + periodos);
+        linhaDoTempoLabel(lPeriodo, "0" + periodos);
 //        }
 
     }
@@ -280,6 +281,12 @@ public class PlacarController implements Initializable {
 
     public void setExecutando(boolean executando) {
         this.executando = executando;
+    }
+
+    public void parar() {
+        this.executando = false;
+        this.primeiraVez = true;
+        t.stop();
     }
 
     public void alterarCronometro(int segundos, int minutos) {

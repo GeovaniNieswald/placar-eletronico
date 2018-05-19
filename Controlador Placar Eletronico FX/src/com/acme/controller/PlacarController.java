@@ -108,6 +108,8 @@ public class PlacarController implements Initializable {
 
     private RespostaSocket respostaComando;
 
+    private boolean basquete;
+
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
 
@@ -754,8 +756,6 @@ public class PlacarController implements Initializable {
         jfxbIniciarCronometro.setDisable(true);
         jfxbPausarCronometro.setDisable(true);
         jfxbRestaurarCronometro.setDisable(true);
-        jfxtfMinutos.setDisable(false);
-        jfxtfSegundos.setDisable(false);
         jfxtfMinutos.setEditable(true);
         jfxtfSegundos.setEditable(true);
 
@@ -903,7 +903,11 @@ public class PlacarController implements Initializable {
     @FXML
     void jfxbRestaurarCronometroOnAction(ActionEvent event) {
         try {
-            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "zerar", "", "");
+            if (basquete) {
+                respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "zerar", "basquete", "");
+            } else {
+                respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "zerar", "futsal", "");
+            }
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 zerarCronometro();
@@ -916,7 +920,12 @@ public class PlacarController implements Initializable {
                 jfxtfMinutos.setEditable(true);
                 jfxtfSegundos.setEditable(true);
 
-                jfxtfMinutos.setText("20");
+                if (basquete) {
+                    jfxtfMinutos.setText("10");
+                } else {
+                    jfxtfMinutos.setText("20");
+                }
+
                 jfxtfSegundos.setText("00");
 
                 trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos, jfxtfCronometroL);
@@ -1070,5 +1079,10 @@ public class PlacarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (jfxtfMinutos.getText().equals("10")) {
+            basquete = true;
+        } else {
+            basquete = false;
+        }
     }
 }

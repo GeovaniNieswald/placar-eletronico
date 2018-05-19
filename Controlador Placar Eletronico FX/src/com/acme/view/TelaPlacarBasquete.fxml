@@ -90,17 +90,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton layoutX="370.0" layoutY="121.0" onAction="#jfxbIniciarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Iniciar" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="121.0">
+                  <JFXButton fx:id="jfxbIniciarCronometro" disable="true" layoutX="370.0" layoutY="121.0" onAction="#jfxbIniciarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Iniciar" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="121.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton layoutX="473.0" layoutY="121.0" onAction="#jfxbPausarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Pausar" textFill="WHITE" AnchorPane.leftAnchor="473.0" AnchorPane.topAnchor="121.0">
+                  <JFXButton fx:id="jfxbPausarCronometro" disable="true" layoutX="473.0" layoutY="121.0" onAction="#jfxbPausarCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Pausar" textFill="WHITE" AnchorPane.leftAnchor="473.0" AnchorPane.topAnchor="121.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton layoutX="575.0" layoutY="121.0" onAction="#jfxbRestaurarCronometroOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.leftAnchor="575.0" AnchorPane.topAnchor="121.0">
+                  <JFXButton fx:id="jfxbRestaurarCronometro" disable="true" layoutX="575.0" layoutY="121.0" onAction="#jfxbRestaurarCronometroOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Restaurar" textFill="WHITE" AnchorPane.leftAnchor="575.0" AnchorPane.topAnchor="121.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -122,11 +122,6 @@
                   </JFXButton>
                   <JFXTextField fx:id="jfxtfNomeTimeLocal" alignment="CENTER" focusColor="#890e01" layoutX="166.0" layoutY="20.0" prefHeight="31.0" prefWidth="291.0" promptText="LOCAL" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="20.0" />
                   <JFXTextField fx:id="jfxtfNomeTimeVisitante" alignment="CENTER" focusColor="#890e01" layoutX="189.0" layoutY="70.0" prefHeight="31.0" prefWidth="268.0" promptText="VISITANTE" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="70.0" />
-                  <JFXTextField fx:id="jfxtfCronometro" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="127.0" layoutY="119.0" prefHeight="31.0" prefWidth="226.0" promptText="00:00:00" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="119.0">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
-                  </JFXTextField>
                   <JFXTextField fx:id="jfxtfPeriodo" alignment="CENTER" editable="false" focusColor="WHITE" layoutX="93.0" layoutY="165.0" prefHeight="31.0" prefWidth="260.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" text="01" unFocusColor="WHITE" AnchorPane.topAnchor="165.0">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -148,6 +143,26 @@
                      </cursor>
                   </JFXTextField>
                   <JFXTextField fx:id="jfxtfPeriodoL" editable="false" focusColor="WHITE" layoutX="17.0" layoutY="165.0" prefHeight="31.0" prefWidth="76.0" promptText="Período:                               1" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="165.0">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXButton fx:id="jfxbDefinirCronometro" layoutX="268.0" layoutY="120.0" onAction="#jfxbDefinirCronometroOnAction" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Definir" textFill="WHITE" AnchorPane.topAnchor="121.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXTextField fx:id="jfxtfMinutos" alignment="CENTER_RIGHT" focusColor="WHITE" layoutX="128.0" layoutY="120.0" prefHeight="31.0" prefWidth="50.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" text="10" unFocusColor="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXTextField alignment="CENTER" editable="false" focusColor="WHITE" layoutX="178.0" layoutY="120.0" prefHeight="31.0" prefWidth="17.0" promptText=":" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXTextField fx:id="jfxtfSegundos" focusColor="WHITE" layoutX="195.0" layoutY="120.0" prefHeight="31.0" prefWidth="60.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" text="00" unFocusColor="WHITE">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>

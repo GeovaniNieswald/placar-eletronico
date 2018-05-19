@@ -329,12 +329,16 @@ public class PlacarController implements Initializable {
         t.suspend();
     }
 
-    public void zerar() {
+    public void zerar(String esporte) {
         this.executando = false;
         this.primeiraVez = true;
 
         Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            lCronometro.setText("20:00");
+            if (esporte.equals("basquete")) {
+                lCronometro.setText("10:00");
+            } else {
+                lCronometro.setText("20:00");
+            }
         }),
                 new KeyFrame(Duration.seconds(1))
         );

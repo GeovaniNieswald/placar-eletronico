@@ -40,7 +40,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <Label fx:id="lCronometro" text="19:35" textFill="RED">
+            <Label fx:id="lCronometro" text="10:00" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="140.0" />
                </font>

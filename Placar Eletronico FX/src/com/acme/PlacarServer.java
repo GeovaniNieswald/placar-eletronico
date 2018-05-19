@@ -336,7 +336,7 @@ public class PlacarServer extends Thread {
                 placarController.pausar();
                 return "#cronometro;ok";
             case "zerar":
-                placarController.zerar();
+                placarController.zerar(params[2]);
                 return "#cronometro;ok";
             default:
                 return "#cronometro;not-ok";

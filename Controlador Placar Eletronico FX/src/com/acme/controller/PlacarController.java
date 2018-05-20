@@ -1049,7 +1049,21 @@ public class PlacarController implements Initializable {
 
     @FXML
     void jfxbRestaurarTudoOnAction(ActionEvent event) {
-
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.RESET, "reset", "all", String.valueOf(basquete));
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                jfxbRestaurarCronometroOnAction(event);
+                jfxbRestaurarNomeTimeLocalOnAction(event);
+                jfxbRestaurarNomeTimeVisitanteOnAction(event);
+                jfxbRestaurarPeriodoOnAction(event);
+                jfxbRestaurarUltimoJogadorOnAction(event);
+                jfxbZerarFaltasOnAction(event);
+                jfxbZerarPontosOnAction(event);
+                zerarCronometro();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML

@@ -188,7 +188,11 @@ public class PlacarClient {
             case CRONOMETRO:
                 out.println("#cronometro;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));
-                
+
+            case RESET:
+                out.println("#reset;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+                return converterResposta(in.readLine().split(";"));
+
             default:
                 return RespostaSocket.COMANDO_RECUSADO;
             // IMPLEMENTAR LOG

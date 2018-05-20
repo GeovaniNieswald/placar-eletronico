@@ -6,8 +6,10 @@ import de.jensd.fx.glyphs.octicons.OctIconView;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -85,6 +87,7 @@ public class PlacarController implements Initializable {
     private int faltasTimeVisitante;
 
     private int periodo = 1;
+    private final int VELOCIDADE_TXT = 10000; //em milissegundos
 
     private boolean primeiraVez = true;
     private boolean executando;
@@ -375,5 +378,21 @@ public class PlacarController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         PlacarServer.instanciaPlacarController(this);
+
+        Timeline textMove = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            int tamanhoTexto = lTextoInferior.getText().length();
+            if (tamanhoTexto == 0) {
+                tamanhoTexto = 1;
+            }
+            TranslateTransition tt = new TranslateTransition(Duration.millis(VELOCIDADE_TXT), lTextoInferior);
+            tt.setCycleCount(Animation.INDEFINITE);
+            tt.setFromX((tamanhoTexto * 60) * -1);
+            tt.setToX(1200);
+            tt.playFromStart();
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        textMove.setCycleCount(1);
+        textMove.play();
     }
 }

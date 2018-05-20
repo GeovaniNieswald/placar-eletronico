@@ -343,7 +343,11 @@ public class PlacarController implements Initializable {
                 new KeyFrame(Duration.seconds(1))
         );
         tlCronometro.play();
-        t.stop();
+
+        if (t != null) {
+            t.stop();
+        }
+
     }
 
     public void pararCronometro() {
@@ -351,6 +355,16 @@ public class PlacarController implements Initializable {
         this.primeiraVez = true;
 
         t.stop();
+    }
+
+    public void resetAll(boolean esporte) {
+        String esp = esporte ? "basquete" : "futsal";
+        zerarFaltas();
+        zerarPontos();
+        restaurarPeriodo();
+        setNomeTimeLocal("LOCAL");
+        setNomeTimeVisitante("VISITANTE");
+        zerar(esp);
     }
 
     @FXML

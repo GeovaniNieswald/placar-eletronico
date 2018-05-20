@@ -125,6 +125,8 @@ public class PlacarServer extends Thread {
                     return comandoCadastroUsuario(params);
                 case "#periodo":
                     return comandoPeriodo(params);
+                case "#reset":
+                    return comandoReset(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -529,6 +531,20 @@ public class PlacarServer extends Thread {
                 }
             default:
                 return "#cadastro-usuario;not-ok";
+        }
+    }
+
+    public static String comandoReset(String[] params) {
+        switch (params[2]) {
+            case "all":
+                if (placarController.isExecutando()) {
+                    return "#reset;not-ok";
+                } else {
+                    placarController.resetAll("true".equals(params[3]));
+                    return "#reset;ok";
+                }
+            default:
+                return "#reset;not-ok";
         }
     }
 

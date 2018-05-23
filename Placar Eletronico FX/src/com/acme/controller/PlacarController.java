@@ -74,11 +74,7 @@ public class PlacarController implements Initializable {
     @FXML
     private VBox vbImagenDireita;
 
-    @FXML
-    private Label lNumJogador;
-
-    @FXML
-    private Label lFaltasJogador;
+    private final int VELOCIDADE_TXT = 10000; //em milissegundos
 
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
@@ -87,11 +83,11 @@ public class PlacarController implements Initializable {
     private int faltasTimeVisitante;
 
     private int periodo = 1;
-    private final int VELOCIDADE_TXT = 10000; //em milissegundos
 
-    private boolean primeiraVez = true;
-    private boolean executando;
-    private Thread t;
+    private Thread threadCronometro;
+
+    private boolean executandoCronometroPrimeiraVez = true;
+    private boolean executandoCronometro;
 
     private void linhaDoTempoLabel(Label label, String texto) {
         Timeline tlLabel = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -273,11 +269,11 @@ public class PlacarController implements Initializable {
     }
 
     public boolean isExecutando() {
-        return executando;
+        return executandoCronometro;
     }
 
     public void setExecutando(boolean executando) {
-        this.executando = executando;
+        this.executandoCronometro = executando;
     }
 
     public void alterarCronometro(int segundos, int minutos) {
@@ -303,7 +299,7 @@ public class PlacarController implements Initializable {
         tlCronometro.play();
     }
 
-    public void definir(String minutos, String segundos) {
+    public void definirCronometro(String minutos, String segundos) {
         if (minutos.length() == 1) {
             minutos = "0" + minutos;
         }
@@ -315,26 +311,26 @@ public class PlacarController implements Initializable {
         linhaDoTempoLabel(lCronometro, minutos + ":" + segundos);
     }
 
-    public void iniciar(String minutos, String segundos) {
-        this.executando = true;
+    public void iniciarCronometro(String minutos, String segundos) {
+        this.executandoCronometro = true;
 
-        if (primeiraVez) {
-            t = new Thread(new Cronos(this, minutos, segundos));
-            primeiraVez = false;
-            t.start();
+        if (executandoCronometroPrimeiraVez) {
+            threadCronometro = new Thread(new Cronos(this, minutos, segundos));
+            executandoCronometroPrimeiraVez = false;
+            threadCronometro.start();
         } else {
-            t.resume();
+            threadCronometro.resume();
         }
     }
 
-    public void pausar() {
-        this.executando = false;
-        t.suspend();
+    public void pausarCronometro() {
+        this.executandoCronometro = false;
+        threadCronometro.suspend();
     }
 
-    public void zerar(String esporte) {
-        this.executando = false;
-        this.primeiraVez = true;
+    public void zerarCronometro(String esporte) {
+        this.executandoCronometro = false;
+        this.executandoCronometroPrimeiraVez = true;
 
         Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             if (esporte.equals("basquete")) {
@@ -347,27 +343,15 @@ public class PlacarController implements Initializable {
         );
         tlCronometro.play();
 
-        if (t != null) {
-            t.stop();
+        if (threadCronometro != null) {
+            threadCronometro.stop();
         }
-
     }
 
     public void pararCronometro() {
-        this.executando = false;
-        this.primeiraVez = true;
-
-        t.stop();
-    }
-
-    public void resetAll(boolean esporte) {
-        String esp = esporte ? "basquete" : "futsal";
-        zerarFaltas();
-        zerarPontos();
-        restaurarPeriodo();
-        setNomeTimeLocal("LOCAL");
-        setNomeTimeVisitante("VISITANTE");
-        zerar(esp);
+        this.executandoCronometro = false;
+        this.executandoCronometroPrimeiraVez = true;
+        threadCronometro.stop();
     }
 
     @FXML
@@ -379,11 +363,13 @@ public class PlacarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         PlacarServer.instanciaPlacarController(this);
 
-        Timeline textMove = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Timeline moverTexto = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             int tamanhoTexto = lTextoInferior.getText().length();
+
             if (tamanhoTexto == 0) {
                 tamanhoTexto = 1;
             }
+
             TranslateTransition tt = new TranslateTransition(Duration.millis(VELOCIDADE_TXT), lTextoInferior);
             tt.setCycleCount(Animation.INDEFINITE);
             tt.setFromX((tamanhoTexto * 60) * -1);
@@ -392,7 +378,7 @@ public class PlacarController implements Initializable {
         }),
                 new KeyFrame(Duration.seconds(1))
         );
-        textMove.setCycleCount(1);
-        textMove.play();
+        moverTexto.setCycleCount(1);
+        moverTexto.play();
     }
 }

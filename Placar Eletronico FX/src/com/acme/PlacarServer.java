@@ -119,14 +119,10 @@ public class PlacarServer extends Thread {
                     return comandoCronometro(params);
                 case "#propaganda":
                     return comandoPropaganda(params);
-                case "#tempos":
-                    return comandoTempos(params);
                 case "#cadastro-usuario":
                     return comandoCadastroUsuario(params);
                 case "#periodo":
                     return comandoPeriodo(params);
-                case "#reset":
-                    return comandoReset(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -329,16 +325,16 @@ public class PlacarServer extends Thread {
     public static String comandoCronometro(String[] params) {
         switch (params[1]) {
             case "definir":
-                placarController.definir(params[2], params[3]);
+                placarController.definirCronometro(params[2], params[3]);
                 return "#cronometro;ok";
             case "iniciar":
-                placarController.iniciar(params[2], params[3]);
+                placarController.iniciarCronometro(params[2], params[3]);
                 return "#cronometro;ok";
             case "pausar":
-                placarController.pausar();
+                placarController.pausarCronometro();
                 return "#cronometro;ok";
             case "zerar":
-                placarController.zerar(params[2]);
+                placarController.zerarCronometro(params[2]);
                 return "#cronometro;ok";
             default:
                 return "#cronometro;not-ok";
@@ -396,19 +392,6 @@ public class PlacarServer extends Thread {
             }
         } catch (IOException | InterruptedException ex) {
             return "#propaganda;not-ok";
-        }
-    }
-
-    public static String comandoTempos(String[] params) {
-        switch (params[1]) {
-            case "mais":
-                return "Soma tempos: " + params[2];
-            case "menos":
-                return "Subtrai tempos: " + params[2];
-            case "set":
-                return "Set tempos: " + params[2];
-            default:
-                return "Comando inválido! Parâmetro Tipo = " + params[2];
         }
     }
 
@@ -531,20 +514,6 @@ public class PlacarServer extends Thread {
                 }
             default:
                 return "#cadastro-usuario;not-ok";
-        }
-    }
-
-    public static String comandoReset(String[] params) {
-        switch (params[2]) {
-            case "all":
-                if (placarController.isExecutando()) {
-                    return "#reset;not-ok";
-                } else {
-                    placarController.resetAll("true".equals(params[3]));
-                    return "#reset;ok";
-                }
-            default:
-                return "#reset;not-ok";
         }
     }
 

@@ -2,6 +2,7 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.PlacarClient;
+import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.Cronos;
@@ -15,19 +16,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
-/**
- * Classe Referente ao controlador das cenas do placar.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public class PlacarController implements Initializable {
 
     @FXML
@@ -90,25 +84,13 @@ public class PlacarController implements Initializable {
     @FXML
     private JFXCheckBox jfxcbBonusVisitante;
 
-    @FXML
-    private JFXTextField jfxtfJogador;
-
-    @FXML
-    private JFXTextField jfxtfFaltas;
-
-    @FXML
-    private JFXTextField jfxtfJogadorL;
-
-    @FXML
-    private JFXTextField jfxtfFaltasL;
-
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
     private RespostaSocket respostaComando;
 
-    private boolean basquete;
+    private boolean esporteBasquete;
 
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
@@ -118,20 +100,14 @@ public class PlacarController implements Initializable {
 
     private int periodo = 1;
 
-    private int minutos;
-    private int segundos;
+    private Thread threadCronometro;
 
-    private boolean primeiraVez = true;
-    private boolean executando;
-    private Thread t;
+    private int minutosCronometro;
+    private int segundosCronometro;
 
-    /**
-     * Método para trocar a cor dos campos TextField.
-     *
-     * @param cor String - Hexadecimal da cor quando o campo não está com foco e
-     * quando está.
-     * @param componentes JFXTextField - Varargs que contém os campos.
-     */
+    private boolean executandoCronometoPrimeiraVez = true;
+    private boolean executandoCronometro;
+
     private void trocarCorJFXTextField(String cor, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setUnFocusColor(Paint.valueOf(cor));
@@ -139,47 +115,109 @@ public class PlacarController implements Initializable {
         }
     }
 
-    /**
-     * Método para trocar a cor dos labels.
-     *
-     * @param cor String - Hexadecimal da cor.
-     * @param componente Label.
-     */
     private void trocarCorLabel(String cor, Label componente) {
         componente.setTextFill(Paint.valueOf(cor));
     }
 
+    public boolean isExecutandoCronometro() {
+        return executandoCronometro;
+    }
+
+    public void alterarCronometro(int segundos, int minutos) {
+        if (segundos < 10) {
+            jfxtfSegundos.setText("0" + segundos);
+        } else {
+            jfxtfSegundos.setText("" + segundos);
+        }
+        if (minutos < 10) {
+            jfxtfMinutos.setText("0" + minutos);
+        } else {
+            jfxtfMinutos.setText("" + minutos);
+        }
+    }
+
+    private void iniciarCronometro(String minutos, String segundos) {
+        this.executandoCronometro = true;
+
+        if (executandoCronometoPrimeiraVez) {
+            threadCronometro = new Thread(new Cronos(this, minutos, segundos));
+            executandoCronometoPrimeiraVez = false;
+            threadCronometro.start();
+        } else {
+            threadCronometro.resume();
+        }
+    }
+
+    private void pausarCronometro() {
+        this.executandoCronometro = false;
+        threadCronometro.suspend();
+    }
+
+    public void pararCronometro() {
+        this.executandoCronometro = false;
+        this.executandoCronometoPrimeiraVez = true;
+
+        jfxbDefinirCronometro.setDisable(false);
+        jfxbIniciarCronometro.setDisable(true);
+        jfxbPausarCronometro.setDisable(true);
+        jfxbRestaurarCronometro.setDisable(true);
+        jfxtfMinutos.setEditable(true);
+        jfxtfSegundos.setEditable(true);
+
+        threadCronometro.stop();
+    }
+
+    private void zerarCronometro() {
+        this.executandoCronometro = false;
+        this.executandoCronometoPrimeiraVez = true;
+        threadCronometro.stop();
+    }
+
+    private void iniciarCronometroPlacar() {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "iniciar", "" + minutosCronometro, "" + segundosCronometro);
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                iniciarCronometro(minutosCronometro + "", segundosCronometro + "");
+
+                trocarCorJFXTextField("#09a104", jfxtfCronometroL);
+
+                jfxbDefinirCronometro.setDisable(true);
+                jfxbIniciarCronometro.setDisable(true);
+                jfxbPausarCronometro.setDisable(false);
+                jfxbRestaurarCronometro.setDisable(true);
+
+                jfxtfMinutos.setEditable(false);
+                jfxtfSegundos.setEditable(false);
+            } else {
+                trocarCorJFXTextField("red", jfxtfCronometroL);
+            }
+        } catch (IOException ex) {
+            //IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfCronometroL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+        }
+    }
+
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
-        // Pedir confirmação
-        System.exit(0);
+        if (Utils.telaConfirmacao("Sair", "", "Tem certeza que deseja sair?", Alert.AlertType.CONFIRMATION)) {
+            System.exit(0);
+        }
     }
 
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
-        // Pedir confirmação
-        MainApp.trocarCena(Cena.ESPORTE);
+        if (Utils.telaConfirmacao("Voltar", "", "Tem certeza que deseja voltar para a tela de seleção de esporte?", Alert.AlertType.CONFIRMATION)) {
+            MainApp.trocarCena(Cena.ESPORTE);
+        }
     }
 
-    /**
-     * Método acionado quando o mouse é arrastado, ele pega a posição atual
-     * horizontal e vertical da cena, faz a subtração pela posição inicial
-     * horizontal e vertical separadamente, e chama o método que move a tela,
-     * passando os valores resultantes dessas subtrações.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
-    /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         posicaoInicialX = event.getSceneX();
@@ -200,9 +238,9 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -221,16 +259,11 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
-    }
-
-    @FXML
-    void jfxbAlterarUltimoJogadorOnAction(ActionEvent event) {
-
     }
 
     @FXML
@@ -252,9 +285,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeLocal);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPontosTimeLocal);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lPontosTimeLocal);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -277,9 +310,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPontosTimeVisitante);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lPontosTimeVisitante);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -302,9 +335,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeLocal);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPontosTimeLocal);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lPontosTimeLocal);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -327,9 +360,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPontosTimeVisitante);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lPontosTimeVisitante);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -352,9 +385,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeLocal);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPontosTimeLocal);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lPontosTimeLocal);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -377,11 +410,10 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPontosTimeVisitante);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lPontosTimeVisitante);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
-
     }
 
     @FXML
@@ -403,9 +435,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lFaltasTimeLocal);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lFaltasTimeLocal);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lFaltasTimeLocal);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -428,9 +460,9 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lFaltasTimeVisitante);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lFaltasTimeVisitante);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorLabel("red", lFaltasTimeVisitante);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -453,11 +485,10 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfPeriodoL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfPeriodoL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfPeriodoL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
-
     }
 
     @FXML
@@ -480,9 +511,9 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfPeriodoL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfPeriodoL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfPeriodoL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -507,9 +538,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeLocal);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lPontosTimeLocal);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lPontosTimeLocal);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -534,9 +565,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeVisitante);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lPontosTimeVisitante);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lPontosTimeVisitante);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -561,9 +592,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeLocal);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lPontosTimeLocal);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lPontosTimeLocal);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -588,9 +619,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeVisitante);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lPontosTimeVisitante);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lPontosTimeVisitante);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -615,9 +646,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeLocal);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lPontosTimeLocal);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lPontosTimeLocal);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
 
@@ -643,9 +674,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeVisitante);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lPontosTimeVisitante);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lPontosTimeVisitante);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -670,9 +701,9 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lFaltasTimeLocal);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lFaltasTimeLocal);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lFaltasTimeLocal);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -697,93 +728,10 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lFaltasTimeVisitante);
                 }
             } catch (IOException ex) {
-                trocarCorLabel("red", lFaltasTimeVisitante);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorLabel("red", lFaltasTimeVisitante);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
-        }
-    }
-
-    public boolean isExecutando() {
-        return executando;
-    }
-
-    public void setExecutando(boolean executando) {
-        this.executando = executando;
-    }
-
-    public void alterarCronometro(int segundos, int minutos) {
-        if (segundos < 10) {
-            jfxtfSegundos.setText("0" + segundos);
-        } else {
-            jfxtfSegundos.setText("" + segundos);
-        }
-        if (minutos < 10) {
-            jfxtfMinutos.setText("0" + minutos);
-        } else {
-            jfxtfMinutos.setText("" + minutos);
-        }
-    }
-
-    private void iniciarCronometro(String minutos, String segundos) {
-        this.executando = true;
-
-        if (primeiraVez) {
-            t = new Thread(new Cronos(this, minutos, segundos));
-            primeiraVez = false;
-            t.start();
-        } else {
-            t.resume();
-        }
-    }
-
-    private void pausarCronometro() {
-        this.executando = false;
-        t.suspend();
-    }
-
-    private void zerarCronometro() {
-        this.executando = false;
-        this.primeiraVez = true;
-        t.stop();
-    }
-
-    public void pararCronometro() {
-        this.executando = false;
-        this.primeiraVez = true;
-
-        jfxbDefinirCronometro.setDisable(false);
-        jfxbIniciarCronometro.setDisable(true);
-        jfxbPausarCronometro.setDisable(true);
-        jfxbRestaurarCronometro.setDisable(true);
-        jfxtfMinutos.setEditable(true);
-        jfxtfSegundos.setEditable(true);
-
-        t.stop();
-    }
-
-    private void iniciarCronometroPlacar() {
-        try {
-            respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "iniciar", "" + minutos, "" + segundos);
-
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                iniciarCronometro(minutos + "", segundos + "");
-
-                trocarCorJFXTextField("#09a104", jfxtfCronometroL);
-
-                jfxbDefinirCronometro.setDisable(true);
-                jfxbIniciarCronometro.setDisable(true);
-                jfxbPausarCronometro.setDisable(false);
-                jfxbRestaurarCronometro.setDisable(true);
-
-                jfxtfMinutos.setEditable(false);
-                jfxtfSegundos.setEditable(false);
-            } else {
-                trocarCorJFXTextField("red", jfxtfCronometroL);
-            }
-        } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfCronometroL);
-            //IMPLEMENTAR LOG
         }
     }
 
@@ -833,18 +781,18 @@ public class PlacarController implements Initializable {
         }
 
         if (!erro) {
-            minutos = Integer.parseInt(jfxtfMinutos.getText());
-            segundos = Integer.parseInt(jfxtfSegundos.getText());
+            minutosCronometro = Integer.parseInt(jfxtfMinutos.getText());
+            segundosCronometro = Integer.parseInt(jfxtfSegundos.getText());
 
             try {
-                respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "definir", "" + minutos, "" + segundos);
+                respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "definir", "" + minutosCronometro, "" + segundosCronometro);
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    if (minutos < 10) {
-                        jfxtfMinutos.setText("0" + minutos);
+                    if (minutosCronometro < 10) {
+                        jfxtfMinutos.setText("0" + minutosCronometro);
                     }
-                    if (segundos < 10) {
-                        jfxtfSegundos.setText("0" + segundos);
+                    if (segundosCronometro < 10) {
+                        jfxtfSegundos.setText("0" + segundosCronometro);
                     }
 
                     trocarCorJFXTextField("#09a104", jfxtfMinutos, jfxtfSegundos);
@@ -853,17 +801,18 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfMinutos, jfxtfSegundos);
                 }
             } catch (IOException ex) {
+                // IMPLEMENTAR LOG
                 trocarCorJFXTextField("red", jfxtfMinutos, jfxtfSegundos);
-                //IMPLEMENTAR LOG
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
 
     @FXML
     void jfxbIniciarCronometroOnAction(ActionEvent event) {
-        if (primeiraVez) {
+        if (executandoCronometoPrimeiraVez) {
             try {
-                if (minutos == Integer.parseInt(jfxtfMinutos.getText()) && segundos == Integer.parseInt(jfxtfSegundos.getText())) {
+                if (minutosCronometro == Integer.parseInt(jfxtfMinutos.getText()) && segundosCronometro == Integer.parseInt(jfxtfSegundos.getText())) {
                     iniciarCronometroPlacar();
                 } else {
                     trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos);
@@ -895,15 +844,16 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfCronometroL);
             }
         } catch (IOException ex) {
+            // IMPLEMENTAR LOG
             trocarCorJFXTextField("red", jfxtfCronometroL);
-            // Implementar log
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     void jfxbRestaurarCronometroOnAction(ActionEvent event) {
         try {
-            if (basquete) {
+            if (esporteBasquete) {
                 respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "zerar", "basquete", "");
             } else {
                 respostaComando = PlacarClient.enviarComando(Comando.CRONOMETRO, "zerar", "futsal", "");
@@ -920,7 +870,7 @@ public class PlacarController implements Initializable {
                 jfxtfMinutos.setEditable(true);
                 jfxtfSegundos.setEditable(true);
 
-                if (basquete) {
+                if (esporteBasquete) {
                     jfxtfMinutos.setText("10");
                 } else {
                     jfxtfMinutos.setText("20");
@@ -933,8 +883,9 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfCronometroL);
             }
         } catch (IOException ex) {
+            // IMPLEMENTAR LOG
             trocarCorJFXTextField("red", jfxtfCronometroL);
-            // Implementar log
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -950,9 +901,9 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -968,9 +919,9 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -993,10 +944,10 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lFaltasTimeVisitante);
             }
         } catch (IOException ex) {
+            // IMPLEMENTAR LOG
             trocarCorLabel("red", lFaltasTimeLocal);
             trocarCorLabel("red", lFaltasTimeVisitante);
-            // Mostrar msg de erro de conexão
-            // IMPLEMENTAR LOG
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -1019,10 +970,10 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
+            // IMPLEMENTAR LOG
             trocarCorLabel("red", lPontosTimeLocal);
             trocarCorLabel("red", lPontosTimeVisitante);
-            // Mostrar msg de erro de conexão
-            // IMPLEMENTAR LOG
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -1041,34 +992,28 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfPeriodoL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfPeriodoL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfPeriodoL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     void jfxbRestaurarTudoOnAction(ActionEvent event) {
-        try {
-            respostaComando = PlacarClient.enviarComando(Comando.RESET, "reset", "all", String.valueOf(basquete));
-            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                jfxbRestaurarCronometroOnAction(event);
+        if (executandoCronometro) {
+            Utils.telaMensagem("", "", "Não é possível restaurar tudo, pois o cronômetro está em execução!", Alert.AlertType.ERROR);
+        } else {
+            if (Utils.telaConfirmacao("Restaurar Tudo", "", "Deseja mesmo restaurar tudo?", Alert.AlertType.CONFIRMATION)) {
+                if (!executandoCronometoPrimeiraVez) {
+                    jfxbRestaurarCronometroOnAction(event);
+                }
                 jfxbRestaurarNomeTimeLocalOnAction(event);
                 jfxbRestaurarNomeTimeVisitanteOnAction(event);
                 jfxbRestaurarPeriodoOnAction(event);
-                jfxbRestaurarUltimoJogadorOnAction(event);
                 jfxbZerarFaltasOnAction(event);
                 jfxbZerarPontosOnAction(event);
-                zerarCronometro();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
-    }
-
-    @FXML
-    void jfxbRestaurarUltimoJogadorOnAction(ActionEvent event) {
-
     }
 
     @FXML
@@ -1093,10 +1038,6 @@ public class PlacarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (jfxtfMinutos.getText().equals("10")) {
-            basquete = true;
-        } else {
-            basquete = false;
-        }
+        esporteBasquete = jfxtfMinutos.getText().equals("10");
     }
 }

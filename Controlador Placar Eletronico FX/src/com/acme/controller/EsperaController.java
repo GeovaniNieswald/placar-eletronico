@@ -2,6 +2,7 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.PlacarClient;
+import com.acme.Utils;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
@@ -13,17 +14,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-/**
- * Classe Referente ao controlador da cena de espera.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public class EsperaController implements Initializable {
 
     // Variáveis para controlar o deslocamento
@@ -32,26 +26,12 @@ public class EsperaController implements Initializable {
 
     private Timeline esperandoUsuarioPlacar = new Timeline();
 
-    /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         posicaoInicialX = event.getSceneX();
         posicaoInicialY = event.getSceneY();
     }
 
-    /**
-     * Método acionado quando o mouse é arrastado, ele pega a posição atual
-     * horizontal e vertical da cena, faz a subtração pela posição inicial
-     * horizontal e vertical separadamente, e chama o método que move a tela,
-     * passando os valores resultantes dessas subtrações.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
@@ -69,14 +49,6 @@ public class EsperaController implements Initializable {
         MainApp.trocarCena(Cena.CONEXAO);
     }
 
-    /**
-     * Método acionado quando a cena associada a este controlador é iniciada,
-     * ele fica em um loop esperando a conexão de um usuário principal, quando
-     * este se conecta, é exibida a tela de controle de propaganda.
-     *
-     * @param url URL.
-     * @param rb ResourceBundle.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         esperandoUsuarioPlacar = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -88,8 +60,9 @@ public class EsperaController implements Initializable {
                     esperandoUsuarioPlacar.stop();
                 }
             } catch (IOException ex) {
-                // Informar erro de conexão
                 // IMPLEMENTAR LOG
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
+                esperandoUsuarioPlacar.stop();
             }
         }),
                 new KeyFrame(Duration.seconds(5))

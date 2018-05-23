@@ -4,20 +4,20 @@ import com.acme.controller.PlacarController;
 
 public class Cronos implements Runnable {
 
-    private PlacarController tela;
+    private PlacarController pc;
 
     private int minutos;
     private int segundos;
 
     public Cronos(PlacarController pc, String minutos, String segundos) {
-        this.tela = pc;
+        this.pc = pc;
         this.minutos = Integer.parseInt(minutos);
         this.segundos = Integer.parseInt(segundos);
     }
 
     @Override
     public void run() {
-        while (tela.isExecutando()) {
+        while (pc.isExecutandoCronometro()) {
             if (segundos == 0) {
                 minutos--;
                 segundos = 59;
@@ -25,10 +25,10 @@ public class Cronos implements Runnable {
                 segundos--;
             }
 
-            tela.alterarCronometro(segundos, minutos);
+            pc.alterarCronometro(segundos, minutos);
 
             if (minutos == 0 && segundos == 0) {
-                tela.pararCronometro();
+                pc.pararCronometro();
                 break;
             }
 

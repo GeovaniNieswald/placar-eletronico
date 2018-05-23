@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -18,13 +17,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 public class GerenciarUsuariosController implements Initializable {
-
-    @FXML
-    private Label lStatus;
 
     @FXML
     private JFXListView<?> jfxlvLista;
@@ -32,6 +27,34 @@ public class GerenciarUsuariosController implements Initializable {
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
+
+    private void atualizarLista(String mensagem) {
+        try {
+            String resposta = PlacarClient.retornarUsuarios();
+
+            if (resposta.contains("not-ok")) {
+                Utils.telaMensagem("Ops", "", "Não foi possível atualziar a lista!", Alert.AlertType.WARNING);
+            } else {
+                String[] usuarios = resposta.split(",");
+                ObservableList dados = FXCollections.observableArrayList();
+
+                dados.addAll(Arrays.asList(usuarios));
+
+                jfxlvLista.setItems(dados);
+
+                if (usuarios.length != 0) {
+                    jfxlvLista.getSelectionModel().select(0);
+                }
+
+                if (mensagem != null) {
+                    Utils.telaMensagem("Ok", "", mensagem, Alert.AlertType.INFORMATION);
+                }
+            }
+        } catch (IOException ex) {
+            // implementar log
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
+        }
+    }
 
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
@@ -44,25 +67,11 @@ public class GerenciarUsuariosController implements Initializable {
         MainApp.trocarCena(Cena.CONEXAO);
     }
 
-    /**
-     * Método acionado quando o mouse é arrastado, ele pega a posição atual
-     * horizontal e vertical da cena, faz a subtração pela posição inicial
-     * horizontal e vertical separadamente, e chama o método que move a tela,
-     * passando os valores resultantes dessas subtrações.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
-    /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         posicaoInicialX = event.getSceneX();
@@ -82,12 +91,12 @@ public class GerenciarUsuariosController implements Initializable {
                 if (resposta == RespostaSocket.COMANDO_ACEITO) {
                     atualizarLista("Usuário " + usuario + " foi excluído.");
                 } else {
-                    lStatus.setText("Ocorreu um erro na exclusão.");
+                    Utils.telaMensagem("Ops", "", "Ocorreu um erro na exclusão!", Alert.AlertType.WARNING);
                 }
             }
         } catch (IOException ex) {
-            // implementar log
-            lStatus.setText("Erro: " + ex.getMessage());
+            // implementar log       
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -106,42 +115,11 @@ public class GerenciarUsuariosController implements Initializable {
             if (resposta == RespostaSocket.COMANDO_ACEITO) {
                 atualizarLista("Usuário " + usuario + " teve a senha atualizada.");
             } else {
-                lStatus.setText("Ocorreu um erro na troca de senha.");
+                Utils.telaMensagem("Ops", "", "Ocorreu um erro na troca de senha!", Alert.AlertType.WARNING);
             }
         } catch (IOException ex) {
             // implementar log
-            lStatus.setText("Erro: " + ex.getMessage());
-        }
-    }
-
-    private void atualizarLista(String mensagem) {
-        try {
-            Date d = new Date();
-            String resposta = PlacarClient.retornarUsuarios();
-
-            if (resposta.contains("not-ok")) {
-                lStatus.setText("Não foi possível atualziar a lista!");
-            } else {
-                String[] usuarios = resposta.split(",");
-                ObservableList dados = FXCollections.observableArrayList();
-
-                dados.addAll(Arrays.asList(usuarios));
-
-                jfxlvLista.setItems(dados);
-
-                if (usuarios.length != 0) {
-                    jfxlvLista.getSelectionModel().select(0);
-                }
-
-                if (mensagem == null) {
-                    lStatus.setText("Lista atualizada: " + d);
-                } else {
-                    lStatus.setText(mensagem);
-                }
-            }
-        } catch (IOException ex) {
-            // implementar log
-            lStatus.setText("Não foi possível atualziar a lista!");
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
         }
     }
 

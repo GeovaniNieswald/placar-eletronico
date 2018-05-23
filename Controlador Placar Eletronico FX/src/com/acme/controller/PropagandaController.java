@@ -16,20 +16,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-/**
- * Classe Referente ao controlador da cena de propaganda.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public class PropagandaController implements Initializable {
 
     @FXML
@@ -104,13 +97,6 @@ public class PropagandaController implements Initializable {
         jfxtfEscalacaoAtual.setText("Escalação Criada");
     }
 
-    /**
-     * Método para trocar a cor dos campos TextField.
-     *
-     * @param cor String - Hexadecimal da cor quando o campo não está com foco e
-     * quando está.
-     * @param componentes JFXTextField - Varargs que contém os campos.
-     */
     private void trocarCorJFXTextField(String cor, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setUnFocusColor(Paint.valueOf(cor));
@@ -120,29 +106,16 @@ public class PropagandaController implements Initializable {
 
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
-        // Pedir confirmação
-        System.exit(0);
+        if (Utils.telaConfirmacao("Sair", "", "Tem certeza que deseja sair?", Alert.AlertType.CONFIRMATION)) {
+            System.exit(0);
+        }
     }
 
-    /**
-     * Método acionado quando o mouse é arrastado, ele pega a posição atual
-     * horizontal e vertical da cena, faz a subtração pela posição inicial
-     * horizontal e vertical separadamente, e chama o método que move a tela,
-     * passando os valores resultantes dessas subtrações.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
-    /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         posicaoInicialX = event.getSceneX();
@@ -163,9 +136,9 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfImagemDireitaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfImagemDireitaL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfImagemDireitaL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -184,19 +157,14 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+
             }
         }
     }
 
-    /**
-     * Método que altera o texto inferior do placar eletrônico, fazendo as
-     * verificações de acentuação e etc.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
         String textoInicial = jfxtfTextoInferior.getText();
@@ -214,9 +182,9 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfTextoInferiorL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfTextoInferiorL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfTextoInferiorL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -235,9 +203,9 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfEscalacaoL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfEscalacaoL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfEscalacaoL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -261,9 +229,9 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfPropagandaL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfPropagandaL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -279,9 +247,9 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfEscalacaoL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfEscalacaoL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfEscalacaoL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -304,9 +272,9 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             } catch (IOException ex) {
-                trocarCorJFXTextField("red", jfxtfPropagandaL);
-                // Mostrar msg de erro de conexão
                 // IMPLEMENTAR LOG
+                trocarCorJFXTextField("red", jfxtfPropagandaL);
+                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
             }
         }
     }
@@ -324,9 +292,9 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfImagemDireitaL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfImagemDireitaL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfImagemDireitaL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -343,17 +311,12 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
-    /**
-     * Método que restaura o texto inferior do placar eletrônico.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void jfxbRestaurarTextoInferiorOnAction(ActionEvent event) {
         try {
@@ -366,9 +329,9 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfTextoInferiorL);
             }
         } catch (IOException ex) {
-            trocarCorJFXTextField("red", jfxtfTextoInferiorL);
-            // Mostrar msg de erro de conexão
             // IMPLEMENTAR LOG
+            trocarCorJFXTextField("red", jfxtfTextoInferiorL);
+            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
 
@@ -397,8 +360,8 @@ public class PropagandaController implements Initializable {
 
                 trocarCorJFXTextField("white", jfxtfImagemDireitaL);
             } catch (IOException ex) {
+                // IMPLEMENTAR LOG
                 trocarCorJFXTextField("red", jfxtfImagemDireitaL);
-                // Implementar log
             }
         }
     }
@@ -422,8 +385,8 @@ public class PropagandaController implements Initializable {
 
                 trocarCorJFXTextField("white", jfxtfImagemEsquerdaL);
             } catch (IOException ex) {
+                // IMPLEMENTAR LOG
                 trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
-                // Implementar log
             }
         }
     }

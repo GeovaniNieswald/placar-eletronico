@@ -22,14 +22,6 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
-/**
- * Classe Referente ao controlador da cena de escalação.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public class EscalacaoController implements Initializable {
 
     @FXML
@@ -86,23 +78,15 @@ public class EscalacaoController implements Initializable {
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
+    private ArrayList<ArrayList<Jogador>> escalacao;
+
     private ObservableList<Jogador> jogadoresTimeLocal;
     private ObservableList<Jogador> jogadoresTimeVisitante;
-
-    private ArrayList<ArrayList<Jogador>> escalacao;
 
     public static void instanciaPropagandaController(PropagandaController pc) {
         propagandaController = pc;
     }
 
-    /**
-     * Método para trocar a cor dos campos TextField.
-     *
-     * @param cor String - Hexadecimal da cor quando o campo não está com foco e
-     * quando está com foco.
-     * @param corFocus String - Hexadecimal da cor quando o campo está com foco.
-     * @param componentes JFXTextField - Varargs que contém os campos.
-     */
     private void trocarCorJFXTextField(String cor, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setUnFocusColor(Paint.valueOf(cor));
@@ -141,25 +125,11 @@ public class EscalacaoController implements Initializable {
         MainApp.trocarCena(Cena.PROPAGANDA_ATUAL);
     }
 
-    /**
-     * Método acionado quando o mouse é arrastado, ele pega a posição atual
-     * horizontal e vertical da cena, faz a subtração pela posição inicial
-     * horizontal e vertical separadamente, e chama o método que move a tela,
-     * passando os valores resultantes dessas subtrações.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
-    /**
-     * Método acionado quando o algum botão do mouse é pressionado, ele pega a
-     * posição atual horizontal e vertical da cena.
-     *
-     * @param event MouseEvent.
-     */
     @FXML
     void gpOnMousePressed(MouseEvent event) {
         posicaoInicialX = event.getSceneX();

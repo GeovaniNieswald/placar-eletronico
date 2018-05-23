@@ -8,32 +8,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/**
- * Classe Referente a comunicação socket.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public class PlacarClient {
 
     // Variável referente a conexão atual da aplicação.
     private static Socket socket;
 
-    /**
-     * Método para conectar ao servidor (placar eletrônico).
-     *
-     * @param serverAddress String - Endereço do servidor onde está o placar
-     * eletrõnico.
-     * @param login String - Login do usuário que está tentando conectar.
-     * @param senha String - Senha do usuário que está tentando conectar.
-     * @return RespostaSocket - Enum que pode representar uma conexão aceita
-     * para o usuário principal ou usuário propaganda, ou pode representar uma
-     * conexão recusada.
-     * @throws java.io.IOException Caso ocorra algum erro na comunicação por
-     * socket.
-     */
     public static RespostaSocket conectar(String serverAddress, String login, String senha) throws IOException {
         socket = new Socket(serverAddress, 9898);
 
@@ -61,10 +40,6 @@ public class PlacarClient {
         return RespostaSocket.CONEXAO_RECUSADA;
     }
 
-    /**
-     * Método para desconectar do servidor (placar eletrônico).
-     *
-     */
     public static void desconectar() {
         try {
             socket.close();
@@ -73,13 +48,6 @@ public class PlacarClient {
         }
     }
 
-    /**
-     * Método para converter a resposta para RespostaSocket.
-     *
-     * @param respostaComando String[] - Vetor com as respostas.
-     * @return RespostaSocket - Enum que representa se o comando foi aceito ou
-     * recusado.
-     */
     private static RespostaSocket converterResposta(String[] respostaComando) {
         if (respostaComando[1].equals("ok")) {
             return RespostaSocket.COMANDO_ACEITO;
@@ -88,18 +56,6 @@ public class PlacarClient {
         }
     }
 
-    /**
-     * Método para enviar algum comando para o servidor (placar eletrônico).
-     *
-     * @param comando Comando - Enum referente ao tipo de comando desejado.
-     * @param valores String - Varargs com valores que esses comando possam
-     * precisar.
-     * @return RespostaSocket - Enum que representa se o comando foi aceito,
-     * recusado, podendo passar alguma informação a mais dependendo do que foi
-     * definido no enum.
-     * @throws java.io.IOException Caso ocorra algum erro na comunicação por
-     * socket.
-     */
     public static RespostaSocket enviarComando(Comando comando, String... valores) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -189,13 +145,9 @@ public class PlacarClient {
                 out.println("#cronometro;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"));
 
-            case RESET:
-                out.println("#reset;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
-
             default:
+                // IMPLEMENTAR LOG
                 return RespostaSocket.COMANDO_RECUSADO;
-            // IMPLEMENTAR LOG
         }
     }
 

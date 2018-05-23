@@ -1,17 +1,10 @@
 package com.acme.model;
 
-/**
- * Enum referente as respostas da comunicação socket.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public enum RespostaSocket {
 
     // Respostas de conexao
-    CONEXAO_ACEITA_USUARIO_ADMINISTRADOR(), CONEXAO_ACEITA_USUARIO_PLACAR(), CONEXAO_ACEITA_USUARIO_PROPAGANDA(), CONEXAO_RECUSADA(),
+    CONEXAO_ACEITA_USUARIO_ADMINISTRADOR(), CONEXAO_ACEITA_USUARIO_PLACAR(),
+    CONEXAO_ACEITA_USUARIO_PROPAGANDA(), CONEXAO_RECUSADA(),
     // Respostas de escolha de esporte
     ESPORTE_ACEITO_BASQUETE(), ESPORTE_ACEITO_FUTSAL(),
     // Respostas verificação de usuario principal
@@ -20,8 +13,4 @@ public enum RespostaSocket {
     USUARIO_JA_EXISTE(),
     // Respostas de comandos
     COMANDO_ACEITO(), COMANDO_RECUSADO();
-
-    // Construtor
-    private RespostaSocket() {
-    }
 }

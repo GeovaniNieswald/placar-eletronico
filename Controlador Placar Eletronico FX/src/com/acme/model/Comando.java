@@ -1,20 +1,8 @@
 package com.acme.model;
 
-/**
- * Enum referente aos comandos da comunicação socket.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public enum Comando {
 
     // Comandos
-    ESCOLHER_ESPORTE(), VERIFICAR_USUARIO_PLACAR(), TEXTO_INFERIOR(),
-    CADASTRO_USUARIO(), NOME_TIME(), PONTOS(), FALTAS(), IMAGENS(), PROPAGANDA(), CRONOMETRO(), PERIODO(), RESET();
-
-    // Construtor
-    private Comando() {
-    }
+    ESCOLHER_ESPORTE(), VERIFICAR_USUARIO_PLACAR(), TEXTO_INFERIOR(), CADASTRO_USUARIO(),
+    NOME_TIME(), PONTOS(), FALTAS(), IMAGENS(), PROPAGANDA(), CRONOMETRO(), PERIODO();
 }

@@ -12,14 +12,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- * Classe Principal da aplicação.
- *
- * @author Alex Jung Celmer
- * @author Daniel Frey
- * @author Gabriel Cavalheiro Ullmann
- * @author Geovani Alex Nieswald
- */
 public class MainApp extends Application {
 
     // Variável referente a tela principal da aplicação (palco onde as cenas aparecerão).
@@ -37,13 +29,6 @@ public class MainApp extends Application {
     private static Scene cenaGerenciarUsuarios;
     private static Scene cenaPropagandaAtual;
 
-    /**
-     * Método que é chamado quando a aplicação é executada. São definidos
-     * aspectos visuais (redimensionamento, bordas e icone), e a cena conexao é
-     * adicionada a tela, por fim a tela é exibida.
-     *
-     * @param primaryStage Stage - Primeira tela.
-     */
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -58,26 +43,11 @@ public class MainApp extends Application {
         stage.show();
     }
 
-    /**
-     * Método para mover a tela. Define onde a tela deve ficar localizada, este
-     * método é necessário por que quando tiramos a borda da aplicação, não é
-     * possível mover a tela.
-     *
-     * @param x double - Localização horizontal que a tela deve ficar.
-     * @param y double - Localização vertical que a tela deve ficar.
-     */
     public static void moverTela(double x, double y) {
         stage.setX(x);
         stage.setY(y);
     }
 
-    /**
-     * Método que troca a cena da tela. Com base num enum (Cena) passado por
-     * parametro é trocada a cena, carrega-se seu fxml então é criada a cena em
-     * sí, e é chamado o método de configuração da tela.
-     *
-     * @param c Cena - Cena que será adicionada a tela.
-     */
     public static void trocarCena(Cena c) {
         try {
             switch (c) {
@@ -131,20 +101,13 @@ public class MainApp extends Application {
                     configurarTela(cenaPropagandaAtual, "Propaganda - Controlador Placar Eletrônico");
                     break;
                 default:
-                // Implementar log
+                // IMPLEMENTAR LOG
             }
         } catch (IOException ex) {
             // IMPLEMENTAR LOG
         }
     }
 
-    /**
-     * Método que configura a tela. Define a cena da tela, juntamente com o
-     * título.
-     *
-     * @param cena Scene - Cena que será colocada na tela.
-     * @param titulo String - Título da tela.
-     */
     private static void configurarTela(Scene cena, String titulo) {
         stage.setScene(cena);
         stage.setTitle(titulo);

@@ -6,6 +6,7 @@ import com.acme.Utils;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
+import com.acme.model.MeuLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import com.jfoenix.controls.JFXRadioButton;
+import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
@@ -45,10 +47,10 @@ public class EsporteController implements Initializable {
                     MainApp.trocarCena(Cena.PLACAR_FUTSAL);
                     break;
                 default:
-                // IMPLEMENTAR LOG
+                    MeuLogger.logMensagem(Level.WARNING, "RespostaSocket informada não está presente entre as opções do switch.");
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
+            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
             Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
         }
     }

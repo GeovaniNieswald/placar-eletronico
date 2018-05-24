@@ -4,11 +4,13 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
+import com.acme.model.MeuLogger;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -92,7 +94,7 @@ public class ConexaoController implements Initializable {
                         jfxpfSenha.setText("");
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
+                MeuLogger.logException(Level.WARNING, "Erro de conexão.", ex);
                 lInfos.setText("Aconteceu algum erro na conexão!");
                 trocarCorJFXTextField("red", "red", jfxtfEndereco);
             }

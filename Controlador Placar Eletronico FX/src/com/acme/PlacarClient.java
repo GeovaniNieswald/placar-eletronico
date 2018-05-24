@@ -1,17 +1,34 @@
 package com.acme;
 
 import com.acme.model.Comando;
+import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class PlacarClient {
 
     // Variável referente a conexão atual da aplicação.
     private static Socket socket;
+
+    private static void fechar(BufferedReader in, PrintWriter out) throws IOException {
+        in.close();
+        out.close();
+    }
+
+    private static RespostaSocket converterResposta(String[] respostaComando, BufferedReader in, PrintWriter out) throws IOException {
+        fechar(in, out);
+
+        if (respostaComando[1].equals("ok")) {
+            return RespostaSocket.COMANDO_ACEITO;
+        } else {
+            return RespostaSocket.COMANDO_RECUSADO;
+        }
+    }
 
     public static RespostaSocket conectar(String serverAddress, String login, String senha) throws IOException {
         socket = new Socket(serverAddress, 9898);
@@ -23,6 +40,8 @@ public class PlacarClient {
         out.println(senha);
 
         String[] respostaConexao = in.readLine().split(";");
+
+        fechar(in, out);
 
         if (respostaConexao[1].equals("ok")) {
             switch (respostaConexao[2]) {
@@ -44,15 +63,7 @@ public class PlacarClient {
         try {
             socket.close();
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-        }
-    }
-
-    private static RespostaSocket converterResposta(String[] respostaComando) {
-        if (respostaComando[1].equals("ok")) {
-            return RespostaSocket.COMANDO_ACEITO;
-        } else {
-            return RespostaSocket.COMANDO_RECUSADO;
+            MeuLogger.logException(Level.WARNING, "Não foi possível fechar a conexão.", ex);
         }
     }
 
@@ -64,8 +75,9 @@ public class PlacarClient {
         switch (comando) {
             case ESCOLHER_ESPORTE:
                 out.println("#esporte;" + valores[0]);
-
                 respostaComando = in.readLine().split(";");
+
+                fechar(in, out);
 
                 switch (respostaComando[1]) {
                     case "basquete-ok":
@@ -78,22 +90,15 @@ public class PlacarClient {
 
             case VERIFICAR_USUARIO_PLACAR:
                 out.println("#usuario-placar");
-
                 respostaComando = in.readLine().split(";");
+
+                fechar(in, out);
 
                 if (respostaComando[1].equals("ok")) {
                     return RespostaSocket.USUARIO_PLACAR_CONECTADO;
                 } else {
                     return RespostaSocket.USUARIO_PLACAR_NAO_CONECTADO;
                 }
-
-            case NOME_TIME:
-                out.println("#nome-time;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
-
-            case TEXTO_INFERIOR:
-                out.println("#texto-inferior;" + valores[0] + ";" + valores[1]);
-                return converterResposta(in.readLine().split(";"));
 
             case CADASTRO_USUARIO:
                 switch (valores[0]) {
@@ -107,10 +112,13 @@ public class PlacarClient {
                         out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                         break;
                     default:
+                        fechar(in, out);
                         return RespostaSocket.COMANDO_RECUSADO;
                 }
 
                 respostaComando = in.readLine().split(";");
+
+                fechar(in, out);
 
                 switch (respostaComando[1]) {
                     case "ok":
@@ -121,32 +129,41 @@ public class PlacarClient {
                         return RespostaSocket.COMANDO_RECUSADO;
                 }
 
+            case NOME_TIME:
+                out.println("#nome-time;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
+                return converterResposta(in.readLine().split(";"), in, out);
+
+            case TEXTO_INFERIOR:
+                out.println("#texto-inferior;" + valores[0] + ";" + valores[1]);
+                return converterResposta(in.readLine().split(";"), in, out);
+
             case PONTOS:
                 out.println("#pontos;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
+                return converterResposta(in.readLine().split(";"), in, out);
 
             case FALTAS:
                 out.println("#faltas;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
+                return converterResposta(in.readLine().split(";"), in, out);
 
             case PERIODO:
                 out.println("#periodo;" + valores[0] + ";" + valores[1]);
-                return converterResposta(in.readLine().split(";"));
+                return converterResposta(in.readLine().split(";"), in, out);
 
             case IMAGENS:
                 out.println("#imagens;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
+                return converterResposta(in.readLine().split(";"), in, out);
 
             case PROPAGANDA:
                 out.println("#propaganda;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
+                return converterResposta(in.readLine().split(";"), in, out);
 
             case CRONOMETRO:
                 out.println("#cronometro;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"));
+                return converterResposta(in.readLine().split(";"), in, out);
 
             default:
-                // IMPLEMENTAR LOG
+                MeuLogger.logMensagem(Level.WARNING, "Comando informado não está presente entre as opções do switch.");
+                fechar(in, out);
                 return RespostaSocket.COMANDO_RECUSADO;
         }
     }
@@ -158,6 +175,8 @@ public class PlacarClient {
         out.println("#cadastro-usuario;get;all");
 
         String[] respostaComando = in.readLine().split(";");
+
+        fechar(in, out);
 
         if (respostaComando[1].equalsIgnoreCase("not-ok")) {
             return "#cadastro-usuario;not-ok";

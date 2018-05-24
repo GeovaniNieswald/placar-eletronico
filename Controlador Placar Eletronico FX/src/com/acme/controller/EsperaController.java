@@ -6,9 +6,11 @@ import com.acme.Utils;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
+import com.acme.model.MeuLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -60,7 +62,7 @@ public class EsperaController implements Initializable {
                     esperandoUsuarioPlacar.stop();
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
+                MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
                 Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
                 esperandoUsuarioPlacar.stop();
             }

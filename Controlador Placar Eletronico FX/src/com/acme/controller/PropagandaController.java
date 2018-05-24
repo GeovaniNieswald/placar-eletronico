@@ -6,6 +6,7 @@ import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.Jogador;
+import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -97,6 +99,14 @@ public class PropagandaController implements Initializable {
         jfxtfEscalacaoAtual.setText("Escalação Criada");
     }
 
+    private void erroDeConexao(Exception ex, JFXTextField tf) {
+        MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
+
+        trocarCorJFXTextField("red", tf);
+
+        Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+    }
+
     private void trocarCorJFXTextField(String cor, JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setUnFocusColor(Paint.valueOf(cor));
@@ -136,9 +146,7 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfImagemDireitaL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfImagemDireitaL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, jfxtfImagemDireitaL);
             }
         }
     }
@@ -157,10 +165,7 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
-
+                erroDeConexao(ex, jfxtfImagemEsquerdaL);
             }
         }
     }
@@ -182,9 +187,7 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfTextoInferiorL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfTextoInferiorL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, jfxtfTextoInferiorL);
             }
         }
     }
@@ -203,9 +206,7 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfEscalacaoL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfEscalacaoL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, jfxtfEscalacaoL);
             }
         }
     }
@@ -229,9 +230,7 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfPropagandaL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, jfxtfPropagandaL);
             }
         }
     }
@@ -247,9 +246,7 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfEscalacaoL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfEscalacaoL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, jfxtfEscalacaoL);
         }
     }
 
@@ -272,9 +269,7 @@ public class PropagandaController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfPropagandaL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, jfxtfPropagandaL);
             }
         }
     }
@@ -292,9 +287,7 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfImagemDireitaL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfImagemDireitaL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, jfxtfImagemDireitaL);
         }
     }
 
@@ -311,9 +304,7 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, jfxtfImagemEsquerdaL);
         }
     }
 
@@ -329,9 +320,7 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfTextoInferiorL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfTextoInferiorL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, jfxtfTextoInferiorL);
         }
     }
 
@@ -360,7 +349,7 @@ public class PropagandaController implements Initializable {
 
                 trocarCorJFXTextField("white", jfxtfImagemDireitaL);
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
+                MeuLogger.logException(Level.WARNING, "Erro ao codificar arquivo.", ex);
                 trocarCorJFXTextField("red", jfxtfImagemDireitaL);
             }
         }
@@ -385,7 +374,7 @@ public class PropagandaController implements Initializable {
 
                 trocarCorJFXTextField("white", jfxtfImagemEsquerdaL);
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
+                MeuLogger.logException(Level.WARNING, "Erro ao codificar arquivo.", ex);
                 trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
             }
         }
@@ -422,8 +411,8 @@ public class PropagandaController implements Initializable {
 
                         trocarCorJFXTextField("white", jfxtfPropagandaL);
                     } catch (IOException ex) {
+                        MeuLogger.logException(Level.WARNING, "Erro ao codificar arquivo.", ex);
                         trocarCorJFXTextField("red", jfxtfPropagandaL);
-                        // Implementar log
                     }
                 } else {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);

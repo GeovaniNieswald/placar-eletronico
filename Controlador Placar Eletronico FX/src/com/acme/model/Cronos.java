@@ -1,6 +1,7 @@
 package com.acme.model;
 
 import com.acme.controller.PlacarController;
+import java.util.logging.Level;
 
 public class Cronos implements Runnable {
 
@@ -35,7 +36,7 @@ public class Cronos implements Runnable {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                // Implementar log
+                MeuLogger.logException(Level.INFO, "Thread interrompida.", ex);
             }
         }
     }

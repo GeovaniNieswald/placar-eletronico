@@ -6,6 +6,7 @@ import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.Cronos;
+import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -13,6 +14,7 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -193,10 +195,30 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfCronometroL);
             }
         } catch (IOException ex) {
-            //IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfCronometroL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfCronometroL, null);
         }
+    }
+
+    private void erroDeConexao(Exception ex, Label l1, Label l2, JFXTextField tf1, JFXTextField tf2) {
+        MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
+
+        if (l1 != null) {
+            trocarCorLabel("red", l1);
+        }
+
+        if (l2 != null) {
+            trocarCorLabel("red", l2);
+        }
+
+        if (tf1 != null) {
+            trocarCorJFXTextField("red", tf1);
+        }
+
+        if (tf2 != null) {
+            trocarCorJFXTextField("red", tf2);
+        }
+
+        Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
     }
 
     @FXML
@@ -238,9 +260,7 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, null, null, jfxtfNomeTimeLocalL, null);
             }
         }
     }
@@ -259,9 +279,7 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, null, null, jfxtfNomeTimeVisitanteL, null);
             }
         }
     }
@@ -285,9 +303,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeLocal);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeLocal);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeLocal, null, null, null);
         }
     }
 
@@ -310,9 +326,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeVisitante);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeVisitante, null, null, null);
         }
     }
 
@@ -335,9 +349,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeLocal);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeLocal);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeLocal, null, null, null);
         }
     }
 
@@ -360,9 +372,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeVisitante);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeVisitante, null, null, null);
         }
     }
 
@@ -385,9 +395,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeLocal);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeLocal);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeLocal, null, null, null);
         }
     }
 
@@ -410,9 +418,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeVisitante);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeVisitante, null, null, null);
         }
     }
 
@@ -435,9 +441,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lFaltasTimeLocal);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lFaltasTimeLocal);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lFaltasTimeLocal, null, null, null);
         }
     }
 
@@ -460,9 +464,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lFaltasTimeVisitante);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lFaltasTimeVisitante);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lFaltasTimeVisitante, null, null, null);
         }
     }
 
@@ -485,9 +487,7 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfPeriodoL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfPeriodoL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfPeriodoL, null);
         }
     }
 
@@ -511,9 +511,7 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfPeriodoL);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfPeriodoL);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, null, null, jfxtfPeriodoL, null);
             }
         }
     }
@@ -538,9 +536,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeLocal);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lPontosTimeLocal);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lPontosTimeLocal, null, null, null);
             }
         }
     }
@@ -565,9 +561,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeVisitante);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lPontosTimeVisitante);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lPontosTimeVisitante, null, null, null);
             }
         }
     }
@@ -592,9 +586,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeLocal);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lPontosTimeLocal);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lPontosTimeLocal, null, null, null);
             }
         }
     }
@@ -619,9 +611,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeVisitante);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lPontosTimeVisitante);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lPontosTimeVisitante, null, null, null);
             }
         }
     }
@@ -646,9 +636,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeLocal);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lPontosTimeLocal);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lPontosTimeLocal, null, null, null);
             }
         }
 
@@ -674,9 +662,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lPontosTimeVisitante);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lPontosTimeVisitante);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lPontosTimeVisitante, null, null, null);
             }
         }
     }
@@ -701,9 +687,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lFaltasTimeLocal);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lFaltasTimeLocal);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lFaltasTimeLocal, null, null, null);
             }
         }
     }
@@ -728,9 +712,7 @@ public class PlacarController implements Initializable {
                     trocarCorLabel("red", lFaltasTimeVisitante);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorLabel("red", lFaltasTimeVisitante);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, lFaltasTimeVisitante, null, null, null);
             }
         }
     }
@@ -753,6 +735,7 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("white", jfxtfMinutos);
                 }
             } catch (NumberFormatException ex) {
+                MeuLogger.logException(Level.INFO, "Erro ao converter string para int.", ex);
                 trocarCorJFXTextField("red", jfxtfMinutos);
                 jfxbIniciarCronometro.setDisable(true);
                 erro = true;
@@ -774,6 +757,7 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("white", jfxtfSegundos);
                 }
             } catch (NumberFormatException ex) {
+                MeuLogger.logException(Level.INFO, "Erro ao converter string para int.", ex);
                 trocarCorJFXTextField("red", jfxtfSegundos);
                 jfxbIniciarCronometro.setDisable(true);
                 erro = true;
@@ -801,9 +785,7 @@ public class PlacarController implements Initializable {
                     trocarCorJFXTextField("red", jfxtfMinutos, jfxtfSegundos);
                 }
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
-                trocarCorJFXTextField("red", jfxtfMinutos, jfxtfSegundos);
-                Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+                erroDeConexao(ex, null, null, jfxtfMinutos, jfxtfSegundos);
             }
         }
     }
@@ -819,6 +801,7 @@ public class PlacarController implements Initializable {
                     jfxbIniciarCronometro.setDisable(true);
                 }
             } catch (NumberFormatException ex) {
+                MeuLogger.logException(Level.INFO, "Erro ao converter string para int.", ex);
                 trocarCorJFXTextField("white", jfxtfMinutos, jfxtfSegundos);
                 jfxbIniciarCronometro.setDisable(true);
             }
@@ -844,9 +827,7 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfCronometroL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfCronometroL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfCronometroL, null);
         }
     }
 
@@ -883,9 +864,7 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfCronometroL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfCronometroL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfCronometroL, null);
         }
     }
 
@@ -901,9 +880,7 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfNomeTimeLocalL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfNomeTimeLocalL, null);
         }
     }
 
@@ -919,9 +896,7 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfNomeTimeVisitanteL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfNomeTimeVisitanteL, null);
         }
     }
 
@@ -944,10 +919,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lFaltasTimeVisitante);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lFaltasTimeLocal);
-            trocarCorLabel("red", lFaltasTimeVisitante);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lFaltasTimeLocal, lFaltasTimeVisitante, null, null);
         }
     }
 
@@ -970,10 +942,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPontosTimeVisitante);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorLabel("red", lPontosTimeLocal);
-            trocarCorLabel("red", lPontosTimeVisitante);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, lPontosTimeLocal, lPontosTimeVisitante, null, null);
         }
     }
 
@@ -992,9 +961,7 @@ public class PlacarController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfPeriodoL);
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
-            trocarCorJFXTextField("red", jfxtfPeriodoL);
-            Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
+            erroDeConexao(ex, null, null, jfxtfPeriodoL, null);
         }
     }
 

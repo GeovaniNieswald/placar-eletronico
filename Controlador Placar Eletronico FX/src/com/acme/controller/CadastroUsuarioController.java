@@ -5,6 +5,7 @@ import com.acme.PlacarClient;
 import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
+import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
@@ -12,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,7 +93,7 @@ public class CadastroUsuarioController implements Initializable {
                             Utils.telaMensagem("Ops", "", "Não foi possível cadastrar o usuário!", Alert.AlertType.WARNING);
                     }
                 } catch (IOException ex) {
-                    // IMPLEMENTAR LOG
+                    MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
                     Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
                 }
             }

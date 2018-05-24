@@ -5,6 +5,7 @@ import com.acme.PlacarClient;
 import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
+import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,7 +53,7 @@ public class GerenciarUsuariosController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            // implementar log
+            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
             Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
         }
     }
@@ -95,7 +97,7 @@ public class GerenciarUsuariosController implements Initializable {
                 }
             }
         } catch (IOException ex) {
-            // implementar log       
+            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
             Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
         }
     }
@@ -118,7 +120,7 @@ public class GerenciarUsuariosController implements Initializable {
                 Utils.telaMensagem("Ops", "", "Ocorreu um erro na troca de senha!", Alert.AlertType.WARNING);
             }
         } catch (IOException ex) {
-            // implementar log
+            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
             Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
         }
     }

@@ -1,7 +1,9 @@
 package com.acme;
 
 import com.acme.model.Cena;
+import com.acme.model.MeuLogger;
 import java.io.IOException;
+import java.util.logging.Level;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -101,10 +103,10 @@ public class MainApp extends Application {
                     configurarTela(cenaPropagandaAtual, "Propaganda - Controlador Placar Eletrônico");
                     break;
                 default:
-                // IMPLEMENTAR LOG
+                    MeuLogger.logMensagem(Level.WARNING, "Cena informada não está presente entre as opções do switch.");
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
+            MeuLogger.logException(Level.WARNING, "Aqruivo FXML não está presente.", ex);
         }
     }
 

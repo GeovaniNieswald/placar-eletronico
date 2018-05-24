@@ -1,7 +1,9 @@
 package com.acme;
 
 import com.acme.model.Cena;
+import com.acme.model.MeuLogger;
 import java.io.IOException;
+import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -63,9 +65,12 @@ public class MainApp extends Application {
                     break;
                 case ATUAL:
                     configurarCena(cenaAtual, "Placar Eletrônico FX");
+                    break;
+                default:
+                    MeuLogger.logMensagem(Level.WARNING, "Cena informada não está presente entre as opções do switch.");
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
+            MeuLogger.logException(Level.WARNING, "Aqruivo FXML não está presente.", ex);
         }
     }
 

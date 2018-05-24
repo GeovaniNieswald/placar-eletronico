@@ -5,6 +5,7 @@ import com.acme.controller.PropagandaController;
 import com.acme.model.Cena;
 import com.acme.model.DadosXML;
 import com.acme.model.ListaUsuarios;
+import com.acme.model.MeuLogger;
 import com.acme.model.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -39,16 +41,13 @@ public class PlacarServer extends Thread {
 
     // Método para iniciar o servidor
     public static void iniciar() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try (ServerSocket listener = new ServerSocket(9898)) {
-                    while (true) {
-                        new PlacarServer(listener.accept()).start();
-                    }
-                } catch (IOException ex) {
-                    // IMPLEMENTAR LOG
+        Thread t = new Thread(() -> {
+            try (ServerSocket listener = new ServerSocket(9898)) {
+                while (true) {
+                    new PlacarServer(listener.accept()).start();
                 }
+            } catch (IOException ex) {
+                MeuLogger.logException(Level.SEVERE, "Erro ao iniciar servidor.", ex);
             }
         });
         t.start();
@@ -87,12 +86,12 @@ public class PlacarServer extends Thread {
                 out.println("#conexao;not-ok");
             }
         } catch (IOException ex) {
-            // IMPLEMENTAR LOG
+            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
         } finally {
             try {
                 socket.close();
             } catch (IOException ex) {
-                // IMPLEMENTAR LOG
+                MeuLogger.logException(Level.WARNING, "Não foi possível fechar a conexão.", ex);
             }
         }
     }

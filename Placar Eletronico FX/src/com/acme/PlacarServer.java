@@ -122,6 +122,10 @@ public class PlacarServer extends Thread {
                     return comandoCadastroUsuario(params);
                 case "#periodo":
                     return comandoPeriodo(params);
+                case "#bonus":
+                    return comandoBonus(params);
+                case "#posse":
+                    return comandoPosse(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -285,6 +289,41 @@ public class PlacarServer extends Thread {
                 return "#periodo;ok";
             default:
                 return "#periodo;not-ok";
+        }
+    }
+
+    public static String comandoBonus(String[] params) {
+        switch (params[2]) {
+            case "local":
+            case "visitante":
+                switch (params[1]) {
+                    case "set":
+                        placarController.setBonus(params[2]);
+                        return "#bonus;ok";
+                    case "remover":
+                        placarController.removerBonus(params[2]);
+                        return "#bonus;ok";
+                    default:
+                        return "#bonus;not-ok";
+                }
+            default:
+                return "#bonus;not-ok";
+        }
+    }
+    
+    public static String comandoPosse(String[] params) {
+        switch (params[2]) {
+            case "local":
+            case "visitante":
+                switch (params[1]) {
+                    case "trocar":
+                        placarController.trocaPosse(params[2]);
+                        return "#posse;ok";
+                    default:
+                        return "#posse;not-ok";
+                }
+            default:
+                return "#posse;not-ok";
         }
     }
 

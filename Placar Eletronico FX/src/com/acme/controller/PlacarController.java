@@ -199,6 +199,32 @@ public class PlacarController implements Initializable {
         }
     }
 
+    public void setBonus(String lado) {
+        if ("local".equals(lado)) {
+            ovBonusTimeLocal.setVisible(true);
+        } else if ("visitante".equals(lado)) {
+            ovBonusTimeVisitante.setVisible(true);
+        }
+    }
+
+    public void removerBonus(String lado) {
+        if ("local".equals(lado)) {
+            ovBonusTimeLocal.setVisible(false);
+        } else if ("visitante".equals(lado)) {
+            ovBonusTimeVisitante.setVisible(false);
+        }
+    }
+
+    public void trocaPosse(String lado) {
+        if ("local".equals(lado)) {
+            ovPosseTimeLocal.setVisible(true);
+            ovPosseTimeVisitante.setVisible(false);
+        } else if ("visitante".equals(lado)) {
+            ovPosseTimeLocal.setVisible(false);
+            ovPosseTimeVisitante.setVisible(true);
+        }
+    }
+
     public void restaurarPeriodo() {
         periodo = 1;
         linhaDoTempoLabel(lPeriodo, "0" + periodo);
@@ -380,5 +406,8 @@ public class PlacarController implements Initializable {
         );
         moverTexto.setCycleCount(1);
         moverTexto.play();
+        ovBonusTimeLocal.setVisible(false);
+        ovBonusTimeVisitante.setVisible(false);
+        ovPosseTimeVisitante.setVisible(false);
     }
 }

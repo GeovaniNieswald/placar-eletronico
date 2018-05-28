@@ -160,6 +160,10 @@ public class PlacarClient {
             case CRONOMETRO:
                 out.println("#cronometro;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                 return converterResposta(in.readLine().split(";"), in, out);
+                
+            case BONUS:
+                out.println("#bonus;" + valores[0] + ";" + valores[1]);
+                return converterResposta(in.readLine().split(";"), in, out);
 
             default:
                 MeuLogger.logMensagem(Level.WARNING, "Comando informado não está presente entre as opções do switch.");

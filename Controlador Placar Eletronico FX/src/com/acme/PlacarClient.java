@@ -15,14 +15,7 @@ public class PlacarClient {
     // Variável referente a conexão atual da aplicação.
     private static Socket socket;
 
-    private static void fechar(BufferedReader in, PrintWriter out) throws IOException {
-        in.close();
-        out.close();
-    }
-
     private static RespostaSocket converterResposta(String[] respostaComando, BufferedReader in, PrintWriter out) throws IOException {
-        fechar(in, out);
-
         if (respostaComando[1].equals("ok")) {
             return RespostaSocket.COMANDO_ACEITO;
         } else {
@@ -40,8 +33,6 @@ public class PlacarClient {
         out.println(senha);
 
         String[] respostaConexao = in.readLine().split(";");
-
-        fechar(in, out);
 
         if (respostaConexao[1].equals("ok")) {
             switch (respostaConexao[2]) {
@@ -77,8 +68,6 @@ public class PlacarClient {
                 out.println("#esporte;" + valores[0]);
                 respostaComando = in.readLine().split(";");
 
-                fechar(in, out);
-
                 switch (respostaComando[1]) {
                     case "basquete-ok":
                         return RespostaSocket.ESPORTE_ACEITO_BASQUETE;
@@ -91,8 +80,6 @@ public class PlacarClient {
             case VERIFICAR_USUARIO_PLACAR:
                 out.println("#usuario-placar");
                 respostaComando = in.readLine().split(";");
-
-                fechar(in, out);
 
                 if (respostaComando[1].equals("ok")) {
                     return RespostaSocket.USUARIO_PLACAR_CONECTADO;
@@ -112,13 +99,10 @@ public class PlacarClient {
                         out.println("#cadastro-usuario;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
                         break;
                     default:
-                        fechar(in, out);
                         return RespostaSocket.COMANDO_RECUSADO;
                 }
 
                 respostaComando = in.readLine().split(";");
-
-                fechar(in, out);
 
                 switch (respostaComando[1]) {
                     case "ok":
@@ -163,7 +147,6 @@ public class PlacarClient {
 
             default:
                 MeuLogger.logMensagem(Level.WARNING, "Comando informado não está presente entre as opções do switch.");
-                fechar(in, out);
                 return RespostaSocket.COMANDO_RECUSADO;
         }
     }
@@ -175,8 +158,6 @@ public class PlacarClient {
         out.println("#cadastro-usuario;get;all");
 
         String[] respostaComando = in.readLine().split(";");
-
-        fechar(in, out);
 
         if (respostaComando[1].equalsIgnoreCase("not-ok")) {
             return "#cadastro-usuario;not-ok";

@@ -169,10 +169,10 @@
                   </JFXTextField>
                </children>
             </AnchorPane>
-            <Label layoutX="735.0" layoutY="16.0" styleClass="fonte-padrao" text="Posse" textFill="WHITE" AnchorPane.leftAnchor="735.0" AnchorPane.topAnchor="16.0" />
+            <Label fx:id="lPosse" layoutX="735.0" layoutY="16.0" styleClass="fonte-padrao" text="Posse" textFill="WHITE" AnchorPane.leftAnchor="735.0" AnchorPane.topAnchor="16.0" />
             <AnchorPane layoutX="735.0" layoutY="37.0" prefHeight="85.0" prefWidth="164.0" style="-fx-border-color: white; -fx-border-radius: 5;">
                <children>
-                  <JFXRadioButton layoutX="14.0" layoutY="17.0" onAction="#jfxrbPosseLocalOnAction" prefHeight="21.0" prefWidth="65.0" selected="true" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" styleClass="fonte-padrao" text="Local" textFill="WHITE">
+                  <JFXRadioButton fx:id="jfxrbLocal" layoutX="14.0" layoutY="17.0" onAction="#jfxrbPosseLocalOnAction" prefHeight="21.0" prefWidth="65.0" selected="true" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" styleClass="fonte-padrao" text="Local" textFill="WHITE">
                      <toggleGroup>
                         <ToggleGroup fx:id="tgPosse" />
                      </toggleGroup>
@@ -180,13 +180,13 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXRadioButton>
-                  <JFXRadioButton layoutX="14.0" layoutY="49.0" onAction="#jfxrbPosseVisitanteOnAction" prefHeight="21.0" prefWidth="76.0" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" styleClass="fonte-padrao" text="Visitante" textFill="WHITE" toggleGroup="$tgPosse">
+                  <JFXRadioButton fx:id="jfxrbVisitante" layoutX="14.0" layoutY="49.0" onAction="#jfxrbPosseVisitanteOnAction" prefHeight="21.0" prefWidth="76.0" style="-jfx-selected-color: #890e01; -jfx-unselected-color: white;" styleClass="fonte-padrao" text="Visitante" textFill="WHITE" toggleGroup="$tgPosse">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></JFXRadioButton>
                </children>
             </AnchorPane>
-            <Label layoutX="735.0" layoutY="150.0" styleClass="fonte-padrao" text="Bônus" textFill="WHITE" AnchorPane.leftAnchor="735.0" AnchorPane.topAnchor="150.0" />
+            <Label fx:id="lBonus" layoutX="735.0" layoutY="150.0" styleClass="fonte-padrao" text="Bônus" textFill="WHITE" AnchorPane.leftAnchor="735.0" AnchorPane.topAnchor="150.0" />
             <AnchorPane layoutX="735.0" layoutY="171.0" prefHeight="85.0" prefWidth="164.0" style="-fx-border-color: white; -fx-border-radius: 5;">
                <children>
                   <JFXCheckBox fx:id="jfxcbBonusLocal" checkedColor="#890e01" layoutX="29.0" layoutY="17.0" onAction="#jfxcbBonusLocalOnAction" styleClass="fonte-padrao" text="Local" textFill="WHITE" unCheckedColor="WHITE">

@@ -10,11 +10,13 @@ import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,6 +62,11 @@ public class PlacarController implements Initializable {
     private Label lFaltasTimeVisitante;
 
     @FXML
+    private Label lBonus;
+    @FXML
+    private Label lPosse;
+
+    @FXML
     private JFXTextField jfxtfNomeTimeLocalL;
 
     @FXML
@@ -85,6 +92,12 @@ public class PlacarController implements Initializable {
 
     @FXML
     private JFXCheckBox jfxcbBonusVisitante;
+
+    @FXML
+    private JFXRadioButton jfxrbLocal;
+
+    @FXML
+    private JFXRadioButton jfxrbVisitante;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
@@ -971,36 +984,92 @@ public class PlacarController implements Initializable {
             Utils.telaMensagem("", "", "Não é possível restaurar tudo, pois o cronômetro está em execução!", Alert.AlertType.ERROR);
         } else {
             if (Utils.telaConfirmacao("Restaurar Tudo", "", "Deseja mesmo restaurar tudo?", Alert.AlertType.CONFIRMATION)) {
-                if (!executandoCronometoPrimeiraVez) {
-                    jfxbRestaurarCronometroOnAction(event);
+                try {
+                    if (!executandoCronometoPrimeiraVez) {
+                        jfxbRestaurarCronometroOnAction(event);
+                    }
+                    jfxbRestaurarNomeTimeLocalOnAction(event);
+                    jfxbRestaurarNomeTimeVisitanteOnAction(event);
+                    jfxbRestaurarPeriodoOnAction(event);
+                    jfxbZerarFaltasOnAction(event);
+                    jfxbZerarPontosOnAction(event);
+                    PlacarClient.enviarComando(Comando.BONUS, "remover", "local");
+                    PlacarClient.enviarComando(Comando.BONUS, "remover", "visitante");
+                    PlacarClient.enviarComando(Comando.POSSE, "troca", "local");
+                } catch (IOException ex) {
+                    erroDeConexao(ex, null, null, jfxtfPeriodoL, null);
                 }
-                jfxbRestaurarNomeTimeLocalOnAction(event);
-                jfxbRestaurarNomeTimeVisitanteOnAction(event);
-                jfxbRestaurarPeriodoOnAction(event);
-                jfxbZerarFaltasOnAction(event);
-                jfxbZerarPontosOnAction(event);
             }
         }
     }
 
     @FXML
     void jfxcbBonusLocalOnAction(ActionEvent event) {
+        try {
+            if (jfxcbBonusLocal.isSelected()) {
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "set", "local");
+            } else {
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "remover", "local");
+            }
 
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorLabel("white", lBonus);
+            } else {
+                trocarCorLabel("red", lBonus);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lBonus);
+        }
     }
 
     @FXML
     void jfxcbBonusVisitanteOnAction(ActionEvent event) {
-
+        try {
+            if (jfxcbBonusVisitante.isSelected()) {
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "set", "visitante");
+            } else {
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "remover", "visitante");
+            }
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorLabel("white", lBonus);
+            } else {
+                trocarCorLabel("red", lBonus);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lBonus);
+        }
     }
 
     @FXML
     void jfxrbPosseLocalOnAction(ActionEvent event) {
-
+        try {
+            if (jfxrbLocal.isSelected()) {
+                respostaComando = PlacarClient.enviarComando(Comando.POSSE, "trocar", "local");
+            }
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorLabel("white", lPosse);
+            } else {
+                trocarCorLabel("red", lPosse);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lPosse);
+        }
     }
 
     @FXML
     void jfxrbPosseVisitanteOnAction(ActionEvent event) {
-
+        try {
+            if (jfxrbVisitante.isSelected()) {
+                respostaComando = PlacarClient.enviarComando(Comando.POSSE, "trocar", "visitante");
+            }
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorLabel("white", lPosse);
+            } else {
+                trocarCorLabel("red", lPosse);
+            }
+        } catch (IOException ex) {
+            trocarCorLabel("red", lPosse);
+        }
     }
 
     @Override

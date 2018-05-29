@@ -5,7 +5,7 @@ import com.acme.PlacarClient;
 import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
-import com.acme.model.MeuLogger;
+import com.acme.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;

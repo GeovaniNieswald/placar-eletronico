@@ -1,7 +1,6 @@
 package com.acme;
 
 import com.acme.model.Comando;
-import com.acme.model.MeuLogger;
 import com.acme.model.RespostaSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -148,11 +147,11 @@ public class PlacarClient {
             case BONUS:
                 out.println("#bonus;" + valores[0] + ";" + valores[1]);
                 return converterResposta(in.readLine().split(";"), in, out);
-                
+
             case POSSE:
                 out.println("#posse;" + valores[0] + ";" + valores[1]);
                 return converterResposta(in.readLine().split(";"), in, out);
-                
+
             default:
                 MeuLogger.logMensagem(Level.WARNING, "Comando informado não está presente entre as opções do switch.");
                 return RespostaSocket.COMANDO_RECUSADO;

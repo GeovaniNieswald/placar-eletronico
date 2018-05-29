@@ -1,7 +1,6 @@
 package com.acme;
 
 import com.acme.model.Cena;
-import com.acme.model.MeuLogger;
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.application.Application;

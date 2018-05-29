@@ -6,7 +6,7 @@ import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
 import com.acme.model.Cronos;
-import com.acme.model.MeuLogger;
+import com.acme.MeuLogger;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -16,13 +16,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
@@ -63,6 +61,7 @@ public class PlacarController implements Initializable {
 
     @FXML
     private Label lBonus;
+
     @FXML
     private Label lPosse;
 
@@ -83,9 +82,6 @@ public class PlacarController implements Initializable {
 
     @FXML
     private JFXButton jfxbDefinirCronometro;
-
-    @FXML
-    private ToggleGroup tgPosse;
 
     @FXML
     private JFXCheckBox jfxcbBonusLocal;
@@ -978,26 +974,48 @@ public class PlacarController implements Initializable {
         }
     }
 
+    private void restaurarBasquete() {
+        try {
+            respostaComando = PlacarClient.enviarComando(Comando.BONUS, "local", "remover");
+            respostaComando = PlacarClient.enviarComando(Comando.BONUS, "visitante", "remover");
+            respostaComando = PlacarClient.enviarComando(Comando.POSSE, "local", "trocar");
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorLabel("white", lBonus);
+                trocarCorLabel("white", lPosse);
+
+                jfxcbBonusLocal.setSelected(false);
+                jfxcbBonusVisitante.setSelected(false);
+
+                jfxrbLocal.setSelected(true);
+                jfxrbVisitante.setSelected(false);
+            } else {
+                trocarCorLabel("red", lBonus);
+                trocarCorLabel("red", lPosse);
+            }
+        } catch (IOException ex) {
+            erroDeConexao(ex, lBonus, lPosse, null, null);
+        }
+    }
+
     @FXML
     void jfxbRestaurarTudoOnAction(ActionEvent event) {
         if (executandoCronometro) {
             Utils.telaMensagem("", "", "Não é possível restaurar tudo, pois o cronômetro está em execução!", Alert.AlertType.ERROR);
         } else {
             if (Utils.telaConfirmacao("Restaurar Tudo", "", "Deseja mesmo restaurar tudo?", Alert.AlertType.CONFIRMATION)) {
-                try {
-                    if (!executandoCronometoPrimeiraVez) {
-                        jfxbRestaurarCronometroOnAction(event);
-                    }
-                    jfxbRestaurarNomeTimeLocalOnAction(event);
-                    jfxbRestaurarNomeTimeVisitanteOnAction(event);
-                    jfxbRestaurarPeriodoOnAction(event);
-                    jfxbZerarFaltasOnAction(event);
-                    jfxbZerarPontosOnAction(event);
-                    PlacarClient.enviarComando(Comando.BONUS, "remover", "local");
-                    PlacarClient.enviarComando(Comando.BONUS, "remover", "visitante");
-                    PlacarClient.enviarComando(Comando.POSSE, "troca", "local");
-                } catch (IOException ex) {
-                    erroDeConexao(ex, null, null, jfxtfPeriodoL, null);
+                if (!executandoCronometoPrimeiraVez) {
+                    jfxbRestaurarCronometroOnAction(event);
+                }
+
+                jfxbRestaurarNomeTimeLocalOnAction(event);
+                jfxbRestaurarNomeTimeVisitanteOnAction(event);
+                jfxbRestaurarPeriodoOnAction(event);
+                jfxbZerarFaltasOnAction(event);
+                jfxbZerarPontosOnAction(event);
+
+                if (esporteBasquete) {
+                    restaurarBasquete();
                 }
             }
         }
@@ -1007,9 +1025,9 @@ public class PlacarController implements Initializable {
     void jfxcbBonusLocalOnAction(ActionEvent event) {
         try {
             if (jfxcbBonusLocal.isSelected()) {
-                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "set", "local");
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "local", "definir");
             } else {
-                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "remover", "local");
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "local", "remover");
             }
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
@@ -1018,7 +1036,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lBonus);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lBonus);
+            erroDeConexao(ex, lBonus, null, null, null);
         }
     }
 
@@ -1026,9 +1044,9 @@ public class PlacarController implements Initializable {
     void jfxcbBonusVisitanteOnAction(ActionEvent event) {
         try {
             if (jfxcbBonusVisitante.isSelected()) {
-                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "set", "visitante");
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "visitante", "definir");
             } else {
-                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "remover", "visitante");
+                respostaComando = PlacarClient.enviarComando(Comando.BONUS, "visitante", "remover");
             }
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorLabel("white", lBonus);
@@ -1036,7 +1054,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lBonus);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lBonus);
+            erroDeConexao(ex, lBonus, null, null, null);
         }
     }
 
@@ -1044,7 +1062,7 @@ public class PlacarController implements Initializable {
     void jfxrbPosseLocalOnAction(ActionEvent event) {
         try {
             if (jfxrbLocal.isSelected()) {
-                respostaComando = PlacarClient.enviarComando(Comando.POSSE, "trocar", "local");
+                respostaComando = PlacarClient.enviarComando(Comando.POSSE, "local", "trocar");
             }
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorLabel("white", lPosse);
@@ -1052,7 +1070,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPosse);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPosse);
+            erroDeConexao(ex, lPosse, null, null, null);
         }
     }
 
@@ -1060,7 +1078,7 @@ public class PlacarController implements Initializable {
     void jfxrbPosseVisitanteOnAction(ActionEvent event) {
         try {
             if (jfxrbVisitante.isSelected()) {
-                respostaComando = PlacarClient.enviarComando(Comando.POSSE, "trocar", "visitante");
+                respostaComando = PlacarClient.enviarComando(Comando.POSSE, "visitante", "trocar");
             }
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorLabel("white", lPosse);
@@ -1068,7 +1086,7 @@ public class PlacarController implements Initializable {
                 trocarCorLabel("red", lPosse);
             }
         } catch (IOException ex) {
-            trocarCorLabel("red", lPosse);
+            erroDeConexao(ex, lPosse, null, null, null);
         }
     }
 

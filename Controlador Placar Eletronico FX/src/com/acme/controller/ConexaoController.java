@@ -4,7 +4,7 @@ import com.acme.MainApp;
 import com.acme.PlacarClient;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
-import com.acme.model.MeuLogger;
+import com.acme.MeuLogger;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;

@@ -1,5 +1,6 @@
 package com.acme.model;
 
+import com.acme.MeuLogger;
 import com.acme.controller.PlacarController;
 import java.util.logging.Level;
 

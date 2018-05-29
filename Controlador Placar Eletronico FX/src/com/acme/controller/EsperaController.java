@@ -6,7 +6,7 @@ import com.acme.Utils;
 import com.acme.model.Comando;
 import com.acme.model.RespostaSocket;
 import com.acme.model.Cena;
-import com.acme.model.MeuLogger;
+import com.acme.MeuLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

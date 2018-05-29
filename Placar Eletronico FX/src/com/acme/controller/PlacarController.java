@@ -199,7 +199,7 @@ public class PlacarController implements Initializable {
         }
     }
 
-    public void setBonus(String lado) {
+    public void definirBonus(String lado) {
         if ("local".equals(lado)) {
             ovBonusTimeLocal.setVisible(true);
         } else if ("visitante".equals(lado)) {
@@ -406,8 +406,5 @@ public class PlacarController implements Initializable {
         );
         moverTexto.setCycleCount(1);
         moverTexto.play();
-        ovBonusTimeLocal.setVisible(false);
-        ovBonusTimeVisitante.setVisible(false);
-        ovPosseTimeVisitante.setVisible(false);
     }
 }

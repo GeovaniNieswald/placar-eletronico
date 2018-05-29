@@ -1,5 +1,6 @@
-package com.acme.model;
+package com.acme;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -13,7 +14,12 @@ public class MeuLogger {
 
     static {
         try {
-            Handler fh = new FileHandler("src/log/log-placar-eletronico.txt", true);
+            String caminho = System.getProperty("user.home") + "/Controlador-Placar-Eletronico/Log";
+
+            File file = new File(caminho);
+            file.mkdirs();
+
+            Handler fh = new FileHandler(caminho + "/log.txt", true);
 
             fh.setFormatter(new SimpleFormatter());
 

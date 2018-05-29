@@ -163,12 +163,12 @@
       </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
          <children>
-            <OctIconView fx:id="ovBonusTimeLocal" fill="RED" glyphName="BOLD" size="38" />
+            <OctIconView fx:id="ovBonusTimeLocal" fill="RED" glyphName="BOLD" size="38" visible="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
          <children>
-            <OctIconView fx:id="ovBonusTimeVisitante" fill="RED" glyphName="BOLD" size="38" />
+            <OctIconView fx:id="ovBonusTimeVisitante" fill="RED" glyphName="BOLD" size="38" visible="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="fonte-padrao" GridPane.columnIndex="5" GridPane.rowIndex="4">
@@ -182,7 +182,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
          <children>
-            <OctIconView fx:id="ovPosseTimeVisitante" fill="#00fc47" glyphName="ARROW_RIGHT" size="38" />
+            <OctIconView fx:id="ovPosseTimeVisitante" fill="#00fc47" glyphName="ARROW_RIGHT" size="38" visible="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">

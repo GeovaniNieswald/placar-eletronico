@@ -5,7 +5,6 @@ import com.acme.controller.PropagandaController;
 import com.acme.model.Cena;
 import com.acme.model.DadosXML;
 import com.acme.model.ListaUsuarios;
-import com.acme.model.MeuLogger;
 import com.acme.model.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -293,15 +292,15 @@ public class PlacarServer extends Thread {
     }
 
     public static String comandoBonus(String[] params) {
-        switch (params[2]) {
+        switch (params[1]) {
             case "local":
             case "visitante":
-                switch (params[1]) {
-                    case "set":
-                        placarController.setBonus(params[2]);
+                switch (params[2]) {
+                    case "definir":
+                        placarController.definirBonus(params[1]);
                         return "#bonus;ok";
                     case "remover":
-                        placarController.removerBonus(params[2]);
+                        placarController.removerBonus(params[1]);
                         return "#bonus;ok";
                     default:
                         return "#bonus;not-ok";
@@ -310,14 +309,14 @@ public class PlacarServer extends Thread {
                 return "#bonus;not-ok";
         }
     }
-    
+
     public static String comandoPosse(String[] params) {
-        switch (params[2]) {
+        switch (params[1]) {
             case "local":
             case "visitante":
-                switch (params[1]) {
+                switch (params[2]) {
                     case "trocar":
-                        placarController.trocaPosse(params[2]);
+                        placarController.trocaPosse(params[1]);
                         return "#posse;ok";
                     default:
                         return "#posse;not-ok";
@@ -356,6 +355,7 @@ public class PlacarServer extends Thread {
                     return "#imagens;not-ok";
             }
         } catch (IOException ex) {
+            MeuLogger.logException(Level.WARNING, "Não foi possível decodificar a imagem.", ex);
             return "#imagens;not-ok";
         }
     }
@@ -428,7 +428,11 @@ public class PlacarServer extends Thread {
                 default:
                     return "#propaganda;not-ok";
             }
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException ex) {
+            MeuLogger.logException(Level.WARNING, "Não foi possível decodificar a imagem/vídeo.", ex);
+            return "#propaganda;not-ok";
+        } catch (InterruptedException ex) {
+            MeuLogger.logException(Level.INFO, "Thread interrompida.", ex);
             return "#propaganda;not-ok";
         }
     }
@@ -466,6 +470,7 @@ public class PlacarServer extends Thread {
 
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
+                    MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
             case "get":
@@ -499,6 +504,7 @@ public class PlacarServer extends Thread {
                         return "#cadastro-usuario;not-ok";
                     }
                 } catch (JAXBException ex) {
+                    MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
             case "delete":
@@ -524,6 +530,7 @@ public class PlacarServer extends Thread {
 
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
+                    MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
             case "update":
@@ -548,6 +555,7 @@ public class PlacarServer extends Thread {
 
                     return "#cadastro-usuario;ok";
                 } catch (JAXBException ex) {
+                    MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
             default:
@@ -575,7 +583,7 @@ public class PlacarServer extends Thread {
                 }
             }
         } catch (JAXBException ex) {
-            // IMPLEMENTAR LOGIN
+            MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
             return false;
         }
 

@@ -21,4 +21,11 @@
         <placar>false</placar>
         <propaganda>false</propaganda>
     </usuario>
+    <usuario>
+        <usuario>Geovani</usuario>
+        <senha>Geovani</senha>
+        <admin>false</admin>
+        <placar>true</placar>
+        <propaganda>false</propaganda>
+    </usuario>
 </listaUsuarios>

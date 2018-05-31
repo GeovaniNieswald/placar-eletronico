@@ -57,6 +57,12 @@ public class PlacarController implements Initializable {
     private Label lTextoInferior;
 
     @FXML
+    private VBox vbImagenEsquerda;
+
+    @FXML
+    private VBox vbImagenDireita;
+
+    @FXML
     private OctIconView ovBonusTimeLocal;
 
     @FXML
@@ -67,12 +73,6 @@ public class PlacarController implements Initializable {
 
     @FXML
     private OctIconView ovPosseTimeLocal;
-
-    @FXML
-    private VBox vbImagenEsquerda;
-
-    @FXML
-    private VBox vbImagenDireita;
 
     private final int VELOCIDADE_TXT = 10000; //em milissegundos
 

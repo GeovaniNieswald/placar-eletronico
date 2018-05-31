@@ -39,7 +39,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="123.0" prefWidth="291.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <children>
-            <Button fx:id="bFechar" mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
+            <Button mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">

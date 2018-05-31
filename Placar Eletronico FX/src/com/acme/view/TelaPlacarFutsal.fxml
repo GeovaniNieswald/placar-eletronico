@@ -156,7 +156,7 @@
       <VBox fx:id="vbImagenDireita" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="2" GridPane.rowSpan="3" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="6">
          <children>
-            <Button fx:id="bFechar" mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
+            <Button mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
          </children>
       </VBox>
    </children>

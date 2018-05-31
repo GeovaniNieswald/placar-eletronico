@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.util.Duration;
 import javax.xml.bind.JAXBException;
 
@@ -86,6 +87,7 @@ public class PlacarServer extends Thread {
             }
         } catch (IOException ex) {
             MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
+            Platform.runLater(() -> MainApp.trocarCena(Cena.AGUARDANDO_CONEXAO));
         } finally {
             try {
                 socket.close();

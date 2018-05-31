@@ -47,8 +47,8 @@ public class CadastroUsuarioController implements Initializable {
     }
 
     @FXML
-    void jfxbCancelarOnAction(ActionEvent event) {
-        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML
@@ -58,8 +58,8 @@ public class CadastroUsuarioController implements Initializable {
     }
 
     @FXML
-    void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
+    void jfxbCancelarOnAction(ActionEvent event) {
+        MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
     }
 
     @FXML
@@ -67,8 +67,8 @@ public class CadastroUsuarioController implements Initializable {
         if (jfxtfUsuario.getText().trim().isEmpty() || jfxpfSenha.getText().trim().isEmpty()) {
             Utils.telaMensagem("Ops", "", "Usuário e senha devem estar preenchidos!", Alert.AlertType.WARNING);
         } else {
-            if (jfxtfUsuario.getText().contains(",") || jfxtfUsuario.getText().contains(";")) {
-                Utils.telaMensagem("Ops", "", "Nome de usuário não pode conter vírgula nem ponto-e-vírgula!", Alert.AlertType.WARNING);
+            if (!jfxtfUsuario.getText().matches("[A-z0-9]*") || !jfxtfUsuario.getText().matches("[A-z0-9]*")) {
+                Utils.telaMensagem("Ops", "", "Nome de usuário e senha podem conter apenas letras e números!", Alert.AlertType.WARNING);
             } else {
                 String usuario = jfxtfUsuario.getText();
                 String senha = jfxpfSenha.getText();
@@ -85,6 +85,8 @@ public class CadastroUsuarioController implements Initializable {
                             jfxtfUsuario.setText("");
                             jfxpfSenha.setText("");
                             jfxcbAdministrador.setSelected(true);
+                            jfxcbPlacar.setSelected(false);
+                            jfxcbPropaganda.setSelected(false);
                             break;
                         case USUARIO_JA_EXISTE:
                             Utils.telaMensagem("Ops", "", "Usuário já existe!", Alert.AlertType.WARNING);

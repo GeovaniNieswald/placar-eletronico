@@ -67,14 +67,14 @@ public class EsporteController implements Initializable {
     }
 
     @FXML
-    void gpOnMousePressed(MouseEvent event) {
-        posicaoInicialX = event.getSceneX();
-        posicaoInicialY = event.getSceneY();
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }
 
     @FXML
-    void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
     @FXML

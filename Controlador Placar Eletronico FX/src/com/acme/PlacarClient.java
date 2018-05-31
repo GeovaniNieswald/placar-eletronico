@@ -14,7 +14,7 @@ public class PlacarClient {
     // Variável referente a conexão atual da aplicação.
     private static Socket socket;
 
-    private static RespostaSocket converterResposta(String[] respostaComando, BufferedReader in, PrintWriter out) throws IOException {
+    private static RespostaSocket converterResposta(String[] respostaComando) throws IOException {
         if (respostaComando[1].equals("ok")) {
             return RespostaSocket.COMANDO_ACEITO;
         } else {
@@ -114,43 +114,43 @@ public class PlacarClient {
 
             case NOME_TIME:
                 out.println("#nome-time;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case TEXTO_INFERIOR:
                 out.println("#texto-inferior;" + valores[0] + ";" + valores[1]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case PONTOS:
                 out.println("#pontos;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case FALTAS:
                 out.println("#faltas;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case PERIODO:
                 out.println("#periodo;" + valores[0] + ";" + valores[1]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case IMAGENS:
                 out.println("#imagens;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case PROPAGANDA:
                 out.println("#propaganda;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case CRONOMETRO:
                 out.println("#cronometro;" + valores[0] + ";" + valores[1] + ";" + valores[2]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case BONUS:
                 out.println("#bonus;" + valores[0] + ";" + valores[1]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             case POSSE:
                 out.println("#posse;" + valores[0] + ";" + valores[1]);
-                return converterResposta(in.readLine().split(";"), in, out);
+                return converterResposta(in.readLine().split(";"));
 
             default:
                 MeuLogger.logMensagem(Level.WARNING, "Comando informado não está presente entre as opções do switch.");

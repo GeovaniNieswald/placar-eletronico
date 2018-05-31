@@ -28,49 +28,49 @@ public class EscalacaoController implements Initializable {
     private Label lTimeLocal;
 
     @FXML
-    private Label lTimeVisitante;
-
-    @FXML
     private JFXTextField jfxtfPosicaoJogadorLocal;
-
-    @FXML
-    private JFXTextField jfxtfPosicaoJogadorLocalL;
 
     @FXML
     private JFXTextField jfxtfNumeroJogadorLocal;
 
     @FXML
-    private JFXTextField jfxtfNumeroJogadorLocalL;
-
-    @FXML
     private JFXTextField jfxtfNomeJogadorLocal;
-
-    @FXML
-    private JFXTextField jfxtfNomeJogadorLocalL;
 
     @FXML
     private JFXTreeTableView<Jogador> jfxttvTabelaEscalacaoTimeLocal;
 
     @FXML
-    private JFXTextField jfxtfPosicaoJogadorVisitante;
+    private Label lTimeVisitante;
 
     @FXML
-    private JFXTextField jfxtfPosicaoJogadorVisitanteL;
+    private JFXTextField jfxtfPosicaoJogadorVisitante;
 
     @FXML
     private JFXTextField jfxtfNumeroJogadorVisitante;
 
     @FXML
-    private JFXTextField jfxtfNumeroJogadorVisitanteL;
-
-    @FXML
     private JFXTextField jfxtfNomeJogadorVisitante;
 
     @FXML
-    private JFXTextField jfxtfNomeJogadorVisitanteL;
+    private JFXTreeTableView<Jogador> jfxttvTabelaEscalacaoTimeVisitante;
 
     @FXML
-    private JFXTreeTableView<Jogador> jfxttvTabelaEscalacaoTimeVisitante;
+    private JFXTextField jfxtfPosicaoJogadorLocalL;
+
+    @FXML
+    private JFXTextField jfxtfNumeroJogadorLocalL;
+
+    @FXML
+    private JFXTextField jfxtfNomeJogadorLocalL;
+
+    @FXML
+    private JFXTextField jfxtfPosicaoJogadorVisitanteL;
+
+    @FXML
+    private JFXTextField jfxtfNumeroJogadorVisitanteL;
+
+    @FXML
+    private JFXTextField jfxtfNomeJogadorVisitanteL;
 
     private static PropagandaController propagandaController;
 
@@ -94,30 +94,57 @@ public class EscalacaoController implements Initializable {
         }
     }
 
-    private void trocarCorSeVaziu(JFXTextField campo1, JFXTextField campo2, JFXTextField campo3, JFXTextField label1, JFXTextField label2, JFXTextField label3) {
-        if (campo1.getText().trim().isEmpty()) {
-            trocarCorJFXTextField("red", label1);
+    private boolean validarCampos(JFXTextField campoPosicao, JFXTextField campoNumero, JFXTextField campoNome, JFXTextField labelPosicao, JFXTextField labelNumero, JFXTextField labelNome) {
+        boolean camposValidos = true;
+
+        if (campoPosicao.getText().trim().isEmpty() || !campoPosicao.getText().matches("[A-zÀ-ú ç]*")) {
+            trocarCorJFXTextField("red", labelPosicao);
+            camposValidos = false;
         } else {
-            trocarCorJFXTextField("white", label1);
+            trocarCorJFXTextField("white", labelPosicao);
         }
 
-        if (campo2.getText().trim().isEmpty()) {
-            trocarCorJFXTextField("red", label2);
+        if (campoNumero.getText().trim().isEmpty() || !campoNumero.getText().matches("[0-9]*")) {
+            trocarCorJFXTextField("red", labelNumero);
+            camposValidos = false;
         } else {
-            trocarCorJFXTextField("white", label2);
+            trocarCorJFXTextField("white", labelNumero);
         }
 
-        if (campo3.getText().trim().isEmpty()) {
-            trocarCorJFXTextField("red", label3);
+        if (campoNome.getText().trim().isEmpty() || !campoNome.getText().matches("[A-zÀ-ú ç]*")) {
+            trocarCorJFXTextField("red", labelNome);
+            camposValidos = false;
         } else {
-            trocarCorJFXTextField("white", label3);
+            trocarCorJFXTextField("white", labelNome);
         }
+
+        return camposValidos;
     }
 
     private void limparCampos(JFXTextField... componentes) {
         for (JFXTextField comp : componentes) {
             comp.setText("");
         }
+    }
+
+    private boolean validarEscalacoes(ObservableList<Jogador> jogadoresTimeLocal, ObservableList<Jogador> jogadoresTimeVisitante) {
+        boolean escalacoesValidas = true;
+
+        if (jogadoresTimeLocal.isEmpty()) {
+            lTimeLocal.setTextFill(Paint.valueOf("red"));
+            escalacoesValidas = false;
+        } else {
+            lTimeLocal.setTextFill(Paint.valueOf("white"));
+        }
+
+        if (jogadoresTimeVisitante.isEmpty()) {
+            lTimeVisitante.setTextFill(Paint.valueOf("red"));
+            escalacoesValidas = false;
+        } else {
+            lTimeVisitante.setTextFill(Paint.valueOf("white"));
+        }
+
+        return escalacoesValidas;
     }
 
     @FXML
@@ -138,9 +165,7 @@ public class EscalacaoController implements Initializable {
 
     @FXML
     void jfxbAdicionarJogadorLocalOnAction(ActionEvent event) {
-        trocarCorSeVaziu(jfxtfPosicaoJogadorLocal, jfxtfNumeroJogadorLocal, jfxtfNomeJogadorLocal, jfxtfPosicaoJogadorLocalL, jfxtfNumeroJogadorLocalL, jfxtfNomeJogadorLocalL);
-
-        if (!jfxtfPosicaoJogadorLocal.getText().trim().isEmpty() && !jfxtfNumeroJogadorLocal.getText().trim().isEmpty() && !jfxtfNomeJogadorLocal.getText().trim().isEmpty()) {
+        if (validarCampos(jfxtfPosicaoJogadorLocal, jfxtfNumeroJogadorLocal, jfxtfNomeJogadorLocal, jfxtfPosicaoJogadorLocalL, jfxtfNumeroJogadorLocalL, jfxtfNomeJogadorLocalL)) {
             jogadoresTimeLocal.add(new Jogador(jfxtfPosicaoJogadorLocal.getText(), jfxtfNumeroJogadorLocal.getText(), jfxtfNomeJogadorLocal.getText()));
 
             limparCampos(jfxtfPosicaoJogadorLocal, jfxtfNumeroJogadorLocal, jfxtfNomeJogadorLocal);
@@ -151,9 +176,7 @@ public class EscalacaoController implements Initializable {
 
     @FXML
     void jfxbAdicionarJogadorVisitanteOnAction(ActionEvent event) {
-        trocarCorSeVaziu(jfxtfPosicaoJogadorVisitante, jfxtfNumeroJogadorVisitante, jfxtfNomeJogadorVisitante, jfxtfPosicaoJogadorVisitanteL, jfxtfNumeroJogadorVisitanteL, jfxtfNomeJogadorVisitanteL);
-
-        if (!jfxtfPosicaoJogadorVisitante.getText().trim().isEmpty() && !jfxtfNumeroJogadorVisitante.getText().trim().isEmpty() && !jfxtfNomeJogadorVisitante.getText().trim().isEmpty()) {
+        if (validarCampos(jfxtfPosicaoJogadorVisitante, jfxtfNumeroJogadorVisitante, jfxtfNomeJogadorVisitante, jfxtfPosicaoJogadorVisitanteL, jfxtfNumeroJogadorVisitanteL, jfxtfNomeJogadorVisitanteL)) {
             jogadoresTimeVisitante.add(new Jogador(jfxtfPosicaoJogadorVisitante.getText(), jfxtfNumeroJogadorVisitante.getText(), jfxtfNomeJogadorVisitante.getText()));
 
             limparCampos(jfxtfPosicaoJogadorVisitante, jfxtfNumeroJogadorVisitante, jfxtfNomeJogadorVisitante);
@@ -184,30 +207,18 @@ public class EscalacaoController implements Initializable {
 
     @FXML
     void jfxbSalvarEscalacaoOnAction(ActionEvent event) {
-        if (jogadoresTimeLocal.isEmpty()) {
-            lTimeLocal.setTextFill(Paint.valueOf("red"));
-        } else {
-            lTimeLocal.setTextFill(Paint.valueOf("white"));
-        }
-
-        if (jogadoresTimeVisitante.isEmpty()) {
-            lTimeVisitante.setTextFill(Paint.valueOf("red"));
-        } else {
-            lTimeVisitante.setTextFill(Paint.valueOf("white"));
-        }
-
-        if (!jogadoresTimeLocal.isEmpty() && !jogadoresTimeVisitante.isEmpty()) {
+        if (validarEscalacoes(jogadoresTimeLocal, jogadoresTimeVisitante)) {
             ArrayList<Jogador> escalacaoLocal = new ArrayList<>();
 
-            for (Jogador j : jogadoresTimeLocal) {
+            jogadoresTimeLocal.forEach((j) -> {
                 escalacaoLocal.add(j);
-            }
+            });
 
             ArrayList<Jogador> escalacaoVisitante = new ArrayList<>();
 
-            for (Jogador j : jogadoresTimeVisitante) {
+            jogadoresTimeVisitante.forEach((j) -> {
                 escalacaoVisitante.add(j);
-            }
+            });
 
             escalacao.add(escalacaoLocal);
             escalacao.add(escalacaoVisitante);

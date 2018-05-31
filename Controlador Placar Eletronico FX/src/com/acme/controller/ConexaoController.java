@@ -88,7 +88,7 @@ public class ConexaoController implements Initializable {
                     default:
                         PlacarClient.desconectar();
 
-                        lInfos.setText("Login ou Senha errados!");
+                        lInfos.setText("Login ou Senha inválidos!");
                         trocarCorJFXTextField("red", "red", jfxtfLogin);
                         trocarCorJFXPasswordField("red", "red", jfxpfSenha);
                         jfxpfSenha.setText("");
@@ -102,9 +102,8 @@ public class ConexaoController implements Initializable {
     }
 
     @FXML
-    void gpOnMousePressed(MouseEvent event) {
-        posicaoInicialX = event.getSceneX();
-        posicaoInicialY = event.getSceneY();
+    void faivSairOnMouseCliked(MouseEvent event) {
+        System.exit(0);
     }
 
     @FXML
@@ -113,15 +112,9 @@ public class ConexaoController implements Initializable {
     }
 
     @FXML
-    void faivSairOnMouseCliked(MouseEvent event) {
-        System.exit(0);
-    }
-
-    @FXML
-    void jfxpfSenhaOnKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            conectar();
-        }
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
     @FXML
@@ -131,6 +124,13 @@ public class ConexaoController implements Initializable {
 
     @FXML
     void jfxbConectarOnKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            conectar();
+        }
+    }
+
+    @FXML
+    void jfxpfSenhaOnKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             conectar();
         }

@@ -29,17 +29,6 @@ public class EsperaController implements Initializable {
     private Timeline esperandoUsuarioPlacar = new Timeline();
 
     @FXML
-    void gpOnMousePressed(MouseEvent event) {
-        posicaoInicialX = event.getSceneX();
-        posicaoInicialY = event.getSceneY();
-    }
-
-    @FXML
-    void gpOnMouseDragged(MouseEvent event) {
-        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
-    }
-
-    @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
         System.exit(0);
     }
@@ -49,6 +38,17 @@ public class EsperaController implements Initializable {
         PlacarClient.desconectar();
         esperandoUsuarioPlacar.stop();
         MainApp.trocarCena(Cena.CONEXAO);
+    }
+
+    @FXML
+    void gpOnMouseDragged(MouseEvent event) {
+        MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
+    }
+
+    @FXML
+    void gpOnMousePressed(MouseEvent event) {
+        posicaoInicialX = event.getSceneX();
+        posicaoInicialY = event.getSceneY();
     }
 
     @Override

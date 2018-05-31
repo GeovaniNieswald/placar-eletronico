@@ -82,17 +82,17 @@ public class PropagandaController implements Initializable {
 
         this.escalacao = "";
 
-        for (Jogador j : escalacaoLocal) {
+        escalacaoLocal.forEach((j) -> {
             this.escalacao += j.getPosicao().get() + "-" + j.getNumero().get() + "-" + j.getNome().get() + ">";
-        }
+        });
 
         this.escalacao = this.escalacao.substring(0, this.escalacao.length() - 1);
 
         this.escalacao += "§";
 
-        for (Jogador j : escalacaoVisitante) {
+        escalacaoVisitante.forEach((j) -> {
             this.escalacao += j.getPosicao().get() + "-" + j.getNumero().get() + "-" + j.getNome().get() + ">";
-        }
+        });
 
         this.escalacao = this.escalacao.substring(0, this.escalacao.length() - 1);
 
@@ -325,12 +325,6 @@ public class PropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxtfNovaEscalacaoOnClicked(MouseEvent event) {
-        MainApp.trocarCena(Cena.ESCALACAO);
-        EscalacaoController.instanciaPropagandaController(this);
-    }
-
-    @FXML
     void jfxtfImagemDireitaOnMouseClicked(MouseEvent event) {
         FileChooser fcImagem = new FileChooser();
 
@@ -378,6 +372,12 @@ public class PropagandaController implements Initializable {
                 trocarCorJFXTextField("red", jfxtfImagemEsquerdaL);
             }
         }
+    }
+
+    @FXML
+    void jfxtfNovaEscalacaoOnClicked(MouseEvent event) {
+        MainApp.trocarCena(Cena.ESCALACAO);
+        EscalacaoController.instanciaPropagandaController(this);
     }
 
     @FXML

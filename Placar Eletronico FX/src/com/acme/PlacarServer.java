@@ -14,10 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.util.Duration;
 import javax.xml.bind.JAXBException;
 
 public class PlacarServer extends Thread {
@@ -87,7 +84,6 @@ public class PlacarServer extends Thread {
             }
         } catch (IOException ex) {
             MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
-            Platform.runLater(() -> MainApp.trocarCena(Cena.AGUARDANDO_CONEXAO));
         } finally {
             try {
                 socket.close();
@@ -101,32 +97,32 @@ public class PlacarServer extends Thread {
         String[] params = comando.split(";");
         if (params != null) {
             switch (params[0]) {
+                case "#cadastro-usuario":
+                    return comandoCadastroUsuario(params);
                 case "#esporte":
                     return comandoEsporte(params);
                 case "#usuario-placar":
                     return comandoUsuarioPlacar(params);
                 case "#nome-time":
                     return comandoNomeTime(params);
-                case "#texto-inferior":
-                    return comandoTextoInferior(params);
+                case "#cronometro":
+                    return comandoCronometro(params);
+                case "#periodo":
+                    return comandoPeriodo(params);
+                case "#posse":
+                    return comandoPosse(params);
+                case "#bonus":
+                    return comandoBonus(params);
                 case "#pontos":
                     return comandoPontos(params);
                 case "#faltas":
                     return comandoFaltas(params);
+                case "#texto-inferior":
+                    return comandoTextoInferior(params);
                 case "#imagens":
                     return comandoImagens(params);
-                case "#cronometro":
-                    return comandoCronometro(params);
                 case "#propaganda":
                     return comandoPropaganda(params);
-                case "#cadastro-usuario":
-                    return comandoCadastroUsuario(params);
-                case "#periodo":
-                    return comandoPeriodo(params);
-                case "#bonus":
-                    return comandoBonus(params);
-                case "#posse":
-                    return comandoPosse(params);
                 default:
                     return "#comando;not-ok";
             }
@@ -135,308 +131,8 @@ public class PlacarServer extends Thread {
         }
     }
 
-    private static void linhaDoTempoTrocarCena(Cena c) {
-        Timeline cena = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            MainApp.trocarCena(c);
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        cena.play();
-    }
-
-    public static String comandoEsporte(String[] params) {
-        switch (params[1]) {
-            case "basquete":
-                linhaDoTempoTrocarCena(Cena.PLACAR_BASQUETE);
-                usuarioPlacarOn = true;
-                return "#esporte;basquete-ok";
-            case "futsal":
-                linhaDoTempoTrocarCena(Cena.PLACAR_FUTSAL);
-                usuarioPlacarOn = true;
-                return "#esporte;futsal-ok";
-            default:
-                return "#esporte;not-ok";
-        }
-    }
-
-    public static String comandoUsuarioPlacar(String[] params) {
-        if (usuarioPlacarOn) {
-            return "#usuario-placar;ok";
-        } else {
-            return "#usuario-placar;not-ok";
-        }
-    }
-
-    public static String comandoNomeTime(String[] params) {
-        switch (params[1]) {
-            case "local":
-                switch (params[2]) {
-                    case "alterar":
-                        placarController.setNomeTimeLocal(params[3]);
-                        return "#nome-time;ok";
-                    case "restaurar":
-                        placarController.setNomeTimeLocal("LOCAL");
-                        return "#nome-time;ok";
-                    default:
-                        return "#nome-time;not-ok";
-                }
-            case "visitante":
-                switch (params[2]) {
-                    case "alterar":
-                        placarController.setNomeTimeVisitante(params[3]);
-                        return "#nome-time;ok";
-                    case "restaurar":
-                        placarController.setNomeTimeVisitante("VISITANTE");
-                        return "#nome-time;ok";
-                    default:
-                        return "#nome-time;not-ok";
-                }
-            default:
-                return "#nome-time;not-ok";
-        }
-    }
-
-    public static String comandoTextoInferior(String[] params) {
-        switch (params[1]) {
-            case "alterar":
-                placarController.setTextoInferior(params[2]);
-                return "#texto-inferior;ok";
-            case "restaurar":
-                placarController.setTextoInferior("PLACAR ELETRONICO FX");
-                return "#texto-inferior;ok";
-            default:
-                return "#texto-inferior;not-ok";
-        }
-    }
-
-    public static String comandoPontos(String[] params) {
-        switch (params[1]) {
-            case "local":
-                switch (params[2]) {
-                    case "mais":
-                        placarController.aumentarPontosTimeLocal(Integer.parseInt(params[3]));
-                        return "#pontos;ok";
-                    case "menos":
-                        placarController.diminuirPontosTimeLocal(Integer.parseInt(params[3]));
-                        return "#pontos;ok";
-                    case "set":
-                        break;
-                    default:
-                        return "#pontos;not-ok";
-                }
-            case "visitante":
-                switch (params[2]) {
-                    case "mais":
-                        placarController.aumentarPontosTimeVisitante(Integer.parseInt(params[3]));
-                        return "#pontos;ok";
-                    case "menos":
-                        placarController.diminuirPontosTimeVisitante(Integer.parseInt(params[3]));
-                        return "#pontos;ok";
-                    case "set":
-                        break;
-                    default:
-                        return "#pontos;not-ok";
-                }
-            case "zerar":
-                placarController.zerarPontos();
-                return "#pontos;ok";
-            default:
-                return "#pontos;not-ok";
-        }
-    }
-
-    public static String comandoFaltas(String[] params) {
-        switch (params[1]) {
-            case "local":
-                switch (params[2]) {
-                    case "mais":
-                        placarController.aumentarFaltasTimeLocal(Integer.parseInt(params[3]));
-                        return "#faltas;ok";
-                    case "menos":
-                        placarController.diminuirFaltasTimeLocal(Integer.parseInt(params[3]));
-                        return "#faltas;ok";
-                    default:
-                        return "#faltas;not-ok";
-                }
-            case "visitante":
-                switch (params[2]) {
-                    case "mais":
-                        placarController.aumentarFaltasTimeVisitante(Integer.parseInt(params[3]));
-                        return "#faltas;ok";
-                    case "menos":
-                        placarController.diminuirFaltasTimeVisitante(Integer.parseInt(params[3]));
-                        return "#faltas;ok";
-                    default:
-                        return "#faltas;not-ok";
-                }
-            case "zerar":
-                placarController.zerarFaltas();
-                return "#faltas;ok";
-            default:
-                return "#faltas;not-ok";
-        }
-    }
-
-    public static String comandoPeriodo(String[] params) {
-        switch (params[1]) {
-            case "mais":
-                placarController.aumentarPeriodo(Integer.parseInt(params[2]));
-                return "#periodo;ok";
-            case "menos":
-                placarController.diminuirPeriodo(Integer.parseInt(params[2]));
-                return "#periodo;ok";
-            case "zerar":
-                placarController.restaurarPeriodo();
-                return "#periodo;ok";
-            default:
-                return "#periodo;not-ok";
-        }
-    }
-
-    public static String comandoBonus(String[] params) {
-        switch (params[1]) {
-            case "local":
-            case "visitante":
-                switch (params[2]) {
-                    case "definir":
-                        placarController.definirBonus(params[1]);
-                        return "#bonus;ok";
-                    case "remover":
-                        placarController.removerBonus(params[1]);
-                        return "#bonus;ok";
-                    default:
-                        return "#bonus;not-ok";
-                }
-            default:
-                return "#bonus;not-ok";
-        }
-    }
-
-    public static String comandoPosse(String[] params) {
-        switch (params[1]) {
-            case "local":
-            case "visitante":
-                switch (params[2]) {
-                    case "trocar":
-                        placarController.trocaPosse(params[1]);
-                        return "#posse;ok";
-                    default:
-                        return "#posse;not-ok";
-                }
-            default:
-                return "#posse;not-ok";
-        }
-    }
-
-    public static String comandoImagens(String[] params) {
-        try {
-            switch (params[1]) {
-                case "direita":
-                    switch (params[2]) {
-                        case "alterar":
-                            placarController.alterarImagemDireita(Utils.decodificar("imagem", params[3]));
-                            return "#imagens;ok";
-                        case "restaurar":
-                            placarController.restaurarImagemDireita();
-                            return "#imagens;ok";
-                        default:
-                            return "#imagens;not-ok";
-                    }
-                case "esquerda":
-                    switch (params[2]) {
-                        case "alterar":
-                            placarController.alterarImagemEsquerda(Utils.decodificar("imagem", params[3]));
-                            return "#imagens;ok";
-                        case "restaurar":
-                            placarController.restaurarImagemEsquerda();
-                            return "#imagens;ok";
-                        default:
-                            return "#imagens;not-ok";
-                    }
-                default:
-                    return "#imagens;not-ok";
-            }
-        } catch (IOException ex) {
-            MeuLogger.logException(Level.WARNING, "Não foi possível decodificar a imagem.", ex);
-            return "#imagens;not-ok";
-        }
-    }
-
-    public static String comandoCronometro(String[] params) {
-        switch (params[1]) {
-            case "definir":
-                placarController.definirCronometro(params[2], params[3]);
-                return "#cronometro;ok";
-            case "iniciar":
-                placarController.iniciarCronometro(params[2], params[3]);
-                return "#cronometro;ok";
-            case "pausar":
-                placarController.pausarCronometro();
-                return "#cronometro;ok";
-            case "zerar":
-                placarController.zerarCronometro(params[2]);
-                return "#cronometro;ok";
-            default:
-                return "#cronometro;not-ok";
-        }
-    }
-
-    public static String comandoPropaganda(String[] params) {
-        try {
-            switch (params[1]) {
-                case "imagem":
-                    switch (params[2]) {
-                        case "exibir":
-                            linhaDoTempoTrocarCena(Cena.PROPAGANDA);
-                            sleep(1000);
-                            propagandaController.exibirPropagandaImagem(Utils.decodificar("imagem", params[3]));
-                            return "#propaganda;ok";
-                        case "parar":
-                            linhaDoTempoTrocarCena(Cena.ATUAL);
-                            return "#propaganda;ok";
-                        default:
-                            return "#propaganda;not-ok";
-                    }
-                case "video":
-                    switch (params[2]) {
-                        case "exibir":
-                            linhaDoTempoTrocarCena(Cena.PROPAGANDA);
-                            sleep(1000);
-                            propagandaController.exibirPropagandaVideo(Utils.decodificar("video", params[3]));
-                            return "#propaganda;ok";
-                        case "parar":
-                            propagandaController.pararPropagandaVideo();
-                            sleep(1000);
-                            linhaDoTempoTrocarCena(Cena.ATUAL);
-                            return "#propaganda;ok";
-                        default:
-                            return "#propaganda;not-ok";
-                    }
-                case "escalacao":
-                    switch (params[2]) {
-                        case "exibir":
-                            linhaDoTempoTrocarCena(Cena.PROPAGANDA);
-                            sleep(1000);
-                            propagandaController.exibirEscalacao(params[3]);
-                            return "#propaganda;ok";
-                        case "parar":
-                            propagandaController.pararEscalacao();
-                            sleep(1000);
-                            linhaDoTempoTrocarCena(Cena.ATUAL);
-                            return "#propaganda;ok";
-                        default:
-                            return "#propaganda;not-ok";
-                    }
-                default:
-                    return "#propaganda;not-ok";
-            }
-        } catch (IOException ex) {
-            MeuLogger.logException(Level.WARNING, "Não foi possível decodificar a imagem/vídeo.", ex);
-            return "#propaganda;not-ok";
-        } catch (InterruptedException ex) {
-            MeuLogger.logException(Level.INFO, "Thread interrompida.", ex);
-            return "#propaganda;not-ok";
-        }
+    private static void trocarCena(Cena c) {
+        Platform.runLater(() -> MainApp.trocarCena(c));
     }
 
     public static String comandoCadastroUsuario(String[] params) {
@@ -521,11 +217,9 @@ public class PlacarServer extends Thread {
                     ListaUsuarios listaAtualizada = new ListaUsuarios();
                     listaAtualizada.setUsuarios(listaExistente.getUsuarios());
 
-                    for (Usuario u : listaAtualizada.getUsuarios()) {
-                        if (!u.getUsuario().equals(params[2])) {
-                            listaPermanece.add(u);
-                        }
-                    }
+                    listaAtualizada.getUsuarios().stream()
+                            .filter((u) -> !u.getUsuario().equals(params[2]))
+                            .forEach((u) -> listaPermanece.add(u));
 
                     listaAtualizada.setUsuarios(listaPermanece);
                     DadosXML.insert("ListaUsuarios", listaAtualizada);
@@ -546,12 +240,9 @@ public class PlacarServer extends Thread {
                     ListaUsuarios listaAtualizada = new ListaUsuarios();
                     listaAtualizada.setUsuarios(listaExistente.getUsuarios());
 
-                    for (Usuario u : listaAtualizada.getUsuarios()) {
-                        if (u.getUsuario().equals(params[2])) {
-                            u.setSenha(params[3]);
-                            break;
-                        }
-                    }
+                    listaAtualizada.getUsuarios().stream()
+                            .filter((u) -> u.getUsuario().equals(params[2]))
+                            .forEach((u) -> u.setSenha(params[3]));
 
                     DadosXML.insert("ListaUsuarios", listaAtualizada);
 
@@ -562,6 +253,255 @@ public class PlacarServer extends Thread {
                 }
             default:
                 return "#cadastro-usuario;not-ok";
+        }
+    }
+
+    public static String comandoEsporte(String[] params) {
+        switch (params[1]) {
+            case "basquete":
+                trocarCena(Cena.PLACAR_BASQUETE);
+                usuarioPlacarOn = true;
+                return "#esporte;basquete-ok";
+            case "futsal":
+                trocarCena(Cena.PLACAR_FUTSAL);
+                usuarioPlacarOn = true;
+                return "#esporte;futsal-ok";
+            default:
+                return "#esporte;not-ok";
+        }
+    }
+
+    public static String comandoUsuarioPlacar(String[] params) {
+        if (usuarioPlacarOn) {
+            return "#usuario-placar;ok";
+        } else {
+            return "#usuario-placar;not-ok";
+        }
+    }
+
+    public static String comandoNomeTime(String[] params) {
+        switch (params[1]) {
+            case "local":
+            case "visitante":
+                switch (params[2]) {
+                    case "alterar":
+                        placarController.alterarNomeTime(params[1], params[3]);
+                        return "#nome-time;ok";
+                    case "restaurar":
+                        placarController.alterarNomeTime(params[1], "VISITANTE");
+                        return "#nome-time;ok";
+                    default:
+                        return "#nome-time;not-ok";
+                }
+            default:
+                return "#nome-time;not-ok";
+        }
+    }
+
+    public static String comandoCronometro(String[] params) {
+        switch (params[1]) {
+            case "definir":
+                placarController.definirCronometro(params[2], params[3]);
+                return "#cronometro;ok";
+            case "iniciar":
+                placarController.iniciarCronometro(params[2], params[3]);
+                return "#cronometro;ok";
+            case "pausar":
+                placarController.pausarCronometro();
+                return "#cronometro;ok";
+            case "zerar":
+                placarController.zerarCronometro(params[2]);
+                return "#cronometro;ok";
+            default:
+                return "#cronometro;not-ok";
+        }
+    }
+
+    public static String comandoPeriodo(String[] params) {
+        switch (params[1]) {
+            case "mais":
+                placarController.aumentarPeriodo(Integer.parseInt(params[2]));
+                return "#periodo;ok";
+            case "menos":
+                placarController.diminuirPeriodo(Integer.parseInt(params[2]));
+                return "#periodo;ok";
+            case "zerar":
+                placarController.restaurarPeriodo();
+                return "#periodo;ok";
+            default:
+                return "#periodo;not-ok";
+        }
+    }
+
+    public static String comandoPosse(String[] params) {
+        switch (params[1]) {
+            case "local":
+            case "visitante":
+                switch (params[2]) {
+                    case "trocar":
+                        placarController.trocarPosse(params[1]);
+                        return "#posse;ok";
+                    default:
+                        return "#posse;not-ok";
+                }
+            default:
+                return "#posse;not-ok";
+        }
+    }
+
+    public static String comandoBonus(String[] params) {
+        switch (params[1]) {
+            case "local":
+            case "visitante":
+                switch (params[2]) {
+                    case "definir":
+                        placarController.definirBonus(params[1]);
+                        return "#bonus;ok";
+                    case "remover":
+                        placarController.removerBonus(params[1]);
+                        return "#bonus;ok";
+                    default:
+                        return "#bonus;not-ok";
+                }
+            default:
+                return "#bonus;not-ok";
+        }
+    }
+
+    public static String comandoPontos(String[] params) {
+        switch (params[1]) {
+            case "local":
+            case "visitante":
+                switch (params[2]) {
+                    case "mais":
+                        placarController.aumentarPontos(params[1], Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    case "menos":
+                        placarController.diminuirPontos(params[1], Integer.parseInt(params[3]));
+                        return "#pontos;ok";
+                    default:
+                        return "#pontos;not-ok";
+                }
+            case "zerar":
+                placarController.zerarPontos();
+                return "#pontos;ok";
+            default:
+                return "#pontos;not-ok";
+        }
+    }
+
+    public static String comandoFaltas(String[] params) {
+        switch (params[1]) {
+            case "local":
+            case "visitante":
+                switch (params[2]) {
+                    case "mais":
+                        placarController.aumentarFaltas(params[1], Integer.parseInt(params[3]));
+                        return "#faltas;ok";
+                    case "menos":
+                        placarController.diminuirFaltas(params[1], Integer.parseInt(params[3]));
+                        return "#faltas;ok";
+                    default:
+                        return "#faltas;not-ok";
+                }
+            case "zerar":
+                placarController.zerarFaltas();
+                return "#faltas;ok";
+            default:
+                return "#faltas;not-ok";
+        }
+    }
+
+    public static String comandoTextoInferior(String[] params) {
+        switch (params[1]) {
+            case "alterar":
+                placarController.alterarTextoInferior(params[2]);
+                return "#texto-inferior;ok";
+            case "restaurar":
+                placarController.alterarTextoInferior("PLACAR ELETRONICO FX");
+                return "#texto-inferior;ok";
+            default:
+                return "#texto-inferior;not-ok";
+        }
+    }
+
+    public static String comandoImagens(String[] params) {
+        try {
+            switch (params[1]) {
+                case "direita":
+                case "esquerda":
+                    switch (params[2]) {
+                        case "alterar":
+                            placarController.alterarImagem(params[1], Utils.decodificar("imagem", params[3]));
+                            return "#imagens;ok";
+                        case "restaurar":
+                            placarController.restaurarImagem(params[1]);
+                            return "#imagens;ok";
+                        default:
+                            return "#imagens;not-ok";
+                    }
+                default:
+                    return "#imagens;not-ok";
+            }
+        } catch (IOException ex) {
+            MeuLogger.logException(Level.WARNING, "Não foi possível decodificar a imagem.", ex);
+            return "#imagens;not-ok";
+        }
+    }
+
+    public static String comandoPropaganda(String[] params) {
+        try {
+            switch (params[1]) {
+                case "imagem":
+                    switch (params[2]) {
+                        case "exibir":
+                            trocarCena(Cena.PROPAGANDA);
+                            sleep(1000);
+                            propagandaController.exibirPropagandaImagem(Utils.decodificar("imagem", params[3]));
+                            return "#propaganda;ok";
+                        case "parar":
+                            trocarCena(Cena.ATUAL);
+                            return "#propaganda;ok";
+                        default:
+                            return "#propaganda;not-ok";
+                    }
+                case "video":
+                    switch (params[2]) {
+                        case "exibir":
+                            trocarCena(Cena.PROPAGANDA);
+                            sleep(1000);
+                            propagandaController.exibirPropagandaVideo(Utils.decodificar("video", params[3]));
+                            return "#propaganda;ok";
+                        case "parar":
+                            propagandaController.pararPropagandaVideo();
+                            sleep(1000);
+                            trocarCena(Cena.ATUAL);
+                            return "#propaganda;ok";
+                        default:
+                            return "#propaganda;not-ok";
+                    }
+                case "escalacao":
+                    switch (params[2]) {
+                        case "exibir":
+                            trocarCena(Cena.PROPAGANDA);
+                            sleep(1000);
+                            propagandaController.exibirEscalacoes(params[3]);
+                            return "#propaganda;ok";
+                        case "parar":
+                            trocarCena(Cena.ATUAL);
+                            return "#propaganda;ok";
+                        default:
+                            return "#propaganda;not-ok";
+                    }
+                default:
+                    return "#propaganda;not-ok";
+            }
+        } catch (IOException ex) {
+            MeuLogger.logException(Level.WARNING, "Não foi possível decodificar a imagem/vídeo.", ex);
+            return "#propaganda;not-ok";
+        } catch (InterruptedException ex) {
+            MeuLogger.logException(Level.INFO, "Thread interrompida.", ex);
+            return "#propaganda;not-ok";
         }
     }
 

@@ -19,7 +19,7 @@ public class Cronos implements Runnable {
 
     @Override
     public void run() {
-        while (pc.isExecutando()) {
+        while (pc.isExecutandoCronometro()) {
             if (segundos == 0) {
                 minutos--;
                 segundos = 59;

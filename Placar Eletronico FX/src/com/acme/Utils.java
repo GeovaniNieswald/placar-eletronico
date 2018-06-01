@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.logging.Level;
 
 public class Utils {
 
@@ -20,7 +21,7 @@ public class Utils {
     }
 
     public static File decodificar(String tipo, String fileCodificado) throws IOException {
-        File file;
+        File file = null;
 
         switch (tipo) {
             case "imagem":
@@ -30,7 +31,7 @@ public class Utils {
                 file = new File("video.mp4");
                 break;
             default:
-                file = new File("imagem.png");
+                MeuLogger.logMensagem(Level.WARNING, "Tipo de arquivo informado não está presente entre as opções do switch.");
         }
 
         byte[] bytes = Base64.getDecoder().decode(fileCodificado);

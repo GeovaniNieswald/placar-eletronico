@@ -7,9 +7,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -89,16 +88,11 @@ public class PlacarController implements Initializable {
     private boolean executandoCronometroPrimeiraVez = true;
     private boolean executandoCronometro;
 
-    private void linhaDoTempoLabel(Label label, String texto) {
-        Timeline tlLabel = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            label.setText(texto);
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        tlLabel.play();
+    private void alterarLabel(Label label, String texto) {
+        Platform.runLater(() -> label.setText(texto));
     }
 
-    private void linhaDoTempoVBox(VBox vBox, File file) {
+    private void alterarVbox(VBox vBox, File file) {
         Background background;
 
         if (file == null) {
@@ -111,199 +105,27 @@ public class PlacarController implements Initializable {
             background = new Background(backgroundImage);
         }
 
-        Timeline tlVBox = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            vBox.setBackground(background);
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        tlVBox.play();
+        Platform.runLater(() -> vBox.setBackground(background));
     }
 
-    public void setNomeTimeLocal(String texto) {
-        linhaDoTempoLabel(lNomeTimeLocal, texto);
-    }
-
-    public void setNomeTimeVisitante(String texto) {
-        linhaDoTempoLabel(lNomeTimeVisitante, texto);
-    }
-
-    public void setTextoInferior(String texto) {
-        linhaDoTempoLabel(lTextoInferior, texto);
-    }
-
-    public void aumentarPontosTimeLocal(int pontos) {
-        pontosTimeLocal += pontos;
-
-        if (pontosTimeLocal > 9) {
-            linhaDoTempoLabel(lPontosTimeLocal, pontosTimeLocal + "");
+    public void alterarNomeTime(String lado, String texto) {
+        if (lado.equals("local")) {
+            alterarLabel(lNomeTimeLocal, texto);
         } else {
-            linhaDoTempoLabel(lPontosTimeLocal, "0" + pontosTimeLocal);
+            alterarLabel(lNomeTimeVisitante, texto);
         }
     }
 
-    public void diminuirPontosTimeLocal(int pontos) {
-        pontosTimeLocal -= pontos;
-
-        if (pontosTimeLocal > 9) {
-            linhaDoTempoLabel(lPontosTimeLocal, pontosTimeLocal + "");
-        } else {
-            linhaDoTempoLabel(lPontosTimeLocal, "0" + pontosTimeLocal);
-        }
-    }
-
-    public void aumentarPontosTimeVisitante(int pontos) {
-        pontosTimeVisitante += pontos;
-
-        if (pontosTimeVisitante > 9) {
-            linhaDoTempoLabel(lPontosTimeVisitante, pontosTimeVisitante + "");
-        } else {
-            linhaDoTempoLabel(lPontosTimeVisitante, "0" + pontosTimeVisitante);
-        }
-    }
-
-    public void diminuirPontosTimeVisitante(int pontos) {
-        pontosTimeVisitante -= pontos;
-
-        if (pontosTimeVisitante > 9) {
-            linhaDoTempoLabel(lPontosTimeVisitante, pontosTimeVisitante + "");
-        } else {
-            linhaDoTempoLabel(lPontosTimeVisitante, "0" + pontosTimeVisitante);
-        }
-    }
-
-    public void zerarPontos() {
-        pontosTimeLocal = 0;
-        pontosTimeVisitante = 0;
-
-        linhaDoTempoLabel(lPontosTimeLocal, "00");
-        linhaDoTempoLabel(lPontosTimeVisitante, "00");
-    }
-
-    public void aumentarPeriodo(int valor) {
-        periodo += valor;
-
-        if (periodo > 9) {
-            linhaDoTempoLabel(lPeriodo, periodo + "");
-        } else {
-            linhaDoTempoLabel(lPeriodo, "0" + periodo);
-        }
-    }
-
-    public void diminuirPeriodo(int valor) {
-        periodo -= valor;
-
-        if (periodo > 9) {
-            linhaDoTempoLabel(lPeriodo, periodo + "");
-        } else {
-            linhaDoTempoLabel(lPeriodo, "0" + periodo);
-        }
-    }
-
-    public void definirBonus(String lado) {
-        if ("local".equals(lado)) {
-            ovBonusTimeLocal.setVisible(true);
-        } else if ("visitante".equals(lado)) {
-            ovBonusTimeVisitante.setVisible(true);
-        }
-    }
-
-    public void removerBonus(String lado) {
-        if ("local".equals(lado)) {
-            ovBonusTimeLocal.setVisible(false);
-        } else if ("visitante".equals(lado)) {
-            ovBonusTimeVisitante.setVisible(false);
-        }
-    }
-
-    public void trocaPosse(String lado) {
-        if ("local".equals(lado)) {
-            ovPosseTimeLocal.setVisible(true);
-            ovPosseTimeVisitante.setVisible(false);
-        } else if ("visitante".equals(lado)) {
-            ovPosseTimeLocal.setVisible(false);
-            ovPosseTimeVisitante.setVisible(true);
-        }
-    }
-
-    public void restaurarPeriodo() {
-        periodo = 1;
-        linhaDoTempoLabel(lPeriodo, "0" + periodo);
-    }
-
-    public void aumentarFaltasTimeLocal(int faltas) {
-        faltasTimeLocal += faltas;
-
-        if (faltasTimeLocal > 9) {
-            linhaDoTempoLabel(lFaltasTimeLocal, faltasTimeLocal + "");
-        } else {
-            linhaDoTempoLabel(lFaltasTimeLocal, "0" + faltasTimeLocal);
-        }
-    }
-
-    public void diminuirFaltasTimeLocal(int faltas) {
-        faltasTimeLocal -= faltas;
-
-        if (faltasTimeLocal > 9) {
-            linhaDoTempoLabel(lFaltasTimeLocal, faltasTimeLocal + "");
-        } else {
-            linhaDoTempoLabel(lFaltasTimeLocal, "0" + faltasTimeLocal);
-        }
-    }
-
-    public void aumentarFaltasTimeVisitante(int faltas) {
-        faltasTimeVisitante += faltas;
-
-        if (faltasTimeVisitante > 9) {
-            linhaDoTempoLabel(lFaltasTimeVisitante, faltasTimeVisitante + "");
-        } else {
-            linhaDoTempoLabel(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
-        }
-    }
-
-    public void diminuirFaltasTimeVisitante(int faltas) {
-        faltasTimeVisitante -= faltas;
-
-        if (faltasTimeVisitante > 9) {
-            linhaDoTempoLabel(lFaltasTimeVisitante, faltasTimeVisitante + "");
-        } else {
-            linhaDoTempoLabel(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
-        }
-    }
-
-    public void zerarFaltas() {
-        faltasTimeLocal = 0;
-        faltasTimeVisitante = 0;
-
-        linhaDoTempoLabel(lFaltasTimeLocal, "00");
-        linhaDoTempoLabel(lFaltasTimeVisitante, "00");
-    }
-
-    public void alterarImagemDireita(File file) {
-        linhaDoTempoVBox(vbImagenDireita, file);
-    }
-
-    public void alterarImagemEsquerda(File file) {
-        linhaDoTempoVBox(vbImagenEsquerda, file);
-    }
-
-    public void restaurarImagemDireita() {
-        linhaDoTempoVBox(vbImagenDireita, null);
-    }
-
-    public void restaurarImagemEsquerda() {
-        linhaDoTempoVBox(vbImagenEsquerda, null);
-    }
-
-    public boolean isExecutando() {
+    public boolean isExecutandoCronometro() {
         return executandoCronometro;
     }
 
-    public void setExecutando(boolean executando) {
+    public void setExecutandoCronometro(boolean executando) {
         this.executandoCronometro = executando;
     }
 
     public void alterarCronometro(int segundos, int minutos) {
-        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Platform.runLater(() -> {
             String[] cronometro = lCronometro.getText().split(":");
 
             if (segundos < 10) {
@@ -319,10 +141,7 @@ public class PlacarController implements Initializable {
             } else {
                 lCronometro.setText(minutos + ":" + cronometro[1]);
             }
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        tlCronometro.play();
+        });
     }
 
     public void definirCronometro(String minutos, String segundos) {
@@ -334,7 +153,7 @@ public class PlacarController implements Initializable {
             segundos = "0" + segundos;
         }
 
-        linhaDoTempoLabel(lCronometro, minutos + ":" + segundos);
+        alterarLabel(lCronometro, minutos + ":" + segundos);
     }
 
     public void iniciarCronometro(String minutos, String segundos) {
@@ -358,16 +177,13 @@ public class PlacarController implements Initializable {
         this.executandoCronometro = false;
         this.executandoCronometroPrimeiraVez = true;
 
-        Timeline tlCronometro = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Platform.runLater(() -> {
             if (esporte.equals("basquete")) {
                 lCronometro.setText("10:00");
             } else {
                 lCronometro.setText("20:00");
             }
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        tlCronometro.play();
+        });
 
         if (threadCronometro != null) {
             threadCronometro.stop();
@@ -380,6 +196,173 @@ public class PlacarController implements Initializable {
         threadCronometro.stop();
     }
 
+    public void aumentarPeriodo(int valor) {
+        periodo += valor;
+
+        if (periodo > 9) {
+            alterarLabel(lPeriodo, periodo + "");
+        } else {
+            alterarLabel(lPeriodo, "0" + periodo);
+        }
+    }
+
+    public void diminuirPeriodo(int valor) {
+        periodo -= valor;
+
+        if (periodo > 9) {
+            alterarLabel(lPeriodo, periodo + "");
+        } else {
+            alterarLabel(lPeriodo, "0" + periodo);
+        }
+    }
+
+    public void restaurarPeriodo() {
+        periodo = 1;
+        alterarLabel(lPeriodo, "0" + periodo);
+    }
+
+    public void trocarPosse(String lado) {
+        if (lado.equals("local")) {
+            ovPosseTimeLocal.setVisible(true);
+            ovPosseTimeVisitante.setVisible(false);
+        } else {
+            ovPosseTimeLocal.setVisible(false);
+            ovPosseTimeVisitante.setVisible(true);
+        }
+    }
+
+    public void definirBonus(String lado) {
+        if (lado.equals("local")) {
+            ovBonusTimeLocal.setVisible(true);
+        } else {
+            ovBonusTimeVisitante.setVisible(true);
+        }
+    }
+
+    public void removerBonus(String lado) {
+        if (lado.equals("local")) {
+            ovBonusTimeLocal.setVisible(false);
+        } else {
+            ovBonusTimeVisitante.setVisible(false);
+        }
+    }
+
+    public void aumentarPontos(String lado, int pontos) {
+        if (lado.equals("local")) {
+            pontosTimeLocal += pontos;
+
+            if (pontosTimeLocal > 9) {
+                alterarLabel(lPontosTimeLocal, pontosTimeLocal + "");
+            } else {
+                alterarLabel(lPontosTimeLocal, "0" + pontosTimeLocal);
+            }
+        } else {
+            pontosTimeVisitante += pontos;
+
+            if (pontosTimeVisitante > 9) {
+                alterarLabel(lPontosTimeVisitante, pontosTimeVisitante + "");
+            } else {
+                alterarLabel(lPontosTimeVisitante, "0" + pontosTimeVisitante);
+            }
+        }
+    }
+
+    public void diminuirPontos(String lado, int pontos) {
+        if (lado.equals("local")) {
+            pontosTimeLocal -= pontos;
+
+            if (pontosTimeLocal > 9) {
+                alterarLabel(lPontosTimeLocal, pontosTimeLocal + "");
+            } else {
+                alterarLabel(lPontosTimeLocal, "0" + pontosTimeLocal);
+            }
+        } else {
+            pontosTimeVisitante -= pontos;
+
+            if (pontosTimeVisitante > 9) {
+                alterarLabel(lPontosTimeVisitante, pontosTimeVisitante + "");
+            } else {
+                alterarLabel(lPontosTimeVisitante, "0" + pontosTimeVisitante);
+            }
+        }
+    }
+
+    public void zerarPontos() {
+        pontosTimeLocal = 0;
+        pontosTimeVisitante = 0;
+
+        alterarLabel(lPontosTimeLocal, "00");
+        alterarLabel(lPontosTimeVisitante, "00");
+    }
+
+    public void aumentarFaltas(String lado, int faltas) {
+        if (lado.equals("local")) {
+            faltasTimeLocal += faltas;
+
+            if (faltasTimeLocal > 9) {
+                alterarLabel(lFaltasTimeLocal, faltasTimeLocal + "");
+            } else {
+                alterarLabel(lFaltasTimeLocal, "0" + faltasTimeLocal);
+            }
+        } else {
+            faltasTimeVisitante += faltas;
+
+            if (faltasTimeVisitante > 9) {
+                alterarLabel(lFaltasTimeVisitante, faltasTimeVisitante + "");
+            } else {
+                alterarLabel(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
+            }
+        }
+    }
+
+    public void diminuirFaltas(String lado, int faltas) {
+        if (lado.equals("local")) {
+            faltasTimeLocal -= faltas;
+
+            if (faltasTimeLocal > 9) {
+                alterarLabel(lFaltasTimeLocal, faltasTimeLocal + "");
+            } else {
+                alterarLabel(lFaltasTimeLocal, "0" + faltasTimeLocal);
+            }
+        } else {
+            faltasTimeVisitante -= faltas;
+
+            if (faltasTimeVisitante > 9) {
+                alterarLabel(lFaltasTimeVisitante, faltasTimeVisitante + "");
+            } else {
+                alterarLabel(lFaltasTimeVisitante, "0" + faltasTimeVisitante);
+            }
+        }
+    }
+
+    public void zerarFaltas() {
+        faltasTimeLocal = 0;
+        faltasTimeVisitante = 0;
+
+        alterarLabel(lFaltasTimeLocal, "00");
+        alterarLabel(lFaltasTimeVisitante, "00");
+    }
+
+    public void alterarTextoInferior(String texto) {
+        alterarLabel(lTextoInferior, texto);
+    }
+
+    public void alterarImagem(String lado, File file) {
+        if (lado.equals("direita")) {
+            alterarVbox(vbImagenDireita, file);
+        } else {
+            alterarVbox(vbImagenEsquerda, file);
+        }
+    }
+
+    public void restaurarImagem(String lado) {
+        if (lado.equals("direita")) {
+            alterarVbox(vbImagenDireita, null);
+        } else {
+            alterarVbox(vbImagenEsquerda, null);
+        }
+    }
+
     @FXML
     void bFecharAction(ActionEvent event) {
         System.exit(0);
@@ -389,7 +372,7 @@ public class PlacarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         PlacarServer.instanciaPlacarController(this);
 
-        Timeline moverTexto = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        Platform.runLater(() -> {
             int tamanhoTexto = lTextoInferior.getText().length();
 
             if (tamanhoTexto == 0) {
@@ -401,10 +384,6 @@ public class PlacarController implements Initializable {
             tt.setFromX((tamanhoTexto * 60) * -1);
             tt.setToX(1200);
             tt.playFromStart();
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        moverTexto.setCycleCount(1);
-        moverTexto.play();
+        });
     }
 }

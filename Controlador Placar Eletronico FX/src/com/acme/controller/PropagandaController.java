@@ -96,7 +96,7 @@ public class PropagandaController implements Initializable {
 
         this.escalacoes = this.escalacoes.substring(0, this.escalacoes.length() - 1);
 
-        jfxtfEscalacaoAtual.setText("Escalação Criada");
+        jfxtfEscalacaoAtual.setText("Escalação Adicionada");
     }
 
     private void erroDeConexao(Exception ex, JFXTextField tf) {
@@ -375,7 +375,7 @@ public class PropagandaController implements Initializable {
     }
 
     @FXML
-    void jfxtfNovaEscalacaoOnClicked(MouseEvent event) {
+    void jfxtfCriarCarregarEscalacaoOnClicked(MouseEvent event) {
         MainApp.trocarCena(Cena.ESCALACAO);
         EscalacaoController.instanciaPropagandaController(this);
     }

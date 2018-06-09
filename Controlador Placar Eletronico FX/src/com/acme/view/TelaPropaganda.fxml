@@ -112,7 +112,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField alignment="CENTER" editable="false" focusColor="#890e01" layoutX="159.0" layoutY="352.0" onMouseClicked="#jfxtfNovaEscalacaoOnClicked" prefHeight="31.0" prefWidth="134.0" promptText="Criar Nova" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="352.0">
+            <JFXTextField alignment="CENTER" editable="false" focusColor="#890e01" layoutX="159.0" layoutY="352.0" onMouseClicked="#jfxtfCriarCarregarEscalacaoOnClicked" prefHeight="31.0" prefWidth="134.0" promptText="Criar/Carregar" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="352.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

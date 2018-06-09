@@ -8,21 +8,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Jogador {
 
-    // Atributos 
     private String posicao;
     private String numero;
     private String nome;
 
-    // Construtor
     public Jogador(String posicao, String numero, String nome) {
         this.posicao = posicao;
         this.numero = numero;
         this.nome = nome;
     }
+
     public Jogador() {
     }
 
-    // Métodos
     public String getPosicao() {
         return posicao;
     }

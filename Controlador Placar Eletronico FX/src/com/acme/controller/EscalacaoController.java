@@ -1,6 +1,8 @@
 package com.acme.controller;
 
 import com.acme.MainApp;
+import com.acme.MeuLogger;
+import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.DadosXML;
 import com.acme.model.Escalacao;
@@ -12,24 +14,33 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 
 public class EscalacaoController implements Initializable {
+
+    @FXML
+    private GridPane gpTelaEscalacao;
 
     @FXML
     private Label lTimeLocal;
@@ -154,6 +165,69 @@ public class EscalacaoController implements Initializable {
         return escalacoesValidas;
     }
 
+    private void definirEscalacoes() {
+        ArrayList<Jogador> jogadoresLocal = new ArrayList<>();
+        ArrayList<Jogador> jogadoresVisitante = new ArrayList<>();
+
+        jogadoresTimeLocal.forEach((j) -> {
+            Jogador jAux = new Jogador(j.getPosicao().get(), j.getNumero().get(), j.getNome().get());
+            jogadoresLocal.add(jAux);
+        });
+
+        jogadoresTimeVisitante.forEach((j) -> {
+            Jogador jAux = new Jogador(j.getPosicao().get(), j.getNumero().get(), j.getNome().get());
+            jogadoresVisitante.add(jAux);
+        });
+
+        Escalacao timeLocal = new Escalacao(true, jogadoresLocal);
+        Escalacao timeVisitante = new Escalacao(false, jogadoresVisitante);
+
+        ArrayList<Escalacao> listaEscalacoes = new ArrayList<>();
+        listaEscalacoes.add(timeLocal);
+        listaEscalacoes.add(timeVisitante);
+
+        escalacoes.setEscalacoes(listaEscalacoes);
+    }
+
+    private void carregarXML() {
+        FileChooser fcXML = new FileChooser();
+
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("Arquivo XML", "*.xml");
+
+        fcXML.setTitle("Selecione um arquivo XML que contenha as escalações");
+        fcXML.getExtensionFilters().add(filtro);
+
+        File file = fcXML.showOpenDialog((Stage) gpTelaEscalacao.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                escalacoes = DadosXML.carregarEscalações(file.getPath());
+
+                List<Escalacao> listaEscalacoes = escalacoes.getEscalacoes();
+
+                Escalacao timeLocal = listaEscalacoes.get(0);
+                Escalacao timeVisitante = listaEscalacoes.get(1);
+
+                List<Jogador> jogadoresLocal = timeLocal.getJogadores();
+                List<Jogador> jogadoresVisitante = timeVisitante.getJogadores();
+
+                jogadoresTimeLocal.removeAll(jogadoresTimeLocal);
+                jogadoresTimeVisitante.removeAll(jogadoresTimeVisitante);
+
+                jogadoresLocal.forEach((j) -> {
+                    jogadoresTimeLocal.add(new JogadorTabela(j.getPosicao(), j.getNumero(), j.getNome()));
+                });
+
+                jogadoresVisitante.forEach((j) -> {
+                    jogadoresTimeVisitante.add(new JogadorTabela(j.getPosicao(), j.getNumero(), j.getNome()));
+                });
+            } catch (JAXBException ex) {
+                MeuLogger.logException(Level.WARNING, "Erro no XML.", ex);
+                Utils.telaMensagem("Erro!", "Não foi possível carregar o XML", "Verifique se é um XML correto, que contenha duas escalações!", Alert.AlertType.ERROR);
+            }
+        }
+    }
+
     @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         MainApp.trocarCena(Cena.PROPAGANDA_ATUAL);
@@ -215,27 +289,7 @@ public class EscalacaoController implements Initializable {
     @FXML
     void jfxbAdicionarEscalacaoOnAction(ActionEvent event) {
         if (validarEscalacoes(jogadoresTimeLocal, jogadoresTimeVisitante)) {
-            ArrayList<Jogador> jogadoresLocal = new ArrayList<>();
-            ArrayList<Jogador> jogadoresVisitante = new ArrayList<>();
-
-            jogadoresTimeLocal.forEach((j) -> {
-                Jogador jAux = new Jogador(j.getPosicao().get(), j.getNumero().get(), j.getNome().get());
-                jogadoresLocal.add(jAux);
-            });
-
-            jogadoresTimeVisitante.forEach((j) -> {
-                Jogador jAux = new Jogador(j.getPosicao().get(), j.getNumero().get(), j.getNome().get());
-                jogadoresVisitante.add(jAux);
-            });
-
-            Escalacao timeLocal = new Escalacao(true, jogadoresLocal);
-            Escalacao timeVisitante = new Escalacao(false, jogadoresVisitante);
-
-            ArrayList<Escalacao> listaEscalacoes = new ArrayList<>();
-            listaEscalacoes.add(timeLocal);
-            listaEscalacoes.add(timeVisitante);
-
-            escalacoes.setEscalacoes(listaEscalacoes);
+            definirEscalacoes();
 
             propagandaController.receberEscalacoes(escalacoes);
 
@@ -246,15 +300,36 @@ public class EscalacaoController implements Initializable {
 
     @FXML
     void jfxbCarregarXMLOnAction(ActionEvent event) {
-
+        if (!jogadoresTimeLocal.isEmpty() || !jogadoresTimeVisitante.isEmpty()) {
+            if (Utils.telaConfirmacao("Sobrepor", "", "Existem jogadores nas tabelas, deseja substitui-los por jogadores de um xml?", Alert.AlertType.CONFIRMATION)) {
+                carregarXML();
+            }
+        } else {
+            carregarXML();
+        }
     }
 
     @FXML
     void jfxbSalvarXMLOnAction(ActionEvent event) {
-        try {
-            DadosXML.salvarEscalacoes("C:\\Users\\Geovani Nieswald\\Controlador-Placar-Eletronico\\escalacoes.xml", escalacoes);
-        } catch (JAXBException ex) {
-            Logger.getLogger(EscalacaoController.class.getName()).log(Level.SEVERE, null, ex);
+        if (validarEscalacoes(jogadoresTimeLocal, jogadoresTimeVisitante)) {
+            DirectoryChooser dcPasta = new DirectoryChooser();
+
+            dcPasta.setTitle("Selecione onde deseja salvar o XML");
+
+            File file = dcPasta.showDialog((Stage) gpTelaEscalacao.getScene().getWindow());
+
+            if (file != null) {
+                definirEscalacoes();
+
+                try {
+                    DadosXML.salvarEscalacoes(file.getPath() + "\\escalacoes.xml", escalacoes);
+
+                    Utils.telaMensagem("Salvo!", "", "Escalações salvas com sucesso!", Alert.AlertType.INFORMATION);
+                } catch (JAXBException ex) {
+                    MeuLogger.logException(Level.WARNING, "Erro no XML.", ex);
+                    Utils.telaMensagem("Erro!", "", "Aconteceu algum erro, e não foi possível salvar as escalações!", Alert.AlertType.ERROR);
+                }
+            }
         }
     }
 

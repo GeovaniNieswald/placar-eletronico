@@ -6,19 +6,16 @@ import javafx.beans.property.StringProperty;
 
 public class JogadorTabela extends RecursiveTreeObject<JogadorTabela> {
 
-    // Atributos 
     private StringProperty posicao;
     private StringProperty numero;
     private StringProperty nome;
 
-    // Construtor
     public JogadorTabela(String posicao, String numero, String nome) {
         this.posicao = new SimpleStringProperty(posicao);
         this.numero = new SimpleStringProperty(numero);
         this.nome = new SimpleStringProperty(nome);
     }
 
-    // Métodos
     public StringProperty getPosicao() {
         return posicao;
     }

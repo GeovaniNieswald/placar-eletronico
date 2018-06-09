@@ -27,10 +27,11 @@ public class Utils {
         alerta.setHeaderText(cabecalho);
         alerta.setContentText(msg);
 
-        ButtonType botaoSim = new ButtonType("Sim");
+        ButtonType botaoSim = new ButtonType("Sim", ButtonData.YES);
+        ButtonType botaoNao = new ButtonType("Não", ButtonData.NO);
         ButtonType botaoCancelar = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
 
-        alerta.getButtonTypes().setAll(botaoSim, botaoCancelar);
+        alerta.getButtonTypes().setAll(botaoSim, botaoNao, botaoCancelar);
 
         Optional<ButtonType> resultado = alerta.showAndWait();
 

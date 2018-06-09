@@ -19,6 +19,7 @@ public class Escalacao {
         this.timeLocal = timeLocal;
         this.jogadores = jogadores;
     }
+
     public Escalacao() {
     }
 

@@ -15,7 +15,8 @@
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: BLACK;" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.PlacarController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="17.8" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.9" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.9" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
@@ -23,7 +24,8 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="12.8" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="0.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="17.8" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.9" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="8.9" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
@@ -38,7 +40,7 @@
       <RowConstraints minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="3">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
             <Label fx:id="lCronometro" text="10:00" textFill="RED">
                <font>
@@ -51,7 +53,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lNomeTimeLocal" styleClass="fonte-padrao" text="LOCAL" textFill="WHITE">
                <font>
@@ -69,7 +71,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lNomeTimeVisitante" styleClass="fonte-padrao" text="VISITANTE" textFill="WHITE">
                <font>
@@ -87,7 +89,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <children>
             <Label fx:id="lFaltasTimeLocal" text="00" textFill="RED">
                <font>
@@ -105,7 +107,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <children>
             <Label fx:id="lFaltasTimeVisitante" text="00" textFill="RED">
                <font>
@@ -123,7 +125,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lPeriodo" text="01" textFill="RED">
                <font>
@@ -141,7 +143,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="11" GridPane.rowIndex="7">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="13" GridPane.rowIndex="7">
          <children>
             <Label fx:id="lTextoInferior" text="PLACAR ELETRONICO FX" textFill="RED">
                <font>
@@ -154,24 +156,24 @@
             </Label>
          </children>
       </VBox>
-      <VBox fx:id="vbImagenEsquerda" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="3" />
-      <VBox fx:id="vbImagenDireita" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="3" GridPane.rowSpan="2" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="6">
+      <VBox fx:id="vbImagenEsquerda" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <VBox fx:id="vbImagenDireita" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="10" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="11" GridPane.rowIndex="6">
          <children>
             <Button mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
          </children>
       </VBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
          <children>
             <OctIconView fx:id="ovBonusTimeLocal" fill="RED" glyphName="BOLD" size="38" visible="false" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
          <children>
             <OctIconView fx:id="ovBonusTimeVisitante" fill="RED" glyphName="BOLD" size="38" visible="false" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="fonte-padrao" GridPane.columnIndex="5" GridPane.rowIndex="4">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="fonte-padrao" GridPane.columnIndex="6" GridPane.rowIndex="4">
          <children>
             <Label styleClass="fonte-padrao" text="POSSE" textFill="WHITE">
                <font>
@@ -180,12 +182,12 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
          <children>
             <OctIconView fx:id="ovPosseTimeVisitante" fill="#00fc47" glyphName="ARROW_RIGHT" size="38" visible="false" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
          <children>
             <OctIconView fx:id="ovPosseTimeLocal" fill="#00fc47" glyphName="ARROW_LEFT" size="38" />
          </children>

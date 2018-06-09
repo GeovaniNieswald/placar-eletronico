@@ -5,14 +5,14 @@ import com.acme.PlacarClient;
 import com.acme.Utils;
 import com.acme.model.Cena;
 import com.acme.model.Comando;
-import com.acme.model.Jogador;
 import com.acme.MeuLogger;
+import com.acme.model.Escalacao;
+import com.acme.model.ListaEscalacoes;
 import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import javafx.event.ActionEvent;
@@ -74,27 +74,27 @@ public class PropagandaController implements Initializable {
 
     private boolean executandoVideo;
 
-    private String escalacao;
+    private String escalacoes;
 
-    public void receberEscalacao(ArrayList<ArrayList<Jogador>> escalacao) {
-        ArrayList<Jogador> escalacaoLocal = escalacao.get(0);
-        ArrayList<Jogador> escalacaoVisitante = escalacao.get(1);
+    public void receberEscalacoes(ListaEscalacoes escalacoes) {
+        Escalacao escalacaoLocal = escalacoes.getEscalacoes().get(0);
+        Escalacao escalacaoVisitante = escalacoes.getEscalacoes().get(1);
 
-        this.escalacao = "";
+        this.escalacoes = "";
 
-        escalacaoLocal.forEach((j) -> {
-            this.escalacao += j.getPosicao().get() + "-" + j.getNumero().get() + "-" + j.getNome().get() + ">";
+        escalacaoLocal.getJogadores().forEach((j) -> {
+            this.escalacoes += j.getPosicao() + "-" + j.getNumero() + "-" + j.getNome() + ">";
         });
 
-        this.escalacao = this.escalacao.substring(0, this.escalacao.length() - 1);
+        this.escalacoes = this.escalacoes.substring(0, this.escalacoes.length() - 1);
 
-        this.escalacao += "§";
+        this.escalacoes += "§";
 
-        escalacaoVisitante.forEach((j) -> {
-            this.escalacao += j.getPosicao().get() + "-" + j.getNumero().get() + "-" + j.getNome().get() + ">";
+        escalacaoVisitante.getJogadores().forEach((j) -> {
+            this.escalacoes += j.getPosicao() + "-" + j.getNumero() + "-" + j.getNome() + ">";
         });
 
-        this.escalacao = this.escalacao.substring(0, this.escalacao.length() - 1);
+        this.escalacoes = this.escalacoes.substring(0, this.escalacoes.length() - 1);
 
         jfxtfEscalacaoAtual.setText("Escalação Criada");
     }
@@ -194,11 +194,11 @@ public class PropagandaController implements Initializable {
 
     @FXML
     void jfxbExibirEscalacaoOnAction(ActionEvent event) {
-        if (escalacao == null || escalacao.trim().isEmpty()) {
+        if (escalacoes == null || escalacoes.trim().isEmpty()) {
             trocarCorJFXTextField("red", jfxtfEscalacaoL);
         } else {
             try {
-                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "escalacao", "exibir", escalacao);
+                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "escalacao", "exibir", escalacoes);
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                     trocarCorJFXTextField("#09a104", jfxtfEscalacaoL);

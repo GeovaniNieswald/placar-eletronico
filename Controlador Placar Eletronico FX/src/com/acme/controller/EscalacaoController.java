@@ -2,7 +2,11 @@ package com.acme.controller;
 
 import com.acme.MainApp;
 import com.acme.model.Cena;
+import com.acme.model.DadosXML;
+import com.acme.model.Escalacao;
 import com.acme.model.Jogador;
+import com.acme.model.JogadorTabela;
+import com.acme.model.ListaEscalacoes;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -11,6 +15,8 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +27,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import javax.xml.bind.JAXBException;
 
 public class EscalacaoController implements Initializable {
 
@@ -37,7 +44,7 @@ public class EscalacaoController implements Initializable {
     private JFXTextField jfxtfNomeJogadorLocal;
 
     @FXML
-    private JFXTreeTableView<Jogador> jfxttvTabelaEscalacaoTimeLocal;
+    private JFXTreeTableView<JogadorTabela> jfxttvTabelaEscalacaoTimeLocal;
 
     @FXML
     private Label lTimeVisitante;
@@ -52,7 +59,7 @@ public class EscalacaoController implements Initializable {
     private JFXTextField jfxtfNomeJogadorVisitante;
 
     @FXML
-    private JFXTreeTableView<Jogador> jfxttvTabelaEscalacaoTimeVisitante;
+    private JFXTreeTableView<JogadorTabela> jfxttvTabelaEscalacaoTimeVisitante;
 
     @FXML
     private JFXTextField jfxtfPosicaoJogadorLocalL;
@@ -78,10 +85,10 @@ public class EscalacaoController implements Initializable {
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
-    private ArrayList<ArrayList<Jogador>> escalacao;
+    private ObservableList<JogadorTabela> jogadoresTimeLocal;
+    private ObservableList<JogadorTabela> jogadoresTimeVisitante;
 
-    private ObservableList<Jogador> jogadoresTimeLocal;
-    private ObservableList<Jogador> jogadoresTimeVisitante;
+    private ListaEscalacoes escalacoes;
 
     public static void instanciaPropagandaController(PropagandaController pc) {
         propagandaController = pc;
@@ -127,7 +134,7 @@ public class EscalacaoController implements Initializable {
         }
     }
 
-    private boolean validarEscalacoes(ObservableList<Jogador> jogadoresTimeLocal, ObservableList<Jogador> jogadoresTimeVisitante) {
+    private boolean validarEscalacoes(ObservableList<JogadorTabela> jogadoresTimeLocal, ObservableList<JogadorTabela> jogadoresTimeVisitante) {
         boolean escalacoesValidas = true;
 
         if (jogadoresTimeLocal.isEmpty()) {
@@ -166,7 +173,7 @@ public class EscalacaoController implements Initializable {
     @FXML
     void jfxbAdicionarJogadorLocalOnAction(ActionEvent event) {
         if (validarCampos(jfxtfPosicaoJogadorLocal, jfxtfNumeroJogadorLocal, jfxtfNomeJogadorLocal, jfxtfPosicaoJogadorLocalL, jfxtfNumeroJogadorLocalL, jfxtfNomeJogadorLocalL)) {
-            jogadoresTimeLocal.add(new Jogador(jfxtfPosicaoJogadorLocal.getText(), jfxtfNumeroJogadorLocal.getText(), jfxtfNomeJogadorLocal.getText()));
+            jogadoresTimeLocal.add(new JogadorTabela(jfxtfPosicaoJogadorLocal.getText(), jfxtfNumeroJogadorLocal.getText(), jfxtfNomeJogadorLocal.getText()));
 
             limparCampos(jfxtfPosicaoJogadorLocal, jfxtfNumeroJogadorLocal, jfxtfNomeJogadorLocal);
 
@@ -177,7 +184,7 @@ public class EscalacaoController implements Initializable {
     @FXML
     void jfxbAdicionarJogadorVisitanteOnAction(ActionEvent event) {
         if (validarCampos(jfxtfPosicaoJogadorVisitante, jfxtfNumeroJogadorVisitante, jfxtfNomeJogadorVisitante, jfxtfPosicaoJogadorVisitanteL, jfxtfNumeroJogadorVisitanteL, jfxtfNomeJogadorVisitanteL)) {
-            jogadoresTimeVisitante.add(new Jogador(jfxtfPosicaoJogadorVisitante.getText(), jfxtfNumeroJogadorVisitante.getText(), jfxtfNomeJogadorVisitante.getText()));
+            jogadoresTimeVisitante.add(new JogadorTabela(jfxtfPosicaoJogadorVisitante.getText(), jfxtfNumeroJogadorVisitante.getText(), jfxtfNomeJogadorVisitante.getText()));
 
             limparCampos(jfxtfPosicaoJogadorVisitante, jfxtfNumeroJogadorVisitante, jfxtfNomeJogadorVisitante);
 
@@ -206,57 +213,78 @@ public class EscalacaoController implements Initializable {
     }
 
     @FXML
-    void jfxbSalvarEscalacaoOnAction(ActionEvent event) {
+    void jfxbAdicionarEscalacaoOnAction(ActionEvent event) {
         if (validarEscalacoes(jogadoresTimeLocal, jogadoresTimeVisitante)) {
-            ArrayList<Jogador> escalacaoLocal = new ArrayList<>();
+            ArrayList<Jogador> jogadoresLocal = new ArrayList<>();
+            ArrayList<Jogador> jogadoresVisitante = new ArrayList<>();
 
             jogadoresTimeLocal.forEach((j) -> {
-                escalacaoLocal.add(j);
+                Jogador jAux = new Jogador(j.getPosicao().get(), j.getNumero().get(), j.getNome().get());
+                jogadoresLocal.add(jAux);
             });
-
-            ArrayList<Jogador> escalacaoVisitante = new ArrayList<>();
 
             jogadoresTimeVisitante.forEach((j) -> {
-                escalacaoVisitante.add(j);
+                Jogador jAux = new Jogador(j.getPosicao().get(), j.getNumero().get(), j.getNome().get());
+                jogadoresVisitante.add(jAux);
             });
 
-            escalacao.add(escalacaoLocal);
-            escalacao.add(escalacaoVisitante);
+            Escalacao timeLocal = new Escalacao(true, jogadoresLocal);
+            Escalacao timeVisitante = new Escalacao(false, jogadoresVisitante);
 
-            propagandaController.receberEscalacao(escalacao);
+            ArrayList<Escalacao> listaEscalacoes = new ArrayList<>();
+            listaEscalacoes.add(timeLocal);
+            listaEscalacoes.add(timeVisitante);
+
+            escalacoes.setEscalacoes(listaEscalacoes);
+
+            propagandaController.receberEscalacoes(escalacoes);
 
             lTimeLocal.setTextFill(Paint.valueOf("#09a104"));
             lTimeVisitante.setTextFill(Paint.valueOf("#09a104"));
         }
     }
 
+    @FXML
+    void jfxbCarregarXMLOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void jfxbSalvarXMLOnAction(ActionEvent event) {
+        try {
+            DadosXML.salvarEscalacoes("C:\\Users\\Geovani Nieswald\\Controlador-Placar-Eletronico\\escalacoes.xml", escalacoes);
+        } catch (JAXBException ex) {
+            Logger.getLogger(EscalacaoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Colunas tabela time local
-        JFXTreeTableColumn<Jogador, String> colunaPosicaoLocal = new JFXTreeTableColumn<>("Posição");
+        JFXTreeTableColumn<JogadorTabela, String> colunaPosicaoLocal = new JFXTreeTableColumn<>("Posição");
         colunaPosicaoLocal.setPrefWidth(242);
-        colunaPosicaoLocal.setCellValueFactory((TreeTableColumn.CellDataFeatures<Jogador, String> param) -> param.getValue().getValue().getPosicao());
+        colunaPosicaoLocal.setCellValueFactory((TreeTableColumn.CellDataFeatures<JogadorTabela, String> param) -> param.getValue().getValue().getPosicao());
 
-        JFXTreeTableColumn<Jogador, String> colunaNumeroLocal = new JFXTreeTableColumn<>("Número");
+        JFXTreeTableColumn<JogadorTabela, String> colunaNumeroLocal = new JFXTreeTableColumn<>("Número");
         colunaNumeroLocal.setPrefWidth(242);
-        colunaNumeroLocal.setCellValueFactory((TreeTableColumn.CellDataFeatures<Jogador, String> param) -> param.getValue().getValue().getNumero());
+        colunaNumeroLocal.setCellValueFactory((TreeTableColumn.CellDataFeatures<JogadorTabela, String> param) -> param.getValue().getValue().getNumero());
 
-        JFXTreeTableColumn<Jogador, String> colunaNomeLocal = new JFXTreeTableColumn<>("Nome");
+        JFXTreeTableColumn<JogadorTabela, String> colunaNomeLocal = new JFXTreeTableColumn<>("Nome");
         colunaNomeLocal.setPrefWidth(242);
-        colunaNomeLocal.setCellValueFactory((TreeTableColumn.CellDataFeatures<Jogador, String> param) -> param.getValue().getValue().getNome());
+        colunaNomeLocal.setCellValueFactory((TreeTableColumn.CellDataFeatures<JogadorTabela, String> param) -> param.getValue().getValue().getNome());
 
         // Colunas tabela time visitante
-        JFXTreeTableColumn<Jogador, String> colunaPosicaoVisitante = new JFXTreeTableColumn<>("Posição");
+        JFXTreeTableColumn<JogadorTabela, String> colunaPosicaoVisitante = new JFXTreeTableColumn<>("Posição");
         colunaPosicaoVisitante.setPrefWidth(242);
-        colunaPosicaoVisitante.setCellValueFactory((TreeTableColumn.CellDataFeatures<Jogador, String> param) -> param.getValue().getValue().getPosicao());
+        colunaPosicaoVisitante.setCellValueFactory((TreeTableColumn.CellDataFeatures<JogadorTabela, String> param) -> param.getValue().getValue().getPosicao());
 
-        JFXTreeTableColumn<Jogador, String> colunaNumeroVisitante = new JFXTreeTableColumn<>("Número");
+        JFXTreeTableColumn<JogadorTabela, String> colunaNumeroVisitante = new JFXTreeTableColumn<>("Número");
         colunaNumeroVisitante.setPrefWidth(242);
-        colunaNumeroVisitante.setCellValueFactory((TreeTableColumn.CellDataFeatures<Jogador, String> param) -> param.getValue().getValue().getNumero());
+        colunaNumeroVisitante.setCellValueFactory((TreeTableColumn.CellDataFeatures<JogadorTabela, String> param) -> param.getValue().getValue().getNumero());
 
-        JFXTreeTableColumn<Jogador, String> colunaNomeVisitante = new JFXTreeTableColumn<>("Nome");
+        JFXTreeTableColumn<JogadorTabela, String> colunaNomeVisitante = new JFXTreeTableColumn<>("Nome");
         colunaNomeVisitante.setPrefWidth(242);
-        colunaNomeVisitante.setCellValueFactory((TreeTableColumn.CellDataFeatures<Jogador, String> param) -> param.getValue().getValue().getNome());
+        colunaNomeVisitante.setCellValueFactory((TreeTableColumn.CellDataFeatures<JogadorTabela, String> param) -> param.getValue().getValue().getNome());
 
         jogadoresTimeLocal = FXCollections.observableArrayList();
         jogadoresTimeVisitante = FXCollections.observableArrayList();
@@ -264,8 +292,8 @@ public class EscalacaoController implements Initializable {
         jfxttvTabelaEscalacaoTimeLocal.getColumns().addAll(colunaPosicaoLocal, colunaNumeroLocal, colunaNomeLocal);
         jfxttvTabelaEscalacaoTimeVisitante.getColumns().addAll(colunaPosicaoVisitante, colunaNumeroVisitante, colunaNomeVisitante);
 
-        TreeItem<Jogador> rootTimeLocal = new RecursiveTreeItem<>(jogadoresTimeLocal, RecursiveTreeObject::getChildren);
-        TreeItem<Jogador> rootTimeVisitante = new RecursiveTreeItem<>(jogadoresTimeVisitante, RecursiveTreeObject::getChildren);
+        TreeItem<JogadorTabela> rootTimeLocal = new RecursiveTreeItem<>(jogadoresTimeLocal, RecursiveTreeObject::getChildren);
+        TreeItem<JogadorTabela> rootTimeVisitante = new RecursiveTreeItem<>(jogadoresTimeVisitante, RecursiveTreeObject::getChildren);
 
         jfxttvTabelaEscalacaoTimeLocal.setRoot(rootTimeLocal);
         jfxttvTabelaEscalacaoTimeLocal.setShowRoot(false);
@@ -273,6 +301,6 @@ public class EscalacaoController implements Initializable {
         jfxttvTabelaEscalacaoTimeVisitante.setRoot(rootTimeVisitante);
         jfxttvTabelaEscalacaoTimeVisitante.setShowRoot(false);
 
-        escalacao = new ArrayList<>();
+        escalacoes = new ListaEscalacoes();
     }
 }

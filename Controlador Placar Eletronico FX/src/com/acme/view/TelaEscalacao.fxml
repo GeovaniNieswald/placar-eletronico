@@ -91,7 +91,7 @@
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></JFXTreeTableView>
-            <JFXButton layoutX="652.0" layoutY="493.0" onAction="#jfxbSalvarEscalacaoOnAction" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Salvar" textFill="WHITE">
+            <JFXButton layoutX="554.0" layoutY="493.0" onAction="#jfxbAdicionarEscalacaoOnAction" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Adicionar ao Placar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -126,6 +126,16 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
+            <JFXButton layoutX="14.0" layoutY="493.0" onAction="#jfxbCarregarXMLOnAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Carregar de XML" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton layoutX="189.0" layoutY="493.0" onAction="#jfxbSalvarXMLOnAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Salvar para XML" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

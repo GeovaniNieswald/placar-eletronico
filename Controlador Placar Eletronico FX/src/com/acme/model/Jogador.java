@@ -1,45 +1,49 @@
 package com.acme.model;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class Jogador extends RecursiveTreeObject<Jogador> {
+@XmlRootElement(name = "jogador")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Jogador {
 
     // Atributos 
-    private StringProperty posicao;
-    private StringProperty numero;
-    private StringProperty nome;
+    private String posicao;
+    private String numero;
+    private String nome;
 
     // Construtor
     public Jogador(String posicao, String numero, String nome) {
-        this.posicao = new SimpleStringProperty(posicao);
-        this.numero = new SimpleStringProperty(numero);
-        this.nome = new SimpleStringProperty(nome);
+        this.posicao = posicao;
+        this.numero = numero;
+        this.nome = nome;
+    }
+    public Jogador() {
     }
 
     // Métodos
-    public StringProperty getPosicao() {
+    public String getPosicao() {
         return posicao;
     }
 
-    public void setPosicao(StringProperty posicao) {
+    public void setPosicao(String posicao) {
         this.posicao = posicao;
     }
 
-    public StringProperty getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(StringProperty numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public StringProperty getNome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(StringProperty nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 }

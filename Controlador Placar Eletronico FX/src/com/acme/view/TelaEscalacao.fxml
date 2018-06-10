@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -11,127 +12,136 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="box-futsal" fx:id="gpTelaEscalacao" alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="645.0" prefWidth="850.0" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EscalacaoController">
+<GridPane fx:id="gpTelaEscalacao" alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="645.0" prefWidth="850.0" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EscalacaoController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="89.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="100.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="8.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="84.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="8.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="100.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints />
       <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="NaN" prefHeight="0.0" />
       <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="NaN" prefHeight="0.0" />
   </rowConstraints>
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;">
          <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
-               <VBox.margin>
-                  <Insets right="5.0" />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-         <children>
-            <Label prefHeight="42.0" prefWidth="750.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Propaganda - Escalação" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <Label fx:id="lTimeLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="17.0" prefHeight="20.0" prefWidth="730.0" styleClass="fonte-padrao" text="- Time Local -" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="17.0" />
-            <JFXTextField fx:id="jfxtfPosicaoJogadorLocal" focusColor="#890e01" layoutX="86.0" layoutY="47.0" prefHeight="31.0" prefWidth="108.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="47.0" />
-            <JFXTextField fx:id="jfxtfNumeroJogadorLocal" focusColor="#890e01" layoutX="267.0" layoutY="47.0" prefHeight="31.0" prefWidth="32.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="47.0" />
-            <JFXTextField fx:id="jfxtfNomeJogadorLocal" focusColor="#890e01" layoutX="357.0" layoutY="47.0" prefHeight="31.0" prefWidth="187.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="47.0" />
-            <JFXButton layoutX="563.0" layoutY="50.0" onAction="#jfxbAdicionarJogadorLocalOnAction" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Add" textFill="WHITE" AnchorPane.topAnchor="50.0">
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="850.0" style="-fx-background-color: #2D0401;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets right="5.0" />
+                           </VBox.margin>
+                        </FontAwesomeIconView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="735.0">
+                     <children>
+                        <Label prefHeight="42.0" prefWidth="837.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Propaganda - Escalação" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <OctIconView fill="WHITE" glyphName="DASH" onMouseClicked="#ovMinimizarOnMouseClicked" size="30">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </OctIconView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="lTimeLocal" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="75.0" prefHeight="20.0" prefWidth="760.0" styleClass="fonte-padrao" text="- Time Local -" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="75.0" />
+            <JFXTextField fx:id="jfxtfPosicaoJogadorLocal" focusColor="#890e01" layoutX="118.0" layoutY="105.0" prefHeight="31.0" prefWidth="108.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="105.0" />
+            <JFXTextField fx:id="jfxtfNumeroJogadorLocal" focusColor="#890e01" layoutX="299.0" layoutY="105.0" prefHeight="31.0" prefWidth="45.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="105.0" />
+            <JFXTextField fx:id="jfxtfNomeJogadorLocal" focusColor="#890e01" layoutX="405.0" layoutY="105.0" prefHeight="31.0" prefWidth="187.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="105.0" />
+            <JFXButton layoutX="624.0" layoutY="108.0" onAction="#jfxbAdicionarJogadorLocalOnAction" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Add" textFill="WHITE" AnchorPane.topAnchor="108.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="652.0" layoutY="50.0" onAction="#jfxbRemoverJogadorLocalOnAction" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Remover" textFill="WHITE" AnchorPane.topAnchor="50.0">
+            <JFXButton layoutX="716.0" layoutY="108.0" onAction="#jfxbRemoverJogadorLocalOnAction" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Remover" textFill="WHITE" AnchorPane.topAnchor="108.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTreeTableView fx:id="jfxttvTabelaEscalacaoTimeLocal" layoutX="13.0" layoutY="96.0" prefHeight="140.0" prefWidth="730.0" AnchorPane.topAnchor="96.0">
+            <JFXTreeTableView fx:id="jfxttvTabelaEscalacaoTimeLocal" layoutX="45.0" layoutY="154.0" prefHeight="150.0" prefWidth="760.0" AnchorPane.topAnchor="154.0">
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </JFXTreeTableView>
-            <Label fx:id="lTimeVisitante" alignment="CENTER" layoutX="13.0" layoutY="251.0" prefHeight="20.0" prefWidth="730.0" styleClass="fonte-padrao" text="- Time Visitante -" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="251.0" />
-            <JFXTextField fx:id="jfxtfPosicaoJogadorVisitante" focusColor="#890e01" layoutX="86.0" layoutY="286.0" prefHeight="31.0" prefWidth="108.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="286.0" />
-            <JFXTextField fx:id="jfxtfNumeroJogadorVisitante" focusColor="#890e01" layoutX="267.0" layoutY="286.0" prefHeight="31.0" prefWidth="32.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="286.0" />
-            <JFXTextField fx:id="jfxtfNomeJogadorVisitante" focusColor="#890e01" layoutX="357.0" layoutY="286.0" prefHeight="31.0" prefWidth="187.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="286.0" />
-            <JFXButton layoutX="563.0" layoutY="289.0" onAction="#jfxbAdicionarJogadorVisitanteOnAction" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Add" textFill="WHITE" AnchorPane.topAnchor="289.0">
+            <Label fx:id="lTimeVisitante" alignment="CENTER" layoutX="45.0" layoutY="338.0" prefHeight="20.0" prefWidth="760.0" styleClass="fonte-padrao" text="- Time Visitante -" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="338.0" />
+            <JFXTextField fx:id="jfxtfPosicaoJogadorVisitante" focusColor="#890e01" layoutX="118.0" layoutY="373.0" prefHeight="31.0" prefWidth="108.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="373.0" />
+            <JFXTextField fx:id="jfxtfNumeroJogadorVisitante" focusColor="#890e01" layoutX="299.0" layoutY="373.0" prefHeight="31.0" prefWidth="45.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="373.0" />
+            <JFXTextField fx:id="jfxtfNomeJogadorVisitante" focusColor="#890e01" layoutX="402.0" layoutY="373.0" prefHeight="31.0" prefWidth="187.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="373.0" />
+            <JFXButton layoutX="624.0" layoutY="376.0" onAction="#jfxbAdicionarJogadorVisitanteOnAction" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Add" textFill="WHITE" AnchorPane.topAnchor="376.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="652.0" layoutY="289.0" onAction="#jfxbRemoverJogadorVisitanteOnAction" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Remover" textFill="WHITE" AnchorPane.topAnchor="289.0">
+            <JFXButton layoutX="716.0" layoutY="376.0" onAction="#jfxbRemoverJogadorVisitanteOnAction" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Remover" textFill="WHITE" AnchorPane.topAnchor="376.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTreeTableView fx:id="jfxttvTabelaEscalacaoTimeVisitante" layoutX="13.0" layoutY="335.0" prefHeight="140.0" prefWidth="730.0" AnchorPane.topAnchor="335.0">
+            <JFXTreeTableView fx:id="jfxttvTabelaEscalacaoTimeVisitante" layoutX="45.0" layoutY="422.0" prefHeight="150.0" prefWidth="760.0" AnchorPane.topAnchor="422.0">
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></JFXTreeTableView>
-            <JFXButton layoutX="554.0" layoutY="493.0" onAction="#jfxbAdicionarEscalacaoOnAction" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Adicionar ao Placar" textFill="WHITE">
+            <JFXButton layoutX="618.0" layoutY="592.0" onAction="#jfxbAdicionarEscalacaoOnAction" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Adicionar ao Placar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXTextField fx:id="jfxtfPosicaoJogadorLocalL" editable="false" focusColor="WHITE" layoutX="13.0" layoutY="47.0" prefHeight="31.0" prefWidth="73.0" promptText="Posição :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="47.0">
+            <JFXTextField fx:id="jfxtfPosicaoJogadorLocalL" editable="false" focusColor="WHITE" layoutX="45.0" layoutY="105.0" prefHeight="31.0" prefWidth="73.0" promptText="Posição :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="105.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXTextField fx:id="jfxtfNumeroJogadorLocalL" editable="false" focusColor="WHITE" layoutX="194.0" layoutY="47.0" prefHeight="31.0" prefWidth="73.0" promptText="Número :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="47.0">
+            <JFXTextField fx:id="jfxtfNumeroJogadorLocalL" editable="false" focusColor="WHITE" layoutX="226.0" layoutY="105.0" prefHeight="31.0" prefWidth="73.0" promptText="Número :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="105.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXTextField fx:id="jfxtfNomeJogadorLocalL" editable="false" focusColor="WHITE" layoutX="296.0" layoutY="47.0" prefHeight="31.0" prefWidth="61.0" promptText="Nome :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="47.0">
+            <JFXTextField fx:id="jfxtfNomeJogadorLocalL" editable="false" focusColor="WHITE" layoutX="344.0" layoutY="105.0" prefHeight="31.0" prefWidth="61.0" promptText="Nome :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="105.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXTextField fx:id="jfxtfPosicaoJogadorVisitanteL" editable="false" focusColor="WHITE" layoutX="13.0" layoutY="286.0" prefHeight="31.0" prefWidth="73.0" promptText="Posição :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="286.0">
+            <JFXTextField fx:id="jfxtfPosicaoJogadorVisitanteL" editable="false" focusColor="WHITE" layoutX="45.0" layoutY="373.0" prefHeight="31.0" prefWidth="73.0" promptText="Posição :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="373.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXTextField fx:id="jfxtfNumeroJogadorVisitanteL" editable="false" focusColor="WHITE" layoutX="194.0" layoutY="286.0" prefHeight="31.0" prefWidth="73.0" promptText="Número :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="286.0">
+            <JFXTextField fx:id="jfxtfNumeroJogadorVisitanteL" editable="false" focusColor="WHITE" layoutX="226.0" layoutY="373.0" prefHeight="31.0" prefWidth="73.0" promptText="Número :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="373.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXTextField fx:id="jfxtfNomeJogadorVisitanteL" editable="false" focusColor="WHITE" layoutX="299.0" layoutY="286.0" prefHeight="31.0" prefWidth="61.0" promptText="Nome :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="286.0">
+            <JFXTextField fx:id="jfxtfNomeJogadorVisitanteL" editable="false" focusColor="WHITE" layoutX="344.0" layoutY="373.0" prefHeight="31.0" prefWidth="61.0" promptText="Nome :" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="373.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXTextField>
-            <JFXButton layoutX="14.0" layoutY="493.0" onAction="#jfxbCarregarXMLOnAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Carregar de XML" textFill="WHITE">
+            <JFXButton layoutX="45.0" layoutY="592.0" onAction="#jfxbCarregarXMLOnAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Carregar de XML" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="189.0" layoutY="493.0" onAction="#jfxbSalvarXMLOnAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Salvar para XML" textFill="WHITE">
+            <JFXButton layoutX="220.0" layoutY="592.0" onAction="#jfxbSalvarXMLOnAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Salvar para XML" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -10,20 +10,8 @@
 	-fx-background-image: url("../imagens/logo.png");
 }
 
-.box-principal {
+.box-conexao {
 	-fx-background-image: url("../imagens/background.jpg");
-}
-
-.box-trnsparente {
-	-fx-background-image: url("../imagens/background-transparente.png");
-}
-
-#box-futsal {
-	-fx-background-image: url("../imagens/background-futsal.jpg");
-}
-
-#box-basquete {
-	-fx-background-image: url("../imagens/background-basquete.jpg");
 }
 
 .tree-table-view{

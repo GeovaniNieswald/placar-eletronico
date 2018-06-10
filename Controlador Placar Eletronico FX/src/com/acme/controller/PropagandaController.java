@@ -122,6 +122,11 @@ public class PropagandaController implements Initializable {
     }
 
     @FXML
+    void ovMinimizarOnMouseClicked(MouseEvent event) {
+        MainApp.minimizar();
+    }
+
+    @FXML
     void gpOnMouseDragged(MouseEvent event) {
         MainApp.moverTela(event.getScreenX() - posicaoInicialX, event.getScreenY() - posicaoInicialY);
     }

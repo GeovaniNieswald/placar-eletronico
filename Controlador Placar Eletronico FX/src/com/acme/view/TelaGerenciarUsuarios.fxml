@@ -3,80 +3,90 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.GerenciarUsuariosController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.GerenciarUsuariosController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="89.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="100.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="0.0" percentHeight="80.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="0.0" percentHeight="100.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnSpan="3" GridPane.rowSpan="3" />
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;">
          <children>
-            <JFXListView fx:id="jfxlvLista" layoutX="68.0" layoutY="42.0" prefHeight="249.0" prefWidth="710.0" />
-            <JFXButton layoutX="68.0" layoutY="327.0" onMouseClicked="#jfxbTrocarSenhaUsuarioOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Trocar Senha" textFill="WHITE" AnchorPane.leftAnchor="68.0">
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="950.0" style="-fx-background-color: #2D0401;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets right="5.0" />
+                           </VBox.margin>
+                        </FontAwesomeIconView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="792.0">
+                     <children>
+                        <Label prefHeight="42.0" prefWidth="837.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Gerenciar Usuários" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <OctIconView fill="WHITE" glyphName="DASH" onMouseClicked="#ovMinimizarOnMouseClicked" size="30">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </OctIconView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <JFXListView fx:id="jfxlvLista" layoutX="90.0" layoutY="114.0" prefHeight="249.0" prefWidth="770.0" />
+            <JFXButton layoutX="90.0" layoutY="399.0" onMouseClicked="#jfxbTrocarSenhaUsuarioOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Trocar Senha" textFill="WHITE" AnchorPane.leftAnchor="90.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-            <JFXButton layoutX="353.0" layoutY="327.0" onMouseClicked="#jfxbExcluirUsuarioOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Excluir Usuário" textFill="WHITE" AnchorPane.leftAnchor="353.0">
+            <JFXButton layoutX="405.0" layoutY="399.0" onMouseClicked="#jfxbExcluirUsuarioOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Excluir Usuário" textFill="WHITE" AnchorPane.leftAnchor="405.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="638.0" layoutY="327.0" onMouseClicked="#jfxbNovoUsuarioOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Novo Usuário" textFill="WHITE" AnchorPane.leftAnchor="638.0">
+            <JFXButton layoutX="720.0" layoutY="399.0" onMouseClicked="#jfxbNovoUsuarioOnClick" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Novo Usuário" textFill="WHITE" AnchorPane.leftAnchor="720.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
-               <VBox.margin>
-                  <Insets right="5.0" />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-         <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-         <children>
-            <Label prefHeight="42.0" prefWidth="840.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Gerenciar Usuários" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
    </children>
 </GridPane>

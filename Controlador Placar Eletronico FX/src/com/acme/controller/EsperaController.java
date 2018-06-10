@@ -34,6 +34,11 @@ public class EsperaController implements Initializable {
     }
 
     @FXML
+    void ovMinimizarOnMouseClicked(MouseEvent event) {
+        MainApp.minimizar();
+    }
+
+    @FXML
     void faivVoltarOnMouseCliked(MouseEvent event) {
         PlacarClient.desconectar();
         esperandoUsuarioPlacar.stop();

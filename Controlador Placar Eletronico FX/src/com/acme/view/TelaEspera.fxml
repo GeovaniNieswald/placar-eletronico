@@ -2,73 +2,84 @@
 
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-principal" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsperaController">
+<GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.EsperaController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="89.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="100.0" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="80.0" prefHeight="0.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="0.0" percentHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="0.0" percentHeight="100.0" prefHeight="0.0" vgrow="SOMETIMES" />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
   </rowConstraints>
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;">
          <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
-               <VBox.margin>
-                  <Insets right="5.0" />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-         <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </FontAwesomeIconView>
-         </children>
-      </VBox>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="box-trnsparente" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <Label layoutX="194.0" layoutY="161.0" styleClass="fonte-padrao" text="Esperando a conexão&#10;de um usuário principal" textAlignment="RIGHT" textFill="WHITE">
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="950.0" style="-fx-background-color: #2D0401;">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ANGLE_LEFT" onMouseClicked="#faivVoltarOnMouseCliked" size="30">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets right="5.0" />
+                           </VBox.margin>
+                        </FontAwesomeIconView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="777.0">
+                     <children>
+                        <Label prefHeight="42.0" prefWidth="837.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Esperando" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <OctIconView fill="WHITE" glyphName="DASH" onMouseClicked="#ovMinimizarOnMouseClicked" size="30">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </OctIconView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="52.0" prefWidth="52.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#faivSairOnMouseCliked" size="30">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </FontAwesomeIconView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label layoutX="260.0" layoutY="230.0" styleClass="fonte-padrao" text="Esperando a conexão&#10;de um usuário principal" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <JFXSpinner layoutX="554.0" layoutY="161.0" prefHeight="78.0" prefWidth="70.0" />
+            <JFXSpinner layoutX="620.0" layoutY="230.0" prefHeight="78.0" prefWidth="70.0" />
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-         <children>
-            <Label prefHeight="42.0" prefWidth="835.0" styleClass="fonte-padrao" text="Controlador Placar Eletrônico - Esperando" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
    </children>
 </GridPane>

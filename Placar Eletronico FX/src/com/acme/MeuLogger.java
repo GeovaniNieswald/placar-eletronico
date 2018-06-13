@@ -14,7 +14,7 @@ public class MeuLogger {
 
     static {
         try {
-            String caminho = System.getProperty("user.home") + "/Controlador-Placar-Eletronico/Log";
+            String caminho = System.getProperty("user.home") + "/Placar-Eletronico/Log";
 
             File file = new File(caminho);
             file.mkdirs();

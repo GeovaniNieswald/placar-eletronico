@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -73,7 +75,7 @@ public class PlacarController implements Initializable {
     @FXML
     private OctIconView ovPosseTimeLocal;
 
-    private final int VELOCIDADE_TXT = 10000; //em milissegundos
+    private final int VELOCIDADE_TXT = 13000; //em milissegundos
 
     private int pontosTimeLocal;
     private int pontosTimeVisitante;
@@ -379,10 +381,12 @@ public class PlacarController implements Initializable {
                 tamanhoTexto = 1;
             }
 
+            lTextoInferior.setMinWidth(Region.USE_PREF_SIZE);
             TranslateTransition tt = new TranslateTransition(Duration.millis(VELOCIDADE_TXT), lTextoInferior);
+            tt.setInterpolator(Interpolator.LINEAR);
             tt.setCycleCount(Animation.INDEFINITE);
-            tt.setFromX((tamanhoTexto * 60) * -1);
-            tt.setToX(1200);
+            tt.setFromX(lTextoInferior.getWidth());
+            tt.setToX((tamanhoTexto * 100) * -1);
             tt.playFromStart();
         });
     }

@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -428,5 +430,13 @@ public class PropagandaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        int maxLength = 30;
+        jfxtfTextoInferior.textProperty().addListener((final ObservableValue<? extends String> ov, final String oldValue, final String newValue) -> {
+            if (jfxtfTextoInferior.getText().length() > maxLength) {
+                String s = jfxtfTextoInferior.getText().substring(0, maxLength);
+                jfxtfTextoInferior.setText(s);
+            }
+        });
     }
+
 }

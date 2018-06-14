@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -133,8 +132,7 @@ public class GerenciarUsuariosController implements Initializable {
             MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
             Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
         } catch (NoSuchAlgorithmException ex) {
-            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
-            Utils.telaMensagem("Erro de Conexão", "", "Erro na geração do MD5", Alert.AlertType.ERROR);
+            MeuLogger.logException(Level.SEVERE, "Erro na geração do MD5.", ex);
         }
     }
 

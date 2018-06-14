@@ -260,7 +260,7 @@ public class PlacarController implements Initializable {
             System.exit(0);
         }
     }
-    
+
     @FXML
     void ovMinimizarOnMouseClicked(MouseEvent event) {
         MainApp.minimizar();

@@ -15,7 +15,6 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -83,6 +82,7 @@ public class CadastroUsuarioController implements Initializable {
                     String usuarioAdministrador = String.valueOf(jfxcbAdministrador.isSelected());
                     String usuarioPlacar = String.valueOf(jfxcbPlacar.isSelected());
                     String usuarioPropaganda = String.valueOf(jfxcbPropaganda.isSelected());
+
                     RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "add", usuario, senha, usuarioAdministrador, usuarioPlacar, usuarioPropaganda);
 
                     switch (resposta) {
@@ -104,7 +104,7 @@ public class CadastroUsuarioController implements Initializable {
                     MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
                     Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução!", Alert.AlertType.ERROR);
                 } catch (NoSuchAlgorithmException ex) {
-                    Utils.telaMensagem("Erro de Conexão", "", "Erro na geração do MD5!", Alert.AlertType.ERROR);
+                    MeuLogger.logException(Level.SEVERE, "Erro na geração do MD5.", ex);
                 }
             }
         }

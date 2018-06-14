@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -179,10 +178,7 @@ public class PropagandaController implements Initializable {
 
     @FXML
     void jfxbAlterarTextoInferiorOnAction(ActionEvent event) {
-        String textoInicial = jfxtfTextoInferior.getText();
-        String textoAjustado = textoInicial.replaceAll("[^A-Za-z0-9 ]", "");
-
-        if (jfxtfTextoInferior.getText().trim().isEmpty() || !textoInicial.equals(textoAjustado)) {
+        if (jfxtfTextoInferior.getText().trim().isEmpty() || !jfxtfTextoInferior.getText().matches("[A-z0-9 ]*")) {
             trocarCorJFXTextField("red", jfxtfTextoInferiorL);
         } else {
             try {
@@ -431,6 +427,7 @@ public class PropagandaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         int maxLength = 30;
+
         jfxtfTextoInferior.textProperty().addListener((final ObservableValue<? extends String> ov, final String oldValue, final String newValue) -> {
             if (jfxtfTextoInferior.getText().length() > maxLength) {
                 String s = jfxtfTextoInferior.getText().substring(0, maxLength);
@@ -438,5 +435,4 @@ public class PropagandaController implements Initializable {
             }
         });
     }
-
 }

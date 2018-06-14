@@ -48,8 +48,8 @@ public class MainApp extends Application {
         stage.setX(x);
         stage.setY(y);
     }
-    
-    public static void minimizar(){
+
+    public static void minimizar() {
         stage.setIconified(true);
     }
 

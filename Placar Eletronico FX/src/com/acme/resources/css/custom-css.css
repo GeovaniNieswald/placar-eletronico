@@ -33,3 +33,11 @@
 .fonte-padrao {
     -fx-font-family: "Comfortaa";
 }
+
+.texto-inferior {
+    -fx-border-color: #430000;
+    -fx-border-style: solid;
+    -fx-border-width: 1 0 1 0;
+    
+    -fx-background-color: #090000;
+}

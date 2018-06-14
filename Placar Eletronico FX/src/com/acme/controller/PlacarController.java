@@ -10,7 +10,6 @@ import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -23,7 +22,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -365,11 +363,6 @@ public class PlacarController implements Initializable {
         }
     }
 
-    @FXML
-    void bFecharAction(ActionEvent event) {
-        System.exit(0);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         PlacarServer.instanciaPlacarController(this);
@@ -377,16 +370,12 @@ public class PlacarController implements Initializable {
         Platform.runLater(() -> {
             int tamanhoTexto = lTextoInferior.getText().length();
 
-            if (tamanhoTexto == 0) {
-                tamanhoTexto = 1;
-            }
-
-            lTextoInferior.setMinWidth(Region.USE_PREF_SIZE);
             TranslateTransition tt = new TranslateTransition(Duration.millis(VELOCIDADE_TXT), lTextoInferior);
             tt.setInterpolator(Interpolator.LINEAR);
             tt.setCycleCount(Animation.INDEFINITE);
             tt.setFromX(lTextoInferior.getWidth());
             tt.setToX((tamanhoTexto * 100) * -1);
+
             tt.playFromStart();
         });
     }

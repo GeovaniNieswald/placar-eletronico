@@ -3,7 +3,6 @@
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -143,9 +142,9 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #090000;" GridPane.columnSpan="13" GridPane.rowIndex="7">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="texto-inferior" GridPane.columnSpan="13" GridPane.rowIndex="7">
          <children>
-            <Label fx:id="lTextoInferior" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="PLACAR ELETRONICO FX" textFill="RED">
+            <Label fx:id="lTextoInferior" alignment="CENTER" maxWidth="1.7976931348623157E308" text="PLACAR ELETRONICO FX" textFill="RED">
                <font>
                   <Font name="DS-Digital Bold" size="96.0" />
                </font>
@@ -158,11 +157,6 @@
       </VBox>
       <VBox fx:id="vbImagenEsquerda" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
       <VBox fx:id="vbImagenDireita" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="10" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="11" GridPane.rowIndex="6">
-         <children>
-            <Button mnemonicParsing="false" onAction="#bFecharAction" text="Fechar" />
-         </children>
-      </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
          <children>
             <OctIconView fx:id="ovBonusTimeLocal" fill="RED" glyphName="BOLD" size="38" visible="false" />

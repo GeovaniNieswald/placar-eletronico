@@ -9,7 +9,10 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -22,6 +25,8 @@ public class MainApp extends Application {
     private static Scene cenaPlacarBasquete;
     private static Scene cenaPlacarFutsal;
     private static Scene cenaPropaganda;
+
+    private static final KeyCodeCombination COMBINACAO_FECHAR = new KeyCodeCombination(KeyCode.F, KeyCodeCombination.ALT_ANY);
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -82,6 +87,12 @@ public class MainApp extends Application {
         stage.setFullScreen(true);
         stage.setFullScreenExitHint("");
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+
+        cena.setOnKeyReleased((KeyEvent event) -> {
+            if (COMBINACAO_FECHAR.match(event)) {
+                System.exit(0);
+            }
+        });
     }
 
     public static void main(String[] args) {

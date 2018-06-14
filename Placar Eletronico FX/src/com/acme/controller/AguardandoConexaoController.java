@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -26,11 +25,6 @@ public class AguardandoConexaoController implements Initializable {
     private DateFormat sdfData;
     private DateFormat sdfHora;
     private Calendar calendario;
-
-    @FXML
-    void bFecharAction(ActionEvent event) {
-        System.exit(0);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

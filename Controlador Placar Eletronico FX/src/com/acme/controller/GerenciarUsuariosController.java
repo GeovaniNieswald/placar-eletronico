@@ -10,10 +10,12 @@ import com.acme.model.RespostaSocket;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,7 +37,7 @@ public class GerenciarUsuariosController implements Initializable {
             String resposta = PlacarClient.retornarUsuarios();
 
             if (resposta.contains("not-ok")) {
-                Utils.telaMensagem("Ops", "", "Não foi possível atualziar a lista!", Alert.AlertType.WARNING);
+                Utils.telaMensagem("Ops", "", "Não foi possível atualizar a lista!", Alert.AlertType.WARNING);
             } else {
                 String[] usuarios = resposta.split(",");
                 ObservableList dados = FXCollections.observableArrayList();
@@ -117,16 +119,22 @@ public class GerenciarUsuariosController implements Initializable {
         try {
             String usuario = (String) jfxlvLista.getSelectionModel().getSelectedItem();
             Optional<String> senha = Utils.telaPrompt("Trocar senha", "Trocar senha do usuario " + usuario, "Nova senha:");
-            RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", usuario, senha.get());
 
-            if (resposta == RespostaSocket.COMANDO_ACEITO) {
-                atualizarLista("Usuário " + usuario + " teve a senha atualizada.");
-            } else {
-                Utils.telaMensagem("Ops", "", "Ocorreu um erro na troca de senha!", Alert.AlertType.WARNING);
+            if (senha != null) {
+                RespostaSocket resposta = PlacarClient.enviarComando(Comando.CADASTRO_USUARIO, "update", usuario, Utils.stringToMd5(senha.get()));
+
+                if (resposta == RespostaSocket.COMANDO_ACEITO) {
+                    atualizarLista("Usuário " + usuario + " teve a senha atualizada.");
+                } else {
+                    Utils.telaMensagem("Ops", "", "Ocorreu um erro na troca de senha!", Alert.AlertType.WARNING);
+                }
             }
         } catch (IOException ex) {
             MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
             Utils.telaMensagem("Erro de Conexão", "", "Aconteceu algum erro na conexão, verifique se o placar eletrônico está em execução e reinicie o programa!", Alert.AlertType.ERROR);
+        } catch (NoSuchAlgorithmException ex) {
+            MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
+            Utils.telaMensagem("Erro de Conexão", "", "Erro na geração do MD5", Alert.AlertType.ERROR);
         }
     }
 

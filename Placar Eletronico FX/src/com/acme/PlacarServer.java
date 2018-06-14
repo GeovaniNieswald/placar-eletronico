@@ -12,8 +12,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.xml.bind.JAXBException;
 
@@ -513,7 +515,7 @@ public class PlacarServer extends Thread {
                 ListaUsuarios users = (ListaUsuarios) DadosXML.select("ListaUsuarios");
 
                 for (Usuario u : users.getUsuarios()) {
-                    if (login.equals(u.getUsuario()) && senha.equals(u.getSenha())) {
+                    if (login.equals(u.getUsuario()) && Utils.stringToMd5(senha).equals(u.getSenha())) {
                         usuario.setUsuario(u.getUsuario());
                         usuario.setSenha(u.getSenha());
                         usuario.setAdmin(u.isAdmin());
@@ -526,6 +528,9 @@ public class PlacarServer extends Thread {
             }
         } catch (JAXBException ex) {
             MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
+            return false;
+        } catch (NoSuchAlgorithmException ex) {
+            MeuLogger.logException(Level.SEVERE, "Erro na geração do MD5.", ex);
             return false;
         }
 

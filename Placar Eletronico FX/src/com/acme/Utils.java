@@ -3,6 +3,9 @@ package com.acme;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.logging.Level;
 
@@ -40,5 +43,15 @@ public class Utils {
         fos.write(bytes);
 
         return file;
+    }
+
+    public static String stringToMd5(String txt) throws NoSuchAlgorithmException {
+        if (txt != null) {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(txt.getBytes());
+            return new BigInteger(1, md.digest()).toString(16).toUpperCase();
+        } else {
+            return "";
+        }
     }
 }

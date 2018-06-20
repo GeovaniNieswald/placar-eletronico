@@ -113,12 +113,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXTextField>
-            <JFXButton layoutX="648.0" layoutY="349.0" onAction="#jfxbExibirPropagandaOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
+            <JFXButton fx:id="jfxbExibirPropaganda" layoutX="648.0" layoutY="349.0" onAction="#jfxbExibirPropagandaOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="774.0" layoutY="350.0" onAction="#jfxbPararPropagandaOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
+            <JFXButton fx:id="jfxbPararPropaganda" disable="true" layoutX="774.0" layoutY="350.0" onAction="#jfxbPararPropagandaOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -128,12 +128,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXTextField>
-            <JFXButton layoutX="648.0" layoutY="415.0" onAction="#jfxbExibirEscalacaoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
+            <JFXButton fx:id="jfxbExibirEscalacao" layoutX="648.0" layoutY="415.0" onAction="#jfxbExibirEscalacaoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Exibir" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton layoutX="774.0" layoutY="416.0" onAction="#jfxbPararEscalacaoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
+            <JFXButton fx:id="jfxbPararEscalacao" disable="true" layoutX="774.0" layoutY="416.0" onAction="#jfxbPararEscalacaoOnAction" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Parar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

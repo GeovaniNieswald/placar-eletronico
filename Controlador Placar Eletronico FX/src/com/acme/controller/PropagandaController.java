@@ -9,6 +9,7 @@ import com.acme.MeuLogger;
 import com.acme.model.Escalacao;
 import com.acme.model.ListaEscalacoes;
 import com.acme.model.RespostaSocket;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
@@ -61,6 +62,18 @@ public class PropagandaController implements Initializable {
     @FXML
     private JFXTextField jfxtfEscalacaoAtual;
 
+    @FXML
+    private JFXButton jfxbExibirPropaganda;
+
+    @FXML
+    private JFXButton jfxbPararPropaganda;
+
+    @FXML
+    private JFXButton jfxbExibirEscalacao;
+
+    @FXML
+    private JFXButton jfxbPararEscalacao;
+
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
@@ -72,8 +85,6 @@ public class PropagandaController implements Initializable {
     private String propaganda;
 
     private boolean propagandaImagem;
-
-    private boolean executandoVideo;
 
     private String escalacoes;
 
@@ -205,6 +216,7 @@ public class PropagandaController implements Initializable {
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                     trocarCorJFXTextField("#09a104", jfxtfEscalacaoL);
+                    jfxbPararEscalacao.setDisable(false);
                 } else {
                     trocarCorJFXTextField("red", jfxtfEscalacaoL);
                 }
@@ -228,7 +240,12 @@ public class PropagandaController implements Initializable {
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                     trocarCorJFXTextField("#09a104", jfxtfPropagandaL);
-                    executandoVideo = true;
+                    jfxbPararPropaganda.setDisable(false);
+
+                    if (!propagandaImagem) {
+                        jfxbExibirPropaganda.setDisable(true);
+                        jfxbExibirEscalacao.setDisable(true);
+                    }
                 } else {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);
                 }
@@ -245,6 +262,8 @@ public class PropagandaController implements Initializable {
 
             if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                 trocarCorJFXTextField("white", jfxtfEscalacaoL);
+
+                jfxbPararEscalacao.setDisable(true);
             } else {
                 trocarCorJFXTextField("red", jfxtfEscalacaoL);
             }
@@ -255,25 +274,28 @@ public class PropagandaController implements Initializable {
 
     @FXML
     void jfxbPararPropagandaOnAction(ActionEvent event) {
-        if (executandoVideo) {
-            try {
-                if (propagandaImagem) {
-                    respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "parar", "");
-                } else {
-                    respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "video", "parar", "");
-                }
-
-                if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
-                    trocarCorJFXTextField("white", jfxtfPropagandaL);
-                    jfxtfPropaganda.setText("");
-                    propaganda = "";
-                    executandoVideo = false;
-                } else {
-                    trocarCorJFXTextField("red", jfxtfPropagandaL);
-                }
-            } catch (IOException ex) {
-                erroDeConexao(ex, jfxtfPropagandaL);
+        try {
+            if (propagandaImagem) {
+                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "parar", "");
+            } else {
+                respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "video", "parar", "");
             }
+
+            if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
+                trocarCorJFXTextField("white", jfxtfPropagandaL);
+                jfxtfPropaganda.setText("");
+                propaganda = "";
+                jfxbPararPropaganda.setDisable(true);
+
+                if (!propagandaImagem) {
+                    jfxbExibirEscalacao.setDisable(false);
+                    jfxbExibirPropaganda.setDisable(false);
+                }
+            } else {
+                trocarCorJFXTextField("red", jfxtfPropagandaL);
+            }
+        } catch (IOException ex) {
+            erroDeConexao(ex, jfxtfPropagandaL);
         }
     }
 

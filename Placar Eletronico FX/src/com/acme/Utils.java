@@ -49,7 +49,7 @@ public class Utils {
         if (txt != null) {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(txt.getBytes());
-            return new BigInteger(1, md.digest()).toString(16).toUpperCase();
+            return new BigInteger(1, md.digest()).toString(16);
         } else {
             return "";
         }

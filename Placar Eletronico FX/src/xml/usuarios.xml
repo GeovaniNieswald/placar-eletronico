@@ -2,21 +2,21 @@
 <listaUsuarios>
     <usuario>
         <usuario>placar</usuario>
-        <senha>792E97617A1395BDE65B846924DAE00B</senha>
+        <senha>792e97617a1395bde65b846924dae00b</senha>
         <admin>false</admin>
         <placar>true</placar>
         <propaganda>false</propaganda>
     </usuario>
     <usuario>
         <usuario>prop</usuario>
-        <senha>23A5B8AB834CB5140FA6665622EB6417</senha>
+        <senha>23a5b8ab834cb5140fa6665622eb6417</senha>
         <admin>false</admin>
         <placar>false</placar>
         <propaganda>true</propaganda>
     </usuario>
     <usuario>
         <usuario>adm</usuario>
-        <senha>B09C600FDDC573F117449B3723F23D64</senha>
+        <senha>b09c600fddc573f117449b3723f23d64</senha>
         <admin>true</admin>
         <placar>false</placar>
         <propaganda>false</propaganda>

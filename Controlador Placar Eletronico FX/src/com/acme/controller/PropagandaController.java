@@ -231,6 +231,7 @@ public class PropagandaController implements Initializable {
         if (propaganda == null || propaganda.trim().isEmpty()) {
             trocarCorJFXTextField("red", jfxtfPropagandaL);
         } else {
+
             try {
                 if (propagandaImagem) {
                     respostaComando = PlacarClient.enviarComando(Comando.PROPAGANDA, "imagem", "exibir", propaganda);
@@ -240,11 +241,14 @@ public class PropagandaController implements Initializable {
 
                 if (respostaComando == RespostaSocket.COMANDO_ACEITO) {
                     trocarCorJFXTextField("#09a104", jfxtfPropagandaL);
+                    trocarCorJFXTextField("white", jfxtfEscalacaoL);
+
                     jfxbPararPropaganda.setDisable(false);
 
                     if (!propagandaImagem) {
                         jfxbExibirPropaganda.setDisable(true);
                         jfxbExibirEscalacao.setDisable(true);
+                        jfxbPararEscalacao.setDisable(true);
                     }
                 } else {
                     trocarCorJFXTextField("red", jfxtfPropagandaL);

@@ -10,34 +10,21 @@ import com.acme.MeuLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
-import com.jfoenix.controls.JFXRadioButton;
 import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class EsporteController implements Initializable {
-
-    @FXML
-    private JFXRadioButton jfxrbBasquete;
 
     // Variáveis para controlar o deslocamento
     private double posicaoInicialX = 0;
     private double posicaoInicialY = 0;
 
-    private void escolherEsporte() {
+    private void escolherEsporte(String esporte) {
         try {
-            RespostaSocket respostaEsporte;
-
-            if (jfxrbBasquete.isSelected()) {
-                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "basquete");
-            } else {
-                respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, "futsal");
-            }
+            RespostaSocket respostaEsporte = PlacarClient.enviarComando(Comando.ESCOLHER_ESPORTE, esporte);
 
             switch (respostaEsporte) {
                 case ESPORTE_ACEITO_BASQUETE:
@@ -83,15 +70,13 @@ public class EsporteController implements Initializable {
     }
 
     @FXML
-    void jfxbOkOnAction(ActionEvent event) {
-        escolherEsporte();
+    void ivBasqueteOnMouseClicked(MouseEvent event) {
+        escolherEsporte("basquete");
     }
 
     @FXML
-    void jfxbOkOnKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            escolherEsporte();
-        }
+    void ivFutsalOnMouseClicked(MouseEvent event) {
+        escolherEsporte("futsal");
     }
 
     @Override

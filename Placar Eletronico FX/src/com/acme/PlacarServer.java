@@ -5,6 +5,7 @@ import com.acme.controller.PropagandaController;
 import com.acme.model.Cena;
 import com.acme.model.DadosXML;
 import com.acme.model.ListaUsuarios;
+import com.acme.model.ResultadoLogin;
 import com.acme.model.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,13 +21,18 @@ import javax.xml.bind.JAXBException;
 
 public class PlacarServer extends Thread {
 
-    private final Socket socket;
+    private final Socket SOCKET;
+    private Usuario usuarioAtual;
+
     private static boolean usuarioPlacarOn;
+    private static boolean usuarioPropagandaOn;
+    private static boolean usuarioAdmOn;
+
     private static PlacarController placarController;
     private static PropagandaController propagandaController;
 
     public PlacarServer(Socket socket) {
-        this.socket = socket;
+        this.SOCKET = socket;
     }
 
     public static void instanciaPlacarController(PlacarController pc) {
@@ -54,26 +60,40 @@ public class PlacarServer extends Thread {
     @Override
     public void run() {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(SOCKET.getInputStream()));
+            PrintWriter out = new PrintWriter(SOCKET.getOutputStream(), true);
 
             String login = in.readLine();
             String senha = in.readLine();
-            Usuario u = new Usuario();
+            usuarioAtual = new Usuario();
 
-            if (validaLogin(login, senha, u)) {
-                if (u.isAdmin()) {
-                    out.println("#conexao;ok;usuario-administrador");
-                } else if (u.isPlacar()) {
-                    out.println("#conexao;ok;usuario-placar");
-                } else if (u.isPropaganda()) {
-                    out.println("#conexao;ok;usuario-propaganda");
-                } else {
-                    out.println("#conexao;not-ok");
+            ResultadoLogin resultado = validaLogin(login, senha, usuarioAtual);
+
+            if (resultado != ResultadoLogin.USUARIO_INVALIDO) {
+                switch (resultado) {
+                    case USUARIO_VALIDO:
+                        if (usuarioAtual.isAdmin()) {
+                            out.println("#conexao;ok;usuario-administrador");
+                        } else if (usuarioAtual.isPlacar()) {
+                            out.println("#conexao;ok;usuario-placar");
+                        } else {
+                            out.println("#conexao;ok;usuario-propaganda");
+                        }
+                        break;
+                    case USUARIO_ADM_CONECTADO:
+                        out.println("#conexao;not-ok;usuario-administrador");
+                        break;
+                    case USUARIO_PROPAGANDA_CONECTADO:
+                        out.println("#conexao;not-ok;usuario-propaganda");
+                        break;
+                    case USUARIO_PLACAR_CONECTADO:
+                        out.println("#conexao;not-ok;usuario-placar");
+                        break;
                 }
 
                 while (true) {
                     String input = in.readLine();
+
                     if (input == null || input.equals(".")) {
                         break;
                     } else {
@@ -81,20 +101,64 @@ public class PlacarServer extends Thread {
                     }
                 }
             } else {
-                out.println("#conexao;not-ok");
+                out.println("#conexao;not-ok;usuario-invalido");
             }
         } catch (IOException ex) {
             MeuLogger.logException(Level.SEVERE, "Erro de conexão.", ex);
         } finally {
             try {
-                socket.close();
+                SOCKET.close();
             } catch (IOException ex) {
                 MeuLogger.logException(Level.WARNING, "Não foi possível fechar a conexão.", ex);
             }
         }
     }
 
-    public static String processarComando(String comando) {
+    private ResultadoLogin validaLogin(String login, String senha, Usuario usuario) {
+        try {
+            if (login == null || senha == null) {
+                return ResultadoLogin.USUARIO_INVALIDO;
+            } else {
+                ListaUsuarios users = (ListaUsuarios) DadosXML.select("ListaUsuarios");
+
+                for (Usuario u : users.getUsuarios()) {
+                    if (login.equals(u.getUsuario()) && Utils.stringToMd5(senha).equals(u.getSenha())) {
+                        usuario.setUsuario(u.getUsuario());
+                        usuario.setSenha(u.getSenha());
+                        usuario.setAdmin(u.isAdmin());
+                        usuario.setPlacar(u.isPlacar());
+                        usuario.setPropaganda(u.isPropaganda());
+
+                        if (usuarioAdmOn && usuario.isAdmin()) {
+                            return ResultadoLogin.USUARIO_ADM_CONECTADO;
+                        } else if (usuarioPlacarOn && usuario.isPlacar()) {
+                            return ResultadoLogin.USUARIO_PLACAR_CONECTADO;
+                        } else if (usuarioPropagandaOn && usuario.isPropaganda()) {
+                            return ResultadoLogin.USUARIO_PROPAGANDA_CONECTADO;
+                        }
+
+                        if (usuario.isAdmin()) {
+                            usuarioAdmOn = true;
+                        } else if (usuario.isPropaganda()) {
+                            usuarioPropagandaOn = true;
+                        }
+
+                        return ResultadoLogin.USUARIO_VALIDO;
+                    }
+                }
+            }
+        } catch (JAXBException ex) {
+            MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
+            return ResultadoLogin.USUARIO_INVALIDO;
+        } catch (NoSuchAlgorithmException ex) {
+            MeuLogger.logException(Level.SEVERE, "Erro na geração do MD5.", ex);
+            return ResultadoLogin.USUARIO_INVALIDO;
+        }
+
+        return ResultadoLogin.USUARIO_INVALIDO;
+    }
+
+    public String processarComando(String comando) {
         String[] params = comando.split(";");
         if (params != null) {
             switch (params[0]) {
@@ -124,6 +188,8 @@ public class PlacarServer extends Thread {
                     return comandoImagens(params);
                 case "#propaganda":
                     return comandoPropaganda(params);
+                case "#desconectar":
+                    return comandoDesconectar();
                 default:
                     return "#comando;not-ok";
             }
@@ -260,13 +326,21 @@ public class PlacarServer extends Thread {
     public static String comandoEsporte(String[] params) {
         switch (params[1]) {
             case "basquete":
-                trocarCena(Cena.PLACAR_BASQUETE);
-                usuarioPlacarOn = true;
-                return "#esporte;basquete-ok";
+                if (usuarioPlacarOn) {
+                    return "#esporte;not-ok";
+                } else {
+                    trocarCena(Cena.PLACAR_BASQUETE);
+                    usuarioPlacarOn = true;
+                    return "#esporte;basquete-ok";
+                }
             case "futsal":
-                trocarCena(Cena.PLACAR_FUTSAL);
-                usuarioPlacarOn = true;
-                return "#esporte;futsal-ok";
+                if (usuarioPlacarOn) {
+                    return "#esporte;not-ok";
+                } else {
+                    trocarCena(Cena.PLACAR_FUTSAL);
+                    usuarioPlacarOn = true;
+                    return "#esporte;futsal-ok";
+                }
             default:
                 return "#esporte;not-ok";
         }
@@ -506,33 +580,21 @@ public class PlacarServer extends Thread {
         }
     }
 
-    private static boolean validaLogin(String login, String senha, Usuario usuario) {
-        try {
-            if (login == null || senha == null) {
-                return false;
-            } else {
-                ListaUsuarios users = (ListaUsuarios) DadosXML.select("ListaUsuarios");
-
-                for (Usuario u : users.getUsuarios()) {
-                    if (login.equals(u.getUsuario()) && Utils.stringToMd5(senha).equals(u.getSenha())) {
-                        usuario.setUsuario(u.getUsuario());
-                        usuario.setSenha(u.getSenha());
-                        usuario.setAdmin(u.isAdmin());
-                        usuario.setPlacar(u.isPlacar());
-                        usuario.setPropaganda(u.isPropaganda());
-
-                        return true;
-                    }
-                }
-            }
-        } catch (JAXBException ex) {
-            MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
-            return false;
-        } catch (NoSuchAlgorithmException ex) {
-            MeuLogger.logException(Level.SEVERE, "Erro na geração do MD5.", ex);
-            return false;
+    public String comandoDesconectar() {
+        if (usuarioAtual.isAdmin()) {
+            usuarioAdmOn = false;
+        } else if (usuarioAtual.isPlacar()) {
+            usuarioPlacarOn = false;
+        } else if (usuarioAtual.isPropaganda()) {
+            usuarioPropagandaOn = false;
         }
 
-        return false;
+        try {
+            SOCKET.close();
+        } catch (IOException ex) {
+            MeuLogger.logException(Level.WARNING, "Não foi possível fechar a conexão.", ex);
+        }
+
+        return "";
     }
 }

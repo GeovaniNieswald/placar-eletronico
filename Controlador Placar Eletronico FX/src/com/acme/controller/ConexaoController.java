@@ -50,6 +50,14 @@ public class ConexaoController implements Initializable {
         componente.setFocusColor(Paint.valueOf(corFocus));
     }
 
+    private void conexaoRecusada(String info) {
+        PlacarClient.desconectarLogin();
+
+        lInfos.setText(info);
+        trocarCorJFXTextField("red", "red", jfxtfLogin);
+        jfxpfSenha.setText("");
+    }
+
     private void conectar() {
         lInfos.setText("");
 
@@ -76,7 +84,7 @@ public class ConexaoController implements Initializable {
                 RespostaSocket respostaConexao = PlacarClient.conectar(jfxtfEndereco.getText(), jfxtfLogin.getText(), jfxpfSenha.getText());
 
                 switch (respostaConexao) {
-                    case CONEXAO_ACEITA_USUARIO_ADMINISTRADOR:
+                    case CONEXAO_ACEITA_USUARIO_ADM:
                         MainApp.trocarCena(Cena.GERENCIAR_USUARIOS);
                         break;
                     case CONEXAO_ACEITA_USUARIO_PLACAR:
@@ -85,13 +93,22 @@ public class ConexaoController implements Initializable {
                     case CONEXAO_ACEITA_USUARIO_PROPAGANDA:
                         MainApp.trocarCena(Cena.ESPERA);
                         break;
-                    default:
-                        PlacarClient.desconectar();
 
-                        lInfos.setText("Login ou Senha inválidos!");
-                        trocarCorJFXTextField("red", "red", jfxtfLogin);
+                    case CONEXAO_RECUSADA_USUARIO_ADM_ON:
+                        conexaoRecusada("Usuário Administrador já está conectado");
+                        jfxtfLogin.setText("");
+                        break;
+                    case CONEXAO_RECUSADA_USUARIO_PLACAR_ON:
+                        conexaoRecusada("Usuário Placar já está conectado");
+                        jfxtfLogin.setText("");
+                        break;
+                    case CONEXAO_RECUSADA_USUARIO_PROPAGANDA_ON:
+                        conexaoRecusada("Usuário Propaganda já está conectado");
+                        jfxtfLogin.setText("");
+                        break;
+                    default:
+                        conexaoRecusada("Login ou Senha inválidos");
                         trocarCorJFXPasswordField("red", "red", jfxpfSenha);
-                        jfxpfSenha.setText("");
                 }
             } catch (IOException ex) {
                 MeuLogger.logException(Level.WARNING, "Erro de conexão.", ex);

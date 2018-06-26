@@ -23,6 +23,7 @@ public class MeuLogger {
 
             fh.setFormatter(new SimpleFormatter());
 
+            LOG.setUseParentHandlers(false);
             LOG.addHandler(fh);
             LOG.setLevel(Level.INFO);
         } catch (IOException | SecurityException ex) {

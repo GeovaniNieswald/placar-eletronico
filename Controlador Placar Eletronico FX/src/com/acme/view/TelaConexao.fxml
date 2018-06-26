@@ -17,8 +17,8 @@
 <GridPane alignment="CENTER" onMouseDragged="#gpOnMouseDragged" onMousePressed="#gpOnMousePressed" prefHeight="500.0" prefWidth="950.0" styleClass="box-conexao" stylesheets="@../resources/css/custom-css.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acme.controller.ConexaoController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="49.0" prefWidth="0.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="46.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="43.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" percentWidth="5.5" prefWidth="0.0" />
   </columnConstraints>
   <rowConstraints>
@@ -45,20 +45,20 @@
       <AnchorPane id="logo" prefHeight="183.0" prefWidth="416.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #580401;" GridPane.columnIndex="2" GridPane.rowSpan="6">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="75.0" prefHeight="31.0" prefWidth="290.0" styleClass="fonte-padrao" text="Conectar-se" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="74.0" prefHeight="31.0" prefWidth="325.0" styleClass="fonte-padrao" text="Conectar-se" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="jfxtfEndereco" focusColor="#890e01" layoutX="45.0" layoutY="166.0" prefHeight="31.0" prefWidth="290.0" promptText="Endereço" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="166.0" />
-            <JFXTextField fx:id="jfxtfLogin" focusColor="#890e01" layoutX="45.0" layoutY="232.0" prefHeight="31.0" prefWidth="290.0" promptText="Login" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="232.0" />
-            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#890e01" layoutX="45.0" layoutY="298.0" onKeyPressed="#jfxpfSenhaOnKeyPressed" prefHeight="31.0" prefWidth="290.0" promptText="Senha" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="298.0" />
-            <JFXButton alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="392.0" onAction="#jfxbConectarAction" onKeyPressed="#jfxbConectarOnKeyPressed" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Conectar" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="392.0">
+            <JFXTextField fx:id="jfxtfEndereco" focusColor="#890e01" layoutX="42.0" layoutY="165.0" prefHeight="31.0" prefWidth="325.0" promptText="Endereço" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="165.0" />
+            <JFXTextField fx:id="jfxtfLogin" focusColor="#890e01" layoutX="42.0" layoutY="231.0" prefHeight="31.0" prefWidth="325.0" promptText="Login" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="231.0" />
+            <JFXPasswordField fx:id="jfxpfSenha" focusColor="#890e01" layoutX="42.0" layoutY="297.0" onKeyPressed="#jfxpfSenhaOnKeyPressed" prefHeight="31.0" prefWidth="325.0" promptText="Senha" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" styleClass="fonte-padrao" unFocusColor="WHITE" AnchorPane.topAnchor="297.0" />
+            <JFXButton alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="391.0" onAction="#jfxbConectarAction" onKeyPressed="#jfxbConectarOnKeyPressed" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #890e01;" styleClass="fonte-padrao" text="Conectar" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="391.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <Label fx:id="lInfos" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="140.0" prefHeight="21.0" prefWidth="290.0" styleClass="fonte-padrao" stylesheets="@../resources/css/custom-css.css" textAlignment="CENTER" textFill="RED" AnchorPane.topAnchor="140.0" />
+            <Label fx:id="lInfos" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="139.0" prefHeight="21.0" prefWidth="325.0" styleClass="fonte-padrao" stylesheets="@../resources/css/custom-css.css" textAlignment="CENTER" textFill="RED" AnchorPane.topAnchor="139.0" />
          </children>
       </AnchorPane>
    </children>

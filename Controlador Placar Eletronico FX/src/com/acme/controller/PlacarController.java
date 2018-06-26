@@ -257,6 +257,7 @@ public class PlacarController implements Initializable {
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
         if (Utils.telaConfirmacao("Sair", "", "Tem certeza que deseja sair?", Alert.AlertType.CONFIRMATION)) {
+            PlacarClient.desconectar();
             System.exit(0);
         }
     }

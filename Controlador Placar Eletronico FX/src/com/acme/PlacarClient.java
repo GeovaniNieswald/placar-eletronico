@@ -36,24 +36,42 @@ public class PlacarClient {
         if (respostaConexao[1].equals("ok")) {
             switch (respostaConexao[2]) {
                 case "usuario-administrador":
-                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_ADMINISTRADOR;
+                    return RespostaSocket.CONEXAO_ACEITA_USUARIO_ADM;
                 case "usuario-placar":
                     return RespostaSocket.CONEXAO_ACEITA_USUARIO_PLACAR;
                 case "usuario-propaganda":
                     return RespostaSocket.CONEXAO_ACEITA_USUARIO_PROPAGANDA;
                 default:
-                    return RespostaSocket.CONEXAO_RECUSADA;
+                    return RespostaSocket.CONEXAO_RECUSADA_USUARIO_INVALIDO;
+            }
+        } else {
+            switch (respostaConexao[2]) {
+                case "usuario-administrador":
+                    return RespostaSocket.CONEXAO_RECUSADA_USUARIO_ADM_ON;
+                case "usuario-placar":
+                    return RespostaSocket.CONEXAO_RECUSADA_USUARIO_PLACAR_ON;
+                case "usuario-propaganda":
+                    return RespostaSocket.CONEXAO_RECUSADA_USUARIO_PROPAGANDA_ON;
+                default:
+                    return RespostaSocket.CONEXAO_RECUSADA_USUARIO_INVALIDO;
             }
         }
-
-        return RespostaSocket.CONEXAO_RECUSADA;
     }
 
     public static void desconectar() {
         try {
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println("#desconectar;");
+        } catch (IOException ex) {
+            MeuLogger.logMensagem(Level.SEVERE, "Aconteceu algum erro na conexão.");
+        }
+    }
+
+    public static void desconectarLogin() {
+        try {
             socket.close();
         } catch (IOException ex) {
-            MeuLogger.logException(Level.WARNING, "Não foi possível fechar a conexão.", ex);
+            MeuLogger.logMensagem(Level.WARNING, "Aconteceu algum erro na conexão.");
         }
     }
 

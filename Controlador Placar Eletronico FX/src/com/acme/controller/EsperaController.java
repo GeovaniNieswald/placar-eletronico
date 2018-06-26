@@ -30,6 +30,7 @@ public class EsperaController implements Initializable {
 
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
+        PlacarClient.desconectar();
         System.exit(0);
     }
 

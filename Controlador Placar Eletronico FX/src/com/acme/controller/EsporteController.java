@@ -33,6 +33,9 @@ public class EsporteController implements Initializable {
                 case ESPORTE_ACEITO_FUTSAL:
                     MainApp.trocarCena(Cena.PLACAR_FUTSAL);
                     break;
+                case COMANDO_RECUSADO:
+                    Utils.telaMensagem("Ops", "Aconteceu algum problema", "Algum Usuário Placar já está conectado!", Alert.AlertType.ERROR);
+                    break;
                 default:
                     MeuLogger.logMensagem(Level.WARNING, "RespostaSocket informada não está presente entre as opções do switch.");
             }
@@ -44,6 +47,7 @@ public class EsporteController implements Initializable {
 
     @FXML
     void faivSairOnMouseCliked(MouseEvent event) {
+        PlacarClient.desconectar();
         System.exit(0);
     }
 

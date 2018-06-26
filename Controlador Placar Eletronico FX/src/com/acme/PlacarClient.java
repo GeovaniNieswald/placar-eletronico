@@ -63,7 +63,7 @@ public class PlacarClient {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             out.println("#desconectar;");
         } catch (IOException ex) {
-            MeuLogger.logMensagem(Level.SEVERE, "Aconteceu algum erro na conexão.");
+            MeuLogger.logException(Level.SEVERE, "Aconteceu algum erro na conexão.", ex);
         }
     }
 
@@ -71,7 +71,7 @@ public class PlacarClient {
         try {
             socket.close();
         } catch (IOException ex) {
-            MeuLogger.logMensagem(Level.WARNING, "Aconteceu algum erro na conexão.");
+            MeuLogger.logException(Level.WARNING, "Aconteceu algum erro na conexão.", ex);
         }
     }
 

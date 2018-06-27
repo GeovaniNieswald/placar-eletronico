@@ -16,7 +16,6 @@ import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.xml.bind.JAXBException;
 
@@ -148,7 +147,7 @@ public class PlacarServer extends Thread {
                     }
                 }
             }
-        } catch (JAXBException | IOException ex) {
+        } catch (JAXBException ex) {
             MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
             return ResultadoLogin.USUARIO_INVALIDO;
         } catch (NoSuchAlgorithmException ex) {
@@ -235,7 +234,7 @@ public class PlacarServer extends Thread {
                     DadosXML.insert("ListaUsuarios", listaNova);
 
                     return "#cadastro-usuario;ok";
-                } catch (JAXBException | IOException ex) {
+                } catch (JAXBException ex) {
                     MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
@@ -269,7 +268,7 @@ public class PlacarServer extends Thread {
                     } else {
                         return "#cadastro-usuario;not-ok";
                     }
-                } catch (JAXBException | IOException ex) {
+                } catch (JAXBException ex) {
                     MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
@@ -293,7 +292,7 @@ public class PlacarServer extends Thread {
                     DadosXML.insert("ListaUsuarios", listaAtualizada);
 
                     return "#cadastro-usuario;ok";
-                } catch (JAXBException | IOException ex) {
+                } catch (JAXBException ex) {
                     MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }
@@ -315,7 +314,7 @@ public class PlacarServer extends Thread {
                     DadosXML.insert("ListaUsuarios", listaAtualizada);
 
                     return "#cadastro-usuario;ok";
-                } catch (JAXBException | IOException ex) {
+                } catch (JAXBException ex) {
                     MeuLogger.logException(Level.SEVERE, "Erro no XML.", ex);
                     return "#cadastro-usuario;not-ok";
                 }

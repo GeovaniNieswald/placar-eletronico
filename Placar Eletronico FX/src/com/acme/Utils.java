@@ -28,10 +28,10 @@ public class Utils {
 
         switch (tipo) {
             case "imagem":
-                file = new File("imagem.png");
+                file = new File(System.getProperty("user.home") + "/Placar-Eletronico/Temp/imagem.png");
                 break;
             case "video":
-                file = new File("video.mp4");
+                file = new File(System.getProperty("user.home") + "/Placar-Eletronico/Temp/video.mp4");
                 break;
             default:
                 MeuLogger.logMensagem(Level.WARNING, "Tipo de arquivo informado não está presente entre as opções do switch.");

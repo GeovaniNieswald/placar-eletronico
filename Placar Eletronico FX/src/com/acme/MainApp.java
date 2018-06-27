@@ -1,6 +1,8 @@
 package com.acme;
 
 import com.acme.model.Cena;
+import com.acme.model.DadosXML;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.application.Application;
@@ -15,6 +17,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.xml.bind.JAXBException;
 
 public class MainApp extends Application {
 
@@ -29,7 +32,7 @@ public class MainApp extends Application {
     private static final KeyCodeCombination COMBINACAO_FECHAR = new KeyCodeCombination(KeyCode.F, KeyCodeCombination.ALT_ANY);
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         PlacarServer.iniciar();
 
         stage = primaryStage;
@@ -37,6 +40,8 @@ public class MainApp extends Application {
 
         Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/DS-DIGI.TTF").toExternalForm(), 23.8);
         Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/Comfortaa.ttf").toExternalForm(), 57.8);
+
+        criarPastas();
 
         trocarCena(Cena.AGUARDANDO_CONEXAO);
         stage.show();
@@ -93,6 +98,27 @@ public class MainApp extends Application {
                 System.exit(0);
             }
         });
+    }
+
+    private void criarPastas() {
+        String padrao = System.getProperty("user.home") + "/Placar-Eletronico/";
+
+        File file = new File(padrao + "Log");
+        file.mkdirs();
+
+        file = new File(padrao + "Temp");
+        file.mkdirs();
+
+        file = new File(padrao + "Users");
+        file.mkdirs();
+
+        if (!new File(padrao + "Users/usuarios.xml").exists()) {
+            try {
+                DadosXML.adicionarUsuariosPadrao();
+            } catch (IOException | JAXBException ex) {
+                MeuLogger.logException(Level.SEVERE, "Não foi possível criar XML padrão.", ex);
+            }
+        }
     }
 
     public static void main(String[] args) {

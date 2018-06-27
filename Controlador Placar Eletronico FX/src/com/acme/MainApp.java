@@ -1,6 +1,7 @@
 package com.acme;
 
 import com.acme.model.Cena;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.application.Application;
@@ -39,8 +40,10 @@ public class MainApp extends Application {
 
         Font.loadFont(this.getClass().getResource("/com/acme/resources/fontes/Comfortaa.ttf").toExternalForm(), 57.8);
 
-        trocarCena(Cena.CONEXAO);
+        File file = new File(System.getProperty("user.home") + "/Controlador-Placar-Eletronico/Log");
+        file.mkdirs();
 
+        trocarCena(Cena.CONEXAO);
         stage.show();
     }
 

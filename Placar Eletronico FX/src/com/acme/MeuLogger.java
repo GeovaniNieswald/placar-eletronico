@@ -22,7 +22,7 @@ public class MeuLogger {
             Handler fh = new FileHandler(caminho + "/log.txt", true);
 
             fh.setFormatter(new SimpleFormatter());
-            
+
             LOG.setUseParentHandlers(false);
             LOG.addHandler(fh);
             LOG.setLevel(Level.INFO);
